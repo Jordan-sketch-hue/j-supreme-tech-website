@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { FAQ } from '@/components/FAQ';
 import { AppointmentScheduler } from '@/components/AppointmentScheduler';
+import { Bot, Zap, Shield, LineChart, Link as LinkIcon, Rocket } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -81,37 +82,37 @@ export default function Home() {
           <div className="mt-20 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                icon: '🤖',
+                icon: <Bot className="h-12 w-12" />,
                 title: 'AI-Powered Automation',
                 description: 'Advanced machine learning algorithms that adapt and optimize workflows in real-time.',
                 gradient: 'from-blue-500 to-cyan-500',
               },
               {
-                icon: '⚡',
+                icon: <Zap className="h-12 w-12" />,
                 title: 'Lightning-Fast Performance',
                 description: 'Optimized infrastructure delivering sub-second response times at global scale.',
                 gradient: 'from-purple-500 to-pink-500',
               },
               {
-                icon: '🔒',
+                icon: <Shield className="h-12 w-12" />,
                 title: 'Enterprise-Grade Security',
                 description: 'Bank-level encryption, SOC 2 compliance, and comprehensive audit trails.',
                 gradient: 'from-green-500 to-emerald-500',
               },
               {
-                icon: '📊',
+                icon: <LineChart className="h-12 w-12" />,
                 title: 'Advanced Analytics',
                 description: 'Real-time insights and predictive analytics powered by proprietary algorithms.',
                 gradient: 'from-orange-500 to-red-500',
               },
               {
-                icon: '🔗',
+                icon: <LinkIcon className="h-12 w-12" />,
                 title: 'Seamless Integrations',
                 description: 'Connect with 1000+ platforms through our robust API and pre-built connectors.',
                 gradient: 'from-indigo-500 to-blue-500',
               },
               {
-                icon: '🚀',
+                icon: <Rocket className="h-12 w-12" />,
                 title: 'Infinite Scalability',
                 description: 'Architected on cloud-native infrastructure that grows with your ambitions.',
                 gradient: 'from-pink-500 to-rose-500',
@@ -123,7 +124,7 @@ export default function Home() {
               >
                 <div className={`absolute -right-20 -top-20 h-40 w-40 rounded-full bg-gradient-to-br ${feature.gradient} opacity-10 blur-2xl transition-all group-hover:scale-150`} />
                 <div className="relative">
-                  <div className="text-5xl">{feature.icon}</div>
+                  <div className="text-blue-600">{feature.icon}</div>
                   <h3 className="mt-4 text-2xl font-bold text-gray-900">{feature.title}</h3>
                   <p className="mt-3 text-gray-600">{feature.description}</p>
                   <button className="mt-4 text-sm font-semibold text-blue-600 hover:text-blue-700">
