@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "J Supreme Tech - AI-Powered Technology Solutions",
   description: "Build faster, think smarter, scale supreme with advanced AI automation and intelligent systems",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
