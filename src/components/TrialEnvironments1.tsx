@@ -4,7 +4,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Plus, Edit2, Trash2, Play, Pause, Settings, TrendingUp, AlertCircle, CheckCircle, Cog, Calendar, BarChart3, Lock, Coins } from 'lucide-react';
+import { Activity, Bell, Calendar, CheckCircle, ChevronDown, Clock, Cog, Database, Edit2, FileText, Filter, Folder, LayoutGrid, Lock, Mail, Pause, Play, Plus, Search, Server, Settings, ShieldCheck, TrendingUp, Users, Webhook, AlertCircle, BarChart3, Coins } from 'lucide-react';
 
 // ===== 1. AutoFlow Trial Component =====
 interface Workflow { id: string; name: string; status: 'active' | 'paused'; steps: number; successRate: number; }
@@ -39,88 +39,253 @@ export function AutoFlowTrialEnvironment() {
       <div className="grid grid-cols-4 gap-4">
         {[
           { label: 'Total Workflows', value: '12' },
-          { label: 'Active', value: '9' },
-          { label: 'Success Rate', value: '97.8%' },
-          { label: 'Monthly Executions', value: '8.2K' },
-        ].map((stat) => (
-          <div key={stat.label} className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
-            <div className="text-sm text-gray-600">{stat.label}</div>
-            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-          </div>
-        ))}
-      </div>
+          const workflowRuns = [
+            { id: 'run_901', workflow: 'Invoice Processing', status: 'success', duration: '2.34s', startedAt: '14:32', owner: 'Finance Ops' },
+            { id: 'run_900', workflow: 'Email Campaign Trigger', status: 'success', duration: '1.12s', startedAt: '11:15', owner: 'Growth' },
+            { id: 'run_899', workflow: 'Data Sync to CRM', status: 'warning', duration: '4.58s', startedAt: '09:00', owner: 'RevOps' },
+          ];
 
-      {/* Workflows List */}
-      <div className="bg-white rounded-lg border border-gray-200">
-        <div className="grid grid-cols-5 gap-4 p-4 border-b border-gray-200 font-semibold text-gray-700">
-          <div>Workflow Name</div>
-          <div>Status</div>
-          <div>Steps</div>
-          <div>Success Rate</div>
-          <div>Actions</div>
-        </div>
-        {workflows.map((wf) => (
-          <div key={wf.id} className="grid grid-cols-5 gap-4 p-4 border-b border-gray-100 items-center hover:bg-gray-50">
-            <div className="font-medium text-gray-900">{wf.name}</div>
-            <div className={`px-3 py-1 rounded-full text-sm font-semibold w-fit ${wf.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
-              {wf.status}
-            </div>
-            <div className="text-gray-600">{wf.steps}</div>
-            <div className="text-gray-900 font-semibold">{wf.successRate}%</div>
-            <div className="flex gap-2">
-              <button className="p-2 hover:bg-gray-200 rounded" title="Edit">
-                <Edit2 size={16} />
-              </button>
-              <button className="p-2 hover:bg-gray-200 rounded" title={wf.status === 'active' ? 'Pause' : 'Resume'}>
-                {wf.status === 'active' ? <Pause size={16} /> : <Play size={16} />}
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          const integrations = [
+            { name: 'Salesforce', type: 'CRM', status: 'connected', icon: Users },
+            { name: 'Stripe', type: 'Payments', status: 'connected', icon: Database },
+            { name: 'SendGrid', type: 'Email', status: 'connected', icon: Mail },
+            { name: 'S3', type: 'Storage', status: 'connected', icon: Server },
+          ];
 
-      {/* Recent Executions */}
-      <div className="bg-white rounded-lg p-4 border border-gray-200">
-        <h3 className="font-bold text-gray-900 mb-4">Recent Executions</h3>
-        <div className="space-y-2">
-          {[
-            { time: '14:32', workflow: 'Invoice Processing', status: 'success', duration: '2.34s' },
-            { time: '11:15', workflow: 'Email Campaign', status: 'success', duration: '1.12s' },
-            { time: '09:00', workflow: 'Invoice Processing', status: 'success', duration: '2.18s' },
-          ].map((log, idx) => (
-            <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-              <div>
-                <div className="font-medium text-gray-900">{log.workflow}</div>
-                <div className="text-sm text-gray-600">{log.time}</div>
+          return (
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6">
+              <div className="grid grid-cols-12 gap-6">
+                <aside className="col-span-12 lg:col-span-3 bg-white rounded-lg border border-gray-200 p-4">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="h-10 w-10 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                      <Cog size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Workspace</p>
+                      <p className="font-semibold text-gray-900">AutoFlow</p>
+                    </div>
+                  </div>
+
+                  <nav className="space-y-2">
+                    {[
+                      { label: 'Overview', icon: LayoutGrid },
+                      { label: 'Workflows', icon: Folder },
+                      { label: 'Runs', icon: Activity },
+                      { label: 'Schedules', icon: Calendar },
+                      { label: 'Approvals', icon: CheckCircle },
+                      { label: 'Integrations', icon: Webhook },
+                      { label: 'Settings', icon: Settings },
+                    ].map((item) => (
+                      <button
+                        key={item.label}
+                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold ${
+                          item.label === 'Workflows'
+                            ? 'bg-blue-50 text-blue-700'
+                            : 'text-gray-600 hover:bg-gray-50'
+                        }`}
+                      >
+                        <item.icon size={16} />
+                        {item.label}
+                      </button>
+                    ))}
+                  </nav>
+
+                  <div className="mt-8 p-4 rounded-lg bg-blue-50 border border-blue-100">
+                    <div className="flex items-center gap-2 text-blue-700 font-semibold text-sm">
+                      <ShieldCheck size={16} />
+                      Compliance
+                    </div>
+                    <p className="text-xs text-blue-700 mt-2">SOC 2 ready workflows with audit logging enabled.</p>
+                  </div>
+                </aside>
+
+                <section className="col-span-12 lg:col-span-9 space-y-6">
+                  <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+                        <Cog size={20} />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-bold text-gray-900">Workflow Operations</h2>
+                        <p className="text-sm text-gray-600">Production-grade automation with audit-ready runs.</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <button className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-50 flex items-center gap-2">
+                        <Filter size={16} /> Filter
+                      </button>
+                      <button className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-50 flex items-center gap-2">
+                        <Bell size={16} /> Alerts
+                      </button>
+                      <button
+                        onClick={() => setShowNewWorkflow(true)}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                      >
+                        <Plus size={18} /> New Workflow
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {[
+                      { label: 'Active Workflows', value: '9', icon: Folder, trend: '3.2% MoM' },
+                      { label: 'Runs Today', value: '842', icon: Activity, trend: '98.6% success' },
+                      { label: 'Queue Latency', value: '1.8s', icon: Clock, trend: 'P95 2.6s' },
+                      { label: 'System Health', value: 'Stable', icon: ShieldCheck, trend: 'No incidents' },
+                    ].map((stat) => (
+                      <div key={stat.label} className="bg-white p-4 rounded-lg border border-gray-200">
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm text-gray-500">{stat.label}</p>
+                          <stat.icon size={18} className="text-blue-600" />
+                        </div>
+                        <p className="text-2xl font-bold text-gray-900 mt-2">{stat.value}</p>
+                        <p className="text-xs text-gray-500 mt-1">{stat.trend}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="bg-white rounded-lg border border-gray-200">
+                    <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Workflow Registry</h3>
+                        <p className="text-sm text-gray-500">Managed workflows with ownership and SLAs.</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="relative">
+                          <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
+                          <input
+                            type="text"
+                            placeholder="Search workflows"
+                            className="pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm"
+                          />
+                        </div>
+                        <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50">
+                          Export
+                        </button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-6 gap-4 p-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      <div className="col-span-2">Workflow</div>
+                      <div>Status</div>
+                      <div>Owner</div>
+                      <div>Steps</div>
+                      <div>Success</div>
+                    </div>
+                    {workflows.map((wf) => (
+                      <button
+                        key={wf.id}
+                        onClick={() => setSelectedWorkflow(wf)}
+                        className={`grid grid-cols-6 gap-4 p-4 border-t border-gray-100 text-left items-center hover:bg-gray-50 ${
+                          selectedWorkflow?.id === wf.id ? 'bg-blue-50' : ''
+                        }`}
+                      >
+                        <div className="col-span-2">
+                          <p className="font-semibold text-gray-900">{wf.name}</p>
+                          <p className="text-xs text-gray-500">Last updated 2 hours ago</p>
+                        </div>
+                        <div>
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${wf.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700'}`}>
+                            {wf.status}
+                          </span>
+                        </div>
+                        <div className="text-sm text-gray-600">Operations</div>
+                        <div className="text-sm text-gray-600">{wf.steps}</div>
+                        <div className="text-sm font-semibold text-gray-900">{wf.successRate}%</div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-lg border border-gray-200 p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-gray-900">Execution Feed</h3>
+                        <button className="text-sm text-blue-600 font-semibold">View all</button>
+                      </div>
+                      <div className="space-y-3">
+                        {workflowRuns.map((run) => (
+                          <div key={run.id} className="p-3 rounded-lg border border-gray-100 bg-gray-50">
+                            <div className="flex items-start justify-between">
+                              <div>
+                                <p className="font-semibold text-gray-900">{run.workflow}</p>
+                                <p className="text-xs text-gray-500">{run.startedAt} • Owner: {run.owner}</p>
+                              </div>
+                              <span className={`text-xs font-semibold px-2 py-1 rounded-full ${run.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                                {run.status}
+                              </span>
+                            </div>
+                            <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
+                              <Clock size={12} /> {run.duration}
+                              <span>Queue latency 320ms</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="bg-white rounded-lg border border-gray-200 p-4">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="font-semibold text-gray-900">Active Integrations</h3>
+                        <button className="text-sm text-blue-600 font-semibold">Manage</button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-3">
+                        {integrations.map((integration) => (
+                          <div key={integration.name} className="border border-gray-200 rounded-lg p-3">
+                            <div className="flex items-center justify-between">
+                              <integration.icon size={18} className="text-blue-600" />
+                              <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">
+                                {integration.status}
+                              </span>
+                            </div>
+                            <p className="font-semibold text-gray-900 mt-3">{integration.name}</p>
+                            <p className="text-xs text-gray-500">{integration.type}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 flex items-center justify-between rounded-lg bg-blue-50 px-3 py-2">
+                        <div className="flex items-center gap-2 text-sm text-blue-700">
+                          <Webhook size={14} />
+                          Webhook reliability: 99.98%
+                        </div>
+                        <button className="text-sm font-semibold text-blue-700">Configure</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-lg border border-gray-200 p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-semibold text-gray-900">Governance and Audit</h3>
+                        <p className="text-sm text-gray-500">Change control and approval history.</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50">
+                          Review
+                        </button>
+                        <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50">
+                          Export logs
+                        </button>
+                      </div>
+                    </div>
+                    <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {[
+                        { label: 'Approval Queue', value: '4 pending', icon: FileText },
+                        { label: 'Policy Violations', value: '0 open', icon: ShieldCheck },
+                        { label: 'Change Requests', value: '12 this week', icon: TrendingUp },
+                      ].map((item) => (
+                        <div key={item.label} className="border border-gray-200 rounded-lg p-3">
+                          <div className="flex items-center justify-between">
+                            <p className="text-sm text-gray-500">{item.label}</p>
+                            <item.icon size={16} className="text-blue-600" />
+                          </div>
+                          <p className="text-xl font-bold text-gray-900 mt-2">{item.value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </section>
               </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle size={18} className="text-green-600" />
-                <span className="text-sm text-gray-600">{log.duration}</span>
-              </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ===== 2. AppointmentPro Trial Component =====
-interface Appointment { id: string; clientName: string; service: string; time: string; duration: string; status: 'confirmed' | 'pending' | 'completed' | 'cancelled'; }
-
-export function AppointmentProTrialEnvironment() {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [selectedDate, setSelectedDate] = useState<string>(new Date().toISOString().split('T')[0]);
-
-  useEffect(() => {
-    setAppointments([
-      { id: 'apt_001', clientName: 'Sarah Johnson', service: 'Initial Consultation', time: '10:00 AM', duration: '60 min', status: 'confirmed' },
-      { id: 'apt_002', clientName: 'Michael Chen', service: 'Follow-up Visit', time: '2:00 PM', duration: '30 min', status: 'confirmed' },
-      { id: 'apt_003', clientName: 'Emma Wilson', service: 'Procedure', time: '11:30 AM', duration: '90 min', status: 'pending' },
-    ]);
-  }, []);
-
-  return (
+          );
     <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
