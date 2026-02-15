@@ -32,9 +32,41 @@ export function AppointmentScheduler() {
     'Strategy Session',
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate submission
+    
+    // Prepare consultation details
+    const consultationDetails = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      service: formData.service,
+      date: selectedDate,
+      time: selectedTime,
+      notes: formData.notes,
+    };
+    
+    // Create mailto link with all details
+    const subject = `Consultation Request - ${formData.service}`;
+    const body = `
+New consultation request:
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Service: ${formData.service}
+Preferred Date: ${selectedDate}
+Preferred Time: ${selectedTime}
+
+Additional Notes:
+${formData.notes}
+
+---
+Please contact this client to confirm the appointment.`;
+    
+    // Open mailto link
+    window.location.href = `mailto:global.jsuprememarketing@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 5000);
   };
@@ -108,10 +140,10 @@ export function AppointmentScheduler() {
                   </svg>
                 </div>
                 <h3 className="mt-6 text-2xl font-bold text-gray-900">
-                  Appointment Confirmed!
+                  Request Sent!
                 </h3>
                 <p className="mt-2 text-gray-600">
-                  We've sent a confirmation email with meeting details.
+                  Your consultation request has been sent to our team. We'll contact you shortly to confirm your appointment and discuss project timelines.
                 </p>
               </div>
             ) : (

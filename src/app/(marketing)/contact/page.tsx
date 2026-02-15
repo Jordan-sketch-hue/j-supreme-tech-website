@@ -1,9 +1,32 @@
-export const metadata = {
-  title: 'Contact - J Supreme Tech',
-  description: 'Get in touch with the J Supreme Tech team',
-};
+'use client';
+
+import { useState } from 'react';
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    message: '',
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Create mailto link with form data
+    const subject = `Contact Form: ${formData.name} - ${formData.company || 'No Company'}`;
+    const body = `
+Name: ${formData.name}
+Email: ${formData.email}
+Company: ${formData.company || 'Not provided'}
+
+Message:
+${formData.message}
+    `;
+    
+    window.location.href = `mailto:global.jsuprememarketing@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   return (
     <main>
       <section className="px-6 py-24">
@@ -16,13 +39,16 @@ export default function ContactPage() {
           <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
             {/* Contact Form */}
             <div>
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-900">
                     Name
                   </label>
                   <input
                     type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     placeholder="Your name"
                   />
@@ -34,6 +60,9 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     placeholder="your@email.com"
                   />
@@ -45,6 +74,8 @@ export default function ContactPage() {
                   </label>
                   <input
                     type="text"
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     placeholder="Your company"
                   />
@@ -56,8 +87,11 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     rows={5}
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="Tell us about your project"
+                    placeholder="Tell us about your project and ask about timelines"
                   />
                 </div>
 
@@ -74,29 +108,33 @@ export default function ContactPage() {
             <div className="space-y-8">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                <p className="mt-2 text-gray-600">hello@jsupreme.tech</p>
+                <p className="mt-2 text-gray-600">
+                  <a href="mailto:global.jsuprememarketing@gmail.com" className="hover:text-blue-600">
+                    global.jsuprememarketing@gmail.com
+                  </a>
+                </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                <p className="mt-2 text-gray-600">+1 (555) 123-4567</p>
+                <p className="mt-2 text-gray-600">
+                  <a href="tel:+16582182282" className="hover:text-blue-600">
+                    658-218-2282
+                  </a>
+                </p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Office</h3>
+                <h3 className="text-lg font-semibold text-gray-900">Location</h3>
                 <p className="mt-2 text-gray-600">
-                  123 Tech Street
-                  <br />
-                  San Francisco, CA 94105
-                  <br />
-                  United States
+                  Kingston, Jamaica
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">Hours</h3>
                 <p className="mt-2 text-gray-600">
-                  Monday - Friday: 9am - 6pm PST
+                  Monday - Friday: 9am - 6pm EST
                   <br />
                   Saturday & Sunday: Closed
                 </p>
@@ -105,11 +143,22 @@ export default function ContactPage() {
               <div className="rounded-lg bg-blue-50 p-6">
                 <h3 className="font-semibold text-gray-900">Want a quick call?</h3>
                 <p className="mt-2 text-sm text-gray-600">
-                  Schedule a 30-minute consultation with our team.
+                  Contact us directly for project timelines and to schedule a consultation.
                 </p>
-                <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700">
-                  Schedule a Call
-                </button>
+                <div className="mt-4 space-y-2">
+                  <a 
+                    href="mailto:global.jsuprememarketing@gmail.com?subject=Consultation Request"
+                    className="block rounded-lg bg-blue-600 px-4 py-2 text-center text-sm font-semibold text-white hover:bg-blue-700"
+                  >
+                    Email Us
+                  </a>
+                  <a 
+                    href="tel:+16582182282"
+                    className="block rounded-lg border-2 border-blue-600 px-4 py-2 text-center text-sm font-semibold text-blue-600 hover:bg-blue-50"
+                  >
+                    Call Now
+                  </a>
+                </div>
               </div>
             </div>
           </div>

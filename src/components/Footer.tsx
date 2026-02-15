@@ -59,12 +59,17 @@ export function Footer() {
             <ul className="mt-4 space-y-2">
               <li>
                 <Link href="/privacy" className="text-sm text-gray-600 hover:text-black">
-                  Privacy
+                  Privacy Policy
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="text-sm text-gray-600 hover:text-black">
-                  Terms
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link href="/disclaimer" className="text-sm text-gray-600 hover:text-black">
+                  Disclaimer
                 </Link>
               </li>
             </ul>

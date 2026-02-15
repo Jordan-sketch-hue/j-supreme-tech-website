@@ -16,7 +16,6 @@ const services = [
       'Technology agnostic',
       'Scalable architecture',
     ],
-    timeline: '8-16 weeks',
   },
   {
     id: 2,
@@ -28,7 +27,6 @@ const services = [
       'ML model development',
       'Intelligent workflows',
     ],
-    timeline: '6-12 weeks',
   },
   {
     id: 3,
@@ -36,7 +34,6 @@ const services = [
     slug: 'api-development',
     description: 'Build robust APIs and integrate third-party systems',
     features: ['RESTful APIs', 'Third-party integrations', 'API security'],
-    timeline: '4-8 weeks',
   },
   {
     id: 4,
@@ -44,7 +41,6 @@ const services = [
     slug: 'saas-mvp',
     description: 'Launch your SaaS product with a solid MVP foundation',
     features: ['User authentication', 'Payment integration', 'Analytics'],
-    timeline: '12-20 weeks',
   },
   {
     id: 5,
@@ -52,7 +48,6 @@ const services = [
     slug: 'web-engineering',
     description: 'Modern, performant web applications and websites',
     features: ['Responsive design', 'SEO optimization', 'Performance tuning'],
-    timeline: '4-12 weeks',
   },
   {
     id: 6,
@@ -60,7 +55,6 @@ const services = [
     slug: 'cloud-hosting',
     description: 'Infrastructure setup, scaling, and management',
     features: ['Cloud architecture', 'DevOps setup', 'Monitoring & alerts'],
-    timeline: '2-4 weeks',
   },
 ];
 
@@ -95,12 +89,6 @@ export default function ServicesPage() {
                       </li>
                     ))}
                   </ul>
-                </div>
-
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <p className="text-sm text-gray-600">
-                    Typical Timeline: <span className="font-semibold">{service.timeline}</span>
-                  </p>
                 </div>
 
                 <Link
