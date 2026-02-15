@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Check } from 'lucide-react';
 import { IconRenderer } from './IconRenderer';
 
 interface ProductCardProps {
@@ -69,7 +70,7 @@ export function ProductCard({
             <ul className="mt-3 space-y-2">
               {features.slice(0, 3).map((feature) => (
                 <li key={feature} className="flex items-start text-sm text-gray-600">
-                  <span className="mr-2 text-blue-600 font-bold">✓</span>
+                  <Check size={16} className="mr-2 text-blue-600 mt-0.5" />
                   <span>{feature}</span>
                 </li>
               ))}

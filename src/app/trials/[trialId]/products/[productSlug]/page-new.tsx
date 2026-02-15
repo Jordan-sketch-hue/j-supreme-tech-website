@@ -12,7 +12,7 @@ import {
   TrialLimitationBanner,
 } from '@/components/TrialEnvironment';
 import { RenderTrialEnvironment, getTrialEnvironment } from '@/lib/trialEnvironmentRegistry';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, BadgeCheck, Check, Loader2 } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -178,7 +178,10 @@ export default function TrialEnvironmentPage({
             <div className="mb-12 space-y-6">
               <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-300 rounded-lg px-4 py-3">
                 <div className="text-sm font-semibold text-green-800 flex items-center gap-2">
-                  ✅ Elite Trial Environment - {trialEnvironment.name}
+                  <span className="inline-flex items-center gap-2">
+                    <BadgeCheck size={18} className="text-green-700" />
+                    Elite Trial Environment - {trialEnvironment.name}
+                  </span>
                 </div>
               </div>
               <RenderTrialEnvironment productSlug={productSlug} />
@@ -222,7 +225,7 @@ function GenericTrialEnvironment({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
         {product.features.map((feature, i) => (
           <div key={i} className="flex items-start p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <span className="text-blue-600 font-bold mr-3 text-xl">✓</span>
+            <Check size={18} className="text-blue-600 mr-3 mt-1" />
             <span className="text-gray-700">{feature}</span>
           </div>
         ))}

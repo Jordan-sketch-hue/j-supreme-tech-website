@@ -2,6 +2,7 @@
 
 import { trackAddToCart } from '@/components/GoogleConversions';
 import Link from 'next/link';
+import { Check } from 'lucide-react';
 
 export default function PricingPage() {
   const plans = [
@@ -113,7 +114,7 @@ export default function PricingPage() {
                 <ul className="mt-8 space-y-4">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start">
-                      <span className="mr-3 text-blue-600">✓</span>
+                      <Check size={16} className="mr-3 text-blue-600 mt-0.5" />
                       <span className="text-gray-600">{feature}</span>
                     </li>
                   ))}

@@ -14,22 +14,52 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
   const [error, setError] = useState<string | null>(null);
   const [activeProduct, setActiveProduct] = useState<string | null>(null);
 
+  const getLocalTrial = (id: string): TrialRequest | null => {
+    const raw = localStorage.getItem(`trial:${id}`);
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw) as TrialRequest;
+    } catch {
+      return null;
+    }
+  };
+
   useEffect(() => {
     const unwrapParams = async () => {
       const { trialId: id } = await params;
       setTrialId(id);
 
+      const localTrial = getLocalTrial(id);
+
       try {
         const response = await fetch(`/api/trials/request?trialId=${id}`);
-        if (!response.ok) throw new Error('Trial not found');
-
-        const data = await response.json();
-        setTrial(data);
-        if (data.productSlugs.length > 0) {
-          setActiveProduct(data.productSlugs[0]);
+        if (response.ok) {
+          const data = await response.json();
+          setTrial(data);
+          if (data.productSlugs.length > 0) {
+            setActiveProduct(data.productSlugs[0]);
+          }
+          return;
         }
+
+        if (localTrial) {
+          setTrial(localTrial);
+          if (localTrial.productSlugs.length > 0) {
+            setActiveProduct(localTrial.productSlugs[0]);
+          }
+          return;
+        }
+
+        throw new Error('Trial not found');
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load trial');
+        if (localTrial) {
+          setTrial(localTrial);
+          if (localTrial.productSlugs.length > 0) {
+            setActiveProduct(localTrial.productSlugs[0]);
+          }
+        } else {
+          setError(err instanceof Error ? err.message : 'Failed to load trial');
+        }
       } finally {
         setLoading(false);
       }
@@ -84,6 +114,9 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
               <h1 className="text-5xl font-bold text-gray-900 mb-2">Trial Dashboard</h1>
               <p className="text-xl text-gray-600">
                 Welcome back, {trial.firstName}! Explore your {selectedProducts.length} products.
+              </p>
+              <p className="text-sm text-gray-500 mt-2">
+                Company: <span className="font-semibold text-gray-700">{trial.company}</span>
               </p>
             </div>
             <Link

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { Check } from 'lucide-react';
+import { Check, CheckCircle, Loader2 } from 'lucide-react';
 import { IconRenderer } from '@/components/IconRenderer';
 import { productsData } from '@/lib/productsConfig';
 
@@ -186,6 +186,22 @@ export function TrialRequestForm({ onSuccess }: { onSuccess?: () => void }) {
       if (!response.ok) throw new Error('Failed to submit trial request');
 
       const data = await response.json();
+      const trialSnapshot = {
+        id: data.trialId,
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        company: formData.company,
+        industry: formData.industry,
+        productSlugs: formData.productSlugs,
+        useCases: formData.useCases,
+        status: 'active',
+        createdAt: new Date().toISOString(),
+        expiresAt: data.expiresAt,
+      };
+
+      localStorage.setItem(`trial:${data.trialId}`, JSON.stringify(trialSnapshot));
+
       setSuccess(true);
       onSuccess?.();
 
@@ -216,12 +232,15 @@ export function TrialRequestForm({ onSuccess }: { onSuccess?: () => void }) {
   if (success) {
     return (
       <div className="bg-green-50 border border-green-200 rounded-lg p-8 text-center">
-        <div className="text-5xl mb-4">✅</div>
+        <CheckCircle size={48} className="text-green-600 mx-auto mb-4" />
         <h2 className="text-2xl font-bold text-green-900 mb-2">Trial Request Received!</h2>
         <p className="text-green-700 mb-4">
           Setting up your personalized trial environments. Redirecting in 2 seconds...
         </p>
-        <div className="animate-pulse text-green-600">⏳ Preparing your trial access...</div>
+        <div className="flex items-center justify-center gap-2 text-green-600">
+          <Loader2 size={16} className="animate-spin" />
+          Preparing your trial access...
+        </div>
       </div>
     );
   }
@@ -461,7 +480,7 @@ export function TrialRequestForm({ onSuccess }: { onSuccess?: () => void }) {
         >
           {loading ? (
             <span className="flex items-center justify-center">
-              <span className="animate-spin mr-2">⏳</span> Setting up your trial...
+              <Loader2 size={16} className="animate-spin mr-2" /> Setting up your trial...
             </span>
           ) : (
             'Get Free Trial Access'

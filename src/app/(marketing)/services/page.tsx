@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Check } from 'lucide-react';
 import { PageViewConversion } from '@/components/GoogleConversions';
 
 export const metadata = {
@@ -86,7 +87,7 @@ export default function ServicesPage() {
                   <ul className="mt-2 space-y-2">
                     {service.features.map((feature) => (
                       <li key={feature} className="flex items-center text-gray-600">
-                        <span className="mr-2">✓</span>
+                        <Check size={16} className="mr-2 text-blue-600" />
                         {feature}
                       </li>
                     ))}

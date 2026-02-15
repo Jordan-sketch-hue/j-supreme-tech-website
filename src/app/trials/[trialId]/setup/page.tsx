@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { BadgeCheck, Check, Loader2, Lightbulb, Rocket, Sparkles, Target, XCircle } from 'lucide-react';
+import { BadgeCheck, Check, Loader2, Lightbulb, Moon, Rocket, Sparkles, Sun, Target, XCircle } from 'lucide-react';
 import { IconRenderer } from '@/components/IconRenderer';
 import { productsData } from '@/lib/productsConfig';
 import { TrialRequest } from '@/types/trials';
@@ -14,20 +14,46 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
   const [error, setError] = useState<string | null>(null);
   const [setupStep, setSetupStep] = useState(0);
 
+  const getLocalTrial = (id: string): TrialRequest | null => {
+    const raw = localStorage.getItem(`trial:${id}`);
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw) as TrialRequest;
+    } catch {
+      return null;
+    }
+  };
+
   useEffect(() => {
     const unwrapParams = async () => {
       const { trialId: id } = await params;
       setTrialId(id);
 
+      const localTrial = getLocalTrial(id);
+
       try {
         const response = await fetch(`/api/trials/request?trialId=${id}`);
-        if (!response.ok) throw new Error('Trial not found');
+        if (response.ok) {
+          const data = await response.json();
+          setTrial(data);
+          setError(null);
+          return;
+        }
 
-        const data = await response.json();
-        setTrial(data);
-        setError(null);
+        if (localTrial) {
+          setTrial(localTrial);
+          setError(null);
+          return;
+        }
+
+        throw new Error('Trial not found');
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load trial');
+        if (localTrial) {
+          setTrial(localTrial);
+          setError(null);
+        } else {
+          setError(err instanceof Error ? err.message : 'Failed to load trial');
+        }
       } finally {
         setLoading(false);
       }
@@ -290,7 +316,10 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
                               : 'bg-gray-900 text-white border-2 border-gray-300'
                           }`}
                         >
-                          {theme === 'light' ? '☀️ Light' : '🌙 Dark'}
+                          <span className="inline-flex items-center gap-2">
+                            {theme === 'light' ? <Sun size={16} /> : <Moon size={16} />}
+                            {theme === 'light' ? 'Light' : 'Dark'}
+                          </span>
                         </button>
                       ))}
                     </div>
@@ -407,7 +436,7 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
                   <div className="space-y-2">
                     {selectedProducts.map((p) => (
                       <div key={p.slug} className="flex items-center">
-                        <span className="text-lg mr-2">{p.icon}</span>
+                        <IconRenderer iconName={p.icon} size={18} className="text-blue-600 mr-2" />
                         <span className="text-sm text-gray-700">{p.name}</span>
                       </div>
                     ))}

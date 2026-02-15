@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Check } from 'lucide-react';
 import { PageViewConversion } from '@/components/GoogleConversions';
 import { IconRenderer } from '@/components/IconRenderer';
 import { productsData } from '@/lib/productsConfig';
@@ -84,7 +85,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {product.features.map((feature) => (
                 <div key={feature} className="flex items-start p-4 bg-gray-50 rounded-lg">
-                  <span className="text-blue-600 font-bold mr-3 text-xl">✓</span>
+                  <Check size={18} className="text-blue-600 mr-3 mt-1" />
                   <span className="text-gray-700">{feature}</span>
                 </div>
               ))}
@@ -150,9 +151,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {product.status !== 'coming-soon' && (
-                <button className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
+                <Link
+                  href={`/free-trial?product=${product.slug}`}
+                  className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors text-center"
+                >
                   Start Free Trial
-                </button>
+                </Link>
               )}
               <button className={product.status === 'coming-soon' ? 'bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors' : 'bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors'}>
                 {product.status === 'coming-soon' ? 'Notify Me' : 'Schedule Demo'}

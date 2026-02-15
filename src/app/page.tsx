@@ -127,9 +127,12 @@ export default function Home() {
                   <div className="text-blue-600">{feature.icon}</div>
                   <h3 className="mt-4 text-2xl font-bold text-gray-900">{feature.title}</h3>
                   <p className="mt-3 text-gray-600">{feature.description}</p>
-                  <button className="mt-4 text-sm font-semibold text-blue-600 hover:text-blue-700">
+                  <Link
+                    href="/products"
+                    className="mt-4 inline-block text-sm font-semibold text-blue-600 hover:text-blue-700"
+                  >
                     Learn more →
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
