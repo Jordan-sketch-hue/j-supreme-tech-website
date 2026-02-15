@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { AddPaymentInfoConversion } from '@/components/GoogleConversions';
 
 export function AppointmentScheduler() {
   const [selectedDate, setSelectedDate] = useState('');
@@ -63,6 +64,9 @@ ${formData.notes}
 
 ---
 Please contact this client to confirm the appointment.`;
+    
+    // Track conversion
+    AddPaymentInfoConversion();
     
     // Open mailto link
     window.location.href = `mailto:global.jsuprememarketing@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

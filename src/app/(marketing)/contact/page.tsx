@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { AddPaymentInfoConversion } from '@/components/GoogleConversions';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,9 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Track conversion
+    AddPaymentInfoConversion();
     
     // Create mailto link with form data
     const subject = `Contact Form: ${formData.name} - ${formData.company || 'No Company'}`;

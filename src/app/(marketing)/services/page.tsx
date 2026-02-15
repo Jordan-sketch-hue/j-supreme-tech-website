@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PageViewConversion } from '@/components/GoogleConversions';
 
 export const metadata = {
   title: 'Services - J Supreme Tech',
@@ -61,6 +62,7 @@ const services = [
 export default function ServicesPage() {
   return (
     <main>
+      <PageViewConversion />
       <section className="px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <h1 className="text-4xl font-bold text-gray-900">Our Services</h1>

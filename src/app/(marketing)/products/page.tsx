@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PageViewConversion } from '@/components/GoogleConversions';
 
 export const metadata = {
   title: 'Products - J Supreme Tech',
@@ -47,6 +48,7 @@ const products = [
 export default function ProductsPage() {
   return (
     <main>
+      <PageViewConversion />
       <section className="px-6 py-24">
         <div className="mx-auto max-w-6xl">
           <h1 className="text-4xl font-bold text-gray-900">Our Products</h1>

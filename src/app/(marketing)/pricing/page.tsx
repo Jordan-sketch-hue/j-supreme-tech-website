@@ -1,7 +1,7 @@
-export const metadata = {
-  title: 'Pricing - J Supreme Tech',
-  description: 'Simple, transparent pricing for all our products',
-};
+'use client';
+
+import { trackAddToCart } from '@/components/GoogleConversions';
+import Link from 'next/link';
 
 export default function PricingPage() {
   const plans = [
@@ -49,6 +49,10 @@ export default function PricingPage() {
     },
   ];
 
+  const handlePlanClick = (planName: string) => {
+    trackAddToCart();
+  };
+
   return (
     <main>
       <section className="px-6 py-24">
@@ -94,15 +98,17 @@ export default function PricingPage() {
                   )}
                 </div>
 
-                <button
-                  className={`mt-8 w-full rounded-lg py-2 font-semibold transition ${
+                <Link
+                  href={plan.customPricing ? '/contact' : '/free-trial'}
+                  onClick={() => handlePlanClick(plan.name)}
+                  className={`mt-8 block w-full rounded-lg py-2 text-center font-semibold transition ${
                     plan.highlighted
                       ? 'bg-blue-600 text-white hover:bg-blue-700'
                       : 'border-2 border-gray-300 text-gray-900 hover:border-gray-400'
                   }`}
                 >
                   {plan.customPricing ? 'Contact Sales' : 'Get Started'}
-                </button>
+                </Link>
 
                 <ul className="mt-8 space-y-4">
                   {plan.features.map((feature) => (
