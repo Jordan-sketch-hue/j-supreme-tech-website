@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-white px-6 py-24">
+      <section className="relative overflow-hidden bg-linear-to-b from-blue-50 to-white px-6 py-24">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="text-5xl font-bold tracking-tight text-gray-900 md:text-6xl">
             Technology at the Supreme Level

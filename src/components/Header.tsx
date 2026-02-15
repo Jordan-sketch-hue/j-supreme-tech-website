@@ -11,7 +11,7 @@ export function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-purple-600">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-blue-600 to-purple-600">
             <span className="text-xl font-bold text-white">JS</span>
           </div>
           <span className="text-xl font-bold text-gray-900">
@@ -45,6 +45,9 @@ export function Header() {
         <div className="hidden items-center space-x-4 lg:flex">
           <Link href="/login" className="text-sm font-medium text-gray-700 hover:text-blue-600">
             Sign In
+          </Link>
+          <Link href="/free-trial" className="text-sm font-medium text-blue-600 hover:text-blue-700 border border-blue-600 rounded-full px-4 py-2 hover:bg-blue-50">
+            Free Trial
           </Link>
           <Link href="/signup" className="btn-premium rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg">
             Get Started 
@@ -89,7 +92,10 @@ export function Header() {
               <Link href="/login" className="block rounded-lg px-4 py-3 text-center text-gray-700 hover:bg-gray-50">
                 Sign In
               </Link>
-              <Link href="/signup" className="btn-premium mt-2 block rounded-lg px-4 py-3 text-center font-semibold text-white">
+              <Link href="/free-trial" className="block rounded-lg px-4 py-3 text-center text-blue-600 font-semibold hover:bg-blue-50 my-2">
+                Start Free Trial
+              </Link>
+              <Link href="/signup" className="btn-premium block rounded-lg px-4 py-3 text-center font-semibold text-white">
                 Get Started 
               </Link>
             </div>

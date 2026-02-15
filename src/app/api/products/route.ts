@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllProducts } from '@/lib/db';
+import { productsData } from '@/lib/productsConfig';
 
 export async function GET(request: NextRequest) {
   try {
-    const products = await getAllProducts();
-    return NextResponse.json(products);
+    return NextResponse.json(productsData);
   } catch (error) {
     console.error('Fetch products error:', error);
     return NextResponse.json(
@@ -13,3 +12,4 @@ export async function GET(request: NextRequest) {
     );
   }
 }
+
