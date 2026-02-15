@@ -14,22 +14,22 @@ interface TrialEnvironmentConfig {
 }
 
 export const TRIAL_ENVIRONMENT_REGISTRY: Record<string, TrialEnvironmentConfig> = {
-  autoflow: { component: AutoFlowTrialEnvironment, name: 'AutoFlow', category: 'Automation', description: 'Workflow Automation Platform', icon: '⚙️' },
-  appointmentpro: { component: AppointmentProTrialEnvironment, name: 'AppointmentPro', category: 'Scheduling', description: 'Appointment Scheduling System', icon: '📅' },
-  tradebotelite: { component: TradeBotEliteTrialEnvironment, name: 'TradeBotElite', category: 'Trading', description: 'Advanced Trading Bot', icon: '📈' },
-  cryptobotpro: { component: CryptoBotProTrialEnvironment, name: 'CryptoBot Pro', category: 'Trading', description: 'Cryptocurrency Trading Automation', icon: '🪙' },
-  datavault: { component: DataVaultTrialEnvironment, name: 'DataVault', category: 'Data', description: 'Secure Data Management', icon: '🔒' },
-  insighthub: { component: InsightHubTrialEnvironment, name: 'InsightHub', category: 'Data', description: 'Business Intelligence Dashboard', icon: '📊' },
-  aiassist: { component: AIAssistTrialEnvironment, name: 'AIAssist', category: 'AI', description: 'AI-Powered Assistant', icon: '🤖' },
-  'chatgpt-enterprise': { component: ChatGPTEnterpriseTrialEnvironment, name: 'ChatGPT Enterprise', category: 'AI', description: 'Enterprise Conversational AI', icon: '💬' },
-  codedeploy: { component: CodeDeployTrialEnvironment, name: 'CodeDeploy', category: 'DevOps', description: 'Continuous Deployment Pipeline', icon: '🚀' },
-  cloudmonitor: { component: CloudMonitorTrialEnvironment, name: 'CloudMonitor', category: 'DevOps', description: 'System Monitoring & Alerts', icon: '📡' },
-  marketingmax: { component: MarketingMaxTrialEnvironment, name: 'MarketingMax', category: 'Marketing', description: 'Marketing Automation Platform', icon: '📢' },
-  'seo-optimizer': { component: SEOOptimizerTrialEnvironment, name: 'SEO Optimizer', category: 'Marketing', description: 'SEO Analysis & Optimization', icon: '🔍' },
-  financeflow: { component: FinanceFlowTrialEnvironment, name: 'FinanceFlow', category: 'Finance', description: 'Accounting & Finance Platform', icon: '💰' },
-  investmentanalyzer: { component: InvestmentAnalyzerTrialEnvironment, name: 'InvestmentAnalyzer', category: 'Finance', description: 'Portfolio Analysis Tool', icon: '📊' },
-  crmsync: { component: CRMSyncTrialEnvironment, name: 'CRMSync', category: 'CRM', description: 'Customer Relationship Management', icon: '👥' },
-  supporthub: { component: SupportHubTrialEnvironment, name: 'SupportHub', category: 'Support', description: 'Customer Support Platform', icon: '🎫' },
+  autoflow: { component: AutoFlowTrialEnvironment, name: 'AutoFlow', category: 'Automation', description: 'Workflow Automation Platform', icon: 'Cog' },
+  appointmentpro: { component: AppointmentProTrialEnvironment, name: 'AppointmentPro', category: 'Scheduling', description: 'Appointment Scheduling System', icon: 'Calendar' },
+  tradebotelite: { component: TradeBotEliteTrialEnvironment, name: 'TradeBotElite', category: 'Trading', description: 'Advanced Trading Bot', icon: 'TrendingUp' },
+  cryptobotpro: { component: CryptoBotProTrialEnvironment, name: 'CryptoBot Pro', category: 'Trading', description: 'Cryptocurrency Trading Automation', icon: 'Coins' },
+  datavault: { component: DataVaultTrialEnvironment, name: 'DataVault', category: 'Data', description: 'Secure Data Management', icon: 'Lock' },
+  insighthub: { component: InsightHubTrialEnvironment, name: 'InsightHub', category: 'Data', description: 'Business Intelligence Dashboard', icon: 'BarChart3' },
+  aiassist: { component: AIAssistTrialEnvironment, name: 'AIAssist', category: 'AI', description: 'AI-Powered Assistant', icon: 'Zap' },
+  'chatgpt-enterprise': { component: ChatGPTEnterpriseTrialEnvironment, name: 'ChatGPT Enterprise', category: 'AI', description: 'Enterprise Conversational AI', icon: 'MessageSquare' },
+  codedeploy: { component: CodeDeployTrialEnvironment, name: 'CodeDeploy', category: 'DevOps', description: 'Continuous Deployment Pipeline', icon: 'Rocket' },
+  cloudmonitor: { component: CloudMonitorTrialEnvironment, name: 'CloudMonitor', category: 'DevOps', description: 'System Monitoring & Alerts', icon: 'Radio' },
+  marketingmax: { component: MarketingMaxTrialEnvironment, name: 'MarketingMax', category: 'Marketing', description: 'Marketing Automation Platform', icon: 'Megaphone' },
+  'seo-optimizer': { component: SEOOptimizerTrialEnvironment, name: 'SEO Optimizer', category: 'Marketing', description: 'SEO Analysis & Optimization', icon: 'Search' },
+  financeflow: { component: FinanceFlowTrialEnvironment, name: 'FinanceFlow', category: 'Finance', description: 'Accounting & Finance Platform', icon: 'DollarSign' },
+  investmentanalyzer: { component: InvestmentAnalyzerTrialEnvironment, name: 'InvestmentAnalyzer', category: 'Finance', description: 'Portfolio Analysis Tool', icon: 'PieChart' },
+  crmsync: { component: CRMSyncTrialEnvironment, name: 'CRMSync', category: 'CRM', description: 'Customer Relationship Management', icon: 'Users' },
+  supporthub: { component: SupportHubTrialEnvironment, name: 'SupportHub', category: 'Support', description: 'Customer Support Platform', icon: 'Headphones' },
 };
 
 export function getTrialEnvironment(productSlug: string): TrialEnvironmentConfig | null {

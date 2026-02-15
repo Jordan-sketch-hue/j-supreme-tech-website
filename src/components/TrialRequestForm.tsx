@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { Check } from 'lucide-react';
+import { IconRenderer } from '@/components/IconRenderer';
 import { productsData } from '@/lib/productsConfig';
 
 interface FormData {
@@ -359,11 +361,15 @@ export function TrialRequestForm({ onSuccess }: { onSuccess?: () => void }) {
                     : 'border-gray-200 bg-white hover:border-blue-300'
                 }`}
               >
-                <div className="text-2xl mb-2">{product.icon}</div>
+                <div className="mb-2">
+                  <IconRenderer iconName={product.icon} size={28} className="text-blue-600" />
+                </div>
                 <h3 className="font-bold text-gray-900">{product.name}</h3>
                 <p className="text-sm text-gray-600 mt-1">{product.category}</p>
                 {formData.productSlugs.includes(product.slug) && (
-                  <div className="text-blue-600 font-bold mt-2">✓ Selected</div>
+                  <div className="text-blue-600 font-bold mt-2 inline-flex items-center gap-2">
+                    <Check size={16} className="text-blue-600" /> Selected
+                  </div>
                 )}
               </button>
             ))}
@@ -382,7 +388,7 @@ export function TrialRequestForm({ onSuccess }: { onSuccess?: () => void }) {
               {selectedProducts.map((product) => (
                 <div key={product.slug} className="bg-gray-50 p-4 rounded-lg">
                   <h3 className="font-bold text-gray-900 mb-4 flex items-center">
-                    <span className="text-2xl mr-2">{product.icon}</span>
+                    <IconRenderer iconName={product.icon} size={24} className="text-blue-600 mr-2" />
                     {product.name}
                   </h3>
 

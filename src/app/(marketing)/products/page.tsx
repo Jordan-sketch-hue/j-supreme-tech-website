@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { Sparkles } from 'lucide-react';
 import { PageViewConversion } from '@/components/GoogleConversions';
 import { ProductFilters } from '@/components/ProductFilters';
 import { ProductCard } from '@/components/ProductCard';
@@ -35,8 +36,8 @@ export default function ProductsPage() {
             
             {/* Free Trial CTA Banner */}
             <div className="mt-12 bg-linear-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg p-8 inline-block">
-              <p className="text-white text-lg font-semibold mb-4">
-                🎉 Try all products free for 14 days!
+              <p className="text-white text-lg font-semibold mb-4 flex items-center justify-center gap-2">
+                <Sparkles size={18} className="text-white" /> Try all products free for 14 days!
               </p>
               <Link href="/free-trial" className="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors">
                 Start Your Free Trial Now

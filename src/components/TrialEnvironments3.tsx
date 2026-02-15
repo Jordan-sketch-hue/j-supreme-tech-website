@@ -4,7 +4,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, DollarSign, TrendingUp, AlertCircle, CheckCircle, Trash2, Eye } from 'lucide-react';
+import { Plus, DollarSign, TrendingUp, AlertCircle, CheckCircle, Trash2, Eye, PieChart, Users, Headphones } from 'lucide-react';
 
 // ===== 13. FinanceFlow Trial Component =====
 export function FinanceFlowTrialEnvironment() {
@@ -21,7 +21,10 @@ export function FinanceFlowTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">💰 FinanceFlow - Accounting</h2>
+        <div className="flex items-center gap-3">
+          <DollarSign size={32} className="text-green-600" />
+          <h2 className="text-2xl font-bold text-gray-900">FinanceFlow - Accounting</h2>
+        </div>
         <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center gap-2">
           <Plus size={18} /> Create Invoice
         </button>
@@ -114,7 +117,10 @@ export function InvestmentAnalyzerTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">📊 InvestmentAnalyzer - Portfolio</h2>
+        <div className="flex items-center gap-3">
+          <PieChart size={32} className="text-indigo-600" />
+          <h2 className="text-2xl font-bold text-gray-900">InvestmentAnalyzer - Portfolio</h2>
+        </div>
         <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Add Asset</button>
       </div>
 
@@ -217,7 +223,10 @@ export function CRMSyncTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">👥 CRMSync - Customer Management</h2>
+        <div className="flex items-center gap-3">
+          <Users size={32} className="text-blue-600" />
+          <h2 className="text-2xl font-bold text-gray-900">CRMSync - Customer Management</h2>
+        </div>
         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
           <Plus size={18} /> Add Contact
         </button>
@@ -317,7 +326,10 @@ export function SupportHubTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">🎫 SupportHub - Customer Support</h2>
+        <div className="flex items-center gap-3">
+          <Headphones size={32} className="text-violet-600" />
+          <h2 className="text-2xl font-bold text-gray-900">SupportHub - Customer Support</h2>
+        </div>
         <button className="bg-violet-600 text-white px-4 py-2 rounded-lg hover:bg-violet-700 flex items-center gap-2">
           <Plus size={18} /> New Ticket
         </button>

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { PageViewConversion } from '@/components/GoogleConversions';
+import { IconRenderer } from '@/components/IconRenderer';
 import { productsData } from '@/lib/productsConfig';
 
 export async function generateStaticParams() {
@@ -45,7 +46,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
           {/* Header */}
           <div className="mb-12">
-            <div className="text-5xl mb-4">{product.icon}</div>
+            <div className="mb-4">
+              <IconRenderer iconName={product.icon} size={48} className="text-blue-600" />
+            </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-2">{product.name}</h1>
             <p className="text-lg text-gray-600">{product.description}</p>
             <span className="mt-4 inline-block rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900">

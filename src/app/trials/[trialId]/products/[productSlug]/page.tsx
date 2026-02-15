@@ -12,7 +12,7 @@ import {
   TrialLimitationBanner,
 } from '@/components/TrialEnvironment';
 import { RenderTrialEnvironment, getTrialEnvironment } from '@/lib/trialEnvironmentRegistry';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Loader2 } from 'lucide-react';
 
 interface Product {
   id: number;
@@ -106,7 +106,7 @@ export default function TrialEnvironmentPage({
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin text-5xl mb-4">⚙️</div>
+          <Loader2 className="animate-spin text-blue-600 mx-auto mb-4" size={48} />
           <h1 className="text-2xl font-bold text-gray-900">Launching trial environment...</h1>
           <p className="text-gray-600 mt-2">Setting up your secure sandbox</p>
         </div>

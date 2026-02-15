@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { BarChart3, BookOpen, Check, GraduationCap, Lightbulb, Loader2, MessageCircle, XCircle } from 'lucide-react';
+import { IconRenderer } from '@/components/IconRenderer';
 import { productsData } from '@/lib/productsConfig';
 import { TrialRequest } from '@/types/trials';
 
@@ -40,7 +42,7 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
     return (
       <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin text-5xl mb-4">⚙️</div>
+          <Loader2 className="animate-spin text-blue-600 mx-auto mb-4" size={48} />
           <h1 className="text-2xl font-bold text-gray-900">Loading your trial dashboard...</h1>
         </div>
       </div>
@@ -51,7 +53,7 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
     return (
       <div className="min-h-screen bg-linear-to-br from-red-50 to-orange-50 flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md text-center">
-          <div className="text-5xl mb-4">❌</div>
+          <XCircle className="text-red-600 mx-auto mb-4" size={56} />
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Dashboard Error</h1>
           <p className="text-red-600 mb-6">{error}</p>
           <Link href="/products" className="text-blue-600 hover:underline font-semibold">
@@ -97,7 +99,9 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
               <div>
                 <p className="text-blue-100 text-sm uppercase tracking-wide mb-2">Status</p>
-                <p className="text-3xl font-bold">Active ✓</p>
+                <p className="text-3xl font-bold inline-flex items-center gap-2">
+                  Active <Check size={20} className="text-white" />
+                </p>
               </div>
               <div>
                 <p className="text-blue-100 text-sm uppercase tracking-wide mb-2">Days Left</p>
@@ -148,7 +152,7 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
                     }`}
                   >
                     <div className="flex items-center">
-                      <span className="text-2xl mr-3">{product.icon}</span>
+                      <IconRenderer iconName={product.icon} size={24} className="text-blue-600 mr-3" />
                       <div>
                         <p className="font-semibold text-gray-900 text-sm">{product.name}</p>
                         <p className="text-xs text-gray-600">{product.category}</p>
@@ -165,16 +169,24 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
                 </h3>
                 <div className="space-y-2">
                   <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700 font-semibold py-2 hover:bg-blue-50 px-3 rounded">
-                    📖 Documentation
+                    <span className="inline-flex items-center gap-2">
+                      <BookOpen size={14} /> Documentation
+                    </span>
                   </button>
                   <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700 font-semibold py-2 hover:bg-blue-50 px-3 rounded">
-                    💬 Chat Support
+                    <span className="inline-flex items-center gap-2">
+                      <MessageCircle size={14} /> Chat Support
+                    </span>
                   </button>
                   <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700 font-semibold py-2 hover:bg-blue-50 px-3 rounded">
-                    🎓 Tutorials
+                    <span className="inline-flex items-center gap-2">
+                      <GraduationCap size={14} /> Tutorials
+                    </span>
                   </button>
                   <button className="w-full text-left text-sm text-blue-600 hover:text-blue-700 font-semibold py-2 hover:bg-blue-50 px-3 rounded">
-                    📊 Analytics
+                    <span className="inline-flex items-center gap-2">
+                      <BarChart3 size={14} /> Analytics
+                    </span>
                   </button>
                 </div>
               </div>
@@ -189,13 +201,17 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
                 <div className="bg-white rounded-lg shadow-lg p-8">
                   <div className="flex items-start justify-between mb-6">
                     <div>
-                      <div className="text-6xl mb-4">{activeProductData.icon}</div>
+                      <div className="mb-4">
+                        <IconRenderer iconName={activeProductData.icon} size={56} className="text-blue-600" />
+                      </div>
                       <h2 className="text-4xl font-bold text-gray-900">{activeProductData.name}</h2>
                       <p className="text-gray-600 mt-2">{activeProductData.description}</p>
                     </div>
                     <div className="text-right">
                       <span className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">
-                        Trial Access ✓
+                        <span className="inline-flex items-center gap-2">
+                          Trial Access <Check size={16} className="text-green-700" />
+                        </span>
                       </span>
                     </div>
                   </div>
@@ -233,7 +249,7 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {activeProductData.features.map((feature, index) => (
                       <div key={index} className="flex items-start p-4 bg-blue-50 rounded-lg hover:shadow-md transition-shadow">
-                        <span className="text-blue-600 font-bold mr-3 text-xl">✓</span>
+                        <Check size={18} className="text-blue-600 mr-3 mt-1" />
                         <span className="text-gray-700">{feature}</span>
                       </div>
                     ))}
@@ -260,14 +276,23 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
 
         {/* Trial Tips Section */}
         <div className="mt-12 bg-yellow-50 border-l-4 border-yellow-600 rounded-lg p-8">
-          <h3 className="text-xl font-bold text-yellow-900 mb-4">💡 Trial Tips</h3>
+          <h3 className="text-xl font-bold text-yellow-900 mb-4 flex items-center gap-2">
+            <Lightbulb size={18} className="text-yellow-700" /> Trial Tips
+          </h3>
           <ul className="text-yellow-800 space-y-2">
-            <li>✓ Explore all features - everything is unlocked during your trial</li>
-            <li>✓ Check out the documentation - it has helpful guides and best practices</li>
-            <li>✓ Play with the demo data - modify it to match your actual use case</li>
-            <li>✓ Use AI suggestions - they personalize based on your actions</li>
-            <li>✓ Save your work - it persists until your trial expires</li>
-            <li>✓ Contact support - our team can help you get the most out of your trial</li>
+            {[
+              'Explore all features - everything is unlocked during your trial',
+              'Check out the documentation - it has helpful guides and best practices',
+              'Play with the demo data - modify it to match your actual use case',
+              'Use AI suggestions - they personalize based on your actions',
+              'Save your work - it persists until your trial expires',
+              'Contact support - our team can help you get the most out of your trial',
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <Check size={16} className="text-yellow-700 mt-0.5" />
+                <span>{item}</span>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

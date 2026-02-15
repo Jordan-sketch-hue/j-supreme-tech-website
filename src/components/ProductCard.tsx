@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { IconRenderer } from './IconRenderer';
 
 interface ProductCardProps {
   id: number;
@@ -41,8 +42,8 @@ export function ProductCard({
         <div className="h-full cursor-pointer rounded-lg border border-gray-200 p-8 hover:shadow-xl transition-all hover:border-blue-300 bg-white overflow-hidden">
           {/* Icon and Status */}
           <div className="flex items-start justify-between">
-            <div className="text-4xl group-hover:scale-110 transition-transform">
-              {icon}
+            <div className="group-hover:scale-110 transition-transform">
+              <IconRenderer iconName={icon} size={40} className="text-blue-600" />
             </div>
             <span className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${statusColors[status]}`}>
               {statusLabel}

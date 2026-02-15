@@ -4,7 +4,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Plus, Edit2, Trash2, Play, Pause, Settings, TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';
+import { ChevronDown, Plus, Edit2, Trash2, Play, Pause, Settings, TrendingUp, AlertCircle, CheckCircle, Cog, Calendar, BarChart3, Lock, Coins } from 'lucide-react';
 
 // ===== 1. AutoFlow Trial Component =====
 interface Workflow { id: string; name: string; status: 'active' | 'paused'; steps: number; successRate: number; }
@@ -26,7 +26,10 @@ export function AutoFlowTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">⚙️ AutoFlow - Workflow Automation</h2>
+        <div className="flex items-center gap-3">
+          <Cog size={32} className="text-blue-600" />
+          <h2 className="text-2xl font-bold text-gray-900">AutoFlow - Workflow Automation</h2>
+        </div>
         <button onClick={() => setShowNewWorkflow(true)} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
           <Plus size={18} /> New Workflow
         </button>
@@ -120,7 +123,10 @@ export function AppointmentProTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">📅 AppointmentPro - Scheduling</h2>
+        <div className="flex items-center gap-3">
+          <Calendar size={32} className="text-purple-600" />
+          <h2 className="text-2xl font-bold text-gray-900">AppointmentPro - Scheduling</h2>
+        </div>
         <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center gap-2">
           <Plus size={18} /> Book Appointment
         </button>
@@ -202,7 +208,10 @@ export function TradeBotEliteTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">📈 TradeBotElite - Trading</h2>
+        <div className="flex items-center gap-3">
+          <TrendingUp size={32} className="text-green-600" />
+          <h2 className="text-2xl font-bold text-gray-900">TradeBotElite - Trading</h2>
+        </div>
         <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center gap-2">
           <Plus size={18} /> Create Strategy
         </button>
@@ -281,7 +290,10 @@ export function CryptoBotProTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">🪙 CryptoBot Pro - Crypto Trading</h2>
+        <div className="flex items-center gap-3">
+          <Coins size={32} className="text-orange-600" />
+          <h2 className="text-2xl font-bold text-gray-900">CryptoBot Pro - Crypto Trading</h2>
+        </div>
         <button className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 flex items-center gap-2">
           <Plus size={18} /> New Bot
         </button>
@@ -348,7 +360,10 @@ export function DataVaultTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">🔒 DataVault - Secure Storage</h2>
+        <div className="flex items-center gap-3">
+          <Lock size={32} className="text-red-600" />
+          <h2 className="text-2xl font-bold text-gray-900">DataVault - Secure Storage</h2>
+        </div>
         <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center gap-2">
           <Plus size={18} /> New Vault
         </button>
@@ -413,7 +428,10 @@ export function InsightHubTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">📊 InsightHub - Business Intelligence</h2>
+        <div className="flex items-center gap-3">
+          <BarChart3 size={32} className="text-cyan-600" />
+          <h2 className="text-2xl font-bold text-gray-900">InsightHub - Business Intelligence</h2>
+        </div>
         <button className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 flex items-center gap-2">
           <Plus size={18} /> Create Dashboard
         </button>

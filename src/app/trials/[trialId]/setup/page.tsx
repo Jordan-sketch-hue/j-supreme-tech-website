@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { BadgeCheck, Check, Loader2, Lightbulb, Rocket, Sparkles, Target, XCircle } from 'lucide-react';
+import { IconRenderer } from '@/components/IconRenderer';
 import { productsData } from '@/lib/productsConfig';
 import { TrialRequest } from '@/types/trials';
 
@@ -38,7 +40,7 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
     return (
       <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin text-5xl mb-4">⚙️</div>
+          <Loader2 className="animate-spin text-blue-600 mx-auto mb-4" size={48} />
           <h1 className="text-2xl font-bold text-gray-900">Setting up your trial...</h1>
           <p className="text-gray-600 mt-2">Preparing your personalized environments</p>
         </div>
@@ -50,7 +52,7 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
     return (
       <div className="min-h-screen bg-linear-to-br from-red-50 to-orange-50 flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md text-center">
-          <div className="text-5xl mb-4">❌</div>
+          <XCircle className="text-red-600 mx-auto mb-4" size={56} />
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Trial Setup Failed</h1>
           <p className="text-red-600 mb-6">{error || 'Unable to find your trial'}</p>
           <Link href="/products" className="text-blue-600 hover:underline font-semibold">
@@ -70,22 +72,18 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
     {
       title: 'Welcome',
       description: 'Get ready to experience our products',
-      icon: '👋',
     },
     {
       title: 'Product Overview',
       description: 'Learn about each product you selected',
-      icon: '📚',
     },
     {
       title: 'Customization',
       description: 'Personalize your trial experience',
-      icon: '⚙️',
     },
     {
       title: 'Launch Trial',
       description: 'Start exploring your products',
-      icon: '🚀',
     },
   ];
 
@@ -95,7 +93,10 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
         {/* Trial Header */}
         <div className="mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Welcome, {trial.firstName}! 🎉
+            <span className="inline-flex items-center gap-3">
+              <Sparkles size={32} className="text-blue-600" />
+              Welcome, {trial.firstName}!
+            </span>
           </h1>
           <p className="text-xl text-gray-600 mb-6">
             Your 14-day trial is ready. Let's get started!
@@ -119,8 +120,9 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
             </div>
 
             <div className="mt-6 pt-6 border-t border-blue-400">
-              <p className="text-sm text-blue-100">
-                💡 Access all product features without limitations during your trial
+              <p className="text-sm text-blue-100 flex items-center gap-2">
+                <Lightbulb size={16} className="text-blue-100" />
+                Access all product features without limitations during your trial
               </p>
             </div>
           </div>
@@ -139,7 +141,7 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
                       : 'bg-gray-200 text-gray-500'
                   }`}
                 >
-                  {index <= setupStep ? '✓' : index + 1}
+                  {index <= setupStep ? <Check size={18} /> : index + 1}
                 </div>
                 <p className="text-sm font-semibold text-gray-900 mt-2">{step.title}</p>
                 {index < setupSteps.length - 1 && (
@@ -160,7 +162,7 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
           <div className="lg:col-span-2">
             {setupStep === 0 && (
               <div className="bg-white rounded-lg shadow-lg p-8">
-                <div className="text-6xl mb-6">👋</div>
+                <Sparkles size={48} className="text-blue-600 mb-6" />
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Welcome to your Trial!</h2>
                 <p className="text-gray-600 mb-6">
                   You've selected {selectedProducts.length} amazing products. This setup wizard will help you
@@ -168,14 +170,23 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
                 </p>
 
                 <div className="bg-blue-50 border-l-4 border-blue-600 py-4 px-6 rounded mb-6">
-                  <h3 className="font-bold text-blue-900 mb-2">✨ What to Expect</h3>
+                  <h3 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                    <Sparkles size={18} className="text-blue-700" /> What to Expect
+                  </h3>
                   <ul className="text-blue-800 space-y-2 text-sm">
-                    <li>✓ Full access to all product features</li>
-                    <li>✓ Pre-loaded demo data matching your use cases</li>
-                    <li>✓ Personalized onboarding for each product</li>
-                    <li>✓ AI-powered suggestions and guidance</li>
-                    <li>✓ No credit card required</li>
-                    <li>✓ 24/7 support during your trial</li>
+                    {[
+                      'Full access to all product features',
+                      'Pre-loaded demo data matching your use cases',
+                      'Personalized onboarding for each product',
+                      'AI-powered suggestions and guidance',
+                      'No credit card required',
+                      '24/7 support during your trial',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <Check size={16} className="text-blue-700 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
 
@@ -199,7 +210,9 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
                     <div key={product.slug} className="bg-white rounded-lg shadow-lg p-8">
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <div className="text-5xl mb-2">{product.icon}</div>
+                          <div className="mb-2">
+                            <IconRenderer iconName={product.icon} size={40} className="text-blue-600" />
+                          </div>
                           <h3 className="text-2xl font-bold text-gray-900">{product.name}</h3>
                           <p className="text-gray-600 mt-1">{product.category}</p>
                         </div>
@@ -212,7 +225,9 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="bg-blue-50 p-4 rounded-lg">
-                          <h4 className="font-bold text-gray-900 mb-2">🎯 Your Use Case</h4>
+                          <h4 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                            <Target size={16} className="text-blue-600" /> Your Use Case
+                          </h4>
                           <p className="text-gray-700 text-sm">
                             {useCase
                               ? `Using for: ${useCase}`
@@ -221,7 +236,9 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
                         </div>
 
                         <div className="bg-indigo-50 p-4 rounded-lg">
-                          <h4 className="font-bold text-gray-900 mb-2">✨ Access Ready</h4>
+                          <h4 className="font-bold text-gray-900 mb-2 flex items-center gap-2">
+                            <BadgeCheck size={16} className="text-indigo-600" /> Access Ready
+                          </h4>
                           <p className="text-gray-700 text-sm">
                             Your secure environment is provisioned
                           </p>
@@ -336,15 +353,16 @@ export default function TrialSetupPage({ params }: { params: Promise<{ trialId: 
 
             {setupStep === 3 && (
               <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-                <div className="text-6xl mb-6">🚀</div>
+                <Rocket size={48} className="text-blue-600 mx-auto mb-6" />
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Launch!</h2>
                 <p className="text-gray-600 mb-8">
                   Your trial environments are fully configured and ready to explore.
                 </p>
 
                 <div className="bg-green-50 border-l-4 border-green-600 py-4 px-6 rounded mb-8">
-                  <p className="text-green-800 font-semibold">
-                    ✓ All features unlocked for {selectedProducts.length} products
+                  <p className="text-green-800 font-semibold flex items-center gap-2">
+                    <Check size={16} className="text-green-700" />
+                    All features unlocked for {selectedProducts.length} products
                   </p>
                   <p className="text-green-700 text-sm mt-2">
                     Demo data loaded. AI guidance enabled. You're all set!

@@ -4,7 +4,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, Send, MessageCircle, TrendingUp, AlertCircle, CheckCircle, Zap } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Plus, Send, MessageCircle, TrendingUp, AlertCircle, CheckCircle, Zap, MessageSquare, Rocket, Radio, Megaphone, Search } from 'lucide-react';
 
 // ===== 7. AIAssist Trial Component =====
 export function AIAssistTrialEnvironment() {
@@ -28,7 +28,10 @@ export function AIAssistTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">🤖 AIAssist - AI Assistant</h2>
+        <div className="flex items-center gap-3">
+          <Zap size={32} className="text-purple-600" />
+          <h2 className="text-2xl font-bold text-gray-900">AIAssist - AI Assistant</h2>
+        </div>
         <div className="flex gap-2">
           {[
             { label: 'Doc Analysis', accuracy: '94.2%' },
@@ -125,7 +128,10 @@ export function ChatGPTEnterpriseTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">💬 ChatGPT Enterprise - Conversational AI</h2>
+        <div className="flex items-center gap-3">
+          <MessageSquare size={32} className="text-green-600" />
+          <h2 className="text-2xl font-bold text-gray-900">ChatGPT Enterprise - Conversational AI</h2>
+        </div>
         <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center gap-2">
           <Plus size={18} /> New Deployment
         </button>
@@ -217,7 +223,10 @@ export function CodeDeployTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">🚀 CodeDeploy - CI/CD Pipeline</h2>
+        <div className="flex items-center gap-3">
+          <Rocket size={32} className="text-indigo-600" />
+          <h2 className="text-2xl font-bold text-gray-900">CodeDeploy - CI/CD Pipeline</h2>
+        </div>
         <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 flex items-center gap-2">
           <Plus size={18} /> Create Pipeline
         </button>
@@ -298,7 +307,10 @@ export function CloudMonitorTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">📡 CloudMonitor - System Monitoring</h2>
+        <div className="flex items-center gap-3">
+          <Radio size={32} className="text-teal-600" />
+          <h2 className="text-2xl font-bold text-gray-900">CloudMonitor - System Monitoring</h2>
+        </div>
         <button className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Configure Alerts</button>
       </div>
 
@@ -372,7 +384,10 @@ export function MarketingMaxTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-pink-50 to-rose-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">📢 MarketingMax - Automation</h2>
+        <div className="flex items-center gap-3">
+          <Megaphone size={32} className="text-pink-600" />
+          <h2 className="text-2xl font-bold text-gray-900">MarketingMax - Automation</h2>
+        </div>
         <button className="bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 flex items-center gap-2">
           <Plus size={18} /> New Campaign
         </button>
@@ -451,7 +466,10 @@ export function SEOOptimizerTrialEnvironment() {
   return (
     <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-lg shadow-lg p-6 space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">🔍 SEO Optimizer - Search Optimization</h2>
+        <div className="flex items-center gap-3">
+          <Search size={32} className="text-yellow-600" />
+          <h2 className="text-2xl font-bold text-gray-900">SEO Optimizer - Search Optimization</h2>
+        </div>
         <button className="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700">Add Website</button>
       </div>
 
@@ -502,7 +520,10 @@ export function SEOOptimizerTrialEnvironment() {
                 <div className="text-right">
                   <div className="font-bold text-gray-900">#{kw.rank}</div>
                   <div className={`text-sm font-semibold mt-1 ${kw.trend === 'Up' ? 'text-green-600' : 'text-gray-600'}`}>
-                    {kw.trend === 'Up' ? '📈' : '➡️'} {kw.trend}
+                    <span className="inline-flex items-center gap-1">
+                      {kw.trend === 'Up' ? <ArrowUpRight size={14} /> : <ArrowRight size={14} />}
+                      {kw.trend}
+                    </span>
                   </div>
                 </div>
               </div>

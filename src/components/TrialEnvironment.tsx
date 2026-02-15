@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { AlertTriangle, BookOpen, Bot, Lightbulb, Settings, Target } from 'lucide-react';
+import { IconRenderer } from './IconRenderer';
 
 export interface TrialEnvironmentProps {
   trialId: string;
@@ -67,7 +69,7 @@ export function TrialEnvironmentHeader({
     <div className="bg-linear-to-r from-blue-600 to-indigo-600 text-white p-6 rounded-lg shadow-lg mb-8">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
-          <span className="text-4xl mr-4">{productIcon}</span>
+          <IconRenderer iconName={productIcon} size={36} className="text-white mr-4" />
           <div>
             <h1 className="text-3xl font-bold">{productName} Trial</h1>
             <p className="text-blue-100">Interactive Trial Environment</p>
@@ -142,10 +144,10 @@ export function AIAssistantWidget() {
   const [isOpen, setIsOpen] = useState(false);
 
   const suggestions = [
-    '💡 Try creating your first project to explore core features',
-    '📚 Check out the documentation for advanced features',
-    '🎯 Set up your dashboard to track progress',
-    '⚙️ Configure settings for your use case',
+    { icon: Lightbulb, text: 'Try creating your first project to explore core features' },
+    { icon: BookOpen, text: 'Check out the documentation for advanced features' },
+    { icon: Target, text: 'Set up your dashboard to track progress' },
+    { icon: Settings, text: 'Configure settings for your use case' },
   ];
 
   return (
@@ -154,13 +156,13 @@ export function AIAssistantWidget() {
         onClick={() => setIsOpen(!isOpen)}
         className="bg-blue-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors text-2xl"
       >
-        🤖
+        <Bot size={22} />
       </button>
 
       {isOpen && (
         <div className="absolute bottom-20 right-0 bg-white rounded-lg shadow-xl p-6 w-80 border-2 border-blue-600">
           <h3 className="font-bold text-gray-900 mb-4 flex items-center">
-            <span className="mr-2">🤖</span> AI Assistant
+            <Bot size={18} className="mr-2 text-blue-600" /> AI Assistant
           </h3>
           <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
             {suggestions.map((suggestion, i) => (
@@ -168,7 +170,10 @@ export function AIAssistantWidget() {
                 key={i}
                 className="p-3 bg-blue-50 rounded-lg text-sm text-gray-700 cursor-pointer hover:bg-blue-100 transition-colors"
               >
-                {suggestion}
+                <div className="flex items-start gap-2">
+                  <suggestion.icon size={16} className="text-blue-600 mt-0.5" />
+                  <span>{suggestion.text}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -187,7 +192,7 @@ export function AIAssistantWidget() {
 export function TrialLimitationBanner() {
   return (
     <div className="bg-amber-50 border-l-4 border-amber-600 p-4 rounded mb-6 flex items-start">
-      <span className="text-2xl mr-3">⚠️</span>
+      <AlertTriangle size={24} className="text-amber-700 mr-3" />
       <div>
         <h3 className="font-bold text-amber-900">Trial Limitations</h3>
         <p className="text-amber-800 text-sm mt-1">
@@ -207,7 +212,7 @@ export function TrialExportBlocker() {
       const text = (e.target as HTMLInputElement | HTMLTextAreaElement)?.value || '';
       if (text?.includes('function ') || text?.includes('const ') || text?.includes('import ')) {
         // This looks like code, prevent copy
-        e.clipboardData?.setData('text', '⚠️ Code export is disabled in trial');
+        e.clipboardData?.setData('text', 'Code export is disabled in trial');
       }
     };
 
