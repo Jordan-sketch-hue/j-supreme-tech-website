@@ -14,25 +14,25 @@ const intakeServices = [
 ];
 
 const sopDiscoveryItems = [
-  "Client discovery and brand research",
-  "Business goals and target audience",
-  "Wireframes, UI direction, and screen mapping",
-  "Responsive architecture and SEO-ready structure",
-  "Branding assets, typography, and color systems",
-  "Frontend, backend, APIs, authentication, and dashboards",
-  "Booking, payment, CRM, automation, or analytics workflows",
-  "Testing, deployment, training, documentation, and support",
+  "Help me clarify my business idea and brand direction",
+  "Help me define my goals and ideal customers",
+  "Create a visual layout before building",
+  "Make the website work well on phones, tablets, and computers",
+  "Help with colors, fonts, logo style, and brand visuals",
+  "Build the full system, including website, dashboard, login, or database features",
+  "Add booking, payments, customer tracking, automation, or reports",
+  "Test everything, launch it online, and show me how to use it",
 ];
 
 const integrationOptions = [
-  "Vercel deployment",
-  "GitHub repository",
-  "Supabase database",
-  "Clerk authentication",
-  "Adobe creative assets",
-  "Midjourney image direction",
-  "Payment provider",
-  "Email / notification automation",
+  "Put the website online",
+  "Save the project code safely",
+  "Store customer, booking, product, or form data",
+  "Add secure sign in / account login",
+  "Use my logo, photos, flyers, or design files",
+  "Create or use AI-style images for the brand",
+  "Accept online payments",
+  "Send automatic emails, confirmations, or alerts",
 ];
 
 const textFields = ["Name", "Business Name", "Email", "WhatsApp Number"];
@@ -151,7 +151,10 @@ export function ProjectIntakeForm() {
           </select>
         </label>
         <fieldset className="rounded-2xl border border-white/10 bg-[#050505]/70 p-4 md:col-span-2">
-          <legend className="px-2 text-sm font-bold text-white">Discovery & Delivery Requirements</legend>
+          <legend className="px-2 text-sm font-bold text-white">What Do You Need Help With?</legend>
+          <p className="mt-1 text-sm leading-6 text-[#B3B3B3]">
+            Select anything you want J Supreme Tech to handle. It is fine if you are not sure yet.
+          </p>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {sopDiscoveryItems.map((item) => (
               <label key={item} className="flex items-start gap-3 text-sm leading-6 text-[#B3B3B3]">
@@ -162,7 +165,10 @@ export function ProjectIntakeForm() {
           </div>
         </fieldset>
         <fieldset className="rounded-2xl border border-white/10 bg-[#050505]/70 p-4 md:col-span-2">
-          <legend className="px-2 text-sm font-bold text-white">Platform & Integration Needs</legend>
+          <legend className="px-2 text-sm font-bold text-white">Tools Or Features You May Need</legend>
+          <p className="mt-1 text-sm leading-6 text-[#B3B3B3]">
+            Choose the features that sound useful. We will recommend the right tools after reviewing your project.
+          </p>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {integrationOptions.map((item) => (
               <label key={item} className="flex items-start gap-3 text-sm leading-6 text-[#B3B3B3]">

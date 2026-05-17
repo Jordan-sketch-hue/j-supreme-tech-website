@@ -1,143 +1,152 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { FormEvent, useState } from "react";
+import { MessageCircle, Send, X } from "lucide-react";
+
+type ChatMessage = {
+  role: "bot" | "user";
+  text: string;
+};
+
+const quickReplies = [
+  "I need a website",
+  "I need an app",
+  "I need a booking system",
+  "I need prices",
+  "I want to start a project",
+];
+
+function getBotResponse(message: string) {
+  const text = message.toLowerCase();
+
+  if (text.includes("price") || text.includes("cost")) {
+    return "Starter Digital Presence begins from JMD $10,000+. Business systems and full ecosystems are quoted based on scope.";
+  }
+
+  if (text.includes("website")) {
+    return "We can build business websites, landing pages, portfolio sites, and SEO-ready service websites. Use the project form to share your goals.";
+  }
+
+  if (text.includes("app")) {
+    return "We can plan and build mobile app experiences, customer apps, and business operation apps with backend systems when needed.";
+  }
+
+  if (text.includes("booking")) {
+    return "We can build appointment, excursion, transfer, and reservation systems with confirmations, dashboards, and payments if needed.";
+  }
+
+  if (text.includes("start")) {
+    return "Great. Select Start a Project or complete the intake form so we can review your project, timeline, budget, and required features.";
+  }
+
+  return "Thanks. J Supreme Tech can help with websites, apps, booking systems, CRMs, automations, dashboards, and full digital ecosystems.";
+}
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { role: 'bot', text: 'Hello! How can I assist you today?' },
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: "bot", text: "Hello. What do you need help building?" },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
-  const quickReplies = [
-    'Pricing information',
-    'Free trial details',
-    'Product features',
-    'Contact sales',
-  ];
+  function sendMessage(message: string) {
+    const trimmed = message.trim();
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+    if (!trimmed) {
+      return;
+    }
 
-    setMessages([...messages, { role: 'user', text: input }]);
-    
-    // Simulate bot response
-    setTimeout(() => {
-      let botResponse = "I'd be happy to help! Our team will get back to you shortly.";
-      
-      if (input.toLowerCase().includes('pricing')) {
-        botResponse = 'Our plans start at $29/month. Visit our pricing page for detailed information.';
-      } else if (input.toLowerCase().includes('trial')) {
-        botResponse = 'We offer a 14-day free trial with full access to all features. No credit card required!';
-      } else if (input.toLowerCase().includes('features')) {
-        botResponse = 'Our platform includes AI automation, advanced analytics, API access, and 24/7 support.';
-      }
-      
-      setMessages(prev => [...prev, { role: 'bot', text: botResponse }]);
-    }, 1000);
+    setMessages((current) => [...current, { role: "user", text: trimmed }]);
+    setInput("");
 
-    setInput('');
-  };
+    window.setTimeout(() => {
+      setMessages((current) => [...current, { role: "bot", text: getBotResponse(trimmed) }]);
+    }, 450);
+  }
 
-  const handleQuickReply = (reply: string) => {
-    setInput(reply);
-  };
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    sendMessage(input);
+  }
 
   return (
     <>
-      {/* Chat Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-2xl hover:scale-110 transition-transform"
-        aria-label="Open chat"
+        type="button"
+        onClick={() => setIsOpen((open) => !open)}
+        className="fixed bottom-6 right-6 z-[70] flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-[#7B2FFF] to-[#6D5BFF] text-white shadow-[0_0_45px_rgba(123,47,255,0.45)] transition-transform hover:scale-105"
+        aria-label={isOpen ? "Close chat" : "Open chat"}
       >
-        {isOpen ? (
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-        )}
+        {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
 
-      {/* Chat Window */}
-      {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 flex h-[600px] w-96 flex-col rounded-2xl border border-gray-200 bg-white shadow-2xl">
-          {/* Header */}
-          <div className="flex items-center justify-between rounded-t-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-4 text-white">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <div>
-                <p className="font-semibold">J Supreme Support</p>
-                <p className="text-xs opacity-90">Typically replies instantly</p>
-              </div>
+      {isOpen ? (
+        <div className="fixed inset-x-4 bottom-24 z-[70] flex max-h-[calc(100vh-8rem)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D0D] text-white shadow-[0_0_80px_rgba(123,47,255,0.3)] sm:left-auto sm:right-6 sm:h-[620px] sm:w-96">
+          <div className="flex items-center justify-between border-b border-white/10 bg-linear-to-r from-[#7B2FFF] to-[#6D5BFF] p-4">
+            <div>
+              <p className="font-bold">J Supreme Support</p>
+              <p className="text-xs text-white/80">Choose an option or type a message</p>
             </div>
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20"
+              aria-label="Close chat"
+            >
+              <X className="h-4 w-4" />
+            </button>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 space-y-4 overflow-y-auto p-4">
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            {messages.map((message, index) => (
+              <div key={`${message.role}-${index}`} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-2 ${
-                    msg.role === 'user'
-                      ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white'
-                      : 'bg-gray-100 text-gray-900'
+                  className={`max-w-[84%] rounded-2xl px-4 py-3 text-sm leading-6 ${
+                    message.role === "user"
+                      ? "bg-linear-to-br from-[#7B2FFF] to-[#6D5BFF] text-white"
+                      : "border border-white/10 bg-white/[0.06] text-[#F4F4F5]"
                   }`}
                 >
-                  <p className="text-sm">{msg.text}</p>
+                  {message.text}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Quick Replies */}
-          {messages.length === 1 && (
-            <div className="border-t border-gray-100 p-4">
-              <p className="mb-2 text-xs font-semibold text-gray-600">Quick questions:</p>
-              <div className="flex flex-wrap gap-2">
-                {quickReplies.map((reply) => (
-                  <button
-                    key={reply}
-                    onClick={() => handleQuickReply(reply)}
-                    className="rounded-full border border-gray-300 bg-white px-3 py-1 text-xs text-gray-700 hover:bg-gray-50"
-                  >
-                    {reply}
-                  </button>
-                ))}
-              </div>
+          <div className="border-t border-white/10 p-4">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-[#B3B3B3]">Quick Select</p>
+            <div className="mb-4 flex flex-wrap gap-2">
+              {quickReplies.map((reply) => (
+                <button
+                  key={reply}
+                  type="button"
+                  onClick={() => sendMessage(reply)}
+                  className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-white hover:border-[#A855F7]/60 hover:bg-[#7B2FFF]/20"
+                >
+                  {reply}
+                </button>
+              ))}
             </div>
-          )}
 
-          {/* Input */}
-          <div className="border-t border-gray-200 p-4">
-            <div className="flex gap-2">
+            <form onSubmit={handleSubmit} className="flex gap-2">
               <input
                 type="text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                onChange={(event) => setInput(event.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="min-w-0 flex-1 rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none placeholder:text-[#777] focus:border-[#A855F7]"
               />
               <button
-                onClick={handleSend}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-purple-600 text-white hover:scale-105"
+                type="submit"
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#7B2FFF] to-[#6D5BFF] text-white hover:shadow-[0_0_30px_rgba(123,47,255,0.4)]"
+                aria-label="Send message"
               >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
+                <Send className="h-4 w-4" />
               </button>
-            </div>
+            </form>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 }
