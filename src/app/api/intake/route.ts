@@ -19,6 +19,22 @@ type IntakePayload = {
   qualityControlNotes?: unknown;
 };
 
+function databaseConfig() {
+  return {
+    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+  };
+}
+
+export async function GET() {
+  const { supabaseUrl, supabaseServiceRoleKey } = databaseConfig();
+
+  return NextResponse.json({
+    databaseConnected: Boolean(supabaseUrl && supabaseServiceRoleKey),
+    pipelineTable: "project_intake_submissions",
+  });
+}
+
 export async function POST(request: Request) {
   const payload = (await request.json()) as IntakePayload;
 
@@ -26,16 +42,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Name, email, WhatsApp number, and project description are required." }, { status: 400 });
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const { supabaseUrl, supabaseServiceRoleKey } = databaseConfig();
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     return NextResponse.json(
       {
-        message:
-          "Inquiry captured by the website UI. Add NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY to store submissions in Supabase.",
+        error:
+          "The project intake database is not connected yet. Add NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel, then redeploy.",
       },
-      { status: 202 },
+      { status: 503 },
     );
   }
 
@@ -56,6 +71,9 @@ export async function POST(request: Request) {
     references: payload.references,
     project_description: payload.projectDescription,
     quality_control_notes: payload.qualityControlNotes,
+    pipeline_stage: "new_lead",
+    lead_status: "needs_review",
+    lead_source: "website_intake_form",
     source: "website",
   });
 

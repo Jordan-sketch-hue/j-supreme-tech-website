@@ -43,6 +43,13 @@ npm run start
 2. Run `supabase/project_intake_submissions.sql` in the Supabase SQL editor.
 3. Add `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` to Vercel environment variables.
 4. Redeploy. The website intake form will store submissions in `project_intake_submissions`.
+5. Check `/api/intake`; `databaseConnected` should return `true`.
+
+New submissions are saved as pipeline-ready leads with:
+
+- `pipeline_stage`: `new_lead`
+- `lead_status`: `needs_review`
+- `lead_source`: `website_intake_form`
 
 ### Clerk Authentication
 

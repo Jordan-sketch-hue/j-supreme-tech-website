@@ -86,7 +86,11 @@ export function ProjectIntakeForm() {
       form.reset();
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Submission failed.");
+      setMessage(
+        error instanceof Error
+          ? error.message
+          : "Submission failed. Please contact J Supreme Tech by WhatsApp or email.",
+      );
     }
   }
 
