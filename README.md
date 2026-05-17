@@ -35,6 +35,23 @@ npm run start
 4. Set any production environment variables needed for contact handling, analytics, payments, or integrations.
 5. Deploy.
 
+## Integration Setup
+
+### Supabase Intake Storage
+
+1. Create a Supabase project.
+2. Run `supabase/project_intake_submissions.sql` in the Supabase SQL editor.
+3. Add `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` to Vercel environment variables.
+4. Redeploy. The website intake form will store submissions in `project_intake_submissions`.
+
+### Clerk Authentication
+
+Add the Clerk keys from `.env.example` to Vercel when replacing the current custom auth with Clerk-backed login/signup flows.
+
+### Creative Workflow
+
+Adobe and Midjourney do not connect to this codebase automatically without account-specific apps, API access, or shared asset links. Use the intake form reference fields and the `.env.example` placeholders to connect approved project assets.
+
 ## Contact Details Used
 
 - Email: `global.jsuprememarketing@gmail.com`
