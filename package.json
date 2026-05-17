@@ -3,24 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next dev",
+    "build": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next build",
+    "start": "cross-env NEXT_PRIVATE_LOCAL_WEBPACK=true next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@prisma/client": "^7.3.0",
     "@stripe/react-stripe-js": "^5.6.0",
     "@stripe/stripe-js": "^8.7.0",
+    "@supabase/supabase-js": "^2.105.4",
     "axios": "^1.13.4",
     "bcryptjs": "^3.0.3",
+    "cross-env": "^7.0.3",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.563.0",
-    "next": "16.1.6",
+    "next": "^16.2.6",
     "nodemailer": "^8.0.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "stripe": "^20.3.1"
+    "stripe": "^20.3.1",
+    "webpack": "^5.98.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -30,7 +33,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "^16.2.6",
     "prisma": "^7.3.0",
     "tailwindcss": "^4",
     "typescript": "^5"

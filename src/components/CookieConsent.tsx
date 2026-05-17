@@ -1,17 +1,14 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from "react";
 import Link from 'next/link';
 
 export default function CookieConsent() {
-  const [showBanner, setShowBanner] = useState(false);
+  const [showBanner, setShowBanner] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Check if user has already consented
-    const consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
-      setShowBanner(true);
-    }
+    const consent = window.localStorage.getItem('cookieConsent');
+    window.requestAnimationFrame(() => setShowBanner(!consent));
   }, []);
 
   const acceptCookies = () => {
@@ -24,7 +21,7 @@ export default function CookieConsent() {
     setShowBanner(false);
   };
 
-  if (!showBanner) {
+  if (showBanner !== true) {
     return null;
   }
 

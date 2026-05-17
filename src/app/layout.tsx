@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Header } from "@/components/Header";
@@ -7,19 +6,25 @@ import { Footer } from "@/components/Footer";
 import { Chatbot } from "@/components/Chatbot";
 import CookieConsent from "@/components/CookieConsent";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "J Supreme Tech - AI-Powered Technology Solutions",
-  description: "Build faster, think smarter, scale supreme with advanced AI automation and intelligent systems",
+  title: "J Supreme Tech | Creative Technology & Digital Systems",
+  description:
+    "Premium websites, apps, CRMs, booking systems, e-commerce platforms, automations, and scalable digital infrastructure for Jamaica, the Caribbean, and worldwide.",
+  keywords: [
+    "J Supreme Tech",
+    "Jamaica website development",
+    "digital systems",
+    "business automation",
+    "CRM development",
+    "booking systems",
+    "mobile app development",
+  ],
+  openGraph: {
+    title: "J Supreme Tech | Digital Solutions. Real Growth.",
+    description:
+      "Creative Technology & Digital Systems Development from Jamaica to the Caribbean and worldwide.",
+    type: "website",
+  },
   icons: {
     icon: "/favicon.svg",
   },
@@ -31,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Google tag (gtag.js) */}
         <Script
@@ -48,7 +53,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body suppressHydrationWarning>
         <Header />
         {children}
         <Footer />
