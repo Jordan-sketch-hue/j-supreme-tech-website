@@ -1,171 +1,144 @@
-'use client';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight, Clock, Globe2, Mail, MapPin, MessageCircle, Sparkles } from "lucide-react";
+import { PageViewConversion } from "@/components/GoogleConversions";
+import { CineWords } from "@/components/CineWords";
+import { ProjectIntakeForm } from "@/components/ProjectIntakeForm";
+import { Reveal, ScrollProgress } from "@/components/motion-kit";
 
-import { useState } from 'react';
-import { AddPaymentInfoConversion } from '@/components/GoogleConversions';
+export const metadata: Metadata = {
+  title: "Contact — Start a Project | J Supreme Tech",
+  description:
+    "Tell J Supreme Tech what to build next — websites, apps, CRMs, booking systems, SaaS. WhatsApp 658-218-2282 or send the project intake and get a system plan back.",
+};
+
+const CHANNELS = [
+  {
+    icon: MessageCircle,
+    title: "WhatsApp — fastest",
+    line: "658-218-2282",
+    sub: "Usually answered within the hour",
+    href: "https://wa.me/16582182282",
+  },
+  {
+    icon: Mail,
+    title: "Email the studio",
+    line: "global.jsuprememarketing@gmail.com",
+    sub: "Project briefs, documents, partnerships",
+    href: "mailto:global.jsuprememarketing@gmail.com",
+  },
+];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    message: '',
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Track conversion
-    AddPaymentInfoConversion();
-    
-    // Create mailto link with form data
-    const subject = `Contact Form: ${formData.name} - ${formData.company || 'No Company'}`;
-    const body = `
-Name: ${formData.name}
-Email: ${formData.email}
-Company: ${formData.company || 'Not provided'}
-
-Message:
-${formData.message}
-    `;
-    
-    window.location.href = `mailto:global.jsuprememarketing@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
   return (
-    <main>
-      <section className="px-6 py-24">
-        <div className="mx-auto max-w-4xl">
-          <h1 className="text-4xl font-bold text-gray-900">Get in Touch</h1>
-          <p className="mt-4 text-lg text-gray-600">
-            Have questions? Our team is ready to help.
-          </p>
+    <main className="bg-white text-ink-900">
+      <PageViewConversion />
+      <ScrollProgress className="bg-ink-900" />
 
-          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2">
-            {/* Contact Form */}
-            <div>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="your@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">
-                    Company
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="Your company"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900">
-                    Message
-                  </label>
-                  <textarea
-                    rows={5}
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="mt-2 w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-                    placeholder="Tell us about your project and ask about timelines"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                <p className="mt-2 text-gray-600">
-                  <a href="mailto:global.jsuprememarketing@gmail.com" className="hover:text-blue-600">
-                    global.jsuprememarketing@gmail.com
-                  </a>
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                <p className="mt-2 text-gray-600">
-                  <a href="tel:+16582182282" className="hover:text-blue-600">
-                    658-218-2282
-                  </a>
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Location</h3>
-                <p className="mt-2 text-gray-600">
-                  Kingston, Jamaica
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900">Hours</h3>
-                <p className="mt-2 text-gray-600">
-                  Monday - Friday: 9am - 6pm EST
-                  <br />
-                  Saturday & Sunday: Closed
-                </p>
-              </div>
-
-              <div className="rounded-lg bg-blue-50 p-6">
-                <h3 className="font-semibold text-gray-900">Want a quick call?</h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  Contact us directly for project timelines and to schedule a consultation.
-                </p>
-                <div className="mt-4 space-y-2">
-                  <a 
-                    href="mailto:global.jsuprememarketing@gmail.com?subject=Consultation Request"
-                    className="block rounded-lg bg-blue-600 px-4 py-2 text-center text-sm font-semibold text-white hover:bg-blue-700"
-                  >
-                    Email Us
-                  </a>
-                  <a 
-                    href="tel:+16582182282"
-                    className="block rounded-lg border-2 border-blue-600 px-4 py-2 text-center text-sm font-semibold text-blue-600 hover:bg-blue-50"
-                  >
-                    Call Now
-                  </a>
-                </div>
-              </div>
-            </div>
+      {/* ============ Hero ============ */}
+      <section className="relative overflow-hidden border-b border-line bg-ink-50/60">
+        <div className="grid-bg pointer-events-none absolute inset-0" />
+        <div className="shell relative py-16 md:py-20">
+          <div className="max-w-3xl">
+            <Reveal>
+              <span className="eyebrow">Contact · Start a project</span>
+            </Reveal>
+            <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight md:text-[3.2rem] md:leading-[1.05]">
+              <CineWords text="Tell us the goal." delay={0.15} />{" "}
+              <span className="underline decoration-4 underline-offset-8">
+                <CineWords text="We'll map the system." delay={0.45} />
+              </span>
+            </h1>
+            <Reveal delay={0.16}>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-500">
+                Send the intake below and we come back with a system plan, scope and timeline —
+                or skip the form and talk to us directly.
+              </p>
+            </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* ============ Form + channels ============ */}
+      <section className="section shell">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="space-y-4">
+            <Reveal>
+              <div className="space-y-3">
+                {CHANNELS.map((c) => {
+                  const Icon = c.icon;
+                  return (
+                    <a
+                      key={c.title}
+                      href={c.href}
+                      target={c.href.startsWith("http") ? "_blank" : undefined}
+                      rel="noreferrer"
+                      className="card card-hover flex items-start gap-4 p-5"
+                    >
+                      <span className="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-ink-950 text-white">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block font-display text-base font-semibold text-ink-900">{c.title}</span>
+                        <span className="mt-0.5 block break-all font-mono text-sm text-ink-600">{c.line}</span>
+                        <span className="mt-1 block font-mono text-[0.6rem] uppercase tracking-[0.14em] text-ink-400">{c.sub}</span>
+                      </span>
+                    </a>
+                  );
+                })}
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="card p-5">
+                  <MapPin className="h-5 w-5 text-ink-900" />
+                  <p className="mt-3 font-display text-sm font-semibold text-ink-900">Kingston, Jamaica</p>
+                  <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-ink-400">Home base</p>
+                </div>
+                <div className="card p-5">
+                  <Globe2 className="h-5 w-5 text-ink-900" />
+                  <p className="mt-3 font-display text-sm font-semibold text-ink-900">Worldwide delivery</p>
+                  <p className="mt-0.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-ink-400">Remote-first builds</p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.16}>
+              <div className="card flex items-start gap-4 p-5">
+                <Clock className="mt-0.5 h-5 w-5 flex-none text-ink-900" />
+                <div>
+                  <p className="font-display text-sm font-semibold text-ink-900">Mon–Sat · 9am–6pm (Jamaica)</p>
+                  <p className="mt-1 text-sm leading-relaxed text-ink-500">
+                    WhatsApp messages outside hours get answered first thing next morning.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.22}>
+              <div className="relative overflow-hidden rounded-2xl bg-ink-950 p-6 text-white">
+                <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-60" />
+                <div className="relative">
+                  <Sparkles className="h-5 w-5" />
+                  <h3 className="mt-3 font-display text-base font-semibold">Just need software, not a project?</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-white/65">
+                    13 ready-made systems with a 3-day free trial — live before we&apos;d even finish a call.
+                  </p>
+                  <Link
+                    href="/products"
+                    className="mt-4 inline-flex items-center gap-1 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.14em] underline underline-offset-4"
+                  >
+                    Browse the products <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+
+          <Reveal direction="left" delay={0.1}>
+            <ProjectIntakeForm />
+          </Reveal>
         </div>
       </section>
     </main>

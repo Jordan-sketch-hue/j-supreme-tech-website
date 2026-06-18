@@ -189,8 +189,6 @@ export default function TrialEnvironmentPage({
           ) : (
             <GenericTrialEnvironment
               product={product}
-              productSlug={productSlug}
-              trialId={trialId}
               daysRemaining={daysRemaining}
             />
           )}
@@ -208,13 +206,9 @@ export default function TrialEnvironmentPage({
  */
 function GenericTrialEnvironment({
   product,
-  productSlug,
-  trialId,
   daysRemaining,
 }: {
   product: Product;
-  productSlug: string;
-  trialId: string;
   daysRemaining: number;
 }) {
   return (
@@ -234,7 +228,7 @@ function GenericTrialEnvironment({
       <div className="border-t pt-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Get Started</h2>
         <p className="text-gray-600 mb-6">
-          You have {daysRemaining} days left to try {product.name}. Explore all features and see if it's right for your needs.
+          You have {daysRemaining} days left to try {product.name}. Explore all features and see if it&apos;s right for your needs.
         </p>
         <button className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
           View Pricing & Upgrade

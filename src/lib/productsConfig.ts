@@ -238,21 +238,23 @@ export const categories = [
   'Support',
 ];
 
+const neutralChip = 'bg-ink-100 text-ink-700 border border-line';
+
 export const categoryColors: Record<string, string> = {
-  'Automation': 'bg-purple-100 text-purple-800',
-  'Scheduling': 'bg-blue-100 text-blue-800',
-  'Trading': 'bg-green-100 text-green-800',
-  'Data': 'bg-indigo-100 text-indigo-800',
-  'AI': 'bg-pink-100 text-pink-800',
-  'DevOps': 'bg-orange-100 text-orange-800',
-  'Marketing': 'bg-red-100 text-red-800',
-  'Finance': 'bg-yellow-100 text-yellow-800',
-  'CRM': 'bg-cyan-100 text-cyan-800',
-  'Support': 'bg-emerald-100 text-emerald-800',
+  'Automation': neutralChip,
+  'Scheduling': neutralChip,
+  'Trading': neutralChip,
+  'Data': neutralChip,
+  'AI': neutralChip,
+  'DevOps': neutralChip,
+  'Marketing': neutralChip,
+  'Finance': neutralChip,
+  'CRM': neutralChip,
+  'Support': neutralChip,
 };
 
 export const statusColors: Record<string, string> = {
-  'active': 'bg-green-100 text-green-800',
-  'beta': 'bg-yellow-100 text-yellow-800',
-  'coming-soon': 'bg-gray-100 text-gray-800',
+  'active': 'bg-ink-900 text-white border border-ink-900',
+  'beta': 'bg-ink-100 text-ink-700 border border-line',
+  'coming-soon': 'bg-white text-ink-500 border border-line',
 };

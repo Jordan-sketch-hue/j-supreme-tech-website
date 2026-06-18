@@ -1,0 +1,108 @@
+/* J Supreme Motion Kit — CSS-driven animations.
+   Imported from globals.css via: @import "./motion-kit.css"; */
+
+/* ---------- Marquee ---------- */
+.mk-marquee {
+  display: flex;
+  overflow: hidden;
+  gap: var(--mk-gap, 2.5rem);
+}
+.mk-marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--mk-gap, 2.5rem);
+  min-width: 100%;
+  animation: mk-marquee var(--mk-duration, 30s) linear infinite;
+}
+.mk-reverse {
+  animation-direction: reverse;
+}
+.mk-marquee-pause:hover .mk-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes mk-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--mk-gap, 2.5rem))); }
+}
+
+/* ---------- Gradient blobs (AnimatedGradient) ---------- */
+.mk-blob {
+  position: absolute;
+  width: 45%;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+}
+.mk-blob-1 { top: -12%; left: -6%; animation: mk-drift-1 14s ease-in-out infinite alternate; }
+.mk-blob-2 { right: -8%; bottom: -16%; animation: mk-drift-2 18s ease-in-out infinite alternate; }
+.mk-blob-3 { top: 32%; left: 38%; animation: mk-drift-3 22s ease-in-out infinite alternate; }
+@keyframes mk-drift-1 { to { transform: translate(28%, 18%) scale(1.15); } }
+@keyframes mk-drift-2 { to { transform: translate(-22%, -14%) scale(1.08); } }
+@keyframes mk-drift-3 { to { transform: translate(-18%, 22%) scale(0.92); } }
+
+/* ---------- Border beam (BorderBeam) ---------- */
+@property --mk-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.mk-border-beam {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(from var(--mk-angle), transparent 72%, var(--mk-beam-color, #111));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: mk-spin var(--mk-beam-duration, 6s) linear infinite;
+}
+@keyframes mk-spin {
+  to { --mk-angle: 360deg; }
+}
+
+/* ---------- Typewriter cursor ---------- */
+.mk-cursor {
+  display: inline-block;
+  margin-left: 0.08em;
+  animation: mk-blink 1s steps(2, start) infinite;
+}
+@keyframes mk-blink {
+  to { visibility: hidden; }
+}
+
+/* ---------- Shimmer text — add .mk-shimmer to any heading/span ---------- */
+.mk-shimmer {
+  background: linear-gradient(110deg, currentColor 38%, rgba(255, 255, 255, 0.45) 50%, currentColor 62%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: mk-shimmer 2.6s linear infinite;
+}
+@keyframes mk-shimmer {
+  to { background-position: -220% 0; }
+}
+
+/* ---------- Float — gentle idle bob for icons/badges ---------- */
+.mk-float {
+  animation: mk-float 5s ease-in-out infinite;
+}
+@keyframes mk-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .mk-marquee-track,
+  .mk-blob,
+  .mk-border-beam,
+  .mk-cursor,
+  .mk-shimmer,
+  .mk-float {
+    animation: none !important;
+  }
+}

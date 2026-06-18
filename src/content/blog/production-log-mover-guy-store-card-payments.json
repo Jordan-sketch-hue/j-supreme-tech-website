@@ -1,0 +1,85 @@
+{
+  "slug": "production-log-mover-guy-store-card-payments",
+  "category": "dispatch",
+  "title": "Production Log: Wiring Card Payments Into The Mover Guy's Online Store",
+  "deck": "The real problem, the fix, and the launch of a 26-product packing-supply store with WiPay card payments — bolted onto a moving company's existing platform without breaking it.",
+  "excerpt": "A chronological build log: adding an e-commerce store and WiPay Jamaica card payments to The Mover Guy platform, from checkout flow to go-live.",
+  "author": "Jordan Morris",
+  "authorRole": "Founder & CEO",
+  "date": "2026-06-04",
+  "readMinutes": 9,
+  "kicker": "Production Log",
+  "tags": ["dispatch", "ecommerce", "payments", "wipay", "build-log"],
+  "keywords": [
+    "WiPay integration",
+    "Jamaica card payments",
+    "ecommerce checkout build",
+    "online store launch",
+    "moving company software",
+    "payment integration log",
+    "Next.js ecommerce"
+  ],
+  "featured": false,
+  "motif": "pulse",
+  "blocks": [
+    { "type": "lead", "text": "The Mover Guy already had a platform — a moving and storage operation, four surfaces, live on its own domain. What it did not have was a way to sell the boxes, tape, and bubble wrap that every move runs through. So the brief was narrow and concrete: add an online store, take Jamaican card payments, and do not break the thing that was already working. This is the log of how that shipped — problem, fix, launch — with nothing invented and nothing skipped." },
+    { "type": "p", "text": "A production log is not a tutorial. It is the record of one real build, in order, including the parts that were boring and the parts that nearly bit us. If you are wiring *commerce* onto a platform that was never designed to sell anything, this is the shape of the work. **Systems That Work. Growth That Lasts.** is easy to say on a landing page; this is what it costs to actually mean it." },
+    { "type": "callout", "variant": "info", "title": "The build, in one line", "text": "A 26-product packing-supply catalog with bulk pricing tiers, a cart and checkout, three fulfillment options, and WiPay card payments — added to an existing moving-company platform and tested end to end before go-live." },
+    { "type": "h2", "text": "The problem: a service platform that couldn't take an order" },
+    { "type": "p", "text": "The Mover Guy made its money on a service — quotes, bookings, jobs. Every one of those goes through a human at some point. Boxes do not. A customer who needs ten medium boxes, a roll of tape, and a markers set does not want a quote; they want a cart, a price, and a card field. The platform had no concept of any of that. No products, no cart, no checkout, no order record that wasn't tied to a moving job." },
+    { "type": "p", "text": "So the real problem was never 'add a payment button.' It was: introduce a whole second transaction model — self-serve, fixed-price, instant — into a codebase built entirely around the quote-and-book model, without the two stepping on each other. The store had to feel native to the platform while running on completely different rails." },
+    { "type": "ul", "items": [
+      "**No catalog** — products, prices, descriptions, and stock had to exist as data the site could render and the admin could edit.",
+      "**No cart** — a place to hold line items, quantities, and a running total across page loads.",
+      "**No checkout** — the step that turns a cart into a paid order with a fulfillment choice attached.",
+      "**No payment rail** — Jamaican cards, which in practice means WiPay, plus non-card fallbacks for customers who don't pay online.",
+      "**No order back office** — somewhere staff actually see what was bought, by whom, and how it ships."
+    ] },
+    { "type": "callout", "variant": "insight", "title": "The constraint that shaped everything", "text": "Don't break what works. The moving-and-storage side was live and earning. The store had to be additive — new routes, new tables, new admin pages — never a rewrite of the booking flow. Treat the store as a module you bolt on, not a refactor you risk." },
+    { "type": "h2", "text": "The fix: catalog, cart, and a checkout that knows how it ships" },
+    { "type": "p", "text": "We modeled the store as its own slice of the platform: a `/store` for customers and a `/admin/store` for staff, with product, order, and settings data living in the same Supabase Postgres the rest of the platform already used. No new database, no second auth system — just new tables alongside the existing ones. That choice alone kept the blast radius small." },
+    { "type": "p", "text": "The catalog came in at 26 products — real packing supplies — each with bulk pricing tiers so a customer buying twenty boxes pays a different unit price than one buying two. The product art is studio-built SVG rather than stock photography, which keeps the whole store on-brand and weightless; it is the same generative discipline we use across the fleet, written up in [the SVG cover-art pipeline](/blog/generative-mono-svg-cover-art-pipeline)." },
+    { "type": "p", "text": "Cart state is the unglamorous middle of any store, and it is where sloppy builds leak. A cart has to survive a page refresh, hold quantities and the correct tier price per line, and recompute a total the customer trusts. We kept it deliberately simple: a typed cart, persisted client-side, that revalidates prices against the catalog at checkout so nobody pays a stale total." },
+    { "type": "code", "lang": "typescript", "code": "// the checkout payload, once a cart becomes an order\ntype Fulfillment = \"pickup\" | \"mobay\" | \"knutsford\";\n\ntype CheckoutOrder = {\n  lines: { productId: string; qty: number; unitPrice: number }[];\n  subtotal: number;          // recomputed server-side, never trusted from the client\n  fulfillment: Fulfillment;  // chosen before payment, not after\n  payment: \"wipay\" | \"bank_transfer\" | \"cash\";\n  contact: { name: string; phone: string; email: string };\n};" },
+    { "type": "p", "text": "The fulfillment choice is part of checkout, not an afterthought. Three options shipped: pickup, a Montego Bay route, and Knutsford courier handoff. The customer picks *before* they pay, because the choice can affect the order and because asking afterward is how you end up with paid orders nobody knows how to deliver. The order record carries the fulfillment method from the start." },
+    { "type": "h2", "text": "Wiring WiPay: the part that earns the dispatch tag" },
+    { "type": "p", "text": "Jamaica card payments, in practice, means WiPay. It is a hosted-page model: you build a request, hand the customer off to WiPay's page to enter card details, and they come back with a result. You never touch the card number, which is exactly what you want — it keeps PCI scope off your servers — but it also means the integration is all about getting the handoff and the return *exactly* right." },
+    { "type": "p", "text": "The two details that matter most are the hash and the return. WiPay expects a signature on the request — an MD5 of the transaction reference, the original total, and your API key — and it will reject anything where that hash doesn't line up with the amount. Get the order of those fields wrong and you get a silent failure that looks like a config problem for an hour. The return URL is the other half: WiPay sends the customer back with a status, and your server has to read that status and update the order, not just trust that the customer landed on a 'thank you' page." },
+    { "type": "code", "lang": "typescript", "code": "import { createHash } from \"crypto\";\n\n// WiPay hosted-page signature: md5(transaction + originalTotal + apiKey)\n// field order matters — a mismatch reads as a generic rejection\nfunction wipayHash(txRef: string, originalTotal: string, apiKey: string) {\n  return createHash(\"md5\")\n    .update(`${txRef}${originalTotal}${apiKey}`)\n    .digest(\"hex\");\n}\n\n// the total sent to WiPay is the one the hash was built from — they must agree\nconst total = order.subtotal.toFixed(2);\nconst hash = wipayHash(order.txRef, total, process.env.WIPAY_API_KEY!);" },
+    { "type": "callout", "variant": "warn", "title": "Sandbox is close, not identical", "text": "WiPay's sandbox (test card 1234567890, '123') proves the wiring but not the launch. The hosted form and the sandbox ACS step behave a little differently from production, and the effective fee — roughly 4.83% — is real money on live keys. Run a genuine transaction on the production domain before you call payments done." },
+    { "type": "p", "text": "Card-only would have been a mistake for this market. Plenty of Mover Guy customers pay by bank transfer or cash on pickup, and a store that forces a card field loses those orders silently. So checkout offers three payment methods — WiPay card, bank transfer, and cash — and the order is recorded the same way regardless. The card path is the convenient default, not the only door." },
+    { "type": "p", "text": "On the testing discipline, we hold the same rule we apply to every launch: test the failure path harder than the success path. A declined card has to show a clear message and *not* leave a phantom paid order in the database. A closed tab mid-payment has to resolve to a known state. The happy path almost always works; the launches that break, break on the declines and the abandons. That principle is baked into our [zero-to-live launch playbook](/blog/platform-launch-playbook-zero-to-live) for exactly this reason." },
+    { "type": "figure", "motif": "pulse", "caption": "Fig 1 — the store request lifecycle: cart to checkout, hashed handoff to WiPay's hosted page, return status reconciled against the order record." },
+    { "type": "h2", "text": "The back office: where an order stops being a mystery" },
+    { "type": "p", "text": "A storefront that takes money but gives staff nowhere to see the orders is half a product. The `/admin/store` side shipped alongside the customer store: orders, products, settings, and a guide. Staff can see what was bought, by whom, which fulfillment method it needs, and how it was paid — bank transfer and cash orders sit in the same queue as card orders, just flagged by method." },
+    { "type": "p", "text": "Products and pricing are editable from the admin, not hardcoded. That matters because packing supplies are exactly the kind of catalog that changes — a price moves, a product goes out of stock, a bulk tier gets adjusted for a season. Putting that behind an admin screen instead of a code deploy means the operator runs their own store without us in the loop. Self-serve, on both sides of the counter." },
+    { "type": "ol", "items": [
+      "Customer adds packing supplies to a cart; bulk tiers price each line by quantity.",
+      "Checkout collects contact details and a fulfillment choice — pickup, MoBay, or Knutsford.",
+      "Customer picks a payment method; card payments hand off to WiPay's hosted page.",
+      "WiPay returns a status; the server reconciles it against the order, success or decline.",
+      "The order lands in `/admin/store` with its method and fulfillment attached, ready to pack."
+    ] },
+    { "type": "quote", "text": "An order you can't see in the back office isn't a sale — it's a liability with a receipt. The store isn't done until staff can act on it.", "cite": "Studio principle" },
+    { "type": "h2", "text": "Going live: branded mail, real money, and a clean launch" },
+    { "type": "p", "text": "Going live meant one more piece: transactional email that doesn't look like spam. We wired branded order mail from a real address on the platform's own domain through Resend, verified the sender so confirmations actually reach the inbox, and tested that a completed order sends proof to the customer and surfaces to the operator. A store without a confirmation email feels broken even when it works perfectly." },
+    { "type": "p", "text": "Then the discipline that turns a deploy into a launch: walk every path end to end on the production domain. A real card transaction that completes, records, and emails. A declined card that fails cleanly. A bank-transfer order that lands in the admin queue. A cash-on-pickup order with the right fulfillment flag. Sandbox proved the wiring; production proved the launch. Only after all of that did the store go public." },
+    { "type": "stat", "items": [
+      { "value": "26", "label": "products in the packing-supply catalog" },
+      { "value": "3", "label": "fulfillment options at checkout" },
+      { "value": "3", "label": "payment methods — card, transfer, cash" }
+    ] },
+    { "type": "p", "text": "The lesson that travels off this one: adding commerce to a service platform is not a payment-button problem, it is a second-transaction-model problem. Model it as its own slice — its own routes, its own tables, its own admin — reuse the database and auth you already have, take the local payment rail seriously, and test the unhappy paths hardest. Do that and the store feels native instead of bolted on. The Mover Guy store now sells boxes the same way the rest of the platform books moves: cleanly, on its own, without a human in the loop until there needs to be one." },
+    { "type": "divider" },
+    { "type": "callforward", "text": "Have a working platform that needs to start taking payments — locally, by card, without a rebuild? That's exactly the kind of bolt-on we ship. Bring us the build.", "cta": { "label": "Start a project", "href": "/contact" } }
+  ],
+  "faq": [
+    { "q": "How do you add card payments to an existing platform without rebuilding it?", "a": "Treat commerce as an additive module, not a refactor. We added new routes (a customer store and an admin store) and new tables in the same Supabase database the platform already used, reusing the existing auth. The store runs on its own transaction model alongside the original booking flow, so the live service side is never touched or risked." },
+    { "q": "What does a WiPay integration actually involve in Jamaica?", "a": "WiPay uses a hosted-payment-page model: you build a signed request — an MD5 hash of the transaction reference, original total, and your API key — hand the customer off to WiPay's page to enter card details, and reconcile the status they return against your order record. You never store card numbers. The two things to get exactly right are the hash field order and reading the return status server-side rather than trusting the customer's landing page." },
+    { "q": "Why offer bank transfer and cash if the store takes cards?", "a": "Because in this market plenty of customers pay by transfer or cash on pickup, and a card-only checkout loses those orders silently. The Mover Guy store offers WiPay card, bank transfer, and cash; every order is recorded the same way and lands in the same admin queue, just flagged by payment method. Card is the convenient default, not the only door." }
+  ],
+  "related": [
+    "platform-launch-playbook-zero-to-live",
+    "generative-mono-svg-cover-art-pipeline"
+  ]
+}

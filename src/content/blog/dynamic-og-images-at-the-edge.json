@@ -1,0 +1,74 @@
+{
+  "slug": "dynamic-og-images-at-the-edge",
+  "category": "tech",
+  "title": "Dynamic OG Images at the Edge: Per-Page Social Cards Without a Designer",
+  "deck": "Every page and article deserves its own on-brand share card. Here is how we generate one for each route at request time, rendered on Vercel, with no designer in the loop.",
+  "excerpt": "How to generate a unique, on-brand Open Graph image for every page in Next.js 16 — the image route, fonts, layout, and caching that keep cards fast.",
+  "author": "J Supreme Studio",
+  "authorRole": "Engineering",
+  "date": "2026-05-22",
+  "readMinutes": 9,
+  "kicker": "Engineering Notebook",
+  "tags": ["next.js", "open-graph", "edge", "seo", "typescript"],
+  "keywords": [
+    "dynamic OG images",
+    "Open Graph image generation",
+    "Next.js OG image route",
+    "social share cards",
+    "edge image rendering",
+    "Vercel image generation",
+    "automated social previews"
+  ],
+  "featured": false,
+  "motif": "circuit",
+  "blocks": [
+    { "type": "lead", "text": "A link is shared more often than it is read. The first thing anyone sees of your page is not the page — it is the card that unfurls in WhatsApp, in a group chat, in an X post. Most service sites ship one generic card for the whole site. We generate a unique one for every route, at request time, and never open a design tool to do it." },
+    { "type": "p", "text": "The Open Graph image is the rectangle that appears when a URL is pasted into Messenger, Slack, LinkedIn, iMessage, or an X post. Get it right and a shared link looks like a product. Get it wrong — or leave it blank — and your link looks like every other untitled blue rectangle on the internet. For a studio shipping [30+ platforms](/products), doing this by hand once per page was never going to happen. So we made it code." },
+    { "type": "h2", "text": "Why most service sites skip this — and lose" },
+    { "type": "p", "text": "The default failure mode is one static `og-image.png` set in the root layout. Every page — home, pricing, each blog post, each product — shares the same picture. The title in the card never matches the page. It works, technically. It just throws away the single most-seen pixel of your whole site." },
+    { "type": "ul", "items": [
+      "**It is the highest-traffic image you own** — seen by everyone who *considers* clicking, not just those who do.",
+      "**It is a free trust signal** — a card that names the actual article reads as a real publication, not a parked domain.",
+      "**It compounds** — every share, every repost, every link in a DM carries it for years.",
+      "**Nobody maintains it** — a designer-made card per page is a job nobody schedules, so it never ships."
+    ] },
+    { "type": "callout", "variant": "insight", "title": "The quiet conversion lever", "text": "A share card is the only marketing asset that travels *without you*. You are not in the chat where your link gets pasted. The card is. Treat it as the page's first sentence, not an afterthought." },
+    { "type": "h2", "text": "The image route in Next.js 16" },
+    { "type": "p", "text": "Next.js ships a primitive built exactly for this: a file convention that turns a route into an image. You drop an `opengraph-image.tsx` next to a page, export a component that returns JSX, and the framework renders it to a PNG using Satori — a library that turns a constrained subset of HTML and CSS into SVG, then rasterizes it. No headless browser, no canvas math. You write a div and you get a picture." },
+    { "type": "code", "lang": "tsx", "code": "// app/blog/[slug]/opengraph-image.tsx\nimport { ImageResponse } from 'next/og';\nimport { getPost } from '@/lib/blog';\n\nexport const size = { width: 1200, height: 630 };\nexport const contentType = 'image/png';\n\nexport default async function Image({ params }: { params: { slug: string } }) {\n  const post = await getPost(params.slug);\n  return new ImageResponse(\n    (\n      <div style={{\n        width: '100%', height: '100%', display: 'flex',\n        flexDirection: 'column', justifyContent: 'space-between',\n        padding: 64, background: '#0a0a0a', color: '#fafafa',\n      }}>\n        <div style={{ fontSize: 22, letterSpacing: 4, opacity: 0.6 }}>\n          {post.kicker?.toUpperCase()}\n        </div>\n        <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.05 }}>\n          {post.title}\n        </div>\n        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 24 }}>\n          <span>{post.author}</span>\n          <span>jsupremetech.online</span>\n        </div>\n      </div>\n    ),\n    { ...size }\n  );\n}" },
+    { "type": "p", "text": "That is the whole mechanism. The route reads the post, lays out a card with the *real* title and kicker, and returns it. Next.js wires the resulting URL into the page's `<meta property=\"og:image\">` automatically — you do not hand-write the meta tag. Paste the URL anywhere and the unfurl shows the right card." },
+    { "type": "callout", "variant": "warn", "title": "Satori is not a browser", "text": "Satori supports a subset of CSS. Flexbox works; CSS grid does not. Every element that has more than one child needs an explicit `display: flex`. No external `<img>` without a width and height. No `gap` in older versions. Build the card, render it once, and look at it — what works in your app will not all work here." },
+    { "type": "h2", "text": "Fonts and layout you actually control" },
+    { "type": "p", "text": "System fonts make every card look like a system. Our identity is [pure black-and-white minimalism](/market) — Space Grotesk for display, JetBrains Mono for the eyebrow. To get those into the card you load the font file as an ArrayBuffer and hand it to `ImageResponse`. The font is fetched once, cached, and reused for every render." },
+    { "type": "code", "lang": "tsx", "code": "// load the brand font once, pass it to every card\nconst display = await fetch(\n  new URL('./SpaceGrotesk-Bold.ttf', import.meta.url)\n).then((r) => r.arrayBuffer());\n\nreturn new ImageResponse(<Card post={post} />, {\n  ...size,\n  fonts: [{ name: 'Space Grotesk', data: display, weight: 700, style: 'normal' }],\n});" },
+    { "type": "p", "text": "With the font in hand, the layout is just a constrained flex column: an eyebrow at the top, the title filling the middle, a byline and domain pinned to the bottom. One template, driven by data. Swap the title and the byline and you have a different card — same grid, same ink, same monogram in the corner. That is the trick that lets one file serve an entire publication and every product page." },
+    { "type": "figure", "motif": "grid", "caption": "Fig 1 — one template, many cards: kicker, title, and byline are slots; the mono grid and ink scale never move" },
+    { "type": "h3", "text": "Truncation is a real design decision" },
+    { "type": "p", "text": "Titles vary in length and Satori will not auto-shrink text to fit. Decide up front: clamp the title to a fixed number of lines with `WebkitLineClamp`, or scale the font size by title length. We clamp to three lines and accept that a very long headline loses its tail — better a clean card than an overflowing one. The title in the JSON is written to fit, which keeps the system honest at authoring time." },
+    { "type": "h2", "text": "Caching so cards stay fast" },
+    { "type": "p", "text": "Generating an image per request sounds expensive. It is not, because you only generate it the *first* time. Open Graph images are immutable for a given page version, so they cache beautifully. On Vercel, the rendered PNG sits in the edge cache and serves instantly on every subsequent unfurl. The render only re-runs when the content changes or the cache expires." },
+    { "type": "code", "lang": "ts", "code": "// the route is statically rendered at build for known slugs;\n// generateStaticParams pre-bakes every post's card\nexport async function generateStaticParams() {\n  const posts = await getAllPosts();\n  return posts.map((p) => ({ slug: p.slug }));\n}\n\n// for dynamic pages, cache the response at the edge\nexport const revalidate = 86400; // re-render at most once a day" },
+    { "type": "callout", "variant": "info", "title": "Edge vs node runtime", "text": "`ImageResponse` runs on Vercel's edge and on the Node runtime. Edge gives the lowest cold-start latency for on-demand cards; static generation skips the runtime entirely for known routes. We pre-bake every blog and product card at build, and let truly dynamic routes render on demand and cache." },
+    { "type": "p", "text": "The result: the crawler that fetches your card — Facebook's scraper, Slack's unfurler, X's bot — gets a cached PNG in well under a second. No browser spins up. No queue. The first visitor pays the render cost once; everyone after gets the cache." },
+    { "type": "stat", "items": [
+      { "value": "1200x630", "label": "card dimensions" },
+      { "value": "1", "label": "template file" },
+      { "value": "30+", "label": "platforms, one system" }
+    ] },
+    { "type": "h2", "text": "One template, the whole studio" },
+    { "type": "p", "text": "This is where it ties back to how we build. The same monochrome OG template that renders cards for The Signal renders them for every platform we ship — BP Couriers, The Mover Guy, Unique Solid Surfaces, NEXPRO. Each gets its own per-page cards in its own brand pack, driven by the same routine. Set the ink scale and the wordmark once per project; every page inherits a correct card for free. It is the same one-engine-many-packs idea behind [Supreme Suite](/blog/supreme-suite-pack-architecture-multitenant), applied to the share card." },
+    { "type": "quote", "text": "If the card is just markup, the most consistent design system is the one that renders it — not the one that draws it by hand.", "cite": "Studio principle" },
+    { "type": "p", "text": "A designer making one card is a nice afternoon. A designer making a card for every page of 30+ platforms is a job that never ends and therefore never starts. Code does it on every deploy, for free, forever — and it never drifts from the brand, because the brand *is* the template." },
+    { "type": "divider" },
+    { "type": "callforward", "text": "Want every page of your site to share like a product instead of a blank rectangle?", "cta": { "label": "Start a project", "href": "/contact" } }
+  ],
+  "faq": [
+    { "q": "Do I need a separate design tool for OG images?", "a": "No. The whole point of the image route is that the card is a React component rendered to PNG at request time. You write a layout once with your brand fonts and colors, and every page gets a correct card automatically — no Figma, no Photoshop, no per-page export." },
+    { "q": "Will generating an image per page slow my site down?", "a": "No, because the image is cached. The PNG is immutable for a given page version, so it renders once and serves from the edge cache after that. Known routes are pre-baked at build, so most cards never render on demand at all." },
+    { "q": "Why not just use one static OG image for the whole site?", "a": "Because the card is the most-seen pixel you own — everyone who considers clicking sees it, not just those who click. A card that names the actual page reads as a real product. A generic one reads as a parked domain. It is a free conversion lever most sites leave on the table." }
+  ],
+  "related": [
+    "generative-mono-svg-cover-art-pipeline",
+    "supreme-suite-pack-architecture-multitenant"
+  ]
+}

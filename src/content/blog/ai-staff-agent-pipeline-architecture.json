@@ -1,0 +1,87 @@
+{
+  "slug": "ai-staff-agent-pipeline-architecture",
+  "category": "automation",
+  "title": "Shipping AI Staff: The Agent Pipeline Inside Every Supreme Suite Product",
+  "deck": "How we design, wire, and ship AI staff and voice agents that do real work inside client platforms instead of acting as chat toys.",
+  "excerpt": "Inside the AI agent pipeline behind Supreme Suite: scoped roles, tool access, guardrails, and a chatbot-plus-voice layer wired to real workflows.",
+  "author": "Jordan Morris",
+  "authorRole": "Founder & CEO",
+  "date": "2026-05-29",
+  "readMinutes": 10,
+  "kicker": "Engineering Notebook",
+  "tags": ["ai-agents", "automation", "voice-agents", "guardrails", "production-ai"],
+  "keywords": [
+    "AI agent pipeline",
+    "AI staff for business",
+    "AI voice agent integration",
+    "embedding AI agents in apps",
+    "agent guardrails",
+    "AI chatbot for SaaS",
+    "production AI agents"
+  ],
+  "featured": false,
+  "motif": "nodes",
+  "blocks": [
+    { "type": "lead", "text": "Most \"AI staff\" you'll see demoed is a chat box bolted onto a marketing site that can answer questions and do absolutely nothing. It can't check a calendar, can't take a booking, can't read an order, can't escalate. It's a parrot in a nice font. Every Supreme Suite product ships with AI staff too — but ours are wired into the same booking, records, and support flows a human employee would use. This is how we draw the line between an agent that *works* and demo-ware, and the pipeline we run to get there every time." },
+    { "type": "p", "text": "The promise on [Supreme Suite](/products) is that a business owner picks a vertical, brands it, and goes live in minutes with a CRM, a website, *and* AI staff. That last part is the one most studios fake. A chatbot that only talks is easy. An agent that can quote a delivery, book it, and tell a customer where their package is — without inventing a price or leaking another tenant's data — is an engineering problem, not a prompt. We treat it as one." },
+    { "type": "h2", "text": "Useful agents vs. demo-ware" },
+    { "type": "p", "text": "The difference between a useful agent and a toy is not how well it writes. It's whether it can *act*, and whether its actions are real. A demo agent answers \"what are your hours?\" by reading the page it's embedded on. A working agent answers \"can you pick up from Half Way Tree at 4pm?\" by checking actual driver availability, returning a real quote, and offering to book it. One is a search box with manners. The other is staff." },
+    { "type": "p", "text": "So before any agent ships, it has to pass a simple test: *can it complete a real workflow end to end, using the same data and the same actions a human would?* If the answer is no — if all it can do is talk — it doesn't go out. That single rule kills most of what passes for AI features elsewhere, and it's the reason the agents inside our courier, salon, restaurant, and tours packs feel like employees instead of widgets." },
+    { "type": "callout", "variant": "insight", "title": "The one-line test", "text": "If your agent can describe the action but can't perform it, you didn't ship an agent — you shipped an FAQ that talks back. Useful agents are defined by their tools, not their prose. The writing is the cheap part." },
+    { "type": "h2", "text": "Scoped roles, not a generalist genius" },
+    { "type": "p", "text": "We don't ship one all-knowing assistant. We ship a *role*. Each vertical's AI staff member has a job title, a narrow domain, and a fixed set of things it is allowed to do — exactly like hiring for a position instead of cloning a polymath. The courier pack ships a dispatch coordinator. The salon pack ships a front-desk booking assistant. The restaurant pack ships an order-and-reservations host. None of them pretends to be everything." },
+    { "type": "p", "text": "Scoping is what makes an agent reliable. A narrow role has a small, knowable surface: a handful of tools, a defined knowledge base, and a clear boundary where it should hand off to a human. The more you widen an agent's job, the more ways it has to be confidently wrong. We'd rather ship a dispatch coordinator that nails dispatch than a 'business assistant' that's vaguely mediocre at twelve things and dangerous at one." },
+    { "type": "code", "lang": "typescript", "code": "// A role is declared in the pack — data, not a sprawling prompt.\nexport const dispatchStaff: StaffRole = {\n  name: \"Dispatch\",\n  title: \"dispatch coordinator\",\n  // The narrow domain it speaks for. Nothing outside this is its job.\n  knows: [\"delivery zones\", \"rate cards\", \"driver availability\"],\n  // The ONLY actions it can take. No tool here = it physically cannot.\n  tools: [\"quote\", \"book\", \"track\"],\n  // Where it stops and a human takes over.\n  handoff: {\n    on: [\"refund\", \"complaint\", \"damaged_parcel\", \"anything off-script\"],\n    to: \"human_support\",\n  },\n};" },
+    { "type": "p", "text": "Because the role lives in the pack — the same per-vertical config file described in [the pack architecture piece](/blog/supreme-suite-pack-architecture-multitenant) — a new agent is a new declaration, not new agent code. The runtime that turns a role into a working agent is shared. Thirteen verticals, thirteen roles, one pipeline underneath." },
+    { "type": "h2", "text": "Tool access is the whole job" },
+    { "type": "p", "text": "An agent is only as capable as the tools you hand it, and only as safe as the tools you withhold. Tools are how an agent touches the real system — every one is a typed function the model can call: `check_availability`, `quote`, `book`, `track_order`, `create_ticket`. The model decides *whether* and *with what arguments* to call them; the tool itself does the actual work against Supabase, the booking engine, or the records table. The model never touches the database directly. It asks; the tool answers." },
+    { "type": "p", "text": "This is also where security lives. An agent cannot do anything it has no tool for — there is no tool for \"delete all records\" or \"read another tenant's orders,\" so no amount of clever prompting gets there. And every tool runs under the same tenant isolation as the rest of the platform: the agent inherits the caller's tenant, and Row Level Security in Postgres refuses anything outside it. A jailbroken prompt still hits a database that won't return another tenant's data." },
+    { "type": "code", "lang": "typescript", "code": "// A tool is a typed, validated function — the agent's only door to the system.\nexport const bookDelivery = defineTool({\n  name: \"book\",\n  description: \"Book a delivery after a quote is accepted.\",\n  input: z.object({\n    pickup: z.string(),\n    dropoff: z.string(),\n    weightKg: z.number().positive().max(50),\n    quoteId: z.string().uuid(), // must reference a real, prior quote\n  }),\n  async run(args, ctx) {\n    // ctx.tenantId is set from the resolved tenant — not from the model.\n    const quote = await db.quotes.get(args.quoteId, ctx.tenantId);\n    if (!quote) throw new ToolError(\"No matching quote. Quote first.\");\n    // The price comes from the quote record, never from the model.\n    return db.deliveries.create({ ...args, price: quote.price, tenantId: ctx.tenantId });\n  },\n});" },
+    { "type": "callout", "variant": "warn", "title": "Never let the model be the source of truth for money", "text": "A model will happily make up a price, a delivery window, or an order total if you let it. So we don't. Quotes come from rate-card logic, totals come from the order record, availability comes from the calendar. The agent's job is to gather inputs and call the tool; the tool computes the truth. The moment a number the customer relies on originates from the model, you've built a liability, not a feature." },
+    { "type": "h2", "text": "Guardrails: the boundary that keeps it honest" },
+    { "type": "p", "text": "Scoped roles and tool whitelists are most of the guardrail. The rest is explicit. Every agent runs inside a frame that constrains what it will say and do, independent of how the conversation goes. The big ones:" },
+    { "type": "ul", "items": [
+      "**Tool whitelist** — the agent can only call the tools its role declares. Capability it doesn't have, it can't be talked into. This is the strongest guardrail because it's structural, not a polite request in a prompt.",
+      "**Tenant isolation at the data layer** — every tool inherits the resolved tenant and runs under Postgres Row Level Security, so a manipulated prompt still can't read across tenants.",
+      "**Validated inputs** — tool arguments are schema-checked before anything executes, so a hallucinated 5,000 kg parcel or a malformed date is rejected at the door, not after a bad write.",
+      "**Source-of-truth for facts** — prices, availability, and order status come from records and rate logic, never from the model's imagination.",
+      "**Human handoff** — refunds, complaints, damage, and anything off-script route to a person. The agent knows the edge of its job and stops there instead of improvising.",
+      "**Scoped knowledge** — the agent answers from the vertical's declared knowledge base, and is instructed to say it doesn't know rather than invent an answer outside it."
+    ] },
+    { "type": "p", "text": "None of these are clever. That's the point. Guardrails that depend on the model behaving are not guardrails — they're hopes. The ones that hold are the structural ones: a tool that doesn't exist, a database that won't return the row, a validator that rejects the argument. Prompt instructions help with tone and refusals, but we never make them the only thing standing between a customer and a wrong price." },
+    { "type": "quote", "text": "Don't ask the model to be trustworthy. Build a system where it can't do the untrustworthy thing in the first place.", "cite": "Studio principle" },
+    { "type": "h2", "text": "The chatbot-plus-voice layer" },
+    { "type": "p", "text": "Every Supreme Suite vertical ships the AI staff member in two surfaces: a text chatbot embedded in the platform, and a voice agent. Critically, they are *not* two agents. They're one role — same tools, same guardrails, same knowledge — wired to two interfaces. The brain is shared; only the ears and mouth change. A booking made by voice and a booking made by text hit the identical `book` tool and produce the identical record." },
+    { "type": "p", "text": "We already run real per-persona voices in production. On [The Language Cradle](/market) course portal, each tutor has its own ElevenLabs voice so a learner hears a consistent character across lessons. That same voice-casting layer is what makes a Supreme Suite voice agent feel like a specific front-desk person rather than a generic robot — the persona declared in the pack drives both what it says and how it sounds." },
+    { "type": "figure", "motif": "nodes", "caption": "Fig 1 — one role at the center; chatbot and voice as two interface nodes feeding the same tool layer. Both surfaces resolve to identical actions and the same guardrails — the interface changes, the behavior doesn't." },
+    { "type": "p", "text": "Keeping it one brain is a deliberate maintenance decision, the same instinct behind one engine for thirteen verticals. Two separate agents would drift: the voice one would learn a tool the chat one didn't, a guardrail would get tightened in one place and not the other, and within a month they'd behave differently for the same request. One role behind both surfaces means a fix to the agent fixes it everywhere, and a customer gets the same answer no matter how they ask." },
+    { "type": "h2", "text": "How we ship one, every time" },
+    { "type": "p", "text": "The pipeline is the same for every agent we put into a client platform, whether it's a Supreme Suite vertical or a one-off build. It's boring on purpose — boring is what's repeatable." },
+    { "type": "ol", "items": [
+      "**Name the role.** A job title and a one-line domain. 'Dispatch coordinator,' not 'AI assistant.' If we can't say it in a sentence, the scope is wrong.",
+      "**List the workflows.** The concrete jobs it must complete end to end — quote, book, track. This is the spec, and the agent fails review if it can't finish one of them.",
+      "**Build the tools.** Each workflow becomes typed, validated tools that do real work against the platform under tenant isolation. This is most of the engineering.",
+      "**Set the guardrails.** Tool whitelist, input schemas, source-of-truth facts, handoff triggers, scoped knowledge. Structural first, prompt second.",
+      "**Wire both surfaces.** Connect the role to the chatbot and the voice layer. One brain, two interfaces, identical behavior.",
+      "**Test against the workflows.** Drive the real jobs, try to make it lie or cross a boundary, confirm it hands off when it should. If it completes the workflows and refuses the traps, it ships."
+    ] },
+    { "type": "callout", "variant": "info", "title": "The tools are the work", "text": "Notice where the effort sits: writing the prompt is one of six steps and the smallest. Building real, validated, tenant-safe tools is the bulk of it. That ratio is how you tell a studio that ships working agents from one that ships chat boxes — the working ones spend their time on plumbing, not personality." },
+    { "type": "p", "text": "This is the same thesis that runs through everything we build: AI that does real work inside real systems, not a feature you bolt on for the screenshot. The agent is only as good as the platform it's wired into — which is why we build the platform first and the personality last." },
+    { "type": "stat", "items": [
+      { "value": "1", "label": "role, two surfaces" },
+      { "value": "30+", "label": "platforms shipped" },
+      { "value": "0", "label": "agents that only talk" }
+    ] },
+    { "type": "divider" },
+    { "type": "callforward", "text": "Want AI staff that actually books, quotes, and resolves inside your platform — not a chat box that just talks? That's what we build into every product we ship.", "cta": { "label": "Start a project", "href": "/contact" } }
+  ],
+  "faq": [
+    { "q": "What's the difference between AI staff and a normal chatbot?", "a": "A normal chatbot answers questions. AI staff complete workflows. The agents we ship inside Supreme Suite have typed tools that take real actions — checking availability, quoting, booking, tracking orders, creating support tickets — against the live platform, under the same tenant isolation as everything else. If an agent can only talk and can't act, we don't ship it. The test is whether it can finish a real job end to end the way a human employee would." },
+    { "q": "How do you stop an AI agent from doing something harmful or wrong?", "a": "Mostly structurally, not with prompt instructions. An agent can only call the tools its role declares, so it physically can't perform an action it has no tool for. Tool inputs are schema-validated before anything runs. Facts that matter — prices, availability, order status — come from records and rate logic, never from the model. Every tool runs under Postgres Row Level Security, so even a jailbroken prompt can't read another tenant's data. And refunds, complaints, and off-script requests route to a human. We build a system where the untrustworthy action isn't possible, rather than asking the model to behave." },
+    { "q": "Is the voice agent a separate system from the chatbot?", "a": "No. The chatbot and the voice agent are the same role — same tools, same guardrails, same knowledge — wired to two different interfaces. A booking made by voice and one made by text call the identical tool and produce the identical record. Keeping it one brain means a fix reaches both surfaces at once and a customer gets the same answer however they ask. The persona declared in the pack drives both the wording and, via our voice-casting layer, how the voice sounds." }
+  ],
+  "related": [
+    "supreme-suite-pack-architecture-multitenant",
+    "how-we-build-the-studio-operating-system"
+  ]
+}

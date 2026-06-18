@@ -1,0 +1,93 @@
+{
+  "slug": "platform-launch-playbook-zero-to-live",
+  "category": "marketing",
+  "title": "The Launch Playbook: Taking a Platform From Zero to Live and Found",
+  "deck": "The repeatable sequence we run to launch a new web platform so it ships, gets indexed, and starts converting — not a launch day, a launch system.",
+  "excerpt": "A step-by-step website launch playbook: domain and DNS, analytics, legal, OG metadata, payments, and a go-live readiness checklist that ships every time.",
+  "author": "Jordan Morris",
+  "authorRole": "Founder & CEO",
+  "date": "2026-05-28",
+  "readMinutes": 10,
+  "kicker": "Growth Notebook",
+  "tags": ["launch", "seo", "dns", "checklist", "go-live"],
+  "keywords": [
+    "product launch checklist",
+    "website launch playbook",
+    "go live checklist",
+    "launch readiness audit",
+    "DNS and domain launch",
+    "pre-launch SEO checklist",
+    "platform launch process"
+  ],
+  "featured": false,
+  "motif": "wave",
+  "blocks": [
+    { "type": "lead", "text": "A launch is not the day you press deploy. It is the moment a stranger can find your platform, trust it, and pay you on it — without a human in the loop. Treat that as an event and you will forget half of it. Treat it as a system and it ships the same way every time. After 30+ platforms across the Caribbean and beyond, this is the sequence we actually run." },
+    { "type": "p", "text": "This playbook is the boring, load-bearing part of going live: domain and DNS, analytics, legal pages, OG and metadata, payment wiring, and a final readiness audit. None of it is glamorous. All of it is the difference between *deployed* and *launched*. A site that is deployed exists. A site that is launched gets found, builds trust, and converts. **Systems That Work. Growth That Lasts.** starts here, at the unglamorous checklist." },
+    { "type": "callout", "variant": "insight", "title": "Deployed is not launched", "text": "Deployed means the build succeeded and a URL responds. Launched means a person who has never heard of you can find it on a real domain, see a proper social card, read your terms, and complete a payment. The gap between those two states is this playbook." },
+    { "type": "h2", "text": "Stage one: domain and DNS, the foundation nobody photographs" },
+    { "type": "p", "text": "Everything downstream depends on the domain resolving correctly, so it goes first. The Vercel-default URL is fine for preview, but no real business launches on a `.vercel.app` subdomain — it costs you trust and it costs you SEO. The job here is to point a real domain at the deployment and let it propagate *before* you start telling people to look." },
+    { "type": "p", "text": "Our standard pattern is an apex `A` record plus a `www` `CNAME`, then let the host issue TLS automatically. The exact targets depend on your registrar and host, but the shape is always the same: apex to the host's anycast IP, `www` to the host's alias, then verify both halves actually resolve before you move on." },
+    { "type": "code", "lang": "text", "code": "Apex   @     A      <host-anycast-ip>\nWWW    www   CNAME  <project>.<host>.app\n\n# verify both halves resolve before you trust the domain\ndig +short yourdomain.com\ndig +short www.yourdomain.com\ncurl -sI https://yourdomain.com | head -n 1   # expect 200, on HTTPS" },
+    { "type": "p", "text": "Decide your canonical host — apex or `www` — and redirect the other one to it. Pick one and commit; split traffic across both dilutes your SEO signal and confuses analytics. We default to the apex, redirect `www` to it, and force HTTPS so there is exactly one address Google ever sees." },
+    { "type": "callout", "variant": "warn", "title": "Propagation is not instant", "text": "DNS changes can take minutes to hours to fully propagate, and registrars love to cache. Do the DNS cutover the day *before* the public push, not the hour of. A launch announcement that lands on a half-propagated domain is a launch you have to apologize for." },
+    { "type": "p", "text": "For platforms that need branded email — order confirmations, password resets, receipts — wire the mail records in the same sitting. Sender verification (SPF, DKIM) takes its own propagation time, and you do not want your first transactional email landing in spam on launch day. Domain, web records, and mail records: one DNS session, done together." },
+    { "type": "h2", "text": "Stage two: make it findable — metadata, OG, and the pre-launch SEO checklist" },
+    { "type": "p", "text": "A platform that cannot be found does not exist. This stage is where most builds quietly fail: the engineering works, but the site ships with a default title, no description, a broken social preview, and no way for a search engine to crawl it. Found-ness is a checklist, and it is short enough that there is no excuse to skip it." },
+    { "type": "ul", "items": [
+      "**Titles and descriptions** — every route has a unique, specific `<title>` and meta description. Not 'Home'. Not the framework default.",
+      "**Canonical URLs** — one canonical per page, pointing at your chosen host, so duplicate paths do not split ranking.",
+      "**robots.txt and sitemap.xml** — crawlers allowed in production, blocked on preview; a real sitemap submitted to Search Console.",
+      "**Open Graph and Twitter cards** — a per-page OG image, title, and description so a pasted link looks intentional, not broken.",
+      "**Structured data** — `Organization` and `LocalBusiness` schema where it applies; service businesses get the most lift here.",
+      "**Favicon and app icons** — the small stuff that signals 'this is finished' in a browser tab and on a home screen."
+    ] },
+    { "type": "p", "text": "The OG card deserves its own mention because it is the single most-pasted artifact you own. Every time someone drops your link in WhatsApp, a Slack, or an Instagram DM, the card *is* your first impression. We generate per-page social cards at the edge so every route has its own image without a designer touching it — the full mechanism is in [Dynamic OG Images at the Edge](/blog/dynamic-og-images-at-the-edge). Build the card system once and every page inherits it." },
+    { "type": "figure", "motif": "wave", "caption": "Fig 1 — the same link, pasted twice: a default preview that looks broken, and a per-page OG card that looks shipped." },
+    { "type": "callout", "variant": "info", "title": "Block the preview, not the launch", "text": "The most common SEO own-goal we see is a `noindex` left on from staging — or worse, the preview deployment getting indexed instead of production. Gate indexing on the environment: production is crawlable, every preview URL is `noindex`. Check it on the live domain before you announce, not after." },
+    { "type": "p", "text": "If the platform is a service business that will never publish a blog, the on-page metadata *is* the SEO strategy — there is no content flywheel to lean on. That case is its own discipline, and we wrote it up separately in [SEO for service businesses that don't blog](/blog/seo-for-service-businesses-that-dont-blog). The short version: nail the metadata, the schema, and the local signals, because that is the whole game." },
+    { "type": "h2", "text": "Stage three: analytics, legal, and trust before traffic arrives" },
+    { "type": "p", "text": "You cannot improve what you cannot measure, and you do not get a second chance at the first thousand visitors. Analytics goes live *before* the announcement, not after, so launch-day traffic is captured instead of lost. We keep it lightweight — page-level analytics and Search Console wired from day one — and we resist the urge to bolt on five tracking scripts that slow the first paint." },
+    { "type": "p", "text": "Legal pages are the trust half of this stage, and skipping them is a quiet liability. A real platform needs a privacy policy and terms of service, and anything taking payments needs a refund or cancellation policy that matches what the checkout actually does. These are not decoration — payment processors and app stores check for them, and customers read them more than you think." },
+    { "type": "ol", "items": [
+      "Privacy policy — what you collect, why, and how someone deletes it.",
+      "Terms of service — the rules of using the platform, written in plain language.",
+      "Refund / cancellation policy — only what the product actually honors; do not promise a flow you have not built.",
+      "Contact route — a real, monitored way to reach a human, linked from the footer of every page."
+    ] },
+    { "type": "quote", "text": "Trust is infrastructure. A missing privacy link costs you a sale the same way a 500 error does — you just never see it happen.", "cite": "Studio principle" },
+    { "type": "p", "text": "The trust signals compound. A live analytics setup tells you the truth on launch day. Real legal pages and a monitored contact route tell the visitor you are a real operation, not a weekend project. Put both in place before the first wave of traffic, because the first wave is also the one judging hardest whether to hand you money." },
+    { "type": "h2", "text": "Stage four: payment wiring, tested with real money paths" },
+    { "type": "p", "text": "If the platform takes money, the checkout is the launch. Everything else is set dressing for the moment a customer pays. This is also the stage with the least tolerance for 'we'll fix it later' — a broken payment flow does not degrade gracefully, it just loses the sale silently and leaves no error in your logs." },
+    { "type": "p", "text": "Our default is WiPay for Jamaican card payments and Stripe for cards and international, depending on the market. Whatever the processor, the discipline is identical: build it, then walk every path end to end on the live domain before you trust it. Sandbox proves the wiring; a real transaction on production proves the launch." },
+    { "type": "ul", "items": [
+      "**Success path** — a real payment completes, the order is recorded, the confirmation email actually sends.",
+      "**Failure path** — a declined card shows a clear message and does not leave a phantom order in the database.",
+      "**Webhook / callback** — the processor's confirmation reaches your server and updates state, even if the user closes the tab.",
+      "**Receipt and record** — the customer gets proof, and the admin side sees the transaction. Both, or neither is trustworthy."
+    ] },
+    { "type": "p", "text": "We documented exactly this on a live build — wiring card payments into a real online store, every path tested before launch — in [the production log for The Mover Guy's store](/blog/production-log-mover-guy-store-card-payments). The lesson that travels: test the failure path harder than the success path. The happy path almost always works; the declined card, the closed tab, the duplicate submit are where launches break." },
+    { "type": "callout", "variant": "warn", "title": "Sandbox lies a little", "text": "Sandbox environments approximate production; they do not equal it. Live keys behave differently, real fees apply, and the hosted payment page can differ from the test one. Always run at least one genuine end-to-end transaction on the production domain before you call payments done." },
+    { "type": "h2", "text": "Stage five: the launch-readiness audit" },
+    { "type": "p", "text": "Last stage, and the one that turns a launch from a hope into a checklist. Before any platform goes public, it passes a readiness audit — the same audit, every time, run as a fleet-wide pass rather than from memory. Memory forgets the `noindex`. Memory forgets the OG card on the pricing page. The checklist does not." },
+    { "type": "code", "lang": "text", "code": "LAUNCH READINESS — pass every line before announce\n\n[ ] Domain resolves on apex + www, HTTPS forced, one canonical host\n[ ] TLS valid, no mixed-content warnings\n[ ] Mail records verified (SPF/DKIM) if sending transactional email\n[ ] Every route: unique title + meta description + canonical\n[ ] robots.txt allows prod, blocks preview; sitemap.xml submitted\n[ ] OG image renders on home, pricing, and a deep page\n[ ] Production is indexable; every preview URL is noindex\n[ ] Analytics live and recording; Search Console verified\n[ ] Privacy, Terms, Refund/Cancel pages live and linked in footer\n[ ] Contact route works and reaches a monitored inbox\n[ ] Payment success path: real transaction completes + email sends\n[ ] Payment failure path: clear error, no phantom order\n[ ] Webhooks/callbacks update state on closed-tab cases\n[ ] 404 and 500 pages branded, not framework defaults\n[ ] Mobile: real device check, not just a resized browser" },
+    { "type": "p", "text": "We run this as a standing process, not a one-off — when we did a nine-client launch audit, the audit itself caught indexing gaps, URL-resolution errors, and missing legal and analytics across the fleet, all fixable in one pass *because* the checklist is the same every time. That is the whole point: the system finds what the launch-day adrenaline misses." },
+    { "type": "stat", "items": [
+      { "value": "5", "label": "stages, run in order, every time" },
+      { "value": "30+", "label": "platforms shipped through this sequence" },
+      { "value": "1", "label": "checklist — the same one, no exceptions" }
+    ] },
+    { "type": "p", "text": "Frame launch as a system and three things happen. You stop forgetting the boring half. You ship faster, because the sequence is decided once instead of re-argued every project. And you launch *found* — a real domain, a clean social card, working payments, and analytics that tell you the truth — instead of merely deployed. If you want the bigger picture of how the studio turns repeatable work into leverage, that is [the studio operating system](/blog/how-we-build-the-studio-operating-system)." },
+    { "type": "divider" },
+    { "type": "callforward", "text": "Building a platform and want it to launch found, not just deployed? Bring us the project; the launch sequence is already running.", "cta": { "label": "Start a project", "href": "/contact" } }
+  ],
+  "faq": [
+    { "q": "What is the difference between deploying and launching a platform?", "a": "Deploying means the build succeeded and a URL responds. Launching means a stranger can find it on a real domain, sees a proper social card and metadata, can read your legal pages, and can complete a payment end to end. The launch playbook is the work that closes that gap — DNS, SEO metadata, analytics, legal, and payment wiring." },
+    { "q": "What belongs on a go-live readiness checklist?", "a": "At minimum: the domain resolving on a single canonical host over HTTPS, unique titles and descriptions plus a sitemap and correct robots rules, per-page OG images, production indexable while previews are noindex, analytics and Search Console live, privacy/terms/refund pages linked, payment success and failure paths tested on production, and branded 404/500 pages. Run the same checklist every time rather than from memory." },
+    { "q": "How early should DNS be configured before launch?", "a": "Do the DNS cutover the day before the public push, not the hour of. DNS and TLS take time to propagate, and mail sender verification (SPF/DKIM) has its own delay, so wiring domain, web records, and mail records in one session a day ahead means launch-day traffic and transactional email land on a fully resolved domain." }
+  ],
+  "related": [
+    "seo-for-service-businesses-that-dont-blog",
+    "dynamic-og-images-at-the-edge"
+  ]
+}

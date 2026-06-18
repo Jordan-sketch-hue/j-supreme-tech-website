@@ -1,0 +1,177 @@
+{
+  "slug": "built-to-last-longevity-in-software",
+  "category": "studio",
+  "title": "Built to last: longevity is an engineering decision, not an accident",
+  "deck": "The software that survives a decade wasn't lucky — it was built by people who treated longevity as a feature. The final part of the series on why old tech endures, and how to build the kind that does.",
+  "excerpt": "Why some software lasts decades and most doesn't — the Lindy effect, backward compatibility, boring technology and the design choices that make longevity a deliberate outcome rather than luck.",
+  "author": "Jordan Morris",
+  "authorRole": "Founder, J Supreme Tech",
+  "date": "2026-06-14",
+  "readMinutes": 6,
+  "kicker": "The Old Made New — Part 5",
+  "tags": [
+    "longevity",
+    "maintenance",
+    "strategy",
+    "principles",
+    "lindy"
+  ],
+  "keywords": [
+    "software longevity",
+    "building software that lasts",
+    "Lindy effect technology",
+    "backward compatibility strategy",
+    "boring technology longevity",
+    "J Supreme Tech engineering"
+  ],
+  "motif": "aperture",
+  "blocks": [
+    {
+      "type": "lead",
+      "text": "The technologies in this series didn't survive forty years by accident. Someone, at the start, made choices that let them keep running — and someone every year since refused to break them. Longevity is not luck. It is a decision you make on purpose, repeatedly."
+    },
+    {
+      "type": "p",
+      "text": "We've spent four posts on why old tech keeps winning: the [idea outlives the packaging](/blog/old-code-never-dies-pioneer-tech-returns), a [modern lens distributes it](/blog/the-modern-lens-distributing-pioneer-tech), [delivery keeps it relevant](/blog/delivery-is-the-feature-staying-relevant), and [old primitives let it scale](/blog/scaling-inside-the-code-primitives-that-scale). This last post is about the quality underneath all of it — the one that turns a clever build into a durable one. Longevity. And in this field, longevity is observed, measured and engineered."
+    },
+    {
+      "type": "h2",
+      "text": "The Lindy effect: age is information"
+    },
+    {
+      "type": "p",
+      "text": "For things that don't wear out — ideas, protocols, formats — every year survived is evidence of more years to come. A technology that has worked for forty years is a safer bet than one that launched last quarter, precisely *because* it is old. That is the Lindy effect, and it is the most underused signal in technology selection."
+    },
+    {
+      "type": "callout",
+      "variant": "insight",
+      "title": "How to read age",
+      "text": "A forty-year-old protocol hasn't failed to die — it has passed forty years of tests you'll never have to discover yourself. Its age is a free, exhaustive QA report. New tools have no such record; you are the QA."
+    },
+    {
+      "type": "h2",
+      "text": "Four choices that buy you a decade"
+    },
+    {
+      "type": "p",
+      "text": "When we build something we intend to outlast the trend cycle, these are the decisions that do the work. None are exciting. All of them compound."
+    },
+    {
+      "type": "h3",
+      "text": "1. Never break the contract"
+    },
+    {
+      "type": "p",
+      "text": "The reason old systems endure is a fanatical commitment to backward compatibility. The interface from a decade ago still works. You add, you deprecate slowly, you almost never remove. Every breaking change is a small act of telling your past users they don't matter — and durable software refuses to send that message."
+    },
+    {
+      "type": "code",
+      "lang": "ts",
+      "code": "// longevity is additive, not destructive\n// v1 still works in v3 — you extend, you don't replace\nfunction send(opts: { to: string; subject: string;\n  // added in v2, optional so v1 callers are untouched\n  replyTo?: string;\n  // added in v3, same rule\n  tags?: string[];\n}) { /* ... */ }"
+    },
+    {
+      "type": "h3",
+      "text": "2. Choose boring on purpose"
+    },
+    {
+      "type": "p",
+      "text": "Boring technology has a known failure surface. You know how it breaks, who has hit the bug before you, and what the fix is. Exciting technology hides its failure modes until you find them in production at 2 a.m. We spend our novelty budget on the product, never on the foundation."
+    },
+    {
+      "type": "h3",
+      "text": "3. Separate the durable core from the disposable shell"
+    },
+    {
+      "type": "p",
+      "text": "The longest-lived systems keep their business logic — the rules that are actually theirs — clean and independent of whatever framework is currently in fashion. Frameworks are shells; they get replaced. The core should not have to notice. Decoupling the two is the single most important longevity move in the whole stack."
+    },
+    {
+      "type": "h3",
+      "text": "4. Write it for the person who maintains it"
+    },
+    {
+      "type": "p",
+      "text": "Code is read far more than it is written, and maintained far longer than it is built. The studio that names things clearly, deletes dead code, and writes the comment explaining *why* is buying years of future velocity. Longevity is mostly a gift you leave for whoever opens the file next — often yourself."
+    },
+    {
+      "type": "stat",
+      "items": [
+        {
+          "value": "compat",
+          "label": "Never break the old contract"
+        },
+        {
+          "value": "boring",
+          "label": "Known failure surface beats novel"
+        },
+        {
+          "value": "core",
+          "label": "Durable logic, disposable shell"
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warn",
+      "title": "The longevity tax nobody budgets for",
+      "text": "The cost of longevity is paid up front and feels like slowness — writing the migration, keeping the old path alive, resisting the shiny rewrite. The cost of ignoring it is paid later, with interest, as the rewrite you swore you'd never need."
+    },
+    {
+      "type": "h2",
+      "text": "Longevity as a business strategy"
+    },
+    {
+      "type": "p",
+      "text": "This is not only an engineering value — it is how a small studio compounds. Software that lasts is software you build once and keep selling. Every system that keeps running is a system you are not rebuilding, which means your effort accumulates instead of resetting. A studio that ships durable things gets quietly, relentlessly more capable every year."
+    },
+    {
+      "type": "quote",
+      "text": "Build things that are still running when everyone has forgotten you built them. That is the whole game.",
+      "cite": "Jordan Morris"
+    },
+    {
+      "type": "h2",
+      "text": "Where the series lands"
+    },
+    {
+      "type": "p",
+      "text": "Old tech keeps coming back because the ideas were always sound; we just give them a modern lens, distribute them, deliver them well, scale them with proven primitives — and build them to last. None of that is nostalgia. It is the most practical way we know to build software that is still earning its keep long after the launch."
+    },
+    {
+      "type": "ol",
+      "items": [
+        "**[Part 1 — Old code never dies](/blog/old-code-never-dies-pioneer-tech-returns):** the idea outlives the packaging.",
+        "**[Part 2 — The modern lens](/blog/the-modern-lens-distributing-pioneer-tech):** distribute single-machine tech across the cloud.",
+        "**[Part 3 — Delivery is the feature](/blog/delivery-is-the-feature-staying-relevant):** modern delivery keeps old ideas relevant.",
+        "**[Part 4 — Scaling inside the code](/blog/scaling-inside-the-code-primitives-that-scale):** the old primitives that scale.",
+        "**Part 5 — this post:** longevity, engineered on purpose."
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "callforward",
+      "text": "We build systems designed to still be running in five years — durable cores, boring foundations, modern lenses. If that is the kind of software you want, let's talk.",
+      "cta": {
+        "label": "Start a project",
+        "href": "/contact"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "q": "Doesn't 'build to last' slow you down versus shipping fast?",
+      "a": "Only up front, and only a little. The choices that buy longevity — backward compatibility, boring foundations, a decoupled core — are cheap when made early and ruinous to retrofit later. Speed and durability conflict far less than the rewrite they prevent."
+    },
+    {
+      "q": "How do you decide what's worth making durable?",
+      "a": "The core business logic — the rules that are genuinely yours — always. The shell around it (frameworks, UI, delivery) can be disposable and modern, because it's expected to be replaced. Durable core, fashionable edge."
+    }
+  ],
+  "related": [
+    "old-code-never-dies-pioneer-tech-returns",
+    "scaling-inside-the-code-primitives-that-scale",
+    "the-modern-lens-distributing-pioneer-tech"
+  ]
+}

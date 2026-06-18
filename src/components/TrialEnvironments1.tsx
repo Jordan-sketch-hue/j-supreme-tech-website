@@ -1,357 +1,357 @@
-// Product-Specific Trial Environment Components
-// Each component provides a realistic, functional trial environment for its product
-
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Activity, Bell, Calendar, CheckCircle, ChevronDown, Clock, Cog, Database, Edit2, FileText, Filter, Folder, LayoutGrid, Lock, Mail, Pause, Play, Plus, Search, Server, Settings, ShieldCheck, TrendingUp, Users, Webhook, AlertCircle, BarChart3, Coins } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+  Activity,
+  AlertTriangle,
+  ArrowDownRight,
+  ArrowUpRight,
+  BarChart3,
+  Bell,
+  Calendar,
+  CheckCircle2,
+  Clock,
+  Coins,
+  Database,
+  DollarSign,
+  FileSearch,
+  Filter,
+  Folder,
+  Key,
+  LineChart,
+  Lock,
+  MapPin,
+  Percent,
+  Phone,
+  PieChart,
+  Plus,
+  Search,
+  Share2,
+  ShieldAlert,
+  ShieldCheck,
+  TrendingUp,
+  Users,
+  Zap,
+} from 'lucide-react';
 
 // ===== 1. AutoFlow Trial Component =====
-interface Workflow { id: string; name: string; status: 'active' | 'paused'; steps: number; successRate: number; }
-
 export function AutoFlowTrialEnvironment() {
-  const [workflows, setWorkflows] = useState<Workflow[]>([]);
-  const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
+  const [selectedWorkflow, setSelectedWorkflow] = useState<string>('Onboarding Automation');
   const [showNewWorkflow, setShowNewWorkflow] = useState(false);
 
-  useEffect(() => {
-    // Load demo data
-    setWorkflows([
-      { id: 'wf_001', name: 'Invoice Processing', status: 'active', steps: 5, successRate: 98.5 },
-      { id: 'wf_002', name: 'Email Campaign Trigger', status: 'active', steps: 3, successRate: 99.2 },
-      { id: 'wf_003', name: 'Data Sync to CRM', status: 'paused', steps: 7, successRate: 95.8 },
-    ]);
-  }, []);
+  const workflows = [
+    { id: 1, name: 'Onboarding Automation', status: 'active', steps: 12, successRate: 98.4 },
+    { id: 2, name: 'Invoice Reconciliation', status: 'active', steps: 7, successRate: 96.1 },
+    { id: 3, name: 'Customer Escalations', status: 'paused', steps: 9, successRate: 94.6 },
+    { id: 4, name: 'Quarterly Reporting', status: 'active', steps: 14, successRate: 99.1 },
+  ];
+
+  const workflowRuns = [
+    { id: 'run-1082', workflow: 'Onboarding Automation', status: 'success', startedAt: '08:12 AM', owner: 'Ops Team', duration: '4m 12s' },
+    { id: 'run-1081', workflow: 'Invoice Reconciliation', status: 'success', startedAt: '07:44 AM', owner: 'Finance', duration: '2m 41s' },
+    { id: 'run-1080', workflow: 'Customer Escalations', status: 'warning', startedAt: '07:05 AM', owner: 'Support', duration: '6m 03s' },
+  ];
+
+  const integrations = [
+    { name: 'Salesforce', status: 'healthy', latency: '210ms' },
+    { name: 'Slack', status: 'healthy', latency: '120ms' },
+    { name: 'Snowflake', status: 'healthy', latency: '320ms' },
+    { name: 'ServiceNow', status: 'degraded', latency: '640ms' },
+  ];
+
+  const approvals = [
+    { id: 'ap-401', workflow: 'Invoice Reconciliation', step: 'Policy exception', owner: 'Finance', time: '15 min ago' },
+    { id: 'ap-402', workflow: 'Customer Escalations', step: 'Priority override', owner: 'Support', time: '42 min ago' },
+  ];
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex items-center gap-3">
-          <Cog size={32} className="text-blue-600" />
-          <h2 className="text-2xl font-bold text-gray-900">AutoFlow - Workflow Automation</h2>
+          <div className="h-10 w-10 rounded-lg bg-blue-600 text-white flex items-center justify-center">
+            <Zap size={18} />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">AutoFlow - Workflow Command Center</h2>
+            <p className="text-sm text-gray-600">Real-time orchestration, approvals, and SLA tracking.</p>
+          </div>
         </div>
-        <button onClick={() => setShowNewWorkflow(true)} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2">
-          <Plus size={18} /> New Workflow
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-50 flex items-center gap-2">
+            <Bell size={16} /> Alerts
+          </button>
+          <button
+            onClick={() => setShowNewWorkflow(!showNewWorkflow)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+          >
+            <Plus size={18} /> New Workflow
+          </button>
+        </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-4 gap-4">
-        {[
-          { label: 'Total Workflows', value: '12' },
-          const workflowRuns = [
-            { id: 'run_901', workflow: 'Invoice Processing', status: 'success', duration: '2.34s', startedAt: '14:32', owner: 'Finance Ops' },
-            { id: 'run_900', workflow: 'Email Campaign Trigger', status: 'success', duration: '1.12s', startedAt: '11:15', owner: 'Growth' },
-            { id: 'run_899', workflow: 'Data Sync to CRM', status: 'warning', duration: '4.58s', startedAt: '09:00', owner: 'RevOps' },
-          ];
-
-          const integrations = [
-            { name: 'Salesforce', type: 'CRM', status: 'connected', icon: Users },
-            { name: 'Stripe', type: 'Payments', status: 'connected', icon: Database },
-            { name: 'SendGrid', type: 'Email', status: 'connected', icon: Mail },
-            { name: 'S3', type: 'Storage', status: 'connected', icon: Server },
-          ];
-
-          return (
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg shadow-lg p-6">
-              <div className="grid grid-cols-12 gap-6">
-                <aside className="col-span-12 lg:col-span-3 bg-white rounded-lg border border-gray-200 p-4">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="h-10 w-10 rounded-lg bg-blue-600 text-white flex items-center justify-center">
-                      <Cog size={20} />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-500">Workspace</p>
-                      <p className="font-semibold text-gray-900">AutoFlow</p>
-                    </div>
-                  </div>
-
-                  <nav className="space-y-2">
-                    {[
-                      { label: 'Overview', icon: LayoutGrid },
-                      { label: 'Workflows', icon: Folder },
-                      { label: 'Runs', icon: Activity },
-                      { label: 'Schedules', icon: Calendar },
-                      { label: 'Approvals', icon: CheckCircle },
-                      { label: 'Integrations', icon: Webhook },
-                      { label: 'Settings', icon: Settings },
-                    ].map((item) => (
-                      <button
-                        key={item.label}
-                        className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold ${
-                          item.label === 'Workflows'
-                            ? 'bg-blue-50 text-blue-700'
-                            : 'text-gray-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <item.icon size={16} />
-                        {item.label}
-                      </button>
-                    ))}
-                  </nav>
-
-                  <div className="mt-8 p-4 rounded-lg bg-blue-50 border border-blue-100">
-                    <div className="flex items-center gap-2 text-blue-700 font-semibold text-sm">
-                      <ShieldCheck size={16} />
-                      Compliance
-                    </div>
-                    <p className="text-xs text-blue-700 mt-2">SOC 2 ready workflows with audit logging enabled.</p>
-                  </div>
-                </aside>
-
-                <section className="col-span-12 lg:col-span-9 space-y-6">
-                  <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-blue-600 text-white flex items-center justify-center">
-                        <Cog size={20} />
-                      </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-gray-900">Workflow Operations</h2>
-                        <p className="text-sm text-gray-600">Production-grade automation with audit-ready runs.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-50 flex items-center gap-2">
-                        <Filter size={16} /> Filter
-                      </button>
-                      <button className="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-semibold hover:bg-gray-50 flex items-center gap-2">
-                        <Bell size={16} /> Alerts
-                      </button>
-                      <button
-                        onClick={() => setShowNewWorkflow(true)}
-                        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
-                      >
-                        <Plus size={18} /> New Workflow
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    {[
-                      { label: 'Active Workflows', value: '9', icon: Folder, trend: '3.2% MoM' },
-                      { label: 'Runs Today', value: '842', icon: Activity, trend: '98.6% success' },
-                      { label: 'Queue Latency', value: '1.8s', icon: Clock, trend: 'P95 2.6s' },
-                      { label: 'System Health', value: 'Stable', icon: ShieldCheck, trend: 'No incidents' },
-                    ].map((stat) => (
-                      <div key={stat.label} className="bg-white p-4 rounded-lg border border-gray-200">
-                        <div className="flex items-center justify-between">
-                          <p className="text-sm text-gray-500">{stat.label}</p>
-                          <stat.icon size={18} className="text-blue-600" />
-                        </div>
-                        <p className="text-2xl font-bold text-gray-900 mt-2">{stat.value}</p>
-                        <p className="text-xs text-gray-500 mt-1">{stat.trend}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="bg-white rounded-lg border border-gray-200">
-                    <div className="flex items-center justify-between p-4 border-b border-gray-200">
-                      <div>
-                        <h3 className="font-semibold text-gray-900">Workflow Registry</h3>
-                        <p className="text-sm text-gray-500">Managed workflows with ownership and SLAs.</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="relative">
-                          <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
-                          <input
-                            type="text"
-                            placeholder="Search workflows"
-                            className="pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm"
-                          />
-                        </div>
-                        <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50">
-                          Export
-                        </button>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-6 gap-4 p-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                      <div className="col-span-2">Workflow</div>
-                      <div>Status</div>
-                      <div>Owner</div>
-                      <div>Steps</div>
-                      <div>Success</div>
-                    </div>
-                    {workflows.map((wf) => (
-                      <button
-                        key={wf.id}
-                        onClick={() => setSelectedWorkflow(wf)}
-                        className={`grid grid-cols-6 gap-4 p-4 border-t border-gray-100 text-left items-center hover:bg-gray-50 ${
-                          selectedWorkflow?.id === wf.id ? 'bg-blue-50' : ''
-                        }`}
-                      >
-                        <div className="col-span-2">
-                          <p className="font-semibold text-gray-900">{wf.name}</p>
-                          <p className="text-xs text-gray-500">Last updated 2 hours ago</p>
-                        </div>
-                        <div>
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${wf.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700'}`}>
-                            {wf.status}
-                          </span>
-                        </div>
-                        <div className="text-sm text-gray-600">Operations</div>
-                        <div className="text-sm text-gray-600">{wf.steps}</div>
-                        <div className="text-sm font-semibold text-gray-900">{wf.successRate}%</div>
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div className="bg-white rounded-lg border border-gray-200 p-4">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-gray-900">Execution Feed</h3>
-                        <button className="text-sm text-blue-600 font-semibold">View all</button>
-                      </div>
-                      <div className="space-y-3">
-                        {workflowRuns.map((run) => (
-                          <div key={run.id} className="p-3 rounded-lg border border-gray-100 bg-gray-50">
-                            <div className="flex items-start justify-between">
-                              <div>
-                                <p className="font-semibold text-gray-900">{run.workflow}</p>
-                                <p className="text-xs text-gray-500">{run.startedAt} • Owner: {run.owner}</p>
-                              </div>
-                              <span className={`text-xs font-semibold px-2 py-1 rounded-full ${run.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
-                                {run.status}
-                              </span>
-                            </div>
-                            <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
-                              <Clock size={12} /> {run.duration}
-                              <span>Queue latency 320ms</span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="bg-white rounded-lg border border-gray-200 p-4">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-gray-900">Active Integrations</h3>
-                        <button className="text-sm text-blue-600 font-semibold">Manage</button>
-                      </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        {integrations.map((integration) => (
-                          <div key={integration.name} className="border border-gray-200 rounded-lg p-3">
-                            <div className="flex items-center justify-between">
-                              <integration.icon size={18} className="text-blue-600" />
-                              <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">
-                                {integration.status}
-                              </span>
-                            </div>
-                            <p className="font-semibold text-gray-900 mt-3">{integration.name}</p>
-                            <p className="text-xs text-gray-500">{integration.type}</p>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="mt-4 flex items-center justify-between rounded-lg bg-blue-50 px-3 py-2">
-                        <div className="flex items-center gap-2 text-sm text-blue-700">
-                          <Webhook size={14} />
-                          Webhook reliability: 99.98%
-                        </div>
-                        <button className="text-sm font-semibold text-blue-700">Configure</button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white rounded-lg border border-gray-200 p-4">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="font-semibold text-gray-900">Governance and Audit</h3>
-                        <p className="text-sm text-gray-500">Change control and approval history.</p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50">
-                          Review
-                        </button>
-                        <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50">
-                          Export logs
-                        </button>
-                      </div>
-                    </div>
-                    <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {[
-                        { label: 'Approval Queue', value: '4 pending', icon: FileText },
-                        { label: 'Policy Violations', value: '0 open', icon: ShieldCheck },
-                        { label: 'Change Requests', value: '12 this week', icon: TrendingUp },
-                      ].map((item) => (
-                        <div key={item.label} className="border border-gray-200 rounded-lg p-3">
-                          <div className="flex items-center justify-between">
-                            <p className="text-sm text-gray-500">{item.label}</p>
-                            <item.icon size={16} className="text-blue-600" />
-                          </div>
-                          <p className="text-xl font-bold text-gray-900 mt-2">{item.value}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </section>
-              </div>
+      {showNewWorkflow && (
+        <div className="mt-4 bg-white border border-blue-200 rounded-lg p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-semibold text-gray-900">Drafting new workflow</p>
+              <p className="text-sm text-gray-500">Select a template to get started.</p>
             </div>
-          );
-    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg shadow-lg p-6 space-y-6">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <Calendar size={32} className="text-purple-600" />
-          <h2 className="text-2xl font-bold text-gray-900">AppointmentPro - Scheduling</h2>
+            <button className="text-sm text-blue-700 font-semibold">Open Builder</button>
+          </div>
         </div>
-        <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center gap-2">
-          <Plus size={18} /> Book Appointment
-        </button>
-      </div>
+      )}
 
-      {/* Stats */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Today\'s Appointments', value: '8' },
-          { label: 'Completed', value: '6' },
-          { label: 'Total Clients', value: '247' },
-          { label: 'Avg Rating', value: '4.7★' },
+          { label: 'Active Workflows', value: '9', icon: Folder, trend: '3.2% MoM' },
+          { label: 'Runs Today', value: '842', icon: Activity, trend: '98.6% success' },
+          { label: 'Queue Latency', value: '1.8s', icon: Clock, trend: 'P95 2.6s' },
+          { label: 'System Health', value: 'Stable', icon: ShieldCheck, trend: 'No incidents' },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white p-4 rounded-lg border-l-4 border-purple-500">
-            <div className="text-sm text-gray-600">{stat.label}</div>
-            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+          <div key={stat.label} className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">{stat.label}</p>
+              <stat.icon size={18} className="text-blue-600" />
+            </div>
+            <p className="text-2xl font-bold text-gray-900 mt-2">{stat.value}</p>
+            <p className="text-xs text-gray-500 mt-1">{stat.trend}</p>
           </div>
         ))}
       </div>
 
-      {/* Calendar & Appointments */}
-      <div className="grid grid-cols-3 gap-6">
-        {/* Calendar */}
-        <div className="col-span-1 bg-white rounded-lg p-4 border border-gray-200">
-          <div className="font-semibold text-gray-900 mb-4">Calendar</div>
-          <div className="grid grid-cols-7 gap-1 text-center text-xs">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-              <div key={day} className="font-semibold text-gray-600 py-2">
-                {day}
+      <div className="bg-white rounded-lg border border-gray-200">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <div>
+            <h3 className="font-semibold text-gray-900">Workflow Registry</h3>
+            <p className="text-sm text-gray-500">Managed workflows with ownership and SLAs.</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <Search size={16} className="absolute left-3 top-2.5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search workflows"
+                className="pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm"
+              />
+            </div>
+            <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50">
+              Export
+            </button>
+          </div>
+        </div>
+        <div className="grid grid-cols-6 gap-4 p-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+          <div className="col-span-2">Workflow</div>
+          <div>Status</div>
+          <div>Owner</div>
+          <div>Steps</div>
+          <div>Success</div>
+        </div>
+        {workflows.map((workflow) => (
+          <button
+            key={workflow.id}
+            onClick={() => setSelectedWorkflow(workflow.name)}
+            className={`grid grid-cols-6 gap-4 p-4 border-t border-gray-100 text-left items-center hover:bg-gray-50 ${
+              selectedWorkflow === workflow.name ? 'bg-blue-50' : ''
+            }`}
+          >
+            <div className="col-span-2">
+              <p className="font-semibold text-gray-900">{workflow.name}</p>
+              <p className="text-xs text-gray-500">Last updated 2 hours ago</p>
+            </div>
+            <div>
+              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${workflow.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-700'}`}>
+                {workflow.status}
+              </span>
+            </div>
+            <div className="text-sm text-gray-600">Operations</div>
+            <div className="text-sm text-gray-600">{workflow.steps}</div>
+            <div className="text-sm font-semibold text-gray-900">{workflow.successRate}%</div>
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-lg border border-gray-200 p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-gray-900">Execution Feed</h3>
+            <button className="text-sm text-blue-600 font-semibold">View all</button>
+          </div>
+          <div className="space-y-3">
+            {workflowRuns.map((run) => (
+              <div key={run.id} className="p-3 rounded-lg border border-gray-100 bg-gray-50">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="font-semibold text-gray-900">{run.workflow}</p>
+                    <p className="text-xs text-gray-500">{run.startedAt} • Owner: {run.owner}</p>
+                  </div>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${run.status === 'success' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                    {run.status}
+                  </span>
+                </div>
+                <div className="mt-2 flex items-center gap-2 text-xs text-gray-500">
+                  <Clock size={12} /> {run.duration}
+                  <span>Queue latency 320ms</span>
+                </div>
               </div>
-            ))}
-            {Array.from({ length: 28 }).map((_, i) => (
-              <button
-                key={i}
-                className={`p-2 rounded text-sm ${i + 1 === 16 ? 'bg-purple-600 text-white font-bold' : 'hover:bg-purple-100'}`}
-              >
-                {i + 1}
-              </button>
             ))}
           </div>
         </div>
 
-        {/* Appointments for selected date */}
-        <div className="col-span-2 space-y-3">
-          {appointments.map((apt) => (
-            <div key={apt.id} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition">
-              <div className="flex justify-between items-start">
-                <div>
-                  <div className="font-bold text-gray-900">{apt.clientName}</div>
-                  <div className="text-sm text-gray-600">{apt.service}</div>
-                  <div className="text-sm text-gray-600 mt-1">
-                    {apt.time} • {apt.duration}
+        <div className="space-y-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-semibold text-gray-900">Integrations</h3>
+              <button className="text-sm text-blue-600 font-semibold">Manage</button>
+            </div>
+            <div className="space-y-3">
+              {integrations.map((integration) => (
+                <div key={integration.name} className="flex items-center justify-between border border-gray-100 rounded-lg p-3">
+                  <div>
+                    <p className="font-semibold text-gray-900">{integration.name}</p>
+                    <p className="text-xs text-gray-500">Latency {integration.latency}</p>
+                  </div>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${integration.status === 'healthy' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                    {integration.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Approvals Queue</h3>
+            <div className="space-y-3">
+              {approvals.map((approval) => (
+                <div key={approval.id} className="border border-gray-100 rounded-lg p-3">
+                  <p className="font-semibold text-gray-900">{approval.workflow}</p>
+                  <p className="text-xs text-gray-500">{approval.step}</p>
+                  <div className="flex items-center justify-between text-xs text-gray-500 mt-2">
+                    <span>{approval.owner}</span>
+                    <span>{approval.time}</span>
                   </div>
                 </div>
-                <div className={`px-3 py-1 rounded-full text-sm font-semibold ${apt.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                  {apt.status}
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ===== 2. AppointmentPro Trial Component =====
+export function AppointmentProTrialEnvironment() {
+  const appointments = [
+    { id: 1, client: 'Samira N.', time: '09:00 AM', service: 'Consultation', status: 'checked-in' },
+    { id: 2, client: 'Elijah R.', time: '10:30 AM', service: 'Follow-up', status: 'upcoming' },
+    { id: 3, client: 'Ava D.', time: '12:15 PM', service: 'Strategy Review', status: 'upcoming' },
+  ];
+
+  const staff = [
+    { name: 'Nina Patel', role: 'Senior Specialist', status: 'available' },
+    { name: 'Marcus Chen', role: 'Lead Consultant', status: 'with client' },
+    { name: 'Olivia Brooks', role: 'Operations', status: 'available' },
+  ];
+
+  return (
+    <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-lg shadow-lg p-6">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-lg bg-emerald-600 text-white flex items-center justify-center">
+            <Calendar size={18} />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">AppointmentPro - Scheduling Console</h2>
+            <p className="text-sm text-gray-600">Manage clients, staff availability, and service queues.</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <Phone size={16} /> Call Queue
+          </button>
+          <button className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 flex items-center gap-2">
+            <Plus size={18} /> New Booking
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[
+          { label: 'Today Appointments', value: '18', icon: Calendar, meta: '3 walk-ins' },
+          { label: 'Utilization', value: '86%', icon: Percent, meta: 'Target 80%' },
+          { label: 'Client NPS', value: '64', icon: Users, meta: 'Top quartile' },
+          { label: 'Avg Wait Time', value: '8 min', icon: Clock, meta: 'Goal 10 min' },
+        ].map((kpi) => (
+          <div key={kpi.label} className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">{kpi.label}</p>
+              <kpi.icon size={18} className="text-emerald-600" />
+            </div>
+            <p className="text-2xl font-bold text-gray-900 mt-2">{kpi.value}</p>
+            <p className="text-xs text-gray-500 mt-1">{kpi.meta}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div>
+              <h3 className="font-semibold text-gray-900">Today Schedule</h3>
+              <p className="text-sm text-gray-500">Main clinic floor • 3 providers on duty</p>
+            </div>
+            <button className="text-sm text-emerald-700 font-semibold">Open calendar</button>
+          </div>
+          <div className="divide-y">
+            {appointments.map((appointment) => (
+              <div key={appointment.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                <div>
+                  <p className="font-semibold text-gray-900">{appointment.client}</p>
+                  <p className="text-xs text-gray-500">{appointment.service}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-gray-900">{appointment.time}</p>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${appointment.status === 'checked-in' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                    {appointment.status}
+                  </span>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Provider Availability</h3>
+            <div className="space-y-3">
+              {staff.map((member) => (
+                <div key={member.name} className="border border-gray-100 rounded-lg p-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-semibold text-gray-900">{member.name}</p>
+                      <p className="text-xs text-gray-500">{member.role}</p>
+                    </div>
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${member.status === 'available' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                      {member.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Service Locations</h3>
+            <div className="space-y-3 text-sm text-gray-600">
+              <div className="flex items-center gap-2">
+                <MapPin size={16} className="text-emerald-600" /> Downtown Suite 410
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={16} className="text-emerald-600" /> Riverfront Annex
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={16} className="text-emerald-600" /> Virtual Consultations
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -360,81 +360,125 @@ export function AutoFlowTrialEnvironment() {
 
 // ===== 3. TradeBotElite Trial Component =====
 export function TradeBotEliteTrialEnvironment() {
-  const [portfolio] = useState({
-    totalValue: '$125,400.50',
-    dayChange: '+$2,340.25 (+1.87%)',
-    holdings: [
-      { symbol: 'AAPL', shares: 50, value: '$8,450', allocation: '6.7%', change: '+2.3%' },
-      { symbol: 'MSFT', shares: 35, value: '$12,880', allocation: '10.3%', change: '+1.8%' },
-      { symbol: 'TSLA', shares: 20, value: '$6,200', allocation: '4.9%', change: '-0.5%' },
-    ],
-  });
+  const strategies = [
+    { name: 'Momentum Macro', status: 'running', pnl: '+$12.4K', winRate: '62%' },
+    { name: 'Mean Reversion FX', status: 'running', pnl: '+$4.1K', winRate: '58%' },
+    { name: 'Equity Breakout', status: 'paused', pnl: '-$1.2K', winRate: '47%' },
+  ];
+
+  const positions = [
+    { symbol: 'AAPL', side: 'long', size: '420', pnl: '+$2,320', risk: 'low' },
+    { symbol: 'TSLA', side: 'short', size: '110', pnl: '-$640', risk: 'medium' },
+    { symbol: 'EURUSD', side: 'long', size: '2.1M', pnl: '+$1,040', risk: 'low' },
+  ];
 
   return (
-    <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg shadow-lg p-6 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg shadow-lg p-6">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex items-center gap-3">
-          <TrendingUp size={32} className="text-green-600" />
-          <h2 className="text-2xl font-bold text-gray-900">TradeBotElite - Trading</h2>
-        </div>
-        <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center gap-2">
-          <Plus size={18} /> Create Strategy
-        </button>
-      </div>
-
-      {/* Portfolio Stats */}
-      <div className="bg-white rounded-lg p-6 border border-gray-200">
-        <div className="text-sm text-gray-600 mb-2">Portfolio Value</div>
-        <div className="text-4xl font-bold text-gray-900">{portfolio.totalValue}</div>
-        <div className="text-lg text-green-600 font-semibold mt-2">{portfolio.dayChange}</div>
-      </div>
-
-      {/* Holdings */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-        <div className="grid grid-cols-5 gap-4 p-4 border-b border-gray-200 font-semibold text-gray-700 bg-gray-50">
-          <div>Symbol</div>
-          <div>Shares</div>
-          <div>Value</div>
-          <div>Allocation</div>
-          <div>1D Change</div>
-        </div>
-        {portfolio.holdings.map((holding) => (
-          <div key={holding.symbol} className="grid grid-cols-5 gap-4 p-4 border-b border-gray-100 items-center hover:bg-gray-50">
-            <div className="font-bold text-gray-900">{holding.symbol}</div>
-            <div className="text-gray-600">{holding.shares}</div>
-            <div className="text-gray-900 font-semibold">{holding.value}</div>
-            <div className="text-gray-600">{holding.allocation}</div>
-            <div className={`font-semibold ${holding.change.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
-              {holding.change}
-            </div>
+          <div className="h-10 w-10 rounded-lg bg-amber-600 text-white flex items-center justify-center">
+            <TrendingUp size={18} />
           </div>
-        ))}
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">TradeBotElite - Trading Operations</h2>
+            <p className="text-sm text-gray-600">Algorithmic trading, risk governance, and execution analytics.</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <ShieldAlert size={16} /> Risk Controls
+          </button>
+          <button className="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 flex items-center gap-2">
+            <Plus size={18} /> Launch Strategy
+          </button>
+        </div>
       </div>
 
-      {/* Active Strategies */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { name: 'Momentum Strategy', winRate: 62.3, trades: 156, profit: '$4,230.50' },
-          { name: 'Mean Reversion', winRate: 55.8, trades: 98, profit: '$2,145.75' },
-        ].map((strategy) => (
-          <div key={strategy.name} className="bg-white p-4 rounded-lg border border-gray-200">
-            <div className="font-bold text-gray-900 mb-3">{strategy.name}</div>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Win Rate:</span>
-                <span className="font-semibold text-gray-900">{strategy.winRate}%</span>
+          { label: 'AUM', value: '$12.8M', icon: DollarSign, meta: '+4.6% MoM' },
+          { label: 'Sharpe Ratio', value: '1.84', icon: LineChart, meta: 'Target 1.6' },
+          { label: 'Win Rate', value: '58.2%', icon: Percent, meta: '30D window' },
+          { label: 'Drawdown', value: '2.4%', icon: ShieldCheck, meta: 'Under limit' },
+        ].map((kpi) => (
+          <div key={kpi.label} className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">{kpi.label}</p>
+              <kpi.icon size={18} className="text-amber-600" />
+            </div>
+            <p className="text-2xl font-bold text-gray-900 mt-2">{kpi.value}</p>
+            <p className="text-xs text-gray-500 mt-1">{kpi.meta}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div>
+              <h3 className="font-semibold text-gray-900">Strategy Desk</h3>
+              <p className="text-sm text-gray-500">Live PnL and risk by strategy.</p>
+            </div>
+            <button className="text-sm text-amber-700 font-semibold">Export blotter</button>
+          </div>
+          <div className="divide-y">
+            {strategies.map((strategy) => (
+              <div key={strategy.name} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                <div>
+                  <p className="font-semibold text-gray-900">{strategy.name}</p>
+                  <p className="text-xs text-gray-500">Status {strategy.status}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-gray-900">{strategy.pnl}</p>
+                  <p className="text-xs text-gray-500">Win rate {strategy.winRate}</p>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Total Trades:</span>
-                <span className="font-semibold text-gray-900">{strategy.trades}</span>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Open Positions</h3>
+            <div className="space-y-3">
+              {positions.map((position) => (
+                <div key={position.symbol} className="border border-gray-100 rounded-lg p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-gray-900">{position.symbol}</p>
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${position.side === 'long' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                      {position.side}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500">Size {position.size}</p>
+                  <div className="flex items-center justify-between text-xs text-gray-500 mt-2">
+                    <span>{position.pnl}</span>
+                    <span>{position.risk} risk</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Execution Signals</h3>
+            <div className="space-y-3">
+              <div className="border border-gray-100 rounded-lg p-3">
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-gray-900">Buy signal - NASDAQ 100</p>
+                  <ArrowUpRight size={16} className="text-green-600" />
+                </div>
+                <p className="text-xs text-gray-500">Confidence 74% • 2 min ago</p>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Net Profit:</span>
-                <span className="font-semibold text-green-600">{strategy.profit}</span>
+              <div className="border border-gray-100 rounded-lg p-3">
+                <div className="flex items-center justify-between">
+                  <p className="font-semibold text-gray-900">Reduce exposure - Energy</p>
+                  <ArrowDownRight size={16} className="text-red-600" />
+                </div>
+                <p className="text-xs text-gray-500">Confidence 62% • 8 min ago</p>
               </div>
             </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
@@ -442,73 +486,123 @@ export function TradeBotEliteTrialEnvironment() {
 
 // ===== 4. CryptoBot Pro Trial Component =====
 export function CryptoBotProTrialEnvironment() {
-  const [portfolio] = useState({
-    totalValue: '$45,230.75',
-    dayChange: '+$1,230.50 (+2.78%)',
-    holdings: [
-      { symbol: 'BTC', amount: 0.75, value: '$32,100', allocation: '70.9%', change: '+3.2%' },
-      { symbol: 'ETH', amount: 5.2, value: '$9,880', allocation: '21.8%', change: '+2.1%' },
-      { symbol: 'SOL', amount: 50, value: '$2,450', allocation: '5.4%', change: '+1.5%' },
-    ],
-  });
+  const bots = [
+    { name: 'Arbitrage Alpha', status: 'running', pnl: '+$8.2K', exchanges: 4 },
+    { name: 'Trend Scalper', status: 'running', pnl: '+$1.9K', exchanges: 3 },
+    { name: 'Market Maker', status: 'paused', pnl: '-$320', exchanges: 2 },
+  ];
+
+  const exchanges = [
+    { name: 'Binance', status: 'healthy', latency: '88ms' },
+    { name: 'Coinbase', status: 'healthy', latency: '110ms' },
+    { name: 'Kraken', status: 'degraded', latency: '240ms' },
+  ];
 
   return (
-    <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg shadow-lg p-6 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="bg-gradient-to-br from-purple-50 to-sky-50 rounded-lg shadow-lg p-6">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex items-center gap-3">
-          <Coins size={32} className="text-orange-600" />
-          <h2 className="text-2xl font-bold text-gray-900">CryptoBot Pro - Crypto Trading</h2>
-        </div>
-        <button className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 flex items-center gap-2">
-          <Plus size={18} /> New Bot
-        </button>
-      </div>
-
-      {/* Portfolio Overview */}
-      <div className="bg-white rounded-lg p-6 border border-gray-200">
-        <div className="flex justify-between">
+          <div className="h-10 w-10 rounded-lg bg-purple-600 text-white flex items-center justify-center">
+            <Coins size={18} />
+          </div>
           <div>
-            <div className="text-sm text-gray-600 mb-2">Total Portfolio Value</div>
-            <div className="text-4xl font-bold text-gray-900">{portfolio.totalValue}</div>
+            <h2 className="text-2xl font-bold text-gray-900">CryptoBot Pro - Multi-Exchange Ops</h2>
+            <p className="text-sm text-gray-600">Portfolio automation with exchange health and alerting.</p>
           </div>
-          <div className="text-right">
-            <div className="text-sm text-gray-600 mb-2">24h Change</div>
-            <div className="text-3xl font-bold text-green-600">{portfolio.dayChange}</div>
-          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <Bell size={16} /> Alerts
+          </button>
+          <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 flex items-center gap-2">
+            <Plus size={18} /> Deploy Bot
+          </button>
         </div>
       </div>
 
-      {/* Holdings */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-        <div className="grid grid-cols-5 gap-4 p-4 border-b border-gray-200 font-semibold text-gray-700 bg-gray-50">
-          <div>Asset</div>
-          <div>Amount</div>
-          <div>Value</div>
-          <div>Allocation</div>
-          <div>Change</div>
-        </div>
-        {portfolio.holdings.map((holding) => (
-          <div key={holding.symbol} className="grid grid-cols-5 gap-4 p-4 border-b border-gray-100 items-center hover:bg-gray-50">
-            <div className="font-bold text-gray-900">{holding.symbol}</div>
-            <div className="text-gray-600">{holding.amount}</div>
-            <div className="text-gray-900 font-semibold">{holding.value}</div>
-            <div className="text-gray-600">{holding.allocation}</div>
-            <div className="text-green-600 font-semibold">{holding.change}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Active Exchange Connections */}
-      <div className="grid grid-cols-3 gap-4">
-        {['Binance', 'Coinbase', 'Kraken'].map((exchange) => (
-          <div key={exchange} className="bg-white p-4 rounded-lg border border-gray-200">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <div className="font-semibold text-gray-900">{exchange}</div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[
+          { label: '24H Volume', value: '$3.1M', icon: Activity, meta: '+12.4%' },
+          { label: 'Active Bots', value: '7', icon: Zap, meta: '2 paused' },
+          { label: 'Net PnL', value: '+$9.8K', icon: DollarSign, meta: 'Last 7 days' },
+          { label: 'Risk Score', value: 'Low', icon: ShieldCheck, meta: 'Within guardrails' },
+        ].map((kpi) => (
+          <div key={kpi.label} className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">{kpi.label}</p>
+              <kpi.icon size={18} className="text-purple-600" />
             </div>
-            <div className="text-sm text-gray-600">Connected & Synced</div>
+            <p className="text-2xl font-bold text-gray-900 mt-2">{kpi.value}</p>
+            <p className="text-xs text-gray-500 mt-1">{kpi.meta}</p>
           </div>
         ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div>
+              <h3 className="font-semibold text-gray-900">Bot Fleet</h3>
+              <p className="text-sm text-gray-500">Strategy coverage across exchanges.</p>
+            </div>
+            <button className="text-sm text-purple-700 font-semibold">View logs</button>
+          </div>
+          <div className="divide-y">
+            {bots.map((bot) => (
+              <div key={bot.name} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                <div>
+                  <p className="font-semibold text-gray-900">{bot.name}</p>
+                  <p className="text-xs text-gray-500">Connected exchanges {bot.exchanges}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-gray-900">{bot.pnl}</p>
+                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${bot.status === 'running' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
+                    {bot.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Exchange Health</h3>
+            <div className="space-y-3">
+              {exchanges.map((exchange) => (
+                <div key={exchange.name} className="border border-gray-100 rounded-lg p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-gray-900">{exchange.name}</p>
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${exchange.status === 'healthy' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
+                      {exchange.status}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500">Latency {exchange.latency}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Risk Alerts</h3>
+            <div className="space-y-3">
+              <div className="border border-gray-100 rounded-lg p-3 flex items-start gap-3">
+                <AlertTriangle size={16} className="text-amber-600 mt-1" />
+                <div>
+                  <p className="font-semibold text-gray-900">Kraken latency spike</p>
+                  <p className="text-xs text-gray-500">API latency above 200ms for 10 min.</p>
+                </div>
+              </div>
+              <div className="border border-gray-100 rounded-lg p-3 flex items-start gap-3">
+                <CheckCircle2 size={16} className="text-green-600 mt-1" />
+                <div>
+                  <p className="font-semibold text-gray-900">Exposure limits OK</p>
+                  <p className="text-xs text-gray-500">Portfolio exposure within configured bands.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -516,71 +610,119 @@ export function CryptoBotProTrialEnvironment() {
 
 // ===== 5. DataVault Trial Component =====
 export function DataVaultTrialEnvironment() {
-  const [vaults] = useState([
-    { name: 'Production DB', size: '2.3 GB', items: 15234, encryption: 'AES-256', status: 'encrypted' },
-    { name: 'API Keys & Credentials', size: '125 MB', items: 342, encryption: 'AES-256', status: 'encrypted' },
-    { name: 'Client Contracts', size: '890 MB', items: 567, encryption: 'AES-256', status: 'encrypted' },
-  ]);
+  const vaults = [
+    { name: 'Customer Contracts', size: '1.2 GB', items: 1240, encryption: 'AES-256', status: 'healthy' },
+    { name: 'Product IP', size: '840 MB', items: 420, encryption: 'AES-256', status: 'healthy' },
+    { name: 'Audit Logs', size: '2.1 GB', items: 3420, encryption: 'AES-256', status: 'healthy' },
+  ];
+
+  const compliance = [
+    { label: 'SOC2', value: 'Aligned', note: 'Last audit 21 days ago' },
+    { label: 'GDPR', value: 'Compliant', note: 'No pending tasks' },
+    { label: 'HIPAA', value: 'Monitor', note: 'Quarterly review due' },
+  ];
+
+  const accessLogs = [
+    { id: 'log-201', user: 'Jared Owens', action: 'Exported contract bundle', time: '12 min ago', status: 'approved' },
+    { id: 'log-202', user: 'System', action: 'Rotated master key', time: '54 min ago', status: 'approved' },
+    { id: 'log-203', user: 'Unknown IP', action: 'Login attempt blocked', time: '1 hr ago', status: 'blocked' },
+  ];
 
   return (
-    <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg shadow-lg p-6 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-lg shadow-lg p-6">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex items-center gap-3">
-          <Lock size={32} className="text-red-600" />
-          <h2 className="text-2xl font-bold text-gray-900">DataVault - Secure Storage</h2>
+          <div className="h-10 w-10 rounded-lg bg-red-600 text-white flex items-center justify-center">
+            <Lock size={18} />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">DataVault - Security Operations</h2>
+            <p className="text-sm text-gray-600">Encrypted storage, audit trails, and compliance monitoring.</p>
+          </div>
         </div>
-        <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center gap-2">
-          <Plus size={18} /> New Vault
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <Key size={16} /> Rotate Keys
+          </button>
+          <button className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 flex items-center gap-2">
+            <Plus size={18} /> New Vault
+          </button>
+        </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Size', value: '3.3 GB' },
-          { label: 'Total Items', value: '16,143' },
-          { label: 'Encrypted', value: '100%' },
-          { label: 'Status', value: 'Secure' },
+          { label: 'Protected Data', value: '3.3 GB', icon: Database, meta: 'Encrypted at rest' },
+          { label: 'Active Vaults', value: '8', icon: Lock, meta: '100% coverage' },
+          { label: 'Audit Events', value: '342', icon: FileSearch, meta: 'Last 24 hours' },
+          { label: 'Threat Score', value: 'Low', icon: ShieldCheck, meta: 'No incidents' },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-            <div className="text-sm text-gray-600">{stat.label}</div>
-            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+          <div key={stat.label} className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">{stat.label}</p>
+              <stat.icon size={18} className="text-red-600" />
+            </div>
+            <p className="text-2xl font-bold text-gray-900 mt-2">{stat.value}</p>
+            <p className="text-xs text-gray-500 mt-1">{stat.meta}</p>
           </div>
         ))}
       </div>
 
-      {/* Vaults List */}
-      <div className="space-y-3">
-        {vaults.map((vault) => (
-          <div key={vault.name} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <CheckCircle size={20} className="text-green-600" />
-                  <div className="font-bold text-gray-900">{vault.name}</div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div>
+              <h3 className="font-semibold text-gray-900">Vault Inventory</h3>
+              <p className="text-sm text-gray-500">Encrypted assets with retention controls.</p>
+            </div>
+            <button className="text-sm text-red-700 font-semibold">Export</button>
+          </div>
+          <div className="grid grid-cols-5 gap-4 p-4 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+            <div>Vault</div>
+            <div>Size</div>
+            <div>Items</div>
+            <div>Encryption</div>
+            <div>Status</div>
+          </div>
+          {vaults.map((vault) => (
+            <div key={vault.name} className="grid grid-cols-5 gap-4 p-4 border-t border-gray-100 items-center hover:bg-gray-50">
+              <div className="font-medium text-gray-900">{vault.name}</div>
+              <div className="text-gray-600">{vault.size}</div>
+              <div className="text-gray-600">{vault.items.toLocaleString()}</div>
+              <div className="text-gray-600">{vault.encryption}</div>
+              <div className="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 w-fit">{vault.status}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="space-y-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Compliance Snapshot</h3>
+            <div className="space-y-3">
+              {compliance.map((item) => (
+                <div key={item.label} className="border border-gray-100 rounded-lg p-3">
+                  <p className="text-xs text-gray-500">{item.label}</p>
+                  <p className="font-semibold text-gray-900">{item.value}</p>
+                  <p className="text-xs text-gray-500 mt-1">{item.note}</p>
                 </div>
-                <div className="grid grid-cols-4 gap-4 text-sm text-gray-600">
-                  <div>Size: {vault.size}</div>
-                  <div>Items: {vault.items}</div>
-                  <div>Encryption: {vault.encryption}</div>
-                  <div>Status: {vault.status}</div>
-                </div>
-              </div>
-              <button className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded text-gray-900 font-medium">
-                Access
-              </button>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Compliance Status */}
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-        <div className="flex items-center gap-2">
-          <CheckCircle size={20} className="text-green-600" />
-          <div>
-            <div className="font-bold text-gray-900">Compliance Status</div>
-            <div className="text-sm text-gray-600">GDPR + HIPAA Compliant</div>
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Access Activity</h3>
+            <div className="space-y-3">
+              {accessLogs.map((log) => (
+                <div key={log.id} className={`border rounded-lg p-3 ${log.status === 'blocked' ? 'border-amber-200 bg-amber-50' : 'border-gray-100'}`}>
+                  <p className="font-medium text-gray-900">{log.user}</p>
+                  <p className="text-xs text-gray-500">{log.action}</p>
+                  <div className="mt-2 flex items-center justify-between text-xs text-gray-500">
+                    <span>{log.time}</span>
+                    <span className={`font-semibold ${log.status === 'blocked' ? 'text-amber-700' : 'text-green-700'}`}>{log.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -590,82 +732,125 @@ export function DataVaultTrialEnvironment() {
 
 // ===== 6. InsightHub Trial Component =====
 export function InsightHubTrialEnvironment() {
+  const dashboards = [
+    { name: 'Executive Overview', updated: '2 hours ago', viewers: 32, owner: 'Exec Team' },
+    { name: 'Sales Performance', updated: '30 minutes ago', viewers: 18, owner: 'Revenue Ops' },
+    { name: 'Customer Health', updated: '1 day ago', viewers: 12, owner: 'CS' },
+    { name: 'Marketing Funnel', updated: '3 hours ago', viewers: 9, owner: 'Growth' },
+  ];
+
+  const sources = [
+    { name: 'Postgres Warehouse', status: 'connected', latency: '42ms', owner: 'Data Eng' },
+    { name: 'Stripe Billing', status: 'connected', latency: '120ms', owner: 'Finance' },
+    { name: 'HubSpot CRM', status: 'connected', latency: '88ms', owner: 'RevOps' },
+  ];
+
   return (
-    <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg shadow-lg p-6 space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-lg shadow-lg p-6">
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div className="flex items-center gap-3">
-          <BarChart3 size={32} className="text-cyan-600" />
-          <h2 className="text-2xl font-bold text-gray-900">InsightHub - Business Intelligence</h2>
+          <div className="h-10 w-10 rounded-lg bg-cyan-600 text-white flex items-center justify-center">
+            <BarChart3 size={18} />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">InsightHub - Analytics Command Center</h2>
+            <p className="text-sm text-gray-600">Unified metrics, dashboards, and executive reporting.</p>
+          </div>
         </div>
-        <button className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 flex items-center gap-2">
-          <Plus size={18} /> Create Dashboard
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <Filter size={16} /> Filters
+          </button>
+          <button className="px-3 py-2 rounded-lg border border-gray-300 text-sm font-semibold text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+            <Share2 size={16} /> Share
+          </button>
+          <button className="bg-cyan-600 text-white px-4 py-2 rounded-lg hover:bg-cyan-700 flex items-center gap-2">
+            <Plus size={18} /> Create Dashboard
+          </button>
+        </div>
       </div>
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Monthly Revenue', value: '$145,230.50', change: '+23.4%' },
-          { label: 'Active Customers', value: '1,247', change: '+8.2%' },
-          { label: 'Conversion Rate', value: '3.7%', change: '+0.5%' },
-        ].map((metric) => (
-          <div key={metric.label} className="bg-white p-4 rounded-lg border-l-4 border-cyan-500">
-            <div className="text-sm text-gray-600 mb-1">{metric.label}</div>
-            <div className="text-3xl font-bold text-gray-900">{metric.value}</div>
-            <div className="text-sm text-green-600 font-semibold mt-2">{metric.change}</div>
+          { label: 'Monthly Revenue', value: '$245K', icon: LineChart, meta: 'Up 6.4%' },
+          { label: 'Active Users', value: '3.4K', icon: Users, meta: 'Weekly active' },
+          { label: 'Conversion Rate', value: '4.8%', icon: BarChart3, meta: 'Goal 5.0%' },
+          { label: 'Net Retention', value: '117%', icon: PieChart, meta: 'Target 110%' },
+        ].map((kpi) => (
+          <div key={kpi.label} className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">{kpi.label}</p>
+              <kpi.icon size={18} className="text-cyan-600" />
+            </div>
+            <p className="text-2xl font-bold text-gray-900 mt-2">{kpi.value}</p>
+            <p className="text-xs text-gray-500 mt-1">{kpi.meta}</p>
           </div>
         ))}
       </div>
 
-      {/* Charts */}
-      <div className="grid grid-cols-2 gap-6">
-        {/* Revenue Chart */}
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
-          <div className="font-bold text-gray-900 mb-4">Revenue Trend</div>
-          <div className="space-y-2">
-            {[
-              { month: 'Nov', value: 98000 },
-              { month: 'Dec', value: 120000 },
-              { month: 'Jan', value: 120000 },
-              { month: 'Feb', value: 145000 },
-            ].map((data) => (
-              <div key={data.month} className="flex items-center gap-3">
-                <div className="w-12 text-sm font-semibold text-gray-600">{data.month}</div>
-                <div className="flex-1 bg-gray-200 rounded-full h-8 overflow-hidden">
-                  <div className="bg-cyan-500 h-full rounded-full" style={{ width: `${(data.value / 150000) * 100}%` }}></div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 bg-white rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div>
+              <h3 className="font-semibold text-gray-900">Dashboards</h3>
+              <p className="text-sm text-gray-500">Shared views across teams with real-time sync.</p>
+            </div>
+            <button className="text-sm text-cyan-700 font-semibold">View all</button>
+          </div>
+          <div className="divide-y">
+            {dashboards.map((dash) => (
+              <div key={dash.name} className="p-4 flex items-center justify-between hover:bg-gray-50">
+                <div>
+                  <p className="font-semibold text-gray-900">{dash.name}</p>
+                  <p className="text-xs text-gray-500">Owner {dash.owner}</p>
                 </div>
-                <div className="w-24 text-right text-sm text-gray-600">${(data.value / 1000).toFixed(0)}K</div>
+                <div className="text-right text-xs text-gray-500">
+                  <p>Updated {dash.updated}</p>
+                  <p>{dash.viewers} active viewers</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Customer Source Pie Chart */}
-        <div className="bg-white p-4 rounded-lg border border-gray-200">
-          <div className="font-bold text-gray-900 mb-4">Customer Sources</div>
-          <div className="space-y-2">
-            {[
-              { source: 'Organic', value: 45.3, color: 'bg-cyan-500' },
-              { source: 'Paid Ads', value: 32.1, color: 'bg-blue-500' },
-              { source: 'Referral', value: 15.2, color: 'bg-indigo-500' },
-              { source: 'Direct', value: 7.4, color: 'bg-gray-500' },
-            ].map((source) => (
-              <div key={source.source} className="flex items-center gap-3">
-                <div className={`w-3 h-3 ${source.color} rounded-full`}></div>
-                <div className="flex-1">
-                  <div className="text-sm text-gray-600">{source.source}</div>
+        <div className="space-y-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Data Sources</h3>
+            <div className="space-y-3">
+              {sources.map((source) => (
+                <div key={source.name} className="border border-gray-100 rounded-lg p-3">
+                  <div className="flex items-center justify-between">
+                    <p className="font-semibold text-gray-900">{source.name}</p>
+                    <span className="text-xs font-semibold text-green-700 bg-green-100 px-2 py-1 rounded-full">{source.status}</span>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-1">Owner {source.owner}</p>
+                  <p className="text-xs text-gray-500">Latency {source.latency}</p>
                 </div>
-                <div className="text-sm font-semibold text-gray-900">{source.value}%</div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Scheduled Reports</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'Weekly Exec Brief', cadence: 'Mon 08:00', status: 'active' },
+                { name: 'Sales Pipeline Digest', cadence: 'Daily 17:00', status: 'active' },
+                { name: 'Marketing Scorecard', cadence: 'Fri 09:00', status: 'active' },
+              ].map((report) => (
+                <div key={report.name} className="border border-gray-100 rounded-lg p-3">
+                  <p className="font-semibold text-gray-900">{report.name}</p>
+                  <p className="text-xs text-gray-500">{report.cadence}</p>
+                  <span className="text-xs font-semibold text-green-700">{report.status}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div>    </div>
   );
 }
 
-// Continue in next file due to size...
 export default {
   AutoFlowTrialEnvironment,
   AppointmentProTrialEnvironment,

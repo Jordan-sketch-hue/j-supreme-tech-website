@@ -10,7 +10,8 @@ const intakeServices = [
   "Business Operating Systems",
   "Booking & Reservation Systems",
   "Creative Technology & Digital Systems",
-  "Branding & Digital Presentation",
+  "Social Media Marketing",
+  "Branding & Design",
 ];
 
 const sopDiscoveryItems = [
@@ -39,7 +40,11 @@ const textFields = ["Name", "Business Name", "Email", "WhatsApp Number"];
 
 type SubmissionState = "idle" | "submitting" | "success" | "error";
 
-export function ProjectIntakeForm() {
+const fieldClass =
+  "mt-2 w-full rounded-lg border border-line bg-white px-4 py-3 text-sm text-ink-900 outline-none transition focus:border-ink-900 placeholder:text-ink-400";
+const labelClass = "block text-sm font-medium text-ink-800";
+
+export function ProjectIntakeForm({ defaultService }: { defaultService?: string } = {}) {
   const [status, setStatus] = useState<SubmissionState>("idle");
   const [message, setMessage] = useState("");
 
@@ -95,40 +100,55 @@ export function ProjectIntakeForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-3xl border border-white/10 bg-white/[0.05] p-5 shadow-[0_0_90px_rgba(123,47,255,0.16)] backdrop-blur md:p-8">
+    <form
+      onSubmit={handleSubmit}
+      className="card p-5 shadow-[0_30px_60px_-32px_rgba(0,0,0,0.22)] md:p-8"
+    >
       <div className="grid gap-4 md:grid-cols-2">
         {textFields.map((field) => {
-          const name = field === "Business Name" ? "businessName" : field === "WhatsApp Number" ? "whatsapp" : field.toLowerCase();
+          const name =
+            field === "Business Name"
+              ? "businessName"
+              : field === "WhatsApp Number"
+                ? "whatsapp"
+                : field.toLowerCase();
           return (
-            <label key={field} className="text-sm font-semibold text-white">
+            <label key={field} className={labelClass}>
               {field}
-              <input name={name} required={field !== "Business Name"} className="mt-2 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]" placeholder={field} />
+              <input
+                name={name}
+                required={field !== "Business Name"}
+                className={fieldClass}
+                placeholder={field}
+              />
             </label>
           );
         })}
-        <label className="text-sm font-semibold text-white">
+        <label className={labelClass}>
           Service Needed
-          <select name="serviceNeeded" className="mt-2 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]">
+          <select name="serviceNeeded" className={fieldClass} defaultValue={defaultService}>
             <option>Website Development</option>
             <option>Mobile App Development</option>
             <option>E-Commerce System</option>
             <option>Booking System</option>
             <option>CRM / Dashboard</option>
+            <option>Social Media Marketing</option>
+            <option>Branding &amp; Design</option>
             <option>Full Digital Ecosystem</option>
           </select>
         </label>
-        <label className="text-sm font-semibold text-white">
+        <label className={labelClass}>
           Budget Range
-          <select name="budgetRange" className="mt-2 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]">
+          <select name="budgetRange" className={fieldClass}>
             <option>JMD $10,000 - $50,000</option>
             <option>JMD $50,000 - $150,000</option>
             <option>JMD $150,000+</option>
             <option>Custom enterprise quote</option>
           </select>
         </label>
-        <label className="text-sm font-semibold text-white">
+        <label className={labelClass}>
           Project Stage
-          <select name="projectStage" className="mt-2 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]">
+          <select name="projectStage" className={fieldClass}>
             <option>Idea / planning</option>
             <option>Existing business, needs upgrade</option>
             <option>Existing website or system</option>
@@ -136,9 +156,9 @@ export function ProjectIntakeForm() {
             <option>Scaling an active operation</option>
           </select>
         </label>
-        <label className="text-sm font-semibold text-white">
+        <label className={labelClass}>
           Target Launch Timeline
-          <select name="timeline" className="mt-2 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]">
+          <select name="timeline" className={fieldClass}>
             <option>ASAP</option>
             <option>2-4 weeks</option>
             <option>1-3 months</option>
@@ -146,65 +166,115 @@ export function ProjectIntakeForm() {
             <option>Not sure yet</option>
           </select>
         </label>
-        <label className="text-sm font-semibold text-white md:col-span-2">
+        <label className={`${labelClass} md:col-span-2`}>
           SOP Service Category
-          <select name="sopCategory" className="mt-2 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]">
+          <select name="sopCategory" className={fieldClass}>
             {intakeServices.map((service) => (
               <option key={service}>{service}</option>
             ))}
           </select>
         </label>
-        <fieldset className="rounded-2xl border border-white/10 bg-[#050505]/70 p-4 md:col-span-2">
-          <legend className="px-2 text-sm font-bold text-white">What Do You Need Help With?</legend>
-          <p className="mt-1 text-sm leading-6 text-[#B3B3B3]">
-            Select anything you want J Supreme Tech to handle. It is fine if you are not sure yet.
+        <fieldset className="rounded-xl border border-line bg-ink-50 p-4 md:col-span-2">
+          <legend className="px-2 text-sm font-semibold text-ink-900">
+            What Do You Need Help With?
+          </legend>
+          <p className="mt-1 text-sm leading-6 text-ink-500">
+            Select anything you want J Supreme Tech to handle. It is fine if you
+            are not sure yet.
           </p>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {sopDiscoveryItems.map((item) => (
-              <label key={item} className="flex items-start gap-3 text-sm leading-6 text-[#B3B3B3]">
-                <input name="discoveryRequirements" value={item} type="checkbox" className="mt-1 h-4 w-4 rounded border-white/20 bg-[#050505] accent-[#7B2FFF]" />
+              <label
+                key={item}
+                className="flex items-start gap-3 text-sm leading-6 text-ink-600"
+              >
+                <input
+                  name="discoveryRequirements"
+                  value={item}
+                  type="checkbox"
+                  className="mt-1 h-4 w-4 rounded border-ink-300 accent-ink-900"
+                />
                 {item}
               </label>
             ))}
           </div>
         </fieldset>
-        <fieldset className="rounded-2xl border border-white/10 bg-[#050505]/70 p-4 md:col-span-2">
-          <legend className="px-2 text-sm font-bold text-white">Tools Or Features You May Need</legend>
-          <p className="mt-1 text-sm leading-6 text-[#B3B3B3]">
-            Choose the features that sound useful. We will recommend the right tools after reviewing your project.
+        <fieldset className="rounded-xl border border-line bg-ink-50 p-4 md:col-span-2">
+          <legend className="px-2 text-sm font-semibold text-ink-900">
+            Tools Or Features You May Need
+          </legend>
+          <p className="mt-1 text-sm leading-6 text-ink-500">
+            Choose the features that sound useful. We will recommend the right
+            tools after reviewing your project.
           </p>
           <div className="mt-3 grid gap-3 md:grid-cols-2">
             {integrationOptions.map((item) => (
-              <label key={item} className="flex items-start gap-3 text-sm leading-6 text-[#B3B3B3]">
-                <input name="integrations" value={item} type="checkbox" className="mt-1 h-4 w-4 rounded border-white/20 bg-[#050505] accent-[#7B2FFF]" />
+              <label
+                key={item}
+                className="flex items-start gap-3 text-sm leading-6 text-ink-600"
+              >
+                <input
+                  name="integrations"
+                  value={item}
+                  type="checkbox"
+                  className="mt-1 h-4 w-4 rounded border-ink-300 accent-ink-900"
+                />
                 {item}
               </label>
             ))}
           </div>
         </fieldset>
-        <label className="text-sm font-semibold text-white md:col-span-2">
-          Business Goals & Target Audience
-          <textarea name="goalsAudience" required className="mt-2 min-h-28 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]" placeholder="Who do you serve, what do you sell, and what should the system help you achieve?" />
+        <label className={`${labelClass} md:col-span-2`}>
+          Business Goals &amp; Target Audience
+          <textarea
+            name="goalsAudience"
+            required
+            className={`${fieldClass} min-h-28`}
+            placeholder="Who do you serve, what do you sell, and what should the system help you achieve?"
+          />
         </label>
-        <label className="text-sm font-semibold text-white md:col-span-2">
+        <label className={`${labelClass} md:col-span-2`}>
           Existing Links / Assets / References
-          <textarea name="references" className="mt-2 min-h-24 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]" placeholder="Add website links, GitHub links, brand folders, Adobe assets, Midjourney references, dashboards, or competitor references." />
+          <textarea
+            name="references"
+            className={`${fieldClass} min-h-24`}
+            placeholder="Add website links, GitHub links, brand folders, Adobe assets, Midjourney references, dashboards, or competitor references."
+          />
         </label>
-        <label className="text-sm font-semibold text-white md:col-span-2">
+        <label className={`${labelClass} md:col-span-2`}>
           Project Description
-          <textarea name="projectDescription" required className="mt-2 min-h-36 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]" placeholder="Describe the website, app, dashboard, booking system, CRM, automation, branding system, or full digital ecosystem you want to build." />
+          <textarea
+            name="projectDescription"
+            required
+            className={`${fieldClass} min-h-36`}
+            placeholder="Describe the website, app, dashboard, booking system, CRM, automation, branding system, or full digital ecosystem you want to build."
+          />
         </label>
-        <label className="text-sm font-semibold text-white md:col-span-2">
+        <label className={`${labelClass} md:col-span-2`}>
           Quality Control Notes
-          <textarea name="qualityControlNotes" className="mt-2 min-h-24 w-full rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none focus:border-[#A855F7]" placeholder="List must-have standards for visual presentation, responsiveness, performance, animations, documentation, or deployment readiness." />
+          <textarea
+            name="qualityControlNotes"
+            className={`${fieldClass} min-h-24`}
+            placeholder="List must-have standards for visual presentation, responsiveness, performance, animations, documentation, or deployment readiness."
+          />
         </label>
       </div>
-      <button type="submit" disabled={status === "submitting"} className="premium-button mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-70">
+      <button
+        type="submit"
+        disabled={status === "submitting"}
+        className="btn btn-dark mt-6 w-full disabled:cursor-not-allowed disabled:opacity-60"
+      >
         {status === "submitting" ? "Sending Inquiry..." : "Send Project Inquiry"}
         <ArrowRight className="h-4 w-4" />
       </button>
       {message ? (
-        <p className={`mt-4 rounded-xl border px-4 py-3 text-sm ${status === "success" ? "border-[#00D26A]/30 bg-[#00D26A]/10 text-[#00D26A]" : "border-red-400/30 bg-red-500/10 text-red-200"}`}>
+        <p
+          className={`mt-4 rounded-lg border px-4 py-3 text-sm ${
+            status === "success"
+              ? "border-ink-300 bg-ink-100 text-ink-900"
+              : "border-red-300 bg-red-50 text-red-700"
+          }`}
+        >
           {message}
         </p>
       ) : null}

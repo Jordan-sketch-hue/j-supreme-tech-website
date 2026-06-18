@@ -1,0 +1,186 @@
+{
+  "slug": "scaling-inside-the-code-primitives-that-scale",
+  "category": "tech",
+  "title": "Scaling inside the code: the old primitives that go from one to a million",
+  "deck": "Scale isn't only an infrastructure problem — it's a coding problem. A few primitives invented at the start of the era are still the reason a single program survives its own success. Part four of the series.",
+  "excerpt": "How pioneer-era coding primitives — batching, streaming, the index, the cache, back-pressure — let a single program scale from one request to a million without a rewrite.",
+  "author": "J Supreme Studio",
+  "authorRole": "Engineering",
+  "date": "2026-06-15",
+  "readMinutes": 6,
+  "kicker": "The Old Made New — Part 4",
+  "tags": [
+    "scaling",
+    "performance",
+    "algorithms",
+    "data-structures",
+    "fundamentals"
+  ],
+  "keywords": [
+    "scaling within code",
+    "coding primitives that scale",
+    "batching streaming caching",
+    "scale from one to a million requests",
+    "old algorithms still relevant",
+    "J Supreme Tech engineering"
+  ],
+  "motif": "grid",
+  "blocks": [
+    {
+      "type": "lead",
+      "text": "You can throw infinite servers at a program and still watch it fall over, because some scale problems live inside the code. The good news: the primitives that fix them were invented decades ago and have never been beaten."
+    },
+    {
+      "type": "p",
+      "text": "The series so far has scaled the system from the outside — [distributing the work](/blog/the-modern-lens-distributing-pioneer-tech) and [the delivery](/blog/delivery-is-the-feature-staying-relevant). This post goes the other way: down into a single program. Because the difference between code that handles one user and code that handles a million is rarely the hardware. It is whether you used the old, boring primitives that scale — or the obvious ones that don't."
+    },
+    {
+      "type": "h2",
+      "text": "Five primitives older than most of the industry"
+    },
+    {
+      "type": "p",
+      "text": "Every one of these predates the cloud, predates the web, in some cases predates the people using them. They are still the answer."
+    },
+    {
+      "type": "h3",
+      "text": "1. The index — turn a search into a lookup"
+    },
+    {
+      "type": "p",
+      "text": "Scanning every row to find one is the original sin of scale. The index — a sorted structure that turns a linear scan into a logarithmic lookup — is from the 1970s relational era and is *still* the single highest-leverage line of code you can add to a slow system."
+    },
+    {
+      "type": "code",
+      "lang": "sql",
+      "code": "-- O(n): full scan, fine at 1k rows, fatal at 10M\nSELECT * FROM orders WHERE customer_id = 42;\n\n-- one old idea, and the same query is O(log n)\nCREATE INDEX idx_orders_customer ON orders(customer_id);"
+    },
+    {
+      "type": "h3",
+      "text": "2. Batching — pay the fixed cost once"
+    },
+    {
+      "type": "p",
+      "text": "Every operation has a fixed overhead — a network round trip, a transaction, a syscall. Doing it per-item is how a program dies under load. Batching, the mainframe's native instinct, amortises that fixed cost across many items. It is the difference between a thousand round trips and one."
+    },
+    {
+      "type": "code",
+      "lang": "ts",
+      "code": "// the N+1 killer — one trip per item\nfor (const id of ids) await db.insert(row(id));\n\n// pioneer instinct: batch the fixed cost away\nawait db.insertMany(ids.map(row)); // one trip"
+    },
+    {
+      "type": "h3",
+      "text": "3. Streaming — never hold the whole thing in memory"
+    },
+    {
+      "type": "p",
+      "text": "Load a 5 GB file to process it and you scale exactly until the file is bigger than RAM. Process it as a stream — one chunk at a time, the Unix-pipe instinct again — and memory stops mattering. The program that streams handles inputs it could never fit."
+    },
+    {
+      "type": "h3",
+      "text": "4. The cache — don't compute what you already know"
+    },
+    {
+      "type": "p",
+      "text": "The oldest optimisation there is: remember the answer. A cache trades a little memory and some staleness for an enormous drop in repeated work. The hard part was never the idea — it is invalidation, and that is a discipline, not a technology."
+    },
+    {
+      "type": "h3",
+      "text": "5. Back-pressure — let the system say 'slow down'"
+    },
+    {
+      "type": "p",
+      "text": "A system with no way to refuse work doesn't scale; it collapses. Back-pressure — queues with limits, rate limits, bounded buffers — is a 1960s flow-control idea that keeps a program *degrading gracefully* instead of falling over. Saying 'not yet' is a feature."
+    },
+    {
+      "type": "callout",
+      "variant": "insight",
+      "title": "The throughline",
+      "text": "Scaling inside the code is almost always one move: find the thing you do per-item and make it happen once, lazily, or not at all. Index, batch, stream, cache, throttle. Five old ideas, most of your performance wins."
+    },
+    {
+      "type": "h2",
+      "text": "The hierarchy that actually matters"
+    },
+    {
+      "type": "p",
+      "text": "Before you reach for more machines, walk down this list — it is ordered by leverage, and the cheap wins are all at the top and all decades old."
+    },
+    {
+      "type": "ol",
+      "items": [
+        "**Fix the algorithm** — an O(n²) loop beats no hardware. Big-O is from the 1960s and still decides everything.",
+        "**Add the index** — turn scans into lookups.",
+        "**Batch the I/O** — amortise the fixed cost.",
+        "**Cache the repeats** — stop recomputing known answers.",
+        "**Then, and only then, distribute** — scale out the work that is already efficient."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warn",
+      "title": "The expensive mistake",
+      "text": "Distributing inefficient code just buys you the same bug at higher cost. A thousand workers each running an O(n²) loop is a thousand times the bill and none of the fix. Make it efficient on one machine first."
+    },
+    {
+      "type": "stat",
+      "items": [
+        {
+          "value": "O(log n)",
+          "label": "What an index buys over a scan"
+        },
+        {
+          "value": "1 trip",
+          "label": "What batching buys over N+1"
+        },
+        {
+          "value": "0 RAM",
+          "label": "What streaming buys over load-it-all"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "How we hold the line in the studio"
+    },
+    {
+      "type": "p",
+      "text": "Our rule is simple: a feature is not done when it works, it is done when it works at the size we expect to grow into. That means the index goes in with the query, the loop that hits the network gets batched, and anything that reads a file reads it as a stream. None of it is clever. All of it is old. All of it is why small systems we build keep running long after the demo."
+    },
+    {
+      "type": "quote",
+      "text": "Most scaling is just refusing to do the same expensive thing twice.",
+      "cite": "Studio principle"
+    },
+    {
+      "type": "p",
+      "text": "Efficient code that distributes and delivers well is most of the battle. The last piece is time: building so the thing still runs in five years. That is [part five — built to last](/blog/built-to-last-longevity-in-software)."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "callforward",
+      "text": "If your app got slow as it got popular, the fix is usually five old primitives away — not a bigger server bill.",
+      "cta": {
+        "label": "Let us look at it",
+        "href": "/contact"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "q": "Isn't scaling just a matter of adding servers?",
+      "a": "Only after the code is efficient. Adding machines to an O(n²) algorithm or an N+1 query multiplies the cost without fixing the cause. Indexing, batching, streaming and caching are the cheap wins that come first — infrastructure scale comes last."
+    },
+    {
+      "q": "Why do these old primitives still beat newer approaches?",
+      "a": "Because they target fixed physics — round-trip latency, memory limits, comparison counts — that haven't changed. An index turns a scan into a lookup for the same reason it did in 1975. The constraints are durable, so the solutions are too."
+    }
+  ],
+  "related": [
+    "the-modern-lens-distributing-pioneer-tech",
+    "old-code-never-dies-pioneer-tech-returns",
+    "built-to-last-longevity-in-software"
+  ]
+}

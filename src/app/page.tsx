@@ -1,359 +1,461 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BarChart3,
-  Bot,
+  ArrowUpRight,
   Check,
-  Code2,
-  Database,
   Globe2,
-  LineChart,
   Mail,
   MessageCircle,
-  MonitorSmartphone,
-  Network,
-  ServerCog,
-  ShieldCheck,
+  Monitor,
   Smartphone,
-  Sparkles,
-  Store,
-  Workflow,
+  Tablet,
 } from "lucide-react";
-import { ServiceCard, type ServiceCardProps } from "@/components/ServiceCard";
-import { PricingCard, type PricingCardProps } from "@/components/PricingCard";
-import { ProcessTimeline } from "@/components/ProcessTimeline";
+import { CineWords } from "@/components/CineWords";
+import { BrowserFrame, LaptopFrame, PhoneFrame } from "@/components/DeviceFrame";
+import { ShowcaseGrid } from "@/components/ShowcaseGrid";
+import { MarketingShowcase } from "@/components/MarketingShowcase";
+import { ServicesSection } from "@/components/ServicesSection";
+import { SupremeSuiteSection } from "@/components/SupremeSuiteSection";
+import { PayButton } from "@/components/PayButton";
 import { ProjectIntakeForm } from "@/components/ProjectIntakeForm";
+import type { CSSProperties } from "react";
+import { PROCESS, PROJECTS, STATS } from "@/lib/portfolio";
+import { SERVICE_OFFERS, priceLabel } from "@/lib/serviceOffers";
+import { CountUp, Marquee, Reveal, RevealGroup, RevealItem, ScrollProgress } from "@/components/motion-kit";
 
-const services: ServiceCardProps[] = [
-  {
-    icon: Code2,
-    title: "Website Development",
-    eyebrow: "Presence Layer",
-    description:
-      "Responsive business websites, landing pages, portfolios, and SEO-ready service sites built with a premium conversion structure.",
-    points: ["Business websites", "Landing pages", "Portfolio sites", "SEO-ready responsive builds"],
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile App Development",
-    eyebrow: "Product Layer",
-    description:
-      "Android and iOS-ready customer apps, operation apps, and mobile product experiences for growing brands.",
-    points: ["Android apps", "iOS-ready builds", "Customer apps", "Business operation apps"],
-  },
-  {
-    icon: Store,
-    title: "E-Commerce Systems",
-    eyebrow: "Revenue Layer",
-    description:
-      "Online stores, catalogues, checkout systems, inventory structure, and payment-ready commerce flows.",
-    points: ["Product catalogues", "Checkout systems", "Inventory structure", "Payment integrations"],
-  },
-  {
-    icon: Workflow,
-    title: "Booking & Reservation Systems",
-    eyebrow: "Operations Layer",
-    description:
-      "Appointment, excursion, transfer, and reservation systems with scheduling logic and automated confirmations.",
-    points: ["Appointment booking", "Excursion booking", "Calendar scheduling", "Automated confirmations"],
-  },
-  {
-    icon: Database,
-    title: "CRM & Data Systems",
-    eyebrow: "Intelligence Layer",
-    description:
-      "Customer databases, lead tracking, sales pipelines, admin dashboards, records, and reporting systems.",
-    points: ["Customer databases", "Lead tracking", "Sales pipelines", "Admin dashboards"],
-  },
-  {
-    icon: Network,
-    title: "Creative Technology & Digital Systems",
-    eyebrow: "Architecture Layer",
-    description:
-      "Automation, software architecture, digital workflows, AI-assisted systems, internal tools, and dashboards.",
-    points: ["Business automation", "System architecture", "AI-assisted systems", "Custom dashboards"],
-  },
-  {
-    icon: Sparkles,
-    title: "Branding & Digital Presentation",
-    eyebrow: "Experience Layer",
-    description:
-      "Brand identity, social adverts, UI/UX design, Behance-ready case studies, and client presentation graphics.",
-    points: ["Brand identity", "Social media adverts", "UI/UX design", "Presentation graphics"],
-  },
+// Flagship pricing on the homepage = the website (Digital Presence) tiers, with
+// real JMD prices + direct WiPay checkout. Every other service has its own
+// packages in the interactive Services section above. Single source: serviceOffers.ts.
+const websiteOffer = SERVICE_OFFERS["digital-presence"];
+
+const taglines = [
+  "Digital Solutions. Real Growth.",
+  "We Build Today. You Lead Tomorrow.",
+  "Systems That Work. Growth That Lasts.",
+  "From Jamaica to the World.",
 ];
 
-const pricing: PricingCardProps[] = [
-  {
-    title: "Starter Digital Presence",
-    price: "JMD $10,000+",
-    description: "A sharp, responsive website or landing page for brands that need to move fast.",
-    features: ["Basic website or landing page", "Mobile responsive", "Contact form", "Conversion-focused sections"],
-  },
-  {
-    title: "Business System Build",
-    price: "Custom quote",
-    featured: true,
-    description: "A multi-page business platform with operational features and dashboard options.",
-    features: ["Multi-page website", "Booking, e-commerce, or CRM features", "Dashboard options", "Scalable content structure"],
-  },
-  {
-    title: "Premium Digital Ecosystem",
-    price: "Custom quote",
-    description: "Website, app, dashboard, automation, and architecture for serious digital infrastructure.",
-    features: ["Website + app + dashboard", "Automation workflows", "Full system architecture", "Support and scale planning"],
-  },
-];
-
-const architecture = [
-  "Client Website/App",
-  "Frontend Interface",
-  "API Layer",
-  "Database",
-  "Admin Dashboard",
-  "Automations",
-  "Analytics",
-  "Growth System",
-];
-
-const demos = [
-  {
-    title: "Caribbean Booking Engine",
-    category: "Reservations",
-    metric: "Automated confirmations",
-    description: "Excursion, airport transfer, and calendar logic in one operating layer.",
-  },
-  {
-    title: "Retail Commerce OS",
-    category: "E-Commerce",
-    metric: "Catalogue to checkout",
-    description: "Product browsing, inventory structure, payments, and customer capture.",
-  },
-  {
-    title: "Executive CRM Dashboard",
-    category: "Data Systems",
-    metric: "Leads to reports",
-    description: "Customer records, pipeline visibility, and decision-ready business reporting.",
-  },
-];
-
-const systemStats = [
-  { label: "Leads", value: "+42%", icon: BarChart3 },
-  { label: "Automations", value: "18", icon: Bot },
-  { label: "Systems", value: "7", icon: ServerCog },
-  { label: "Security", value: "99.9", icon: ShieldCheck },
-];
+/** Count-up for numeric stats while preserving the exact formatting from
+    portfolio.ts — "12+" (suffix), "07"/"03" (leading zeros), "JA→∞" (as-is). */
+function StatValue({ value }: { value: string }) {
+  const m = /^(0*)(\d+)(\+?)$/.exec(value);
+  if (!m) return <>{value}</>;
+  return <CountUp to={Number.parseInt(m[2], 10)} prefix={m[1]} suffix={m[3]} />;
+}
 
 export default function Home() {
   return (
-    <main className="overflow-hidden bg-[#050505] text-white">
-      <section id="home" className="relative min-h-[92vh] px-6 pb-16 pt-28 sm:pt-32">
-        <div className="digital-grid absolute inset-0 opacity-45" />
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#7B2FFF] to-transparent" />
-        <div className="absolute left-1/2 top-16 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[#7B2FFF]/18 blur-[130px]" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.02fr_0.98fr]">
+    <main className="bg-white text-ink-900">
+      <ScrollProgress className="bg-ink-900" />
+      {/* ============================== HERO ============================== */}
+      <section id="home" className="relative overflow-hidden">
+        <div className="grid-bg pointer-events-none absolute inset-0" />
+        <div className="shell relative grid items-center gap-16 pb-20 pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:pb-28 lg:pt-28">
+          {/* Copy */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#B3B3B3] shadow-[0_0_40px_rgba(123,47,255,0.18)] backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-[#00D26A] shadow-[0_0_18px_rgba(0,210,106,0.9)]" />
-              From Jamaica to the World
-            </div>
-            <h1 className="mt-8 max-w-5xl text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-8xl">
-              Creative Technology & Digital Systems Built for Real Growth.
+            <Reveal direction="up">
+              <span className="eyebrow no-rule">
+                <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-ink-900" />
+                Creative Technology &middot; Digital Systems
+              </span>
+            </Reveal>
+            <h1 className="mt-6 font-display text-5xl font-semibold leading-[0.98] tracking-tight text-ink-900 sm:text-6xl xl:text-7xl">
+              <CineWords text="We design the system." delay={0.15} />
+              <br />
+              <CineWords text="You run the business." delay={0.55} />
             </h1>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-[#B3B3B3] sm:text-xl">
-              Websites, apps, CRMs, booking systems, e-commerce platforms, automations, and custom digital infrastructure for businesses in Jamaica, the Caribbean, and worldwide.
-            </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link href="#contact" className="premium-button group inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-sm font-bold text-white">
-                Start a Project
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link href="#services" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/12 bg-white/[0.04] px-6 py-4 text-sm font-bold text-white backdrop-blur hover:border-[#A855F7]/70 hover:bg-[#A855F7]/10">
-                View Services
-              </Link>
-            </div>
-            <div className="mt-8 flex flex-col gap-3 text-sm text-[#B3B3B3] sm:flex-row sm:items-center">
-              <a href="https://wa.me/16582182282" className="inline-flex items-center gap-2 hover:text-white">
-                <MessageCircle className="h-4 w-4 text-[#00D26A]" />
-                WhatsApp: 658-218-2282
-              </a>
-              <a href="mailto:global.jsuprememarketing@gmail.com" className="inline-flex items-center gap-2 hover:text-white">
-                <Mail className="h-4 w-4 text-[#A855F7]" />
-                global.jsuprememarketing@gmail.com
-              </a>
+            <Reveal direction="up" delay={0.2}>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-ink-600">
+                Websites, apps, CRMs, booking engines, e-commerce platforms,
+                automations, and full digital infrastructure — built clean,
+                shipped live, and organized to scale. From Jamaica to the world.
+              </p>
+            </Reveal>
+            <Reveal direction="up" delay={0.3}>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Link href="#contact" className="btn btn-dark">
+                  Start a Project
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link href="#work" className="btn btn-outline">
+                  View the Work
+                </Link>
+              </div>
+            </Reveal>
+            <Reveal direction="up" delay={0.4}>
+              <div className="mt-7 flex flex-col gap-4 text-sm text-ink-600 sm:flex-row sm:items-center sm:gap-6">
+                <a
+                  href="https://wa.me/16582182282"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 hover:text-ink-900"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  658-218-2282
+                </a>
+                <a
+                  href="mailto:global.jsuprememarketing@gmail.com"
+                  className="inline-flex items-center gap-2 hover:text-ink-900"
+                >
+                  <Mail className="h-4 w-4" />
+                  Email the studio
+                </a>
+              </div>
+            </Reveal>
+
+            {/* Inline stats */}
+            <div className="mt-10 grid max-w-xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
+              {STATS.map((s) => (
+                <div key={s.label} className="bg-white p-4">
+                  <p className="font-display text-2xl font-semibold text-ink-900">
+                    <StatValue value={s.value} />
+                  </p>
+                  <p className="mt-1 font-mono text-[0.6rem] uppercase leading-4 tracking-[0.1em] text-ink-500">
+                    {s.label}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="relative">
-            <div className="device-shell float-slow">
-              <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-[#B3B3B3]">Growth Command</p>
-                  <p className="mt-1 text-lg font-bold">J Supreme Tech OS</p>
+          {/* Device cluster */}
+          <div className="relative mx-auto w-full max-w-xl pb-12 lg:pb-0">
+            <BrowserFrame
+              host="jsupremeconglomerate.online"
+              alt="Supreme OS — operator workspace dashboard"
+              className="float"
+            />
+            <div className="float-2 absolute -bottom-8 -left-4 w-28 sm:-left-8 sm:w-36 lg:w-40">
+              <PhoneFrame
+                host="crown-district-ja.vercel.app"
+                alt="Crown District JA storefront on mobile"
+              />
+            </div>
+            <div className="absolute -right-3 -top-5 hidden items-center gap-2 rounded-full border border-line bg-white px-3 py-1.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.25)] md:flex">
+              <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-ink-900" />
+              <span className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-ink-600">
+                12 platforms · live
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================== MARQUEE ============================== */}
+      <section className="border-y border-line bg-white py-5">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <span className="ml-6 hidden shrink-0 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-ink-400 sm:block">
+            Shipped live ↗
+          </span>
+          <Marquee speed={30} gap="0rem">
+            {PROJECTS.map((p) => (
+              <span
+                key={p.host}
+                className="mx-6 inline-flex items-center gap-3 font-mono text-sm text-ink-500"
+              >
+                <span className="text-ink-900">{p.name}</span>
+                <span className="text-ink-300">/ {p.tag}</span>
+                <span className="text-ink-300">•</span>
+              </span>
+            ))}
+          </Marquee>
+        </div>
+      </section>
+
+      {/* ============================== WORK / SHOWCASE ============================== */}
+      <section id="work" className="section shell">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <span className="eyebrow">Selected Work</span>
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
+              Real platforms. Live screens. Every industry.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-ink-600">
+              Twelve shipped products across logistics, commerce, education, and
+              business operations — captured live, organized by use case. Click
+              any mockup to open the real site.
+            </p>
+          </div>
+          <Link
+            href="#contact"
+            className="hidden shrink-0 items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-ink-700 hover:text-ink-900 md:inline-flex"
+          >
+            Start yours
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+
+        <ShowcaseGrid />
+      </section>
+
+      {/* ============================== MARKETING & DESIGN ============================== */}
+      <MarketingShowcase />
+
+      {/* ============================== CROSS-DEVICE BAND ============================== */}
+      <section className="relative overflow-hidden bg-ink-950 text-white">
+        <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-70" />
+        <div className="shell section relative grid items-center gap-16 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <span className="eyebrow text-white/60">One System</span>
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Built for every screen, every role.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-white/65">
+              A single system, surfaced across devices and audiences — a
+              marketing site, a customer web app, an admin console, and native
+              iOS &amp; Android apps. Here&apos;s RideLink Jamaica running on
+              desktop and mobile.
+            </p>
+            <ul className="mt-8 space-y-3">
+              {[
+                { icon: Monitor, label: "Desktop & web apps" },
+                { icon: Tablet, label: "Tablet-ready admin dashboards" },
+                { icon: Smartphone, label: "Native iOS & Android apps" },
+              ].map(({ icon: Icon, label }) => (
+                <li key={label} className="flex items-center gap-3 text-white/80">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/5">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm">{label}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-9 flex flex-wrap gap-2">
+              {["Rider app", "Driver app", "Admin console", "Marketing site"].map(
+                (t) => (
+                  <span key={t} className="tag tag-dark">
+                    {t}
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-2xl">
+            <LaptopFrame
+              host="ridelink-jamaica.vercel.app"
+              alt="RideLink Jamaica web platform on a laptop"
+              className="float"
+            />
+            <div className="float-2 absolute -bottom-6 right-0 w-28 sm:w-36 lg:-right-6 lg:w-40">
+              <PhoneFrame
+                host="ridelink-jamaica.vercel.app"
+                alt="RideLink Jamaica rider app on mobile"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================== SERVICES (interactive: click → packages → pay) ============================== */}
+      <ServicesSection />
+
+      {/* ============================== PRODUCTS (Supreme Suite SaaS line) ============================== */}
+      <SupremeSuiteSection />
+
+      {/* ============================== PROCESS ============================== */}
+      <section id="process" className="border-y border-line bg-ink-50">
+        <div className="shell section">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow no-rule justify-center">How We Work</span>
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
+              A standard delivery workflow.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-ink-600">
+              Discover, design, architect, build, test, launch, scale. Clear at
+              every step, measurable at every milestone.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {PROCESS.map((p, i) => (
+              <div
+                key={p.step}
+                className="pm-step bg-white p-6"
+                style={{ "--pm-d": `${i * 1.5}s`, "--pm-dur": `${PROCESS.length * 1.5}s` } as CSSProperties}
+              >
+                <div className="flex items-center justify-between">
+                  <p className="font-mono text-sm font-bold text-ink-900">{p.step}</p>
+                  <span className="relative flex h-2 w-2">
+                    <span
+                      className="pm-ping absolute inline-flex h-full w-full rounded-full border-2 border-ink-900"
+                      style={{ "--pm-d": `${i * 1.5}s` } as CSSProperties}
+                    />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-ink-900" />
+                  </span>
                 </div>
-                <div className="rounded-full border border-[#00D26A]/30 bg-[#00D26A]/10 px-3 py-1 text-xs font-bold text-[#00D26A]">Live</div>
+                <h3 className="mt-3 text-base font-semibold text-ink-900">
+                  {p.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-ink-500">{p.blurb}</p>
               </div>
-              <div className="grid gap-4 p-5">
-                <div className="rounded-xl border border-white/10 bg-[#0D0D0D]/90 p-4">
-                  <div className="mb-5 flex items-center justify-between">
-                    <span className="text-sm font-semibold text-white">System Performance</span>
-                    <LineChart className="h-5 w-5 text-[#A855F7]" />
-                  </div>
-                  <div className="flex h-28 items-end gap-2">
-                    {[34, 58, 44, 72, 61, 84, 76, 96, 88].map((height) => (
-                      <div key={height} className="flex-1 rounded-t-md bg-linear-to-t from-[#7B2FFF] to-[#6D5BFF]" style={{ height: `${height}%` }} />
-                    ))}
-                  </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================== PRICING ============================== */}
+      <section id="pricing" className="section shell">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="eyebrow no-rule justify-center">Pricing</span>
+          <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
+            Real prices. Pay online, we start.
+          </h2>
+          <p className="mt-5 text-lg leading-8 text-ink-600">
+            Website packages below. Apps, social media management, and brand &amp;
+            design each have their own packages in{" "}
+            <a href="#services" className="underline hover:text-ink-900">
+              Services
+            </a>
+            . Pay securely by card — prices in JMD.
+          </p>
+        </div>
+
+        <RevealGroup className="mt-14 grid gap-6 lg:grid-cols-3" amount={0.1}>
+          {websiteOffer.packages.map((plan) => {
+            const featured = !!plan.popular;
+            return (
+              <RevealItem key={plan.id}>
+              <div
+                className={`flex h-full flex-col rounded-2xl border p-7 ${
+                  featured
+                    ? "border-ink-950 bg-ink-950 text-white shadow-[0_40px_80px_-40px_rgba(0,0,0,0.5)]"
+                    : "border-line bg-white text-ink-900"
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">{plan.name}</h3>
+                  {featured ? <span className="tag tag-dark">Popular</span> : null}
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  {systemStats.map(({ label, value, icon: Icon }) => (
-                    <div key={label} className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
-                      <Icon className="h-5 w-5 text-[#A855F7]" />
-                      <p className="mt-5 text-2xl font-black">{value}</p>
-                      <p className="text-xs uppercase tracking-[0.18em] text-[#B3B3B3]">{label}</p>
-                    </div>
+                <p
+                  className={`mt-4 font-display text-4xl font-semibold ${
+                    featured ? "text-white" : "text-ink-900"
+                  }`}
+                >
+                  {priceLabel(plan)}
+                </p>
+                <ul className="mt-6 flex-1 space-y-3">
+                  {plan.features.map((f) => (
+                    <li key={f} className="flex items-start gap-3 text-sm">
+                      <Check
+                        className={`mt-0.5 h-4 w-4 flex-none ${
+                          featured ? "text-white" : "text-ink-900"
+                        }`}
+                      />
+                      <span className={featured ? "text-white/85" : "text-ink-700"}>{f}</span>
+                    </li>
                   ))}
+                </ul>
+                <div className="mt-8">
+                  <PayButton
+                    slug="digital-presence"
+                    pkg={plan.id}
+                    label={`Pay ${priceLabel(plan)}`}
+                    className={`btn w-full ${featured ? "btn-on-dark" : "btn-dark"}`}
+                  />
+                  <Link
+                    href="/start?service=digital-presence"
+                    className={`mt-3 block text-center font-mono text-[0.62rem] uppercase tracking-[0.12em] ${
+                      featured ? "text-white/60 hover:text-white" : "text-ink-500 hover:text-ink-900"
+                    }`}
+                  >
+                    or send an inquiry first
+                  </Link>
                 </div>
               </div>
-            </div>
-            <div className="absolute -bottom-8 -left-6 hidden rounded-[2rem] border border-white/10 bg-[#0D0D0D]/85 p-3 shadow-[0_0_70px_rgba(109,91,255,0.28)] backdrop-blur md:block">
-              <div className="h-44 w-24 rounded-[1.55rem] border border-white/10 bg-[#050505] p-2">
-                <div className="h-full rounded-[1.1rem] bg-linear-to-b from-[#7B2FFF]/40 via-[#0D0D0D] to-[#050505] p-3">
-                  <MonitorSmartphone className="h-5 w-5 text-white" />
-                  <div className="mt-12 h-2 rounded-full bg-white/70" />
-                  <div className="mt-3 h-2 w-2/3 rounded-full bg-[#A855F7]" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </RevealItem>
+            );
+          })}
+        </RevealGroup>
+
+        <p className="mt-8 text-center font-mono text-xs uppercase tracking-[0.12em] text-ink-500">
+          Secure card payment via WiPay · after payment we collect your project details
+        </p>
+        <p className="mt-3 text-center">
+          <Link
+            href="/market"
+            className="font-mono text-xs uppercase tracking-[0.12em] text-ink-500 underline underline-offset-4 hover:text-ink-900"
+          >
+            See what competitors charge for these systems →
+          </Link>
+        </p>
       </section>
 
-      <section id="services" className="section-shell">
-        <SectionHeader
-          eyebrow="Creative Technology & Digital Systems"
-          title="A complete digital stack for modern business."
-          text="J Supreme Tech is not simply a website agency. It builds scalable business ecosystems, automation, digital infrastructure, and software architecture."
-        />
-        <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
-        </div>
-      </section>
-
-      <section id="architecture" className="section-shell border-y border-white/10 bg-[#0D0D0D]">
-        <SectionHeader
-          eyebrow="Systems Architecture"
-          title="Structured systems from first click to growth intelligence."
-          text="Every build is planned as a connected ecosystem, not a collection of disconnected pages."
-        />
-        <div className="mt-12 grid gap-4 lg:grid-cols-8">
-          {architecture.map((item, index) => (
-            <div key={item} className="relative rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-              <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-[#7B2FFF]/15 text-sm font-black text-[#A855F7] ring-1 ring-[#A855F7]/25">
-                {String(index + 1).padStart(2, "0")}
-              </div>
-              <p className="text-sm font-bold leading-6">{item}</p>
-              {index < architecture.length - 1 ? (
-                <div className="absolute -right-3 top-1/2 hidden h-px w-6 bg-linear-to-r from-[#7B2FFF] to-[#6D5BFF] lg:block" />
-              ) : null}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="work" className="section-shell">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-          <SectionHeader
-            align="left"
-            eyebrow="Work / Demos"
-            title="Dashboard-style demos for real business workflows."
-            text="Placeholder case studies show how the brand can present systems, apps, dashboards, and operational tools across industries."
-          />
-          <div className="grid gap-5 md:grid-cols-3">
-            {demos.map((demo) => (
-              <article key={demo.title} className="group rounded-2xl border border-white/10 bg-white/[0.045] p-5 backdrop-blur hover:border-[#A855F7]/50 hover:shadow-[0_0_55px_rgba(123,47,255,0.18)]">
-                <div className="mb-8 h-36 rounded-xl border border-white/10 bg-[radial-gradient(circle_at_30%_20%,rgba(123,47,255,0.5),transparent_35%),linear-gradient(135deg,rgba(109,91,255,0.22),rgba(5,5,5,0.95))] p-4">
-                  <div className="grid grid-cols-3 gap-2">
-                    <span className="h-3 rounded-full bg-white/70" />
-                    <span className="h-3 rounded-full bg-[#A855F7]" />
-                    <span className="h-3 rounded-full bg-white/20" />
-                  </div>
-                  <div className="mt-8 space-y-2">
-                    <span className="block h-2 rounded-full bg-white/50" />
-                    <span className="block h-2 w-2/3 rounded-full bg-[#6D5BFF]" />
-                  </div>
-                </div>
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#A855F7]">{demo.category}</p>
-                <h3 className="mt-3 text-xl font-black">{demo.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#B3B3B3]">{demo.description}</p>
-                <p className="mt-6 text-sm font-bold text-white">{demo.metric}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="process" className="section-shell border-y border-white/10 bg-[#0D0D0D]">
-        <SectionHeader
-          eyebrow="Process"
-          title="Discover. Design. Architect. Build. Test. Launch. Scale."
-          text="A structured delivery path keeps every project clear, measurable, and ready for the next layer of growth."
-        />
-        <ProcessTimeline />
-      </section>
-
-      <section id="pricing" className="section-shell">
-        <SectionHeader
-          eyebrow="Pricing"
-          title="Packages for presence, systems, and ecosystems."
-          text="Start lean or build a complete technology layer. Pricing depends on scope, integrations, and operational depth."
-        />
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {pricing.map((plan) => (
-            <PricingCard key={plan.title} {...plan} />
-          ))}
-        </div>
-      </section>
-
-      <section id="about" className="section-shell border-y border-white/10 bg-[#0D0D0D]">
-        <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr]">
+      {/* ============================== ABOUT ============================== */}
+      <section id="about" className="border-y border-line bg-white">
+        <div className="shell section grid gap-12 lg:grid-cols-[1fr_0.9fr]">
           <div>
-            <p className="eyebrow">About J Supreme Tech</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Architect-level thinking for Caribbean-to-global businesses.</h2>
-            <p className="mt-6 text-lg leading-8 text-[#B3B3B3]">
-              J Supreme Tech builds websites, apps, business systems, digital infrastructure, and scalable technology ecosystems for brands that need more than a basic online presence.
+            <span className="eyebrow">About J Supreme Tech</span>
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
+              Architect-level thinking for Caribbean-to-global brands.
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-ink-600">
+              J Supreme Tech is a black-and-white technology studio. We build
+              websites, apps, business systems, and scalable infrastructure for
+              brands that need more than a basic online presence — and we present
+              every build with the same clarity we design it.
             </p>
+            <p className="mt-4 text-lg leading-8 text-ink-600">
+              The studio sits inside the J Supreme group, alongside the operator
+              workspace that runs our own CRM, invoices, and projects.
+            </p>
+            <Link
+              href="/about"
+              className="mt-6 inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.14em] text-ink-700 underline underline-offset-4 hover:text-ink-900"
+            >
+              The full story, identity &amp; group structure
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {["Digital Solutions. Real Growth.", "We Build Today. You Lead Tomorrow.", "Systems That Work. Growth That Lasts.", "From Jamaica to the World."].map((tagline) => (
-              <div key={tagline} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-                <Check className="h-5 w-5 text-[#00D26A]" />
-                <p className="mt-6 text-lg font-black">{tagline}</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {taglines.map((t) => (
+              <div key={t} className="card card-hover p-6">
+                <Check className="h-5 w-5 text-ink-900" />
+                <p className="mt-5 font-display text-lg font-semibold leading-7 text-ink-900">
+                  {t}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="contact" className="section-shell">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+      {/* ============================== CONTACT ============================== */}
+      <section id="contact" className="section shell">
+        <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
           <div>
-            <p className="eyebrow">Contact</p>
-            <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Start building the system your business needs next.</h2>
-            <div className="mt-8 space-y-4 text-[#B3B3B3]">
-              <a href="https://wa.me/16582182282" className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4 hover:border-[#00D26A]/50">
-                <MessageCircle className="h-5 w-5 text-[#00D26A]" />
-                WhatsApp: 658-218-2282
+            <span className="eyebrow">Start a Project</span>
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
+              Tell us what to build next.
+            </h2>
+            <p className="mt-5 text-lg leading-8 text-ink-600">
+              Share the goal and we&apos;ll come back with a system plan, scope,
+              and timeline. Prefer to talk? Reach us directly.
+            </p>
+            <div className="mt-8 space-y-3">
+              <a
+                href="https://wa.me/16582182282"
+                target="_blank"
+                rel="noreferrer"
+                className="card card-hover flex items-center gap-3 p-4 text-ink-800"
+              >
+                <MessageCircle className="h-5 w-5" />
+                <span className="text-sm font-medium">WhatsApp: 658-218-2282</span>
               </a>
-              <a href="mailto:global.jsuprememarketing@gmail.com" className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4 hover:border-[#A855F7]/50">
-                <Mail className="h-5 w-5 text-[#A855F7]" />
-                global.jsuprememarketing@gmail.com
+              <a
+                href="mailto:global.jsuprememarketing@gmail.com"
+                className="card card-hover flex items-center gap-3 break-all p-4 text-ink-800"
+              >
+                <Mail className="h-5 w-5 flex-none" />
+                <span className="text-sm font-medium">
+                  global.jsuprememarketing@gmail.com
+                </span>
               </a>
-              <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <Globe2 className="h-5 w-5 text-[#6D5BFF]" />
-                Jamaica, Caribbean, Worldwide
+              <div className="card flex items-center gap-3 p-4 text-ink-800">
+                <Globe2 className="h-5 w-5" />
+                <span className="text-sm font-medium">
+                  Jamaica · Caribbean · Worldwide
+                </span>
               </div>
             </div>
           </div>
@@ -361,25 +463,5 @@ export default function Home() {
         </div>
       </section>
     </main>
-  );
-}
-
-function SectionHeader({
-  eyebrow,
-  title,
-  text,
-  align = "center",
-}: {
-  eyebrow: string;
-  title: string;
-  text: string;
-  align?: "center" | "left";
-}) {
-  return (
-    <div className={align === "center" ? "mx-auto max-w-3xl text-center" : "max-w-2xl"}>
-      <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">{title}</h2>
-      <p className="mt-5 text-lg leading-8 text-[#B3B3B3]">{text}</p>
-    </div>
   );
 }

@@ -1,0 +1,172 @@
+{
+  "slug": "delivery-is-the-feature-staying-relevant",
+  "category": "tech",
+  "title": "Delivery is the feature: how old ideas stay relevant",
+  "deck": "Most technology doesn't become irrelevant — it becomes badly delivered. Change how it reaches people and a 'dead' format is suddenly everywhere again. Part three on modern delivery as the thing that keeps pioneer tech alive.",
+  "excerpt": "Why delivery — not capability — decides whether a technology stays relevant. How the edge, push, PWAs and clean interfaces revived formats everyone had written off.",
+  "author": "J Supreme Studio",
+  "authorRole": "Engineering",
+  "date": "2026-06-16",
+  "readMinutes": 5,
+  "kicker": "The Old Made New — Part 3",
+  "tags": [
+    "delivery",
+    "edge",
+    "pwa",
+    "ux",
+    "relevance"
+  ],
+  "keywords": [
+    "modern delivery to stay relevant",
+    "edge delivery old technology",
+    "why delivery matters more than features",
+    "reviving formats through delivery",
+    "progressive web app revival",
+    "J Supreme Tech engineering"
+  ],
+  "motif": "signal",
+  "blocks": [
+    {
+      "type": "lead",
+      "text": "A technology rarely dies of weakness. It dies of friction — too slow to reach you, too clumsy to use, in the wrong place at the wrong moment. Fix the delivery and the same old capability comes roaring back, looking brand new."
+    },
+    {
+      "type": "p",
+      "text": "[Part two](/blog/the-modern-lens-distributing-pioneer-tech) was about distributing the *work*. This one is about distributing the *experience* — getting an old idea to the user fast enough, close enough and cleanly enough that it feels current. Delivery is not the wrapper around the feature. For the person using it, delivery **is** the feature."
+    },
+    {
+      "type": "h2",
+      "text": "The pattern: same capability, new delivery, instant relevance"
+    },
+    {
+      "type": "p",
+      "text": "Run the test on anything that 'came back'. The capability was always there. What changed was how it arrived."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "**Server-side rendering** never went away — but streamed from the edge, region-close, it stopped being 'old PHP' and became the fastest way to paint a page.",
+        "**The newsletter** was 1990s email — until reliable delivery, clean typography and a one-tap subscribe turned it back into a primary channel.",
+        "**The web page** beat the native app for huge classes of product the moment PWAs let it install, work offline and send a push.",
+        "**Polling** looked crude next to websockets — until serverless made a cheap, edge-cached poll the more reliable choice for most apps."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "insight",
+      "title": "The principle",
+      "text": "Capability decides if a thing *can* be useful. Delivery decides if anyone *feels* it as useful. You can win an entire category by leaving the feature alone and rebuilding only the delivery."
+    },
+    {
+      "type": "h2",
+      "text": "The four levers of modern delivery"
+    },
+    {
+      "type": "p",
+      "text": "When we take an established idea and make it feel current, we are almost always pulling one of these four levers. None of them touch the underlying capability."
+    },
+    {
+      "type": "h3",
+      "text": "1. Proximity — move it to the edge"
+    },
+    {
+      "type": "p",
+      "text": "The single biggest relevance upgrade is distance. The same response served from a node near the user instead of one server far away is the difference between 'sluggish legacy tool' and 'instant'. Nothing about the logic changed; it just got closer."
+    },
+    {
+      "type": "h3",
+      "text": "2. Timing — push instead of pull"
+    },
+    {
+      "type": "p",
+      "text": "An old capability becomes a habit the moment it can reach you unprompted. The data was always available; arriving at the right moment — a notification, a digest, a webhook — is what makes people build their day around it."
+    },
+    {
+      "type": "h3",
+      "text": "3. Surface — meet people where they already are"
+    },
+    {
+      "type": "p",
+      "text": "Relevance is partly geography. The same function delivered as a browser tab, an installable app, a Slack message and an email reaches four different moments in someone's day. Multiplying the surfaces, not the features, is often the whole growth strategy."
+    },
+    {
+      "type": "code",
+      "lang": "ts",
+      "code": "// one capability, four deliveries — the feature is identical\nexport async function publish(item: Item) {\n  await Promise.all([\n    renderToWeb(item),       // edge-cached page\n    pushToDevices(item),     // the right-moment nudge\n    postToSlack(item),       // where the team lives\n    appendToFeed(item),      // RSS/email for the patient\n  ]);\n}"
+    },
+    {
+      "type": "h3",
+      "text": "4. Ergonomics — wrap it in a clean interface"
+    },
+    {
+      "type": "p",
+      "text": "A powerful tool with a hostile interface reads as outdated even when it is state of the art. Put a typed SDK, a sensible default, or a two-click flow on top and adoption follows. The capability was never the barrier; the first five minutes were."
+    },
+    {
+      "type": "stat",
+      "items": [
+        {
+          "value": "edge",
+          "label": "Proximity — region-close response"
+        },
+        {
+          "value": "push",
+          "label": "Timing — arrive unprompted"
+        },
+        {
+          "value": "4×",
+          "label": "Surfaces — same feature, more moments"
+        }
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "warn",
+      "title": "Don't over-deliver",
+      "text": "More delivery is not always better. A real-time socket for data that changes once a day is friction dressed as sophistication. Match the delivery to how the information actually behaves — proven, calmer delivery usually wins."
+    },
+    {
+      "type": "h2",
+      "text": "How the studio uses this"
+    },
+    {
+      "type": "p",
+      "text": "Our own blog is the example. The newsletter, the RSS feed, the edge-rendered pages, the dynamic share images — none of those are new *capabilities*. They are four deliveries of the same writing, each meeting a different reader where they are. The content is the boring, durable part. The delivery is where we put the engineering."
+    },
+    {
+      "type": "quote",
+      "text": "Build the capability once. Then spend your time on how it arrives — that is the part the user actually meets.",
+      "cite": "Studio principle"
+    },
+    {
+      "type": "p",
+      "text": "Distribution scales the work; delivery scales the *relevance*. Next we go down a level — into the code itself — to see how a handful of pioneer-era primitives let a single program scale from one request to a million. That is [part four](/blog/scaling-inside-the-code-primitives-that-scale)."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "callforward",
+      "text": "If your product is strong but feels 'slow' or 'old', the fix is usually delivery, not a rebuild. We can make the same capability feel instant.",
+      "cta": {
+        "label": "Start a project",
+        "href": "/contact"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "q": "Is 'delivery over features' just polish?",
+      "a": "No — polish is cosmetic; delivery is structural. Proximity (edge), timing (push), surface (where it appears) and ergonomics (the interface) change whether a capability reaches anyone at all. A great feature with bad delivery has zero users."
+    },
+    {
+      "q": "Can better delivery really revive an old technology?",
+      "a": "It's the most common way it happens. Email, server-side rendering, RSS and the humble web page all 'came back' without changing what they do — only how they reach people. Delivery is the lever that turns a written-off idea into a current one."
+    }
+  ],
+  "related": [
+    "old-code-never-dies-pioneer-tech-returns",
+    "the-modern-lens-distributing-pioneer-tech",
+    "scaling-inside-the-code-primitives-that-scale"
+  ]
+}

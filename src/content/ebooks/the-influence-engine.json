@@ -1,0 +1,288 @@
+{
+  "slug": "the-influence-engine",
+  "title": "The Influence Engine",
+  "subtitle": "Market psychology for people who build",
+  "category": "marketing",
+  "author": "Jordan Morris, J Supreme Tech",
+  "audience": "Founders, builders, and small-business operators who ship real products and want to understand how buyers actually decide so they can market ethically and effectively.",
+  "summary": "Most builders treat marketing as decoration applied after the product is done. This book treats it as engineering: the study of how attention, trust, and decision-making actually work, and how to wire those forces into your offer, your pricing, and your launch. It is a practical, ethical field guide to market psychology for people who would rather build the engine than buy the hype.",
+  "coverMotif": "aperture",
+  "pages": 40,
+  "chapters": [
+    {
+      "title": "The Buyer's Brain Is Not a Spreadsheet",
+      "intro": "Builders are rational. We optimize, we compare specs, we read the docs. So we assume buyers do the same, and we lose deals we should win. The first job of influence is to stop modeling the buyer as a smaller version of yourself and start modeling them as they actually are: busy, distracted, risk-averse, and deciding mostly on feel before they ever reach for logic.",
+      "sections": [
+        {
+          "heading": "Two systems, one decision",
+          "paragraphs": [
+            "Every purchase runs through two layers of the mind. The fast layer is intuitive, emotional, and instant. It decides whether something feels safe, familiar, and worth a closer look. The slow layer is deliberate and analytical. It compares, calculates, and justifies. The mistake builders make is marketing entirely to the slow layer while buyers are still standing at the door of the fast one.",
+            "The fast layer almost always votes first. By the time a buyer is reading your feature comparison, an earlier, quieter decision has usually already been made: this looks legitimate, or it doesn't; this is for someone like me, or it isn't. Your specs then serve as ammunition for a verdict the buyer's gut already reached. Logic rarely overturns that verdict. It ratifies it.",
+            "This is not a flaw to be ashamed of in your customers. It is how humans survive a world with infinite options and finite attention. The builder's job is not to fight it but to design for it, so that the fast layer says yes and the slow layer has everything it needs to agree."
+          ],
+          "bullets": [
+            "Win the fast layer with clarity, signals of safety, and a clear sense of who it's for.",
+            "Equip the slow layer with proof, specifics, and reasons to justify the choice.",
+            "If the fast layer says no, no amount of features will rescue you."
+          ]
+        },
+        {
+          "heading": "People buy outcomes, then justify with features",
+          "paragraphs": [
+            "Nobody wants a courier dispatch system. They want to stop losing packages and stop fielding angry calls about where the driver is. When BP Couriers shows a customer a live booking and an islandwide promise, the sale is the relief, not the software. The feature list is what the buyer reaches for later to explain to their partner or their boss why they chose you.",
+            "This reordering matters for everything you write. Lead with the outcome the buyer feels, then back it with the feature that delivers it. 'Know where your package is, every minute, anywhere in Jamaica' beats 'real-time GPS tracking with sub-minute polling' even though they describe the same thing. The first sells the slow layer's job to the fast layer; the second asks the buyer to do that translation themselves, and most won't bother."
+          ]
+        },
+        {
+          "heading": "Influence versus manipulation",
+          "paragraphs": [
+            "There is a real line here, and it is worth naming early because the rest of this book hands you sharp tools. Influence helps a buyer make a decision they will be glad they made. Manipulation pushes them toward one they'll regret. Same psychology, opposite intent. Scarcity that's true is influence; a fake countdown timer is manipulation. Social proof from real customers is influence; invented testimonials are fraud.",
+            "The practical test is simple. Imagine the buyer learns exactly how you used each technique. If they would nod, you're fine. If they'd feel tricked, you've crossed the line, and you've also built a brand that can't survive its own customers talking to each other. In a small market like the Caribbean, where word travels fast and reputations are shared at the family table, manipulation is not just unethical. It's bad math."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The First Three Seconds",
+      "intro": "Before persuasion comes attention, and attention is brutally scarce. A buyer landing on your page, your post, or your storefront gives you a fraction of a second to clear one bar: is this worth more of my time? Most marketing dies here, not because the offer was bad but because the buyer never stayed long enough to learn it existed.",
+      "sections": [
+        {
+          "heading": "The bounce decision",
+          "paragraphs": [
+            "Within roughly the first moments of contact, a buyer is running a quiet triage: what is this, is it for me, and can I trust it enough to continue. They are not reading. They are scanning shape, hierarchy, and a handful of words. If those signals don't resolve fast, they leave, and they leave without a thought, because leaving costs them nothing.",
+            "This is why a clean, confident first impression outperforms a clever one. The buyer is not yet ready to appreciate cleverness. They're deciding whether to give you the chance. Clarity at the top of the funnel is not playing it safe. It is the price of admission."
+          ]
+        },
+        {
+          "heading": "Clarity beats clever",
+          "paragraphs": [
+            "Your headline is not a place for wordplay. It's a place to answer the buyer's only question: what do I get and why should I care. The Language Cradle doesn't open with a riddle about culture. It tells you, plainly, that you can learn languages and book certified translation, and it tells you fast. The personality comes after the comprehension, never before it.",
+            "A useful discipline: write the most boring, literal version of your headline first. Then sharpen it without ever sacrificing the instant understanding. If a stranger can't tell what you do from your headline alone, in one read, the headline has failed no matter how good it sounds to you."
+          ],
+          "bullets": [
+            "Say what it is in plain language before you say why it's special.",
+            "One idea per headline. Two ideas means zero understood.",
+            "Show, don't claim: a real screenshot beats the word 'powerful'.",
+            "Remove every word that doesn't change the meaning."
+          ]
+        },
+        {
+          "heading": "Designing the visual hierarchy",
+          "paragraphs": [
+            "Attention follows contrast and size, not your intentions. The biggest, boldest thing on the screen is what the buyer reads, whether or not it's the thing you most wanted them to see. If your logo is huge and your value proposition is small, you've told the buyer your name and hidden your offer. Reverse it.",
+            "JST builds in pure black and white for exactly this reason. With color stripped away, hierarchy has nowhere to hide. You're forced to earn attention through structure: what's large, what's first, what's isolated by space. A buyer's eye lands where you put weight. Put weight on the one decision you want them to make next, and remove competing demands. A page that asks for three things gets none of them."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Trust Is the Real Currency",
+      "intro": "Every other lever in this book is borrowing against one account: trust. A buyer who trusts you will forgive a clumsy headline, a higher price, a slower reply. A buyer who doesn't will find a reason to leave no matter how good your offer is. Trust is not a soft, fuzzy thing. It is the measurable difference between a visitor and a customer.",
+      "sections": [
+        {
+          "heading": "Why trust precedes everything",
+          "paragraphs": [
+            "Buying anything carries risk: the money, the time, the embarrassment of choosing wrong. Trust is what shrinks that risk to a size the buyer can accept. Until the perceived risk drops below the buyer's tolerance, nothing else you do matters, because they will not act. This is why a higher-trust competitor routinely beats a better product. The better product is only better if you survive long enough to be evaluated.",
+            "For a small business, trust is also your only real moat. You can't outspend the giants. But you can be the one that answers the phone, ships when it said it would, and looks exactly as professional online as it does in person. In a market where buyers have been burned by businesses that vanished or never delivered, simply being visibly reliable is a competitive advantage most of your rivals refuse to earn."
+          ]
+        },
+        {
+          "heading": "The trust signals that move buyers",
+          "paragraphs": [
+            "Trust is built from accumulating signals, each small, the sum large. A real address and phone number. A logo that looks deliberate, not free. Reviews from people who sound like the buyer. A site that loads fast and works on a phone. A clear refund or guarantee policy. Consistent presence across the places the buyer checks before deciding. None of these alone closes a sale. Their absence, any one of them, can lose it.",
+            "The Mover Guy doesn't ask you to trust it on faith. It shows branded email from its own domain, real online payment by card, signed agreements, a store you can actually buy from. Each is a signal that says: this is a real operation that intends to be here next year. Buyers read these signals constantly and mostly unconsciously. Your job is to make sure every one of them points the same direction."
+          ],
+          "bullets": [
+            "Consistency across channels: the same name, look, and promise everywhere.",
+            "Specificity: precise claims read as true; vague ones read as marketing.",
+            "Proof you didn't write yourself: reviews, named clients, real photos.",
+            "Friction where it reassures (clear policies) and none where it doesn't (checkout)."
+          ]
+        },
+        {
+          "heading": "Trust compounds or it leaks",
+          "paragraphs": [
+            "Trust isn't won once. It's a balance that every interaction either deposits into or withdraws from. A fast reply deposits. A broken link withdraws. Delivering early deposits. A surprise fee withdraws double. The brands that win over years are not the ones with the best single campaign. They're the ones that stopped the leaks: the dead pages, the unanswered messages, the promises quietly broken.",
+            "This is good news for builders, because plugging leaks is engineering, not magic. Audit your own funnel as a suspicious stranger would. Every point where a buyer might think 'is this for real?' is a leak. Fix them in order of how many buyers hit them. Trust built this way is durable precisely because it was earned the slow way, and earned trust is very hard for a competitor to copy."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The Biases That Move Markets",
+      "intro": "The human mind runs on shortcuts. These shortcuts are usually right, which is why we evolved them, and predictably wrong in ways that shape every market. You don't create these biases and you can't switch them off. You can only decide whether to work with them honestly or pretend buyers are robots and lose to whoever doesn't.",
+      "sections": [
+        {
+          "heading": "Social proof: we copy the crowd",
+          "paragraphs": [
+            "When unsure, people look at what others like them are doing and copy it. This is rational: if a hundred people chose something, it's probably not a disaster. That's why review counts, customer logos, 'most popular' tags, and visible activity move buyers more than any claim you make about yourself. The crowd is more believable than the vendor, always.",
+            "The lever for a small business is to make real proof visible. Crown District JA showing its lookbook and customer wins, a courier service surfacing how many deliveries it's completed, a tutor platform displaying its roster and student outcomes: all of it tells the next buyer 'people like you already trusted this'. You don't need thousands. The first ten honest reviews convert the eleventh buyer. Start collecting proof from your very first sale, because you can never go back and collect it later."
+          ]
+        },
+        {
+          "heading": "Anchoring and loss aversion",
+          "paragraphs": [
+            "The first number a buyer sees becomes the anchor against which every other number is judged. Show a $30,000 option first and a $12,000 option looks like a deal; show the $12,000 alone and it looks expensive. The anchor doesn't have to be a price you expect to sell. It just has to set the scale. This is why premium tiers exist even when few buy them: they make the middle tier feel reasonable.",
+            "Loss aversion is anchoring's powerful cousin: people feel the pain of losing something roughly twice as strongly as the pleasure of gaining the equivalent. 'Stop losing packages' hits harder than 'deliver faster'. 'Don't leave money on the table' outperforms 'earn more'. Frame your offer around the loss the buyer avoids, not only the gain they get, and the same fact suddenly carries more weight."
+          ],
+          "bullets": [
+            "Anchor high before you reveal your real price, so it lands as relief.",
+            "Frame the cost of inaction, not just the benefit of action.",
+            "A 'was/now' or a visible premium tier reframes your core price.",
+            "Specific anchors ($11,940) feel more considered than round ones ($12,000)."
+          ]
+        },
+        {
+          "heading": "Authority, scarcity, and the endowment effect",
+          "paragraphs": [
+            "Buyers defer to authority signals: credentials, being featured somewhere recognizable, a confident point of view, the simple fact of having built real things. You don't claim authority by saying you're an expert. You demonstrate it by teaching, by showing the work, by having opinions a novice couldn't have. This very book is an authority play: a studio that builds and runs marketing, showing it understands the machinery.",
+            "Scarcity works because limited availability signals value and forces a decision. But it only works when it's true. Real limits, a cohort that genuinely closes, stock that genuinely runs out, a trial that genuinely expires, create honest urgency. Fake scarcity creates a one-time sale and a permanent skeptic. The endowment effect, finally, is why free trials convert: once a buyer has set up their account, imported their data, and started using your tool, it's already theirs in their mind, and giving it up now feels like a loss. The three-day trials across Supreme Suite aren't generosity. They're letting the buyer experience ownership before they pay for it."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Positioning and Category Design",
+      "intro": "The most expensive mistake in marketing happens before you write a single word: choosing to compete in a crowded box where buyers can only tell you apart by price. Positioning is the decision about which box you're in and who you're for. Get it right and persuasion becomes easy. Get it wrong and no amount of clever copy will save you.",
+      "sections": [
+        {
+          "heading": "Position before you persuade",
+          "paragraphs": [
+            "Positioning is the answer to two questions the buyer asks instantly: what kind of thing is this, and is it for me. If a buyer can't categorize you, they can't evaluate you, and confusion always resolves as 'no'. The goal is not to be everything to everyone. It's to be the obvious choice for someone specific, because the obvious choice barely has to sell at all.",
+            "Most builders resist narrowing because it feels like turning away business. The opposite is true. 'Marketing services' competes with everyone and wins with no one. 'We build the website, the app, and the marketing for Caribbean businesses ready to look world-class' is a box with a clear occupant. Narrow positioning doesn't shrink your market. It makes you the answer for the part of the market that's actually ready to buy."
+          ]
+        },
+        {
+          "heading": "Designing your own category",
+          "paragraphs": [
+            "The strongest position isn't being better in an existing category. It's framing a category where you're the natural leader. When you compete as 'another courier', you're judged on price against every courier. When you frame yourself as the islandwide, app-first, track-everything courier, you've drawn a smaller circle and stood in the center of it. Inside that circle, comparison shopping works in your favor.",
+            "Category design is mostly an act of naming and contrast. Name the new way of doing things, name the old way you're replacing, and make the difference legible. NEXPRO didn't enter 'food distribution'; it framed surplus-food alerts and food security, a category where the usual players aren't even competing. You don't need a bigger budget to do this. You need the courage to define the terms instead of accepting the ones handed to you."
+          ],
+          "bullets": [
+            "Name the old way you're replacing so the new way has contrast.",
+            "Pick the smallest market you can dominate, then expand from strength.",
+            "Own one word in the buyer's mind, not five.",
+            "If you're 'the cheaper X', you've let X define the category. Redefine it."
+          ]
+        },
+        {
+          "heading": "The position has to be true",
+          "paragraphs": [
+            "A position you can't deliver on is a debt that comes due at the worst moment, when the buyer becomes a customer and finds out. The most durable positioning describes something genuinely true about you that competitors can't easily claim. JST's black-and-white identity, world-class polish from a Caribbean base, isn't a slogan. It's visible in every build, which is why it holds.",
+            "Find the true thing about your operation that buyers care about and competitors avoid, then build your whole position on it. Maybe it's that you actually answer the phone. Maybe it's that you ship in days, not months. Maybe it's that you serve a market the big players ignore. Whatever it is, the test is the same: can you still say it proudly after the buyer has worked with you for a year? If yes, you have a position. If no, you have a slogan with an expiration date."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Pricing Is a Story About Value",
+      "intro": "Price is the most psychological number in your business. The same offer at the same cost can feel like a steal or a ripoff depending entirely on how it's framed, anchored, and presented. Builders tend to price by adding up costs and tacking on a margin. Buyers don't experience cost. They experience value, and value is a story you're either telling on purpose or leaving to chance.",
+      "sections": [
+        {
+          "heading": "Price signals value, it doesn't just collect it",
+          "paragraphs": [
+            "Price is information. A price that's too low doesn't read as 'good deal'; it reads as 'something must be wrong'. Buyers use price as a proxy for quality when they can't easily judge quality directly, which is most of the time. Underpricing a serious service tells the serious buyer you're not serious, and you lose exactly the customers you wanted while attracting the ones who'll haggle and churn.",
+            "This doesn't mean charge more for the sake of it. It means your price has to match the value story you're telling everywhere else. A world-class brand at a bargain-bin price creates a dissonance buyers resolve by distrusting one of the two. Make the price and the positioning agree. If you're the premium option, look and cost like it. If you're the accessible option, own that with confidence rather than apology."
+          ]
+        },
+        {
+          "heading": "Tiers, anchoring, and charm pricing",
+          "paragraphs": [
+            "Three tiers outperform one because they let the buyer choose how much to spend rather than whether to spend at all, which is a far easier yes. The top tier anchors high and makes the middle look sensible; the middle tier is usually where you want most buyers to land, so design it as the obvious best value; the bottom tier removes the 'too expensive' objection without becoming the default. Most buyers, given three options, avoid the extremes and choose the middle. Build accordingly.",
+            "Charm pricing, ending in 9 or just under a round number, works because buyers read left to right and anchor on the first digit; $9,000 feels meaningfully cheaper than $10,000 even though it's barely less. Use round numbers when you want to signal premium and quality, and charm pricing when you want to signal value and a deal. Both are honest as long as the number is the number. The frame is the message."
+          ],
+          "bullets": [
+            "Three tiers: an anchor, a target, and a floor.",
+            "Make the tier you want chosen the visibly best value, and say so.",
+            "Charm pricing for value; round numbers for premium.",
+            "Show price next to the outcome it buys, never naked on its own.",
+            "A subscription reframes a big number as a small monthly one buyers can say yes to."
+          ]
+        },
+        {
+          "heading": "Framing the value around the price",
+          "paragraphs": [
+            "The number never travels alone. Surround it with the value it represents and it shrinks; present it bare and it looms. 'A monthly wash club for less than the cost of one detail per week' frames the price against a comparison the buyer already accepts. The car wash subscription isn't selling washes. It's selling a small recurring number against the alternative of paying full price each time, and the math does the persuading.",
+            "The most powerful frame is the cost of not buying. What does the buyer lose by staying as they are? The missed sales from a broken site, the packages lost without tracking, the hours wasted on manual work an automation would handle. When the price of your solution is visibly smaller than the ongoing cost of the problem, the decision stops being about whether they can afford you and becomes about whether they can afford to keep doing without you."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Narrative and Identity",
+      "intro": "Underneath every purchase is a story the buyer is telling about themselves. People don't just buy products; they buy a better version of who they are. The most durable brands aren't the ones with the best features. They're the ones that hand the buyer an identity worth stepping into, and then prove worthy of it.",
+      "sections": [
+        {
+          "heading": "People buy a better version of themselves",
+          "paragraphs": [
+            "The buyer is the hero of their own story, and your product is at most a tool that helps them win. Get this backwards, make your brand the hero, and you talk endlessly about yourself while the buyer waits for you to mention them. Get it right and you describe the buyer's struggle and the better version of themselves on the other side of it, with your product as the bridge.",
+            "A small-business owner buying a professional website isn't buying HTML. They're buying the feeling of finally looking as legitimate as they know they are, of not being embarrassed to send the link, of being taken seriously by the customer they've been afraid to pitch. Sell them that transformation. The features are how you deliver it, but the transformation is what they're paying for, and it's what they'll tell their friends about."
+          ]
+        },
+        {
+          "heading": "Story makes value memorable",
+          "paragraphs": [
+            "Facts are forgotten; stories stick. A buyer won't remember your feature list, but they'll remember the founder who built the whole thing in black and white from Jamaica because they refused to accept that world-class meant somewhere else. Story is how value survives the gap between when a buyer hears it and when they decide. It's also how buyers retell your value to other buyers, which is the only marketing that scales for free.",
+            "Your story doesn't need to be dramatic. It needs to be true and specific. Why does this business exist? What did you refuse to accept? Who is it for and who is it not for? The Cleanser JA carries a story about wellness and care that a generic product page never could. The story isn't decoration on top of the product. It's the part of the product the buyer carries home in their head."
+          ],
+          "bullets": [
+            "Cast the buyer as the hero; your product is the tool, not the star.",
+            "Name the villain: the problem, the old way, the status quo you reject.",
+            "Make the transformation concrete: from this frustrating state to that better one.",
+            "Keep it true. A story the product can't back up becomes a complaint."
+          ]
+        },
+        {
+          "heading": "Identity creates loyalty",
+          "paragraphs": [
+            "When a buyer adopts a brand as part of their identity, price sensitivity drops and loyalty climbs. They're no longer comparing you to alternatives on each purchase; they're being themselves. This is the deepest moat a small business can build, and it's available to anyone willing to stand for something specific enough that some people proudly belong and others happily don't.",
+            "Identity-driven loyalty comes from consistency and conviction, not from loyalty-card mechanics alone. The buyer has to be able to say, in a sentence, what you stand for, and feel that it says something about them too. Streetwear customers wear the brand as a statement. Tutor-platform students see themselves as people who invest in growth. Give your buyers something to be, not just something to buy, and you'll have customers who defend you instead of comparing you."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Wiring It Into a Launch Funnel",
+      "intro": "Psychology that stays in a notebook changes nothing. The point of understanding how buyers decide is to build a path that takes a stranger, step by careful step, to a confident yes, and then to telling other strangers. A funnel isn't a trick. It's the sequence of moments where each principle in this book does its specific job.",
+      "sections": [
+        {
+          "heading": "The stages and the job of each",
+          "paragraphs": [
+            "A funnel has four jobs, and each maps to principles you now understand. Attention: win the first three seconds with clarity and a signal that this is for them. Interest: earn trust and frame the value as the outcome they want, with the cost of inaction made vivid. Decision: deploy honest social proof, sensible anchoring, and tiered pricing so the choice is which option, not whether. Action: remove every gram of friction from the moment they're ready to say yes.",
+            "Most funnels leak at a stage the builder never inspects. You might win attention beautifully and lose everyone at a checkout that asks for too much. Or build deep trust and never make a clear ask. Walk your own funnel as a stranger, stage by stage, and find the one place the most buyers fall out. Fix that first. A funnel is only as strong as its weakest stage, and improving the weakest stage is worth more than polishing the strongest."
+          ],
+          "bullets": [
+            "Attention: clarity and relevance in the first seconds.",
+            "Interest: trust signals plus value framed as the buyer's outcome.",
+            "Decision: social proof, anchoring, tiers, honest scarcity.",
+            "Action: one clear next step, zero unnecessary friction."
+          ]
+        },
+        {
+          "heading": "Reduce friction at the moment of yes",
+          "paragraphs": [
+            "The instant a buyer decides to act is the most fragile moment in the entire funnel. Every extra field, every forced account, every confusing button, every 'we'll get back to you' is a chance for the fast layer to reconsider and walk. The single highest-return work in most businesses is making the path from 'yes' to 'done' as short and certain as possible.",
+            "This is where building and marketing become the same discipline. Online card payment instead of 'call us to pay'. A guest checkout instead of a forced signup. A clear confirmation instead of silence. Across JST's platforms, the move toward letting buyers pay by card, book without an account, and get instant confirmation isn't a feature decision. It's a conversion decision. The buyer's willingness to act has a short half-life. Catch it before it decays."
+          ]
+        },
+        {
+          "heading": "After the sale: proof and the next loop",
+          "paragraphs": [
+            "The funnel doesn't end at the sale. It loops. A happy customer is the raw material for the social proof that converts the next buyer, and the cheapest, most credible marketing you will ever have. Build the moment of asking for a review or a referral into the experience itself, right after the customer feels the value, not weeks later when the feeling has faded. The endowment effect, loyalty mechanics like punch cards and rewards, branded follow-up: all of it turns one sale into a relationship and a relationship into a quiet sales force.",
+            "Measure the loop, not just the launch. Which message won attention, which proof closed the decision, where buyers fell out: every one of these is a number you can watch and improve. You don't need a data team. You need to know your weakest stage and your best proof, and to keep tightening both. The Influence Engine isn't a campaign you run once. It's a system you build, observe, and refine, exactly the way you'd build any other engine, until it reliably turns attention into trust, trust into sales, and customers into the reason the next customer says yes."
+          ]
+        }
+      ]
+    }
+  ],
+  "takeaways": [
+    "Buyers decide on feel first and justify with logic second; market to the gut, then arm the head.",
+    "Trust is the currency every other technique borrows against; plug the leaks before you chase the levers.",
+    "Win the first three seconds with clarity, not cleverness; if the buyer can't tell what you do, nothing else fires.",
+    "Cognitive biases are levers, not tricks: use social proof, anchoring, and loss aversion only where they're true.",
+    "Positioning beats persuasion; be the obvious choice for someone specific instead of an option for everyone.",
+    "Price is a value story: anchor high, offer three tiers, and frame the number against the cost of inaction.",
+    "People buy a better version of themselves; cast the buyer as the hero and your product as the bridge.",
+    "Influence is ethical when the buyer would nod if they saw exactly how you did it; that test is also good business."
+  ]
+}

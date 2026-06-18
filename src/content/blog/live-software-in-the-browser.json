@@ -1,0 +1,63 @@
+{
+  "slug": "live-software-in-the-browser",
+  "category": "tech",
+  "title": "We stopped using screenshots. Our product page runs the real software.",
+  "deck": "Every system on our products page renders its actual interface as live motion — no screenshots, no video files. Here is the architecture, and why it changes how a studio sells.",
+  "excerpt": "How J Supreme Tech replaced product screenshots with live, CSS-driven software interfaces that run in the browser — the architecture, the trade-offs, and the payoff.",
+  "author": "J Supreme Studio",
+  "authorRole": "Engineering",
+  "date": "2026-06-13",
+  "readMinutes": 8,
+  "kicker": "Engineering Notebook",
+  "tags": ["frontend", "motion", "product", "css", "next.js"],
+  "keywords": [
+    "live product demo",
+    "CSS animation product page",
+    "Next.js product showcase",
+    "no screenshots product marketing",
+    "J Supreme Tech engineering"
+  ],
+  "featured": true,
+  "motif": "circuit",
+  "blocks": [
+    { "type": "lead", "text": "A screenshot is a promise you took once and hoped stayed true. We got tired of the promise drifting, so we deleted the screenshots and made the product page render the actual software." },
+    { "type": "p", "text": "If you open our [products page](/products), nothing on it is an image. The pipelines move. An invoice gets marked paid. The AI agent answers a question and the typing indicator blinks. It is all **live DOM and CSS**, rendered on the fly, on every visit — thirteen systems, one engine." },
+    { "type": "h2", "text": "Why screenshots quietly rot" },
+    { "type": "p", "text": "Marketing screenshots have three problems that compound over time. They go stale the moment the product changes. They are heavy — a handful of retina PNGs can outweigh the entire rest of a page. And they are dishonest in a small way: they show a frozen best-case, never the thing moving." },
+    { "type": "ul", "items": [
+      "**Staleness** — the product ships weekly; the screenshot was taken in March.",
+      "**Weight** — five 2x PNGs can be 4–8 MB; the page they sell is 200 KB.",
+      "**Flatness** — software is motion, and a still frame throws the motion away."
+    ] },
+    { "type": "callout", "variant": "insight", "title": "The reframe", "text": "If the interface is just markup, the *most honest* and the *lightest* demo is the markup itself — running, not photographed." },
+    { "type": "h2", "text": "The architecture" },
+    { "type": "p", "text": "Each product demo is a self-contained React component with its own little state machine. There is no backend call, no real data — it is a choreography. A shared `useScene` hook drives a deterministic timeline, and every system plugs into it." },
+    { "type": "code", "lang": "tsx", "code": "// one scene, many beats — deterministic and reduced-motion aware\nfunction useScene(beats: number, ms = 2200) {\n  const [beat, setBeat] = useState(0);\n  useEffect(() => {\n    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;\n    const id = setInterval(() => setBeat((b) => (b + 1) % beats), ms);\n    return () => clearInterval(id);\n  }, [beats, ms]);\n  return beat;\n}" },
+    { "type": "p", "text": "The trick is that the *layout* is the real product layout, lifted straight from the live build and frozen as a presentational shell. So when the product changes, the demo is one import away from changing with it." },
+    { "type": "figure", "motif": "stack", "caption": "Fig 1 — one timeline, thirteen presentational shells subscribing to the same beat" },
+    { "type": "h3", "text": "Reduced motion is not optional" },
+    { "type": "p", "text": "Anything that animates forever has to respect `prefers-reduced-motion`. Every scene checks the media query and, if motion is reduced, renders the *final* beat statically. The page still tells the whole story — it just stops moving for people who asked it to." },
+    { "type": "callout", "variant": "warn", "title": "The cost", "text": "Live demos are more code to maintain than a screenshot, and they can jank if you animate layout instead of transforms. Animate `transform` and `opacity`; never animate `width`, `top`, or `height` in a loop." },
+    { "type": "h2", "text": "What it bought us" },
+    { "type": "stat", "items": [
+      { "value": "0", "label": "screenshot files shipped" },
+      { "value": "13", "label": "systems running live" },
+      { "value": "60s", "label": "scripted product tour" }
+    ] },
+    { "type": "p", "text": "Beyond weight and honesty, there is a sales effect we did not expect: a moving interface reads as *built*. A static one reads as *designed*. For a studio that ships working software, that difference is the entire pitch." },
+    { "type": "quote", "text": "Show the thing running, or you are just showing a picture of a promise.", "cite": "Studio principle" },
+    { "type": "h2", "text": "Would we do it again" },
+    { "type": "ol", "items": [
+      "For a product studio selling working systems — yes, without hesitation.",
+      "For a brochure site that changes twice a year — no, a screenshot is fine.",
+      "The deciding question: does motion *prove* something a still cannot? If yes, build it live."
+    ] },
+    { "type": "divider" },
+    { "type": "callforward", "text": "Want your product page to run the real thing instead of a picture of it?", "cta": { "label": "Start a project", "href": "/contact" } }
+  ],
+  "faq": [
+    { "q": "Does live software hurt page performance?", "a": "Done right it helps — there are no image downloads, and CSS transforms run on the compositor. The risk is animating layout properties; we only animate transform and opacity." },
+    { "q": "How do you keep the demos in sync with the real product?", "a": "Each demo reuses the product's real layout as a presentational shell, so a product change is one import away from updating the demo." }
+  ],
+  "related": []
+}

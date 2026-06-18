@@ -1,0 +1,131 @@
+/* ============================================================
+   CINEMATIC LAYER (cn-*) — film-grade finish over the whole site.
+   Grain, scene crossfades, Ken Burns drift, dark-scene lighting,
+   vignettes and movie-title word reveals. Pure CSS.
+   Imported from globals.css via: @import "./cinematic.css";
+   ============================================================ */
+
+/* ---------- route entrance: scene crossfade (template.tsx) ---------- */
+@keyframes cn-scene-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.996); filter: blur(7px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+.cn-scene {
+  animation: cn-scene-in 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* ---------- film grain (global overlay, layout.tsx) ---------- */
+.cn-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.038;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  animation: cn-grain-shift 1.1s steps(4) infinite;
+}
+@keyframes cn-grain-shift {
+  0% { background-position: 0 0; }
+  25% { background-position: -46px 30px; }
+  50% { background-position: 26px -38px; }
+  75% { background-position: -30px -22px; }
+  100% { background-position: 0 0; }
+}
+
+/* ---------- Ken Burns: slow push-in on every captured screenshot ---------- */
+@keyframes cn-kb {
+  from { transform: scale(1) translateY(0); }
+  to { transform: scale(1.065) translateY(-1.2%); }
+}
+img.shot {
+  animation: cn-kb 19s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+/* ---------- dark scenes: drifting key-light + vignette ---------- */
+:is(section, footer, div):has(> .grid-bg-dark) {
+  position: relative;
+}
+:is(section, footer, div):has(> .grid-bg-dark)::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(38% 34% at 28% 22%, rgba(255, 255, 255, 0.09), transparent 68%);
+  animation: cn-keylight 17s ease-in-out infinite alternate;
+}
+:is(section, footer, div):has(> .grid-bg-dark)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(125% 95% at 50% 45%, transparent 58%, rgba(0, 0, 0, 0.42) 100%);
+}
+@keyframes cn-keylight {
+  to { transform: translate(22%, 14%) scale(1.12); }
+}
+
+/* light scenes get a whisper of vignette for depth */
+.cn-vignette-light {
+  position: relative;
+}
+.cn-vignette-light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(130% 100% at 50% 40%, transparent 70%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* ---------- movie-title word reveal (CineWords component) ---------- */
+@keyframes cn-word-in {
+  from { opacity: 0; transform: translateY(0.45em) rotate(0.5deg); filter: blur(10px); }
+  60% { filter: blur(0); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+.cn-word {
+  display: inline-block;
+  opacity: 0;
+  animation: cn-word-in 0.85s cubic-bezier(0.16, 0.84, 0.32, 1) both;
+  animation-delay: var(--cn-d, 0s);
+  will-change: transform, filter;
+}
+
+/* ---------- scroll-driven flourishes (progressive enhancement) ---------- */
+@supports (animation-timeline: view()) {
+  @keyframes cn-draw {
+    from { transform: scaleX(0); opacity: 0; }
+    to { transform: scaleX(1); opacity: 0.5; }
+  }
+  .eyebrow::before {
+    transform-origin: left;
+    animation: cn-draw 1s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+  @keyframes cn-hairline-draw {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .hairline {
+    transform-origin: left;
+    animation: cn-hairline-draw 1s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 80%;
+  }
+}
+
+/* ---------- accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .cn-scene, .cn-grain, img.shot, .cn-word, .eyebrow::before, .hairline {
+    animation: none !important;
+  }
+  .cn-word { opacity: 1 !important; }
+  :is(section, footer, div):has(> .grid-bg-dark)::before {
+    animation: none !important;
+  }
+}

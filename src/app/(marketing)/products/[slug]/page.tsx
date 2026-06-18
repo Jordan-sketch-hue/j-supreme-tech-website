@@ -1,167 +1,219 @@
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { Check } from 'lucide-react';
-import { PageViewConversion } from '@/components/GoogleConversions';
-import { IconRenderer } from '@/components/IconRenderer';
-import { productsData } from '@/lib/productsConfig';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BadgeCheck,
+  ExternalLink,
+  Globe,
+  PlayCircle,
+  Sparkles,
+  Timer,
+} from "lucide-react";
+import { PageViewConversion } from "@/components/GoogleConversions";
+import { SystemScreen } from "@/components/products/screens";
+import {
+  LEGACY_PRODUCT_MAP,
+  SUITE_SYSTEMS,
+  suiteLinks,
+  suiteSystem,
+  suiteTiers,
+} from "@/lib/supremeSuite";
 
-export async function generateStaticParams() {
-  return productsData.map((product) => ({
-    slug: product.slug,
-  }));
+export function generateStaticParams() {
+  return SUITE_SYSTEMS.map((s) => ({ slug: s.slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  const product = productsData.find((p) => p.slug === slug);
-
-  if (!product) {
-    return {};
-  }
-
+  const sys = suiteSystem(slug);
   return {
-    title: `${product.name} - J Supreme Tech`,
-    description: product.description,
+    title: sys ? `${sys.name} — Supreme Suite | J Supreme Tech` : "Product",
+    description: sys?.blurb,
   };
 }
 
-export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  const product = productsData.find((p) => p.slug === slug);
 
-  if (!product) {
-    notFound();
-  }
+  // Old placeholder-catalog URLs keep working — they land on the nearest real system.
+  const legacy = LEGACY_PRODUCT_MAP[slug];
+  if (legacy) redirect(`/products/${legacy}`);
+
+  const sys = suiteSystem(slug);
+  if (!sys) notFound();
+
+  const tiers = suiteTiers(sys.fromUsd);
 
   return (
-    <main>
+    <main className="bg-white text-ink-900">
       <PageViewConversion />
-      <section className="px-6 py-24">
-        <div className="mx-auto max-w-4xl">
-          {/* Breadcrumb */}
-          <div className="mb-8">
-            <Link href="/products" className="text-blue-600 hover:text-blue-700 font-semibold">
-              ← Back to Products
+
+      {/* Hero */}
+      <section
+        className="border-b border-line py-14 md:py-18"
+        style={{ background: `linear-gradient(160deg, ${sys.accent}0d, transparent 65%)` }}
+      >
+        <div className="shell">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-ink-500 hover:text-ink-900"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" /> All products
+          </Link>
+
+          <div className="mt-6 grid items-start gap-10 lg:grid-cols-[1.3fr_1fr]">
+            <div>
+              <div className="flex items-center gap-3">
+                <span
+                  className="flex h-14 w-14 items-center justify-center rounded-2xl font-display text-xl font-bold"
+                  style={{ background: `${sys.accent}16`, color: sys.accent }}
+                >
+                  {sys.shortName[0]}
+                </span>
+                {sys.badge ? (
+                  <span className="rounded-full border border-ink-900 px-3 py-1 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em]">
+                    {sys.badge}
+                  </span>
+                ) : null}
+              </div>
+              <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight md:text-5xl">{sys.name}</h1>
+              <p className="mt-2 font-display text-lg" style={{ color: sys.accent }}>
+                {sys.tagline}
+              </p>
+              <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-ink-600">{sys.blurb}</p>
+
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <a href={suiteLinks.trial(sys.slug)} target="_blank" rel="noreferrer" className="btn btn-dark">
+                  <Sparkles className="h-4 w-4" /> Start 3-day free trial
+                </a>
+                <a href={suiteLinks.demo(sys.slug)} target="_blank" rel="noreferrer" className="btn btn-outline">
+                  <PlayCircle className="h-4 w-4" /> Launch live demo
+                </a>
+                <a
+                  href={suiteLinks.exampleSite(sys.slug)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-ink-600 hover:text-ink-900"
+                >
+                  <Globe className="h-4 w-4" /> Example website
+                </a>
+              </div>
+              <p className="mt-3 flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.16em] text-ink-500">
+                <Timer className="h-3 w-3" /> Full product · demo data included · no card required
+              </p>
+            </div>
+
+            {/* Live layout + what's inside */}
+            <div className="space-y-5">
+            <div className="browser">
+              <div className="browser-bar">
+                <span className="browser-dot" />
+                <span className="browser-dot" />
+                <span className="browser-dot" />
+                <span className="browser-url">app.yourbrand.com — {sys.shortName}</span>
+              </div>
+              <div className="aspect-[16/10] bg-white">
+                <SystemScreen slug={sys.slug} />
+              </div>
+            </div>
+            <div className="card p-6">
+              <p className="eyebrow no-rule">Everything included</p>
+              <ul className="mt-4 space-y-3">
+                {sys.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-700">
+                    <BadgeCheck className="mt-0.5 h-4 w-4 flex-none" style={{ color: sys.accent }} />
+                    {f}
+                  </li>
+                ))}
+                <li className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-700">
+                  <BadgeCheck className="mt-0.5 h-4 w-4 flex-none" style={{ color: sys.accent }} />
+                  Branded public website with booking form + AI chat
+                </li>
+                <li className="flex items-start gap-2.5 text-sm leading-relaxed text-ink-700">
+                  <BadgeCheck className="mt-0.5 h-4 w-4 flex-none" style={{ color: sys.accent }} />
+                  White-label branding + installable desktop app
+                </li>
+              </ul>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="section shell">
+        <div className="text-center">
+          <span className="eyebrow no-rule justify-center">Pricing</span>
+          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight">
+            Free for 3 days. Then simple tiers.
+          </h2>
+        </div>
+        <div className="mx-auto mt-9 grid max-w-4xl gap-5 md:grid-cols-3">
+          {tiers.map((t, i) => (
+            <div key={t.tier} className={`card p-6 ${i === 1 ? "border-ink-900 shadow-xl" : ""}`}>
+              <p className="font-display text-base font-semibold">{t.tier}</p>
+              <p className="mt-1 text-xs text-ink-500">{t.blurb}</p>
+              <p className="mt-4 font-display text-3xl font-bold">
+                US${t.monthly}
+                <span className="text-sm font-normal text-ink-500">/mo</span>
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-5 text-center font-mono text-[0.62rem] uppercase tracking-[0.16em] text-ink-500">
+          JMD billing available for Jamaican businesses · cancel anytime · your data exports freely
+        </p>
+        <div className="mt-9 text-center">
+          <a href={suiteLinks.trial(sys.slug)} target="_blank" rel="noreferrer" className="btn btn-dark">
+            Try {sys.shortName} free <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </section>
+
+      {/* More products */}
+      <section className="border-t border-line bg-ink-50/60 py-12">
+        <div className="shell">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
+              More from Supreme Suite
+            </p>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-1 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-ink-900 underline underline-offset-4"
+            >
+              View all {SUITE_SYSTEMS.length} systems <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
-
-          {/* Header */}
-          <div className="mb-12">
-            <div className="mb-4">
-              <IconRenderer iconName={product.icon} size={48} className="text-blue-600" />
-            </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">{product.name}</h1>
-            <p className="text-lg text-gray-600">{product.description}</p>
-            <span className="mt-4 inline-block rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900">
-              {product.category}
-            </span>
-          </div>
-
-          {/* Status Badge */}
-          {product.status === 'coming-soon' && (
-            <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-              <p className="text-amber-800">
-                <strong>Coming Soon:</strong> This product is currently in development. Sign up for early access!
-              </p>
-            </div>
-          )}
-          {product.status === 'beta' && (
-            <div className="mb-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-blue-800">
-                <strong>Beta:</strong> This product is in beta testing. We would love your feedback!
-              </p>
-            </div>
-          )}
-
-          {/* Long Description */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">About {product.name}</h2>
-            <p className="text-lg text-gray-600 leading-relaxed">{product.longDescription}</p>
-          </div>
-
-          {/* Features */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Key Features</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {product.features.map((feature) => (
-                <div key={feature} className="flex items-start p-4 bg-gray-50 rounded-lg">
-                  <Check size={18} className="text-blue-600 mr-3 mt-1" />
-                  <span className="text-gray-700">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Pricing */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Pricing Plans</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {product.pricing && (
-                <>
-                  <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Starter</h3>
-                    <p className="text-3xl font-bold text-blue-600 mb-4">
-                      ${product.pricing.starter}
-                      <span className="text-lg text-gray-600">/mo</span>
-                    </p>
-                    <button className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors mb-4">
-                      Get Started
-                    </button>
-                    <p className="text-sm text-gray-600">Perfect for individuals and small teams</p>
-                  </div>
-
-                  <div className="border-2 border-blue-600 rounded-lg p-6 shadow-lg relative">
-                    <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                      Most Popular
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Professional</h3>
-                    <p className="text-3xl font-bold text-blue-600 mb-4">
-                      ${product.pricing.professional}
-                      <span className="text-lg text-gray-600">/mo</span>
-                    </p>
-                    <button className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors mb-4">
-                      Get Started
-                    </button>
-                    <p className="text-sm text-gray-600">Ideal for growing businesses</p>
-                  </div>
-
-                  <div className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Enterprise</h3>
-                    <p className="text-3xl font-bold text-blue-600 mb-4">
-                      ${product.pricing.enterprise}
-                      <span className="text-lg text-gray-600">/mo</span>
-                    </p>
-                    <button className="w-full bg-gray-200 text-gray-900 py-2 rounded-lg font-semibold hover:bg-gray-300 transition-colors mb-4">
-                      Contact Sales
-                    </button>
-                    <p className="text-sm text-gray-600">Custom solutions for enterprises</p>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to get started?</h2>
-            <p className="text-gray-600 mb-6">
-              {product.status === 'coming-soon'
-                ? 'Sign up for early access to get notified when this product launches.'
-                : 'Start your free trial today and experience the benefits of ' + product.name}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {product.status !== 'coming-soon' && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {SUITE_SYSTEMS.filter((s) => s.slug !== sys.slug)
+              .slice(0, 8)
+              .map((s) => (
                 <Link
-                  href={`/free-trial?product=${product.slug}`}
-                  className="bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors text-center"
+                  key={s.slug}
+                  href={`/products/${s.slug}`}
+                  className="rounded-full border border-line bg-white px-3.5 py-1.5 text-xs font-medium text-ink-700 transition-colors hover:border-ink-900 hover:text-ink-900"
                 >
-                  Start Free Trial
+                  {s.shortName}
                 </Link>
-              )}
-              <button className={product.status === 'coming-soon' ? 'bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors' : 'bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg border-2 border-blue-600 hover:bg-blue-50 transition-colors'}>
-                {product.status === 'coming-soon' ? 'Notify Me' : 'Schedule Demo'}
-              </button>
-            </div>
+              ))}
+            <a
+              href={suiteLinks.catalog}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 rounded-full bg-ink-950 px-3.5 py-1.5 text-xs font-medium text-white"
+            >
+              Open the platform <ExternalLink className="h-3 w-3" />
+            </a>
           </div>
         </div>
       </section>

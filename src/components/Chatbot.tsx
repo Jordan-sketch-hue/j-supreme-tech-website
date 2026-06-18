@@ -60,7 +60,10 @@ export function Chatbot() {
     setInput("");
 
     window.setTimeout(() => {
-      setMessages((current) => [...current, { role: "bot", text: getBotResponse(trimmed) }]);
+      setMessages((current) => [
+        ...current,
+        { role: "bot", text: getBotResponse(trimmed) },
+      ]);
     }, 450);
   }
 
@@ -74,23 +77,25 @@ export function Chatbot() {
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="fixed bottom-6 right-6 z-[70] flex h-16 w-16 items-center justify-center rounded-full bg-linear-to-br from-[#7B2FFF] to-[#6D5BFF] text-white shadow-[0_0_45px_rgba(123,47,255,0.45)] transition-transform hover:scale-105"
+        className="fixed bottom-6 right-6 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-ink-950 text-white shadow-[0_14px_40px_-10px_rgba(0,0,0,0.55)] transition-transform hover:scale-105"
         aria-label={isOpen ? "Close chat" : "Open chat"}
       >
         {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
       </button>
 
       {isOpen ? (
-        <div className="fixed inset-x-4 bottom-24 z-[70] flex max-h-[calc(100vh-8rem)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0D0D0D] text-white shadow-[0_0_80px_rgba(123,47,255,0.3)] sm:left-auto sm:right-6 sm:h-[620px] sm:w-96">
-          <div className="flex items-center justify-between border-b border-white/10 bg-linear-to-r from-[#7B2FFF] to-[#6D5BFF] p-4">
+        <div className="fixed inset-x-4 bottom-24 z-[70] flex max-h-[calc(100vh-8rem)] flex-col overflow-hidden rounded-2xl border border-line bg-white text-ink-900 shadow-[0_30px_80px_-28px_rgba(0,0,0,0.45)] sm:left-auto sm:right-6 sm:h-[620px] sm:w-96">
+          <div className="flex items-center justify-between border-b border-line bg-ink-950 p-4 text-white">
             <div>
-              <p className="font-bold">J Supreme Support</p>
-              <p className="text-xs text-white/80">Choose an option or type a message</p>
+              <p className="font-display font-semibold">J Supreme Support</p>
+              <p className="text-xs text-white/65">
+                Choose an option or type a message
+              </p>
             </div>
             <button
               type="button"
               onClick={() => setIsOpen(false)}
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/10 hover:bg-white/20"
+              className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 hover:bg-white/20"
               aria-label="Close chat"
             >
               <X className="h-4 w-4" />
@@ -99,12 +104,15 @@ export function Chatbot() {
 
           <div className="flex-1 space-y-4 overflow-y-auto p-4">
             {messages.map((message, index) => (
-              <div key={`${message.role}-${index}`} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div
+                key={`${message.role}-${index}`}
+                className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+              >
                 <div
                   className={`max-w-[84%] rounded-2xl px-4 py-3 text-sm leading-6 ${
                     message.role === "user"
-                      ? "bg-linear-to-br from-[#7B2FFF] to-[#6D5BFF] text-white"
-                      : "border border-white/10 bg-white/[0.06] text-[#F4F4F5]"
+                      ? "bg-ink-950 text-white"
+                      : "border border-line bg-ink-50 text-ink-800"
                   }`}
                 >
                   {message.text}
@@ -113,15 +121,17 @@ export function Chatbot() {
             ))}
           </div>
 
-          <div className="border-t border-white/10 p-4">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-[#B3B3B3]">Quick Select</p>
+          <div className="border-t border-line p-4">
+            <p className="mb-3 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.16em] text-ink-500">
+              Quick Select
+            </p>
             <div className="mb-4 flex flex-wrap gap-2">
               {quickReplies.map((reply) => (
                 <button
                   key={reply}
                   type="button"
                   onClick={() => sendMessage(reply)}
-                  className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-white hover:border-[#A855F7]/60 hover:bg-[#7B2FFF]/20"
+                  className="rounded-full border border-line bg-white px-3 py-2 text-xs font-medium text-ink-700 hover:border-ink-900 hover:bg-ink-50"
                 >
                   {reply}
                 </button>
@@ -134,11 +144,11 @@ export function Chatbot() {
                 value={input}
                 onChange={(event) => setInput(event.target.value)}
                 placeholder="Type your message..."
-                className="min-w-0 flex-1 rounded-xl border border-white/10 bg-[#050505] px-4 py-3 text-sm text-white outline-none placeholder:text-[#777] focus:border-[#A855F7]"
+                className="min-w-0 flex-1 rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink-900 outline-none placeholder:text-ink-400 focus:border-ink-900"
               />
               <button
                 type="submit"
-                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-[#7B2FFF] to-[#6D5BFF] text-white hover:shadow-[0_0_30px_rgba(123,47,255,0.4)]"
+                className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-ink-950 text-white hover:bg-ink-800"
                 aria-label="Send message"
               >
                 <Send className="h-4 w-4" />

@@ -1,0 +1,352 @@
+/* ============================================================
+   PRODUCTS PAGE MOTION GRAPHICS (pm-*)
+   Pure-CSS animation library for the animated system screens,
+   tour player and use-case flows on /products.
+   Imported from globals.css via: @import "./products-motion.css";
+   ============================================================ */
+
+/* ---------- screen shell ---------- */
+.pm-screen {
+  position: relative;
+  background: #ffffff;
+  overflow: hidden;
+  user-select: none;
+  pointer-events: none;
+  font-family: var(--font-sans);
+}
+
+/* ---------- generic appear / hold / reset cycle ---------- */
+@keyframes pm-cycle {
+  0% { opacity: 0; transform: translateY(6px); }
+  6% { opacity: 1; transform: none; }
+  84% { opacity: 1; transform: none; }
+  93% { opacity: 0; }
+  100% { opacity: 0; }
+}
+.pm-cycle {
+  opacity: 0;
+  animation: pm-cycle var(--pm-dur, 10s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- notification toast ---------- */
+@keyframes pm-toast {
+  0%, 4% { opacity: 0; transform: translateY(-10px); }
+  11%, 40% { opacity: 1; transform: none; }
+  48%, 100% { opacity: 0; transform: translateY(-6px); }
+}
+.pm-toast {
+  opacity: 0;
+  animation: pm-toast var(--pm-dur, 9s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- growing bars (vertical) ---------- */
+@keyframes pm-grow {
+  0% { transform: scaleY(0); }
+  16% { transform: scaleY(1); }
+  86% { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
+}
+.pm-grow {
+  transform-origin: bottom;
+  transform: scaleY(0);
+  animation: pm-grow var(--pm-dur, 6s) cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- filling bars (horizontal) ---------- */
+@keyframes pm-fillx {
+  0% { transform: scaleX(0); }
+  20% { transform: scaleX(1); }
+  86% { transform: scaleX(1); }
+  100% { transform: scaleX(0); }
+}
+.pm-fillx {
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: pm-fillx var(--pm-dur, 7s) cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- SVG line draw (set pathLength={1} on the path) ---------- */
+@keyframes pm-draw {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  52% { stroke-dashoffset: 0; opacity: 1; }
+  88% { stroke-dashoffset: 0; opacity: 1; }
+  96% { opacity: 0; }
+  100% { stroke-dashoffset: 1; opacity: 0; }
+}
+.pm-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pm-draw var(--pm-dur, 7s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* area under a drawn chart line */
+@keyframes pm-area {
+  0%, 30% { opacity: 0; }
+  55%, 86% { opacity: 1; }
+  96%, 100% { opacity: 0; }
+}
+.pm-area {
+  opacity: 0;
+  animation: pm-area var(--pm-dur, 7s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- kanban card hopping across columns ---------- */
+@keyframes pm-hop {
+  0% { opacity: 0; transform: translate(0, 4px); }
+  4%, 26% { opacity: 1; transform: translate(0, 0); }
+  31% { transform: translate(calc(var(--pm-hop1) / 2), -7px); }
+  36%, 58% { transform: translate(var(--pm-hop1), 0); }
+  63% { transform: translate(calc((var(--pm-hop1) + var(--pm-hop2)) / 2), -7px); }
+  68%, 90% { transform: translate(var(--pm-hop2), 0); }
+  96%, 100% { opacity: 0; transform: translate(var(--pm-hop2), 4px); }
+}
+.pm-hop {
+  --pm-hop1: calc(100% + 8px);
+  --pm-hop2: calc(200% + 16px);
+  opacity: 0;
+  animation: pm-hop var(--pm-dur, 9s) cubic-bezier(0.3, 0.8, 0.3, 1) infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- chat typing dots ---------- */
+@keyframes pm-dotbounce {
+  0%, 60%, 100% { transform: none; opacity: 0.35; }
+  30% { transform: translateY(-3px); opacity: 1; }
+}
+.pm-dotbounce {
+  animation: pm-dotbounce 1.2s ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- voice waveform ---------- */
+@keyframes pm-wave {
+  0%, 100% { transform: scaleY(0.22); }
+  50% { transform: scaleY(1); }
+}
+.pm-wave {
+  transform-origin: center;
+  animation: pm-wave var(--pm-dur, 1s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- rubber stamp (PAID, punch cards) ---------- */
+@keyframes pm-stamp {
+  0% { opacity: 0; transform: scale(1.9) rotate(-12deg); }
+  7% { opacity: 1; transform: scale(1) rotate(0deg); }
+  84% { opacity: 1; }
+  94%, 100% { opacity: 0; }
+}
+.pm-stamp {
+  opacity: 0;
+  animation: pm-stamp var(--pm-dur, 9s) cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- odometer roll (stack of 5 rows, last = first) ---------- */
+@keyframes pm-roll {
+  0%, 17% { transform: translateY(0); }
+  23%, 40% { transform: translateY(-20%); }
+  46%, 63% { transform: translateY(-40%); }
+  69%, 86% { transform: translateY(-60%); }
+  92%, 100% { transform: translateY(-80%); }
+}
+.pm-roll {
+  animation: pm-roll var(--pm-dur, 10s) cubic-bezier(0.3, 0.9, 0.2, 1) infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- marching dashed strokes ---------- */
+@keyframes pm-march {
+  to { stroke-dashoffset: -24; }
+}
+.pm-march {
+  animation: pm-march 1.4s linear infinite;
+}
+
+/* ---------- dot travelling along an offset-path ---------- */
+@keyframes pm-travel {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+.pm-travel {
+  animation: pm-travel var(--pm-dur, 5s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- two stacked status pills cross-fading ---------- */
+@keyframes pm-swap-a {
+  0%, 42% { opacity: 1; }
+  50%, 92% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes pm-swap-b {
+  0%, 42% { opacity: 0; }
+  50%, 92% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.pm-swap-a { animation: pm-swap-a var(--pm-dur, 7s) ease-in-out infinite; animation-delay: var(--pm-d, 0s); }
+.pm-swap-b {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: pm-swap-b var(--pm-dur, 7s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ---------- soft pulse for rings / pings ---------- */
+@keyframes pm-ping {
+  0% { transform: scale(0.8); opacity: 0.9; }
+  70%, 100% { transform: scale(1.9); opacity: 0; }
+}
+.pm-ping {
+  animation: pm-ping 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ============================================================
+   TOUR PLAYER
+   ============================================================ */
+
+/* scene enter */
+@keyframes pm-scene {
+  from { opacity: 0; transform: scale(0.985); }
+  to { opacity: 1; transform: none; }
+}
+.pm-scene { animation: pm-scene 0.45s ease both; }
+
+/* progress segment fill — duration set inline to scene length */
+@keyframes pm-seg {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.pm-seg { animation: pm-seg var(--pm-dur, 4.6s) linear both; }
+
+/* pause everything inside (player pause button) */
+.pm-pause-all *, .pm-pause-all { animation-play-state: paused !important; }
+
+/* fake cursor — scene 1 (moves to the Book button and clicks) */
+@keyframes pm-cursor1 {
+  0% { left: 14%; top: 82%; opacity: 0; }
+  8% { opacity: 1; }
+  42%, 66% { left: 56%; top: 58%; opacity: 1; }
+  92%, 100% { left: 62%; top: 30%; opacity: 0; }
+}
+.pm-cursor1 {
+  position: absolute;
+  opacity: 0;
+  animation: pm-cursor1 4.6s ease-in-out both;
+  z-index: 30;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+/* fake cursor — confirm scene */
+@keyframes pm-cursor4 {
+  0% { left: 78%; top: 22%; opacity: 0; }
+  10% { opacity: 1; }
+  44%, 70% { left: 47%; top: 64%; opacity: 1; }
+  94%, 100% { left: 40%; top: 80%; opacity: 0; }
+}
+.pm-cursor4 {
+  position: absolute;
+  opacity: 0;
+  animation: pm-cursor4 4.6s ease-in-out both;
+  z-index: 30;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+/* click ripple, timed to the cursors above */
+@keyframes pm-click {
+  0%, 42% { transform: scale(0); opacity: 0; }
+  48% { transform: scale(1); opacity: 0.55; }
+  62%, 100% { transform: scale(2); opacity: 0; }
+}
+.pm-click {
+  position: absolute;
+  border-radius: 9999px;
+  border: 2px solid #111;
+  opacity: 0;
+  animation: pm-click 4.6s ease-out both;
+  z-index: 29;
+}
+
+/* button press flash, timed to the click */
+@keyframes pm-press {
+  0%, 44% { transform: none; }
+  50% { transform: scale(0.94); }
+  56%, 100% { transform: none; }
+}
+.pm-press { animation: pm-press 4.6s ease-in-out both; }
+
+/* element that appears right after the click lands */
+@keyframes pm-after-click {
+  0%, 52% { opacity: 0; transform: translateY(5px) scale(0.97); }
+  60%, 100% { opacity: 1; transform: none; }
+}
+.pm-after-click { opacity: 0; animation: pm-after-click 4.6s ease-out both; }
+
+/* slow ken-burns style drift for site mock backgrounds */
+@keyframes pm-drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+.pm-drift { animation: pm-drift 4.6s ease-in-out infinite alternate; }
+
+/* ============================================================
+   USE-CASE FLOWS — steps lighting up in order, then looping
+   ============================================================ */
+@keyframes pm-step {
+  0% { opacity: 0.28; }
+  8%, 88% { opacity: 1; }
+  96%, 100% { opacity: 0.28; }
+}
+.pm-step {
+  opacity: 0.28;
+  animation: pm-step var(--pm-dur, 12s) ease-in-out infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* vertical connector line drawing downward */
+@keyframes pm-filly {
+  0% { transform: scaleY(0); }
+  14% { transform: scaleY(1); }
+  88% { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
+}
+.pm-filly {
+  transform-origin: top;
+  transform: scaleY(0);
+  animation: pm-filly var(--pm-dur, 12s) cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
+  animation-delay: var(--pm-d, 0s);
+}
+
+/* ============================================================
+   ACCESSIBILITY — kill all pm-* motion, keep content visible
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .pm-cycle, .pm-toast, .pm-grow, .pm-fillx, .pm-draw, .pm-area, .pm-hop,
+  .pm-dotbounce, .pm-wave, .pm-stamp, .pm-roll, .pm-march, .pm-travel,
+  .pm-swap-a, .pm-swap-b, .pm-ping, .pm-scene, .pm-seg, .pm-cursor1,
+  .pm-cursor4, .pm-click, .pm-press, .pm-after-click, .pm-drift,
+  .pm-step, .pm-filly {
+    animation: none !important;
+  }
+  .pm-cycle, .pm-toast, .pm-stamp, .pm-after-click, .pm-step, .pm-area {
+    opacity: 1 !important;
+  }
+  .pm-grow { transform: scaleY(1) !important; }
+  .pm-fillx { transform: scaleX(1) !important; }
+  .pm-filly { transform: scaleY(1) !important; }
+  .pm-hop { opacity: 1 !important; transform: none !important; }
+  .pm-draw { stroke-dashoffset: 0 !important; }
+  .pm-seg { width: 100% !important; }
+  .pm-cursor1, .pm-cursor4, .pm-click { opacity: 0 !important; }
+  .pm-smil { display: none; }
+}

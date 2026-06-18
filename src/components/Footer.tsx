@@ -1,41 +1,87 @@
 import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
+import { NewsletterCompact } from "@/components/newsletter/forms";
 
-const links = [
-  ["Services", "/#services"],
-  ["Systems Architecture", "/#architecture"],
-  ["Work / Demos", "/#work"],
-  ["Process", "/#process"],
-  ["Pricing", "/#pricing"],
-  ["Contact", "/#contact"],
+const explore: [string, string][] = [
+  ["Work", "/#work"],
+  ["Services", "/services"],
+  ["SaaS — Supreme Suite", "/products"],
+  ["Blog", "/blog"],
+  ["E-Books", "/library"],
+  ["Market & Competition", "/market"],
+  ["About", "/about"],
+  ["Contact Us", "/contact"],
+];
+
+const legal: [string, string][] = [
+  ["Privacy", "/privacy"],
+  ["Terms", "/terms"],
+  ["Disclaimer", "/disclaimer"],
+  ["Disclosure", "/disclosure"],
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-[#050505] text-white">
-      <div className="mx-auto max-w-7xl px-6 py-12">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr_1fr]">
+    <footer className="relative overflow-hidden bg-ink-950 text-white">
+      <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-60" />
+      <div className="shell relative py-16">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#A855F7]/35 bg-[#7B2FFF]/15">
-                <span className="text-sm font-black">JS</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-black">J Supreme Tech</h3>
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#A855F7]">Creative Technology & Digital Systems</p>
+              <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-white text-[0.72rem] font-bold tracking-tight text-ink-950 font-mono">
+                JST
+              </span>
+              <div className="leading-tight">
+                <h3 className="font-display text-lg font-semibold">
+                  J Supreme Tech
+                </h3>
+                <p className="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-white/55">
+                  Creative Technology &amp; Digital Systems
+                </p>
               </div>
             </div>
-            <p className="mt-5 max-w-md text-sm leading-6 text-[#B3B3B3]">
-              Digital Solutions. Real Growth. Websites, apps, CRMs, booking systems, e-commerce platforms, automations, and scalable digital infrastructure.
+            <p className="mt-6 max-w-md text-sm leading-7 text-white/65">
+              Digital Solutions. Real Growth. We design and build websites, apps,
+              CRMs, booking engines, e-commerce platforms, automations, and
+              scalable digital infrastructure — in a clean black-and-white house
+              style.
             </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href="https://wa.me/16582182282"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-on-dark"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Start on WhatsApp
+              </a>
+            </div>
+
+            <div className="mt-8 max-w-sm rounded-2xl border border-white/12 bg-white/[0.03] p-5">
+              <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/55">
+                The Communications Debrief
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-white/65">
+                Tech, marketing &amp; the markets — one clean dispatch from the studio. Join free.
+              </p>
+              <div className="mt-4">
+                <NewsletterCompact />
+              </div>
+            </div>
           </div>
 
           <div>
-            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-white">Explore</h4>
+            <h4 className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/45">
+              Explore
+            </h4>
             <ul className="mt-5 space-y-3">
-              {links.map(([label, href]) => (
+              {explore.map(([label, href]) => (
                 <li key={label}>
-                  <Link href={href} className="text-sm text-[#B3B3B3] hover:text-white">
+                  <Link
+                    href={href}
+                    className="text-sm text-white/70 hover:text-white"
+                  >
                     {label}
                   </Link>
                 </li>
@@ -44,23 +90,47 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="text-sm font-black uppercase tracking-[0.18em] text-white">Contact</h4>
-            <div className="mt-5 space-y-3">
-              <a href="https://wa.me/16582182282" className="flex items-center gap-3 text-sm text-[#B3B3B3] hover:text-white">
-                <MessageCircle className="h-4 w-4 text-[#00D26A]" />
+            <h4 className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/45">
+              Contact Us
+            </h4>
+            <div className="mt-5 space-y-4 text-sm">
+              <a
+                href="https://wa.me/16582182282"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 text-white/70 hover:text-white"
+              >
+                <MessageCircle className="h-4 w-4" />
                 658-218-2282
               </a>
-              <a href="mailto:global.jsuprememarketing@gmail.com" className="flex items-center gap-3 text-sm text-[#B3B3B3] hover:text-white">
-                <Mail className="h-4 w-4 text-[#A855F7]" />
+              <a
+                href="mailto:global.jsuprememarketing@gmail.com"
+                className="flex items-start gap-3 break-all text-white/70 hover:text-white"
+              >
+                <Mail className="mt-0.5 h-4 w-4 flex-none" />
                 global.jsuprememarketing@gmail.com
               </a>
-              <p className="text-sm text-[#B3B3B3]">Jamaica, Caribbean, Worldwide</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-white/45">
+                Jamaica · Caribbean · Worldwide
+              </p>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-white/10 pt-8 text-sm text-[#B3B3B3]">
-          <p>&copy; 2026 J Supreme Tech. Systems That Work. Growth That Lasts.</p>
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono uppercase tracking-[0.14em]">
+            &copy; 2026 J Supreme Tech
+          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            {legal.map(([label, href]) => (
+              <Link key={label} href={href} className="font-mono uppercase tracking-[0.14em] hover:text-white">
+                {label}
+              </Link>
+            ))}
+          </div>
+          <p className="font-mono uppercase tracking-[0.14em]">
+            Systems That Work. Growth That Lasts.
+          </p>
         </div>
       </div>
     </footer>

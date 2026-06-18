@@ -13,7 +13,7 @@ interface IconRendererProps {
 export function IconRenderer({ iconName, size = 24, className = '' }: IconRendererProps) {
   const lucideIconName = iconMap[iconName] || 'Zap';
   const IconComponent =
-    (Icons as Record<string, React.ComponentType<{ size?: number; className?: string }>>)[lucideIconName] ||
+    (Icons as unknown as Record<string, React.ComponentType<{ size?: number; className?: string }>>)[lucideIconName] ||
     Icons.Zap;
 
   return <IconComponent size={size} className={className} />;

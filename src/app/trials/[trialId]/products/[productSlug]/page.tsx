@@ -90,47 +90,16 @@ export default function TrialEnvironmentPage({
       }
     };
 
-            const getLocalTrial = (id: string): TrialRequest | null => {
-              const raw = localStorage.getItem(`trial:${id}`);
-              if (!raw) return null;
-              try {
-                return JSON.parse(raw) as TrialRequest;
-              } catch {
-                return null;
-              }
-            };
-
     unwrapParams();
   }, [params]);
 
   // Track session time
   useEffect(() => {
-
-                  const localTrial = getLocalTrial(id);
     const interval = setInterval(() => {
       setSessionTime((prev) => prev + 0.0166); // 1/60 minute
     }, 1000);
-                    if (response.ok) {
-                      const data = await response.json();
-                      setTrial(data);
-                      setProduct(productsData.find((p) => p.slug === slug) || null);
-                      return;
-                    }
-
-                    if (localTrial) {
-                      setTrial(localTrial);
-                      setProduct(productsData.find((p) => p.slug === slug) || null);
-                      return;
-                    }
-
-                    throw new Error('Trial not found');
     return () => clearInterval(interval);
-                    if (localTrial) {
-                      setTrial(localTrial);
-                      setProduct(productsData.find((p) => p.slug === slug) || null);
-                    } else {
-                      setError(err instanceof Error ? err.message : 'Failed to load trial');
-                    }
+  }, []);
 
   if (loading) {
     return (
@@ -235,13 +204,8 @@ export default function TrialEnvironmentPage({
  */
 function GenericTrialEnvironment({
   product,
-  productSlug,
-  trialId,
   daysRemaining,
-                  <span className="inline-flex items-center gap-2">
-                    <BadgeCheck size={18} className="text-green-700" />
-                    Elite Trial Environment - {trialEnvironment.name}
-                  </span>
+}: {
   product: Product;
   productSlug: string;
   trialId: string;
@@ -264,7 +228,7 @@ function GenericTrialEnvironment({
       <div className="border-t pt-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">Get Started</h2>
         <p className="text-gray-600 mb-6">
-          You have {daysRemaining} days left to try {product.name}. Explore all features and see if it's right for your needs.
+          You have {daysRemaining} days left to try {product.name}. Explore all features and see if it&apos;s right for your needs.
         </p>
         <button className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">
           View Pricing & Upgrade

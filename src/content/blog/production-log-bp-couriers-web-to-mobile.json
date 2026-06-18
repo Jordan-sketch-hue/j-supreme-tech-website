@@ -1,0 +1,182 @@
+{
+  "slug": "production-log-bp-couriers-web-to-mobile",
+  "category": "dispatch",
+  "title": "Production Log: Taking BP Couriers From Website to App Store and Play Store",
+  "deck": "How an islandwide courier platform went from a web app to shipped iOS and Android apps — including the guest-mode fix that unblocked launch.",
+  "excerpt": "A build log on porting BP Couriers from web to native iOS and Android with Expo, EAS Build and Submit, and a guest-mode fix that cleared store review.",
+  "author": "Jordan Morris",
+  "authorRole": "Founder & CEO",
+  "date": "2026-06-02",
+  "readMinutes": 9,
+  "kicker": "Production Log",
+  "tags": ["expo", "react-native", "courier", "eas", "mobile"],
+  "keywords": [
+    "Expo React Native port",
+    "EAS Build and Submit",
+    "courier mobile app",
+    "guest mode authentication",
+    "App Store and Play Store launch",
+    "web to mobile app",
+    "BP Couriers build log"
+  ],
+  "featured": false,
+  "motif": "pulse",
+  "blocks": [
+    {
+      "type": "lead",
+      "text": "BP Couriers already ran as an islandwide courier platform on the web. The job here was narrower and harder than a rebuild: get the same booking flow onto iOS and Android, through both stores, without forking the logic into two codebases or stalling at review. This is the log."
+    },
+    {
+      "type": "p",
+      "text": "BP Couriers is a Jamaican courier service that moves packages between Kingston, Montego Bay, Ocho Rios, Mandeville, and Negril. The web app — book a pickup, track it, manage your account — was live and working. Customers asked for a phone app. Fair ask: most of them book from a phone on the road, not a desktop. The web app is installable, but an icon on the home screen is not the same as a listing in the App Store and Play Store. That presence is the point."
+    },
+    {
+      "type": "p",
+      "text": "So the assignment: a native port that shares the platform's logic, ships to both stores, and does not reintroduce a sign-in wall that real users — and Apple's and Google's reviewers — would hit before they could see anything. That last clause is where most of the interesting decisions lived."
+    },
+    {
+      "type": "h2",
+      "text": "Why a port, not a rebuild"
+    },
+    {
+      "type": "p",
+      "text": "A courier booking is not a complicated object. Pickup address, drop-off address, package size, contact details, a parish, a price, a status. The web app already modeled all of that and talked to Supabase for storage and auth. Rebuilding that from scratch in native land would mean maintaining two definitions of the same booking and watching them drift the first time a field changed."
+    },
+    {
+      "type": "p",
+      "text": "The stack made the port cheap. The web side is Next.js and React. Mobile is **Expo** and **React Native** — still React, still TypeScript, same mental model. The pieces that move cleanly across the boundary are the ones with no DOM in them: types, validation, pricing math, the Supabase client calls. Those got shared. What gets rewritten is the surface — screens, navigation, native inputs — because a `<div>` is not a `<View>` and a web router is not a mobile one."
+    },
+    {
+      "type": "callout",
+      "variant": "insight",
+      "title": "The line that decides port vs. rebuild",
+      "text": "Logic that doesn't touch the DOM travels. Types, pricing, API calls, business rules — share them. Anything that renders or routes gets rewritten natively. Draw that line first and the port stops feeling like a second app and starts feeling like a second front end on the same brain."
+    },
+    {
+      "type": "p",
+      "text": "We use Expo Router for navigation, so the file-based routing instinct from Next.js carries straight over. NativeWind gives us Tailwind-style class names in React Native, which keeps BP Couriers' look — the red-and-white islandwide identity — consistent without hand-translating every style into a `StyleSheet` object. The result is a mobile app that reads like the web app to anyone who's worked on both."
+    },
+    {
+      "type": "figure",
+      "motif": "pulse",
+      "caption": "One platform, three surfaces: web, iOS, and Android booking the same package against the same Supabase tables."
+    },
+    {
+      "type": "h2",
+      "text": "The guest-mode wall"
+    },
+    {
+      "type": "p",
+      "text": "Here's the problem that actually blocked launch. The web app used Clerk for authentication, and the natural port put a sign-in screen first. Open the app, see a login form. For a returning customer that's fine. For a brand-new user — and for a store reviewer — it's a closed door."
+    },
+    {
+      "type": "p",
+      "text": "Apple is explicit about this. If your app has features that don't require an account, you can't force the user to register to use them. A reviewer who opens BP Couriers, sees only a login wall, and has no way past it can reject the build under that guideline. Same energy on Google Play: a cold reviewer who can't get a feel for the app is a reviewer who can flag it. And separate from the stores entirely, a login wall is just bad for conversion. Someone who downloads a courier app wants to price a pickup *now*, not create an account first."
+    },
+    {
+      "type": "quote",
+      "text": "A sign-in wall before value is a wall in front of your reviewer and your first customer at the same time. Remove it once and you unblock both.",
+      "cite": "Build note, BP Couriers mobile"
+    },
+    {
+      "type": "p",
+      "text": "The fix was guest mode. We added a guest path that layers on top of the existing Clerk auth instead of replacing it. A first-time user lands straight in the app, can browse, can price a pickup, and can book — all as a guest. Their guest session is keyed locally (a stable `bp.guest.v1` flag) so the app remembers them between launches. Guest bookings write to a dedicated Supabase table, `bp_guest_bookings`, so guest activity is real and persisted, not a throwaway demo state."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "**Guest-first entry** — no account required to see the app or get a quote, which is exactly what the store guidelines want.",
+        "**Clerk stays underneath** — registered users still sign in and get their full account; guest mode is layered, not a replacement.",
+        "**Guest writes are real** — bookings land in `bp_guest_bookings` in Supabase, so a guest's request is a genuine job, not a sandbox.",
+        "**Reviewers get through** — the App Store and Play Store reviewer reaches working features without credentials, which is the whole point."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "info",
+      "title": "Guest mode is a product decision, not a hack",
+      "text": "It's tempting to treat 'let them in without an account' as a review workaround. It isn't. The same door that lets a reviewer evaluate the app lets a real customer book their first package with zero friction. Build it as a first-class path and it pays off on both sides."
+    },
+    {
+      "type": "p",
+      "text": "This is a pattern we now reach for on every native port — the same move shows up in our [launch playbook](/blog/platform-launch-playbook-zero-to-live) because it's not specific to couriers. Any app where the core value is visible before the account matters benefits from letting people in first and asking for the account when there's a reason to."
+    },
+    {
+      "type": "h2",
+      "text": "EAS Build and Submit to both stores"
+    },
+    {
+      "type": "p",
+      "text": "With the app working and the wall gone, the rest is delivery. The bundle id is `com.bpcouriers.app`. We build and ship with **EAS** — Expo Application Services — which compiles the native binaries in the cloud and submits them to App Store Connect and Google Play. No local Xcode-and-Android-Studio juggling for routine builds; the toolchain handles both platforms from one config."
+    },
+    {
+      "type": "p",
+      "text": "The shape of the pipeline is two profiles in `eas.json` — a development build for testing on a real device, and a production profile that builds the store binary and hands it straight to the store with `--auto-submit`. The non-interactive flag matters for repeatability; once the credentials exist, a release is one command per platform."
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "code": "# Production build + auto-submit, one platform at a time\neas build --platform ios --profile production --auto-submit --non-interactive\neas build --platform android --profile production --auto-submit --non-interactive"
+    },
+    {
+      "type": "p",
+      "text": "There's one honest caveat the docs underplay: the *first* iOS build has to run interactively. Apple's two-factor prompt and certificate generation need a human the first time through. After that initial pass, the signing credentials are stored and every subsequent build can go non-interactive. Android is smoother — the upload key and service account are set once and the auto-submit path just works from then on."
+    },
+    {
+      "type": "callout",
+      "variant": "warn",
+      "title": "Plan for the first interactive iOS build",
+      "text": "Your first `eas build --platform ios` will block on Apple 2FA and cert creation — it can't be fully non-interactive. Do that one by hand, let EAS bank the credentials, and only then wire it into any automated release flow. Budget the time; don't discover it on launch day."
+    },
+    {
+      "type": "p",
+      "text": "Native-only modules are the other thing to guard. Some libraries exist on device but not on web, and if the same code runs in a web context — say, for generating store screenshots — they crash. The fix is a `Platform.OS` guard around anything that's genuinely native-only, so the same source renders cleanly whether it's on a phone or in a headless browser shot."
+    },
+    {
+      "type": "h2",
+      "text": "What shipped, and what it means"
+    },
+    {
+      "type": "p",
+      "text": "BP Couriers is now three surfaces against one platform: the original web app, an iOS app, and an Android app. Customer and driver flows live in the native apps; admin stays on the web, which is the right call — nobody runs a courier dispatch desk from a phone. The booking a guest makes on Android is the same booking the web app shows, because it's the same Supabase tables underneath. No fork, no drift."
+    },
+    {
+      "type": "stat",
+      "items": [
+        { "value": "3", "label": "surfaces, one platform" },
+        { "value": "2", "label": "stores shipped" },
+        { "value": "30+", "label": "platforms across the studio" }
+      ]
+    },
+    {
+      "type": "p",
+      "text": "The takeaway for anyone doing a web-to-mobile move: the port is the easy part if your logic is already separated from your rendering. The decisions that actually determine whether you launch are the ones at the edges — the auth wall that blocks review, the first interactive iOS build, the native modules that don't belong on web. Get those right and the stores are a formality. BP Couriers is one of [30+ platforms we've shipped](/blog/how-we-build-the-studio-operating-system); the pattern repeats because the discipline does."
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "callforward",
+      "text": "Got a web app that needs to live on the App Store and Play Store? We do the port, the guest-mode work, and the EAS pipeline end to end. See what we build at /products, or tell us what you're shipping.",
+      "cta": { "label": "Talk to the studio", "href": "/contact" }
+    }
+  ],
+  "faq": [
+    {
+      "q": "Why port BP Couriers to native instead of just using the installable web app?",
+      "a": "An installable web app puts an icon on the home screen but doesn't give you a listing in the App Store or Play Store. That store presence — discoverability, trust, and the native feel customers expect from a courier app they book on the move — is the reason for a real iOS and Android build."
+    },
+    {
+      "q": "What is guest mode and why did it matter for launch?",
+      "a": "Guest mode lets a first-time user open the app and use core features — browse, price a pickup, book — without creating an account. It layered on top of the existing Clerk auth, with guest bookings persisted to a dedicated Supabase table. It mattered because a login-first wall can fail App Store and Play Store review and kills first-time conversion; guest mode unblocked both."
+    },
+    {
+      "q": "How does EAS Build and Submit handle shipping to both stores?",
+      "a": "EAS compiles the native iOS and Android binaries in the cloud and submits them to App Store Connect and Google Play, driven from one config. A production profile with --auto-submit makes a release one command per platform. The first iOS build must run interactively for Apple 2FA and certificate setup; after that, releases can run non-interactively."
+    }
+  ],
+  "related": [
+    "platform-launch-playbook-zero-to-live",
+    "how-we-build-the-studio-operating-system"
+  ]
+}

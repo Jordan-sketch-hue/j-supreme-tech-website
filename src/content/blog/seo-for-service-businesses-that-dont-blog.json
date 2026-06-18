@@ -1,0 +1,85 @@
+{
+  "slug": "seo-for-service-businesses-that-dont-blog",
+  "category": "marketing",
+  "title": "SEO for Service Businesses That Will Never Write a Blog Post",
+  "deck": "A practical SEO playbook for couriers, movers, salons, and tour operators built around the pages people actually search for — not the content calendar you will never keep.",
+  "excerpt": "Local SEO for service businesses that won't blog: service-plus-location pages, structured data, fast Core Web Vitals, and real business signals that rank.",
+  "author": "Jordan Morris",
+  "authorRole": "Founder & CEO",
+  "date": "2026-05-28",
+  "readMinutes": 9,
+  "kicker": "Growth Notebook",
+  "tags": ["local-seo", "service-business", "core-web-vitals", "structured-data", "next.js"],
+  "keywords": [
+    "local SEO for service businesses",
+    "service area pages SEO",
+    "small business SEO strategy",
+    "Core Web Vitals SEO",
+    "structured data local business",
+    "courier business SEO",
+    "service business search ranking"
+  ],
+  "featured": false,
+  "motif": "wave",
+  "blocks": [
+    { "type": "lead", "text": "Almost every SEO guide written for a courier, a moving company, a salon, or a tour operator assumes you will sit down twice a week and write. You will not. We have built websites for owners who run dispatch, drive a van, manage a team, and answer WhatsApp at 9pm — and none of them were ever going to ship a 1,200-word article on *the history of package delivery*. The good news: for a service business, the blog was never the lever anyway." },
+    { "type": "p", "text": "When someone needs you, they do not search for an essay. They search for a job to be done in a place. *Courier from Kingston to Montego Bay.* *Airport transfer Ocho Rios.* *Countertop installation near me.* The winning move is not content — it is having a fast, well-structured page that answers exactly that query and proves you are a real business. This playbook is the version we actually deploy across [30+ platforms](/products), with no content calendar attached." },
+    { "type": "h2", "text": "Why the standard advice fails owners" },
+    { "type": "p", "text": "The generic playbook — *pick keywords, publish weekly, build a content engine* — is built for media companies and SaaS startups with a marketing hire. It fails service businesses for one reason: it depends on a person producing words forever. The moment that person gets busy with the actual business, the engine stalls, the site goes stale, and the rankings that were supposed to compound quietly decay instead." },
+    { "type": "ul", "items": [
+      "**It assumes a writer exists** — most service owners have no one to produce content and no time to become that person.",
+      "**It ranks for the wrong intent** — a blog post about *moving tips* attracts readers, not people ready to book a move.",
+      "**It is slow to pay off** — informational content takes months to rank, while the owner needs leads this quarter.",
+      "**It ignores the easy wins** — the technical and structural fixes that move service rankings get skipped because everyone is chasing the next article."
+    ] },
+    { "type": "callout", "variant": "insight", "title": "Pages, not posts", "text": "A service business does not need a *content* strategy. It needs the right finite set of pages, built once, structured correctly, and kept fast. That set does not grow every week — it maps to your services and your service area, and then it is mostly done." },
+    { "type": "h2", "text": "Service-plus-location pages: the real engine" },
+    { "type": "p", "text": "Local search intent is two-dimensional: *what you do* crossed with *where you do it*. Each meaningful cell in that grid deserves its own page, with its own title, its own URL, and copy that genuinely addresses that combination. This is the single highest-leverage structure for a service business, and it is finite — you build it once." },
+    { "type": "p", "text": "Take a courier serving the island. The services are real and few: same-day delivery, scheduled pickups, business accounts, islandwide freight. The locations are the towns that matter: Kingston, Montego Bay, Ocho Rios, Mandeville, Negril. Cross them and you get a clean, bounded set of pages — `/same-day-delivery/kingston`, `/scheduled-pickup/montego-bay` — each targeting a query a real customer types. For a platform like [BP Couriers](/blog/production-log-bp-couriers-web-to-mobile), that grid *is* the SEO surface. Aboo Tours works the same way: *airport transfer* crossed with the resort towns, each transfer route its own page." },
+    { "type": "callout", "variant": "warn", "title": "Do not spin doorway pages", "text": "Service-area pages only work if each one is genuinely different and genuinely useful — real coverage details, real pricing context, real local specifics. Generating fifty near-identical pages by find-and-replacing the town name is a doorway-page pattern search engines penalize. Build the cells that are true. Skip the ones that are not." },
+    { "type": "p", "text": "The discipline is restraint. You do not need a page for every parish if you do not actually serve every parish. Build the cells where you have a real offer and real demand, write each one as if it is the only page that customer will see, and stop. A focused grid of fifteen honest pages beats a sprawl of a hundred thin ones every time." },
+    { "type": "h3", "text": "What goes on the page" },
+    { "type": "p", "text": "Each service-plus-location page needs the same skeleton: a headline that states the service and place in plain words, a short paragraph of what is covered, the specifics only a local would know (pickup points, coverage edges, turnaround), an obvious way to book or call, and proof you are real — hours, contact, address area. No 1,000-word filler. The page exists to match a query and convert, not to be read for pleasure." },
+    { "type": "h2", "text": "Structured data that earns the rich result" },
+    { "type": "p", "text": "Structured data is how you tell search engines, in a format they parse deterministically, *what kind of business this is and what these facts mean.* For a service business that is `LocalBusiness` (or a subtype like `MovingCompany`), plus `Service` markup, plus `BreadcrumbList` and `FAQPage` where they fit. Done right, it is the difference between a plain blue link and a result with your hours, rating, and service area attached." },
+    { "type": "code", "lang": "json", "code": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"LocalBusiness\",\n  \"name\": \"BP Couriers\",\n  \"image\": \"https://example.com/logo.png\",\n  \"telephone\": \"+1-658-218-2282\",\n  \"areaServed\": [\n    { \"@type\": \"City\", \"name\": \"Kingston\" },\n    { \"@type\": \"City\", \"name\": \"Montego Bay\" }\n  ],\n  \"address\": {\n    \"@type\": \"PostalAddress\",\n    \"addressCountry\": \"JM\",\n    \"addressRegion\": \"Kingston\"\n  },\n  \"openingHoursSpecification\": [{\n    \"@type\": \"OpeningHoursSpecification\",\n    \"dayOfWeek\": [\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\n    \"opens\": \"08:00\", \"closes\": \"18:00\"\n  }]\n}" },
+    { "type": "p", "text": "In a Next.js build this is a single JSON-LD `<script>` injected per page, populated from the same data that renders the visible page. The facts are not duplicated by hand — the page and the markup read from one source, so they can never drift. Generate it from your service grid and every page ships correct structured data automatically. The `areaServed` array, in particular, is how you signal coverage without faking a physical address in every town." },
+    { "type": "callout", "variant": "info", "title": "One source, two outputs", "text": "Keep your business facts — name, phone, hours, towns served, services — in one typed object. Render the human-readable page and the JSON-LD from that same object. When the phone number changes, you edit it once and both the page and the structured data update. This is the same one-source discipline behind our [pack architecture](/blog/supreme-suite-pack-architecture-multitenant)." },
+    { "type": "h2", "text": "Core Web Vitals: the ranking factor you can just fix" },
+    { "type": "p", "text": "Most ranking factors are a negotiation — you compete for them against everyone else. Site speed is not. It is a threshold you either clear or you do not, and clearing it is engineering, not content. Google's Core Web Vitals measure three things a real user feels: how fast the main content paints (LCP), how stable the layout is as it loads (CLS), and how quickly the page responds to the first interaction (INP)." },
+    { "type": "ul", "items": [
+      "**LCP under 2.5s** — server-render the page, ship the hero as an optimized image with explicit dimensions, and do not block paint on third-party scripts.",
+      "**CLS under 0.1** — reserve space for every image, embed, and ad so nothing jumps as it loads; set width and height on media.",
+      "**INP under 200ms** — keep the main thread light; defer non-critical JavaScript so the first tap, scroll, or click feels instant."
+    ] },
+    { "type": "p", "text": "On our stack this is mostly free by construction. Next.js 16 server-renders the page so content arrives as HTML, not as a blank shell waiting on JavaScript. The image component enforces dimensions, which kills layout shift. Vercel serves it from the edge. A service site built this way clears the thresholds on a mid-range phone over Caribbean mobile data — which is the device and network your customers are actually on. That is the test that matters, not a fast laptop on office fibre." },
+    { "type": "figure", "motif": "wave", "caption": "Fig 1 — the three Core Web Vitals as thresholds: LCP, CLS, and INP each have a line you clear or you don't" },
+    { "type": "h2", "text": "Real business signals beat clever tricks" },
+    { "type": "p", "text": "Past the pages and the speed, local ranking comes down to whether you look like a real, trusted, active business. These signals are unglamorous and they are exactly what owners can supply without writing a single word — they already *are* the business." },
+    { "type": "ol", "items": [
+      "**A claimed and complete business profile** — Google Business Profile filled out fully: hours, services, area served, photos, phone that matches the site.",
+      "**Consistent NAP everywhere** — your name, address, and phone identical across the site, the profile, and every directory; inconsistency confuses the ranking.",
+      "**Genuine reviews over time** — a steady trickle of real reviews from real customers signals an active business better than any keyword.",
+      "**Inbound links from local context** — a mention from a local directory, partner, or supplier carries real weight in a small market."
+    ] },
+    { "type": "quote", "text": "For a service business, the best SEO content is proof you exist and a page that answers the exact thing someone just typed. Everything else is a distraction from those two jobs.", "cite": "Studio principle" },
+    { "type": "p", "text": "None of this requires a content calendar. It requires that the structure is right, the site is fast, the facts are consistent, and the business is genuinely operating. Get those four things in place and a service site ranks — and keeps ranking — without anyone ever opening a blank document to write." },
+    { "type": "stat", "items": [
+      { "value": "0", "label": "blog posts required" },
+      { "value": "2.5s", "label": "LCP target" },
+      { "value": "30+", "label": "platforms, one playbook" }
+    ] },
+    { "type": "p", "text": "If you want the long version of how a site goes from built to actually *found*, we wrote that up separately in [the launch playbook](/blog/platform-launch-playbook-zero-to-live). But the core of it is here: build the pages people search for, mark them up so machines understand them, keep them fast, and look like the real business you are. That is service-business SEO without the part you would never do." },
+    { "type": "divider" },
+    { "type": "callforward", "text": "Want a site that ranks on the pages your customers actually search for — without a content calendar you'll never keep?", "cta": { "label": "Start a project", "href": "/contact" } }
+  ],
+  "faq": [
+    { "q": "Do I really not need a blog to rank?", "a": "For a service business, mostly no. Blogs help when you are competing on informational queries — but customers searching for a courier, a mover, or an airport transfer are searching for a service in a place, not an article. A focused set of service-plus-location pages, correct structured data, and fast load times will outrank a stale blog almost every time. If you genuinely have things to teach customers, a few evergreen pages help — but they are optional, not the foundation." },
+    { "q": "How many service-area pages should I build?", "a": "Only as many as are genuinely true. Cross your real services with the towns or areas you actually serve, and build a page for each cell where you have a real offer and real demand. That might be ten pages or thirty. Do not generate near-identical pages by swapping the town name — that is a doorway-page pattern that gets penalized. A small grid of honest, specific pages beats a large grid of thin ones." },
+    { "q": "What is the single highest-impact thing I can fix today?", "a": "Make sure your business name, address, and phone number are identical everywhere — your website, your Google Business Profile, and every directory you appear in — and that your profile is fully claimed and complete. That consistency, plus clearing Core Web Vitals on a real phone, moves local rankings more reliably than any amount of writing." }
+  ],
+  "related": [
+    "platform-launch-playbook-zero-to-live",
+    "positioning-a-creative-technology-studio"
+  ]
+}

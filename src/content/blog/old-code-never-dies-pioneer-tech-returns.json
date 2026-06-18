@@ -1,0 +1,185 @@
+{
+  "slug": "old-code-never-dies-pioneer-tech-returns",
+  "category": "tech",
+  "title": "Old code never dies. We just wrap it in a modern lens.",
+  "deck": "The tech that looked obsolete a decade ago is quietly running the modern internet — because the ideas were never the problem, the packaging was. Part one of a series on reviving pioneer technology.",
+  "excerpt": "Why COBOL, Unix pipes, RSS, email and the mainframe are not relics but foundations — and how a modern lens turns yesterday's 'outdated' tech into today's distributed systems.",
+  "author": "J Supreme Studio",
+  "authorRole": "Engineering",
+  "date": "2026-06-18",
+  "readMinutes": 6,
+  "kicker": "The Old Made New — Part 1",
+  "tags": [
+    "legacy",
+    "architecture",
+    "history",
+    "distributed-systems",
+    "foundations"
+  ],
+  "keywords": [
+    "modern technology applied to old technology",
+    "reviving legacy tech",
+    "pioneer technology relevance",
+    "why old code survives",
+    "Lindy effect software",
+    "J Supreme Tech engineering"
+  ],
+  "motif": "circuit",
+  "blocks": [
+    {
+      "type": "lead",
+      "text": "Nothing in computing is as new as it pretends to be. The features we ship as cutting-edge are almost always a pioneer-era idea, distributed across more machines, behind a cleaner interface. The idea was never outdated. The *packaging* was."
+    },
+    {
+      "type": "p",
+      "text": "There is a habit in this industry of declaring things dead. The mainframe was dead. COBOL was dead. Email was dead. RSS was dead. Server-side rendering was dead. And yet every one of them is, right now, doing more work than it did the year it was pronounced obsolete. That is not nostalgia. It is a pattern worth understanding, because it tells you where to look when you want to build something that lasts."
+    },
+    {
+      "type": "h2",
+      "text": "What 'outdated' actually means"
+    },
+    {
+      "type": "p",
+      "text": "When we call a technology outdated, we usually mean one of three things: it is *slow on one machine*, it has an *ugly interface*, or it is *unfashionable*. Notice that none of those are problems with the underlying idea. They are problems of scale, ergonomics and marketing — and all three are fixable with a modern lens."
+    },
+    {
+      "type": "ul",
+      "items": [
+        "**Slow on one machine** → distribute it. The pioneer ran it on a single mainframe; we run the same logic across a fleet of stateless functions.",
+        "**Ugly interface** → wrap it. The protocol survives untouched; we put a typed SDK, a clean API, or a browser front end on top.",
+        "**Unfashionable** → ignore the fashion. Boring, proven primitives are exactly what you want under load."
+      ]
+    },
+    {
+      "type": "callout",
+      "variant": "insight",
+      "title": "The reframe",
+      "text": "Most 'new' technology is an old idea that finally got the delivery, the scale, or the interface it always deserved. Find the durable idea underneath, and you are building on bedrock instead of trend."
+    },
+    {
+      "type": "h2",
+      "text": "The receipts"
+    },
+    {
+      "type": "p",
+      "text": "This is not a vibe; it is a roll call. Look at what is quietly load-bearing in the modern stack and trace it back to its pioneer."
+    },
+    {
+      "type": "h3",
+      "text": "Unix pipes (1973) → the entire data pipeline"
+    },
+    {
+      "type": "p",
+      "text": "Doug McIlroy's idea was small: write programs that do one thing, and connect them with a stream. Fifty years later that is the architecture of every ETL job, every CI runner, every streaming platform. We did not replace the pipe. We made it span data centres."
+    },
+    {
+      "type": "code",
+      "lang": "bash",
+      "code": "# 1973 idea, still the cleanest way to think about data\ncat events.log | grep ERROR | cut -d' ' -f4 | sort | uniq -c\n\n# 2026: the exact same shape, distributed\n# source -> filter -> transform -> aggregate -> sink"
+    },
+    {
+      "type": "h3",
+      "text": "Email / SMTP (1982) → the most reliable channel you own"
+    },
+    {
+      "type": "p",
+      "text": "Declared dead every year since 2005. It is still the only messaging protocol nobody can switch off on you, the backbone of every notification, receipt and password reset on the internet. We did not abandon it; we put deliverability tooling and branding on top — same envelope, modern lens."
+    },
+    {
+      "type": "h3",
+      "text": "RSS (1999) → the plumbing of the AI era"
+    },
+    {
+      "type": "p",
+      "text": "RSS 'lost' to social feeds, then came back as the quiet substrate for podcasts, newsletters, and now machine-readable content ingestion. A format from the dot-com era turned out to be exactly the structured, open feed that automated systems wanted to read."
+    },
+    {
+      "type": "h3",
+      "text": "The mainframe (1960s) → serverless, conceptually"
+    },
+    {
+      "type": "p",
+      "text": "Time-sharing on a central machine you never touch, billed by the resource you consume, where you ship a job and get a result? That is a 1964 mainframe *and* a 2026 serverless function. We rebuilt the model and called it new because the lens — instant, global, pay-per-invocation — was genuinely new, even though the shape was sixty years old."
+    },
+    {
+      "type": "stat",
+      "items": [
+        {
+          "value": "1973",
+          "label": "Unix pipes — still the data model"
+        },
+        {
+          "value": "1982",
+          "label": "SMTP — still your most reliable channel"
+        },
+        {
+          "value": "60yr",
+          "label": "Mainframe → serverless, same shape"
+        }
+      ]
+    },
+    {
+      "type": "h2",
+      "text": "Why this matters for what you build"
+    },
+    {
+      "type": "p",
+      "text": "If the durable thing is the *idea* and the disposable thing is the *packaging*, then your engineering strategy writes itself: bet on proven primitives, spend your innovation budget on the lens. Build on the pipe, the protocol, the relational table, the request/response cycle — and put your creativity into how they are distributed, delivered and presented."
+    },
+    {
+      "type": "quote",
+      "text": "Choose the most boring technology that can possibly work, then make it feel like the future.",
+      "cite": "Studio principle"
+    },
+    {
+      "type": "callout",
+      "variant": "warn",
+      "title": "The failure mode",
+      "text": "The opposite bet — chase the framework of the month, treat the fundamentals as legacy — is how you end up rewriting your stack every eighteen months and never shipping anything that compounds."
+    },
+    {
+      "type": "h2",
+      "text": "Where this series goes"
+    },
+    {
+      "type": "p",
+      "text": "This is part one of five. The rest of the series takes the thesis apart and shows the mechanics: how a modern lens actually distributes old tech, how delivery keeps an old idea relevant, how you scale inside the code itself, and how longevity is engineered on purpose."
+    },
+    {
+      "type": "ol",
+      "items": [
+        "**Part 1 — this post:** old code never dies; the idea outlives the packaging.",
+        "**Part 2 — [The modern lens](/blog/the-modern-lens-distributing-pioneer-tech):** taking single-machine pioneer tech and distributing it across the cloud.",
+        "**Part 3 — [Delivery is the feature](/blog/delivery-is-the-feature-staying-relevant):** how modern delivery keeps an old idea relevant.",
+        "**Part 4 — [Scaling inside the code](/blog/scaling-inside-the-code-primitives-that-scale):** the pioneer-era primitives that scale from one request to a million.",
+        "**Part 5 — [Built to last](/blog/built-to-last-longevity-in-software):** longevity as an engineering decision, not an accident."
+      ]
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "callforward",
+      "text": "Have a system that 'looks old' but still runs your business? That is usually an asset, not a liability — and we modernise the lens without throwing away the bedrock.",
+      "cta": {
+        "label": "Start a project",
+        "href": "/contact"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "q": "Isn't betting on old technology risky?",
+      "a": "The opposite. Old, widely-deployed technology has survived precisely because it works under conditions you haven't thought of yet. The risk lives in unproven, fashionable tools — not in primitives that have run for forty years."
+    },
+    {
+      "q": "So you never use new technology?",
+      "a": "We use it constantly — but on top of proven foundations, as the 'lens'. The trick is knowing which layer should be boring (the foundation) and which layer should be novel (the delivery and interface)."
+    }
+  ],
+  "related": [
+    "the-modern-lens-distributing-pioneer-tech",
+    "delivery-is-the-feature-staying-relevant",
+    "built-to-last-longevity-in-software"
+  ]
+}

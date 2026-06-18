@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Where AI tooling and developer platforms are heading next",
+    "source": "TechCrunch",
+    "url": "https://techcrunch.com",
+    "summary": "We read TechCrunch to spot which AI dev tools and funding moves are about to reshape how small studios ship software.",
+    "category": "tech",
+    "date": "2026-06-09"
+  },
+  {
+    "title": "The shipping side of frontend, React and the modern web stack",
+    "source": "The Verge",
+    "url": "https://www.theverge.com",
+    "summary": "A builder-friendly read on platform shifts — browsers, devices and the web APIs that decide what our apps can actually do.",
+    "category": "tech",
+    "date": "2026-06-10"
+  },
+  {
+    "title": "How to think about building durable software companies",
+    "source": "a16z",
+    "url": "https://a16z.com",
+    "summary": "Andreessen Horowitz's essays are a useful gut-check on which infrastructure and AI bets compound versus which fade.",
+    "category": "tech",
+    "date": "2026-06-08"
+  },
+  {
+    "title": "Strategy behind the platforms every product team builds on",
+    "source": "Stratechery",
+    "url": "https://stratechery.com",
+    "summary": "Ben Thompson's framing of aggregation and platform power is the clearest lens we know for reading where distribution flows next.",
+    "category": "tech",
+    "date": "2026-06-11"
+  },
+  {
+    "title": "Positioning, brand and the discipline of marketing strategy",
+    "source": "Harvard Business Review",
+    "url": "https://hbr.org",
+    "summary": "HBR keeps marketing honest — clear thinking on positioning and pricing beats another tactic-of-the-week thread.",
+    "category": "marketing",
+    "date": "2026-06-09"
+  },
+  {
+    "title": "SEO, content systems and the mechanics of organic growth",
+    "source": "Search Engine Land",
+    "url": "https://searchengineland.com",
+    "summary": "We follow it to track how search and AI answers shift, because that moves real traffic for every site we ship.",
+    "category": "marketing",
+    "date": "2026-06-12"
+  },
+  {
+    "title": "Markets, macro and the data that moves them",
+    "source": "Bloomberg Markets",
+    "url": "https://www.bloomberg.com/markets",
+    "summary": "For traders, Bloomberg's markets desk is the baseline feed for rates, equities and the macro context behind every chart — educational, not advice.",
+    "category": "trading",
+    "date": "2026-06-10"
+  },
+  {
+    "title": "Trading concepts and risk terms, defined plainly",
+    "source": "Investopedia",
+    "url": "https://www.investopedia.com",
+    "summary": "A reliable reference for the mechanics behind a strategy — we point traders here to learn the vocabulary before risking anything.",
+    "category": "trading",
+    "date": "2026-06-07"
+  },
+  {
+    "title": "Global business, supply chains and the macro picture",
+    "source": "Reuters",
+    "url": "https://www.reuters.com",
+    "summary": "Straight-down-the-middle reporting on the world economy that shapes demand across every Caribbean and global market we serve.",
+    "category": "world",
+    "date": "2026-06-11"
+  },
+  {
+    "title": "How technology is rewiring economies and work",
+    "source": "The Economist",
+    "url": "https://www.economist.com",
+    "summary": "We read it for the long view — how automation, AI and trade reshape the markets our clients sell into.",
+    "category": "world",
+    "date": "2026-06-08"
+  }
+]
