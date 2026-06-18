@@ -97,6 +97,34 @@ export default function RootLayout({
           `}
         </Script>
 
+        {/* Meta Pixel (Jor Dan pixel) — powers Landing Page View optimization + retargeting
+            for the blog-traffic ad campaign. afterInteractive is fine here: Meta verifies by
+            detecting the fbq PageView at runtime, not by crawling a script tag. */}
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '622840123233134');
+            fbq('track', 'PageView');
+          `}
+        </Script>
+        <noscript>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=622840123233134&ev=PageView&noscript=1"
+            alt=""
+          />
+        </noscript>
+
         {/* Google AdSense — literal <script> in <head> (NOT next/script afterInteractive, which
             only emits a preload link the AdSense crawler can't verify). React 19 SSRs this async
             script into the head as a real tag, matching exactly what AdSense expects. */}
