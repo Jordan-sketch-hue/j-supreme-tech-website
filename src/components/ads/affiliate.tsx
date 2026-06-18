@@ -20,6 +20,8 @@ const CAT_LABEL: Record<AffiliateCategory, string> = {
   design: "Design",
   productivity: "Productivity",
   ecommerce: "Commerce",
+  crm: "CRM",
+  seo: "SEO",
   marketing: "Marketing",
 };
 
