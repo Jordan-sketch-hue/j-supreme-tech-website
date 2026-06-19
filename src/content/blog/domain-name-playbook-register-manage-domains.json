@@ -1,0 +1,90 @@
+{
+  "slug": "domain-name-playbook-register-manage-domains",
+  "category": "tech",
+  "title": "The Domain Name Playbook: Treat Your Domain Like Infrastructure",
+  "deck": "How to choose, register, secure and manage domain names the way a studio does — the boring, durable layer underneath every website, app and email address you will ever ship.",
+  "excerpt": "A practical guide to buying and managing domains: choosing a name and TLD, WHOIS privacy, DNS, SSL, email, redirects and managing a portfolio of names without losing one.",
+  "author": "Jordan Morris",
+  "authorRole": "Founder & CEO",
+  "date": "2026-06-19",
+  "kicker": "The Stack",
+  "tags": ["domains", "dns", "infrastructure", "affiliate", "namecheap", "ssl"],
+  "keywords": [
+    "how to buy a domain name",
+    "best domain registrar",
+    "choosing a domain name",
+    "WHOIS privacy",
+    "domain DNS management",
+    "domain SSL certificate",
+    "managing multiple domains",
+    "transfer a domain name",
+    "Namecheap domains"
+  ],
+  "featured": false,
+  "motif": "circuit",
+  "blocks": [
+    { "type": "lead", "text": "A domain name is the smallest, cheapest, most permanent thing you will buy in a digital business — and the one most people treat with the least care. It outlives your website, your logo, your tech stack and usually your first three ideas about what the business even is. Get it right once and it quietly works for a decade. Get it wrong — register it in the wrong account, let it lapse, scatter ten names across five logins — and it becomes the single point of failure that takes everything else down with it." },
+    { "type": "p", "text": "We register and manage domains for every platform we build, and over enough launches you stop thinking of a domain as *a thing you buy to put up a site* and start treating it as **infrastructure**: the root of your identity, your email and your trust. This is the playbook we actually use. It is registrar-agnostic in principle — but we run ours on [Namecheap](aff:namecheap), and where a concrete step matters, that is the tool we will point at." },
+    { "type": "callout", "variant": "info", "title": "A quick, honest note", "text": "Some links in this article are affiliate links. If you register a domain through them, we may earn a small commission at no extra cost to you. We only point at tools we genuinely use to run our own systems — domains included." },
+    { "type": "h2", "text": "Choosing the name: shorter, cleaner, more boring" },
+    { "type": "p", "text": "The instinct is to be clever. Resist it. A good domain is one a person can hear over the phone, type without thinking, and spell back to you correctly the first time. That rules out most of the clever ones. The test is not *does this look good on a pitch deck* — it is *can my least technical customer get to it from memory after seeing it once on a van*." },
+    { "type": "ul", "items": [
+      "**Keep it short and sayable** — fewer syllables, no doubled letters across word boundaries, nothing you have to spell out loud.",
+      "**Avoid hyphens and numbers** — they survive a logo but die in conversation (*is that the number four or the word four?*).",
+      "**Do not box yourself in** — a name welded to one city or one product will fight you the day you expand.",
+      "**Check it is clean** — search the exact name plus your industry, check social handles, and make sure it does not collide with an existing brand."
+    ] },
+    { "type": "p", "text": "When you have a candidate, check it live before you fall in love. A domain search on [Namecheap](aff:namecheap) will show you what is available across extensions and roughly what each costs — useful even just as a sanity check before you commit a brand to a name you cannot actually own." },
+    { "type": "h2", "text": "The extension (TLD) is a positioning decision" },
+    { "type": "p", "text": "The part after the dot — `.com`, `.co`, `.io`, `.online`, your country code — is not just availability roulette. It signals something. `.com` is still the default people's fingers reach for, which is exactly why it is worth fighting for if the business is the main event. The newer extensions are cheaper and wide open, and they are genuinely fine for a product, a campaign, or a project — as long as you go in with eyes open." },
+    { "type": "callout", "variant": "insight", "title": "The rule we use", "text": "If it is the flagship brand, get the .com if it is remotely affordable — people will type .com no matter what your business cards say, and you do not want that traffic landing on a competitor. If it is a sub-brand, a campaign, or a tool, a sharp .co / .io / .online is perfectly good and saves real money." },
+    { "type": "p", "text": "One quiet tax to watch: some extensions are cheap in year one and jump hard at renewal. Look at the *renewal* price, not the promo price, before you build a brand on it. A domain you will keep for ten years should be priced by what year two through ten cost, not by the first-year hook." },
+    { "type": "h2", "text": "Register it right: privacy, lock, auto-renew" },
+    { "type": "p", "text": "The moment you buy a name, three settings decide whether it stays yours and stays clean. None of them are optional, and all three are free or near-free on a sensible registrar." },
+    { "type": "ol", "items": [
+      "**WHOIS privacy on.** Without it, your name, address, email and phone go into a public database that spammers and scammers scrape daily. Good registrars include privacy free — turn it on at checkout and never think about it again.",
+      "**Registrar lock on.** This blocks an unauthorized transfer of the domain out of your account. It is the seatbelt against the worst-case: someone walking your domain out the door.",
+      "**Auto-renew on, with a card that will not expire.** The most common way businesses lose a domain is not a hack — it is a renewal email that went to an inbox no one checks. Automate it."
+    ] },
+    { "type": "callout", "variant": "warn", "title": "Own the account, not just the domain", "text": "Register every domain in an account YOU control, tied to an email YOU own — never your web designer's account, never an agency's, never a freelancer's personal login. If the relationship ends, the domain must not walk out with them. This single mistake has cost businesses their entire online presence." },
+    { "type": "h2", "text": "DNS is where the domain actually does its job" },
+    { "type": "p", "text": "Buying the name is step one. DNS — the settings that tell the internet where the name points — is where it earns its keep. This is the layer that sends visitors to your website, routes mail to your inbox, and proves to other services that you own the domain. You do not need to be a network engineer, but you do need to know the four records you will actually touch." },
+    { "type": "ul", "items": [
+      "**A / CNAME records** point the domain (and `www`) at your website or hosting — this is what makes the site load when someone types your name.",
+      "**MX records** route email to your mail provider — get these wrong and your mail silently disappears.",
+      "**TXT records** (SPF, DKIM, DMARC) prove your mail is legitimate so it lands in inboxes instead of spam — increasingly non-negotiable.",
+      "**Verification records** are how services like Google, your email host and analytics confirm you own the domain before they will work."
+    ] },
+    { "type": "p", "text": "The practical advice: change DNS rarely, and write down what you changed and why. A free DNS dashboard like the one bundled with a [Namecheap](aff:namecheap) domain is enough to run a serious site — the skill is not the tool, it is the discipline of treating these records as load-bearing and not poking them on a whim." },
+    { "type": "h2", "text": "SSL, email and the rest of the trust layer" },
+    { "type": "p", "text": "A domain unlocks two more things that quietly decide whether people trust you. The first is **SSL** — the certificate behind the padlock and `https://`. Most modern hosting issues a free certificate automatically, and you should never run a site without one; browsers now actively warn visitors away from pages that lack it." },
+    { "type": "p", "text": "The second is **email on your own domain**. `you@yourbusiness.com` is not vanity — it is credibility. An invoice from a `@gmail.com` address and an invoice from your own domain land very differently with a customer deciding whether to pay you. Once you own the name, pointing it at a mailbox is a short DNS job, and it is the cheapest upgrade to how serious you look that exists." },
+    { "type": "stat", "items": [
+      { "value": "1", "label": "account that owns everything" },
+      { "value": "3", "label": "settings: privacy · lock · auto-renew" },
+      { "value": "4", "label": "DNS records you'll actually touch" },
+      { "value": "10yr", "label": "horizon to price the name against" }
+    ] },
+    { "type": "h2", "text": "Managing a portfolio without losing one" },
+    { "type": "p", "text": "It starts with one domain. Then you grab the `.com` and the `.co`. Then a campaign name, a misspelling of your brand to protect it, a side project. Before long you have a dozen names and no idea which renew when or where they are pointed. A portfolio that sprawls across multiple accounts is how good domains get lost." },
+    { "type": "ul", "items": [
+      "**Consolidate.** Keep every domain in one registrar account where you can see them all, renew them all, and manage DNS in one place.",
+      "**Defensive-register sparingly.** Grab the obvious misspelling and the matching `.com` for a real brand — do not buy every variation of everything. Most defensive names are money you never get back.",
+      "**Calendar the renewals.** Even with auto-renew on, know your dates. A lapsed domain can be snapped up the moment it expires, and buying it back — if you even can — is brutal.",
+      "**Use redirects, not duplicate sites.** Point the `.co` and the misspelling at your main `.com` with a redirect. One site, many front doors."
+    ] },
+    { "type": "h2", "text": "Transferring in (and the 60-day trap)" },
+    { "type": "p", "text": "If your names are scattered, you can consolidate them by transferring domains into one registrar. It is straightforward — unlock the domain, get the authorization (EPP) code, and start the transfer at the new registrar — but two rules trip people up. First, a domain cannot be transferred within **60 days** of being registered or of a previous transfer. Second, transferring a domain typically adds a year to its registration, so you rarely lose time in the process." },
+    { "type": "callout", "variant": "insight", "title": "The payoff of consolidation", "text": "Every domain in one account means one renewal date list, one DNS dashboard, one place that can be locked down with two-factor authentication. The reduction in *things that can quietly go wrong* is the entire point." },
+    { "type": "callforward", "text": "Domains are the first brick of the stack — the part everything else is built on top of. Get this layer boring and bulletproof, and the websites, apps and email above it have somewhere solid to stand.", "cta": { "label": "See the full stack we build with", "href": "/stack" } },
+    { "type": "p", "text": "If you are registering a new name or finally consolidating the pile, you can start a domain search on [Namecheap](aff:namecheap) — the registrar we run our own and our clients' domains on, with free WHOIS privacy and a DNS dashboard that does not get in your way." }
+  ],
+  "faq": [
+    { "q": "Where should I register my domain?", "a": "Use one reputable registrar and keep every domain in one account you control. We run ours on Namecheap for the free WHOIS privacy, transparent renewal pricing and a clean DNS dashboard. The most important rule is not which registrar — it is that the account is owned by you, not your designer or agency." },
+    { "q": "Do I need the .com?", "a": "For your flagship brand, get the .com if it is at all affordable — people type .com from memory regardless of what your branding says. For a sub-brand, campaign or tool, a sharp .co, .io or .online is perfectly fine and cheaper." },
+    { "q": "What is WHOIS privacy and do I need it?", "a": "WHOIS privacy hides your personal contact details from the public domain database, where they would otherwise be scraped by spammers. Good registrars include it free. Always turn it on." },
+    { "q": "How do I not lose a domain I own?", "a": "Turn on auto-renew with a card that will not expire, turn on registrar lock, keep the domain in an account with two-factor authentication, and make sure renewal emails go to an inbox you actually read." },
+    { "q": "Can I transfer a domain I just bought?", "a": "Not immediately — domains generally cannot be transferred within 60 days of registration or a prior transfer. After that, unlock the domain, get the authorization code, and start the transfer at your new registrar; it usually adds a year to the registration." }
+  ],
+  "related": ["seo-for-service-businesses-that-dont-blog", "platform-launch-playbook-zero-to-live", "dynamic-og-images-at-the-edge"]
+}

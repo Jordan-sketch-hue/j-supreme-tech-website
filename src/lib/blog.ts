@@ -126,6 +126,13 @@ export function categoryCounts(): Record<string, number> {
   return counts;
 }
 
+/** Affiliate deep-dive articles (tagged "affiliate") — powers the /stack hub. */
+export function getAffiliateArticles(limit = 12): Article[] {
+  return loadAll()
+    .filter((a) => a.tags.includes("affiliate"))
+    .slice(0, limit);
+}
+
 /** Curated external news ("the wire") — links + our own commentary only. */
 export function getWire(): WireItem[] {
   try {

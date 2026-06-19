@@ -3,8 +3,10 @@ import { Info, TriangleAlert, Sparkles, ArrowRight } from "lucide-react";
 import { type Block, headingId } from "@/lib/blog-taxonomy";
 import { Figure } from "./cover";
 import { AdSlot } from "@/components/ads/ad-slot";
+import { affiliate } from "@/lib/affiliates";
 
-/* ---------- safe inline markdown: **b** *i* `code` [label](href) ---------- */
+/* ---------- safe inline markdown: **b** *i* `code` [label](href)
+   plus [label](aff:<partner-id>) for tracked, FTC-compliant affiliate links ---------- */
 function renderInline(text: string, keyPrefix = "i"): React.ReactNode[] {
   // IMPORTANT: build a fresh regex per call. A shared /g regex is stateful
   // (lastIndex), and this function recurses for nested inline text — a shared
@@ -20,18 +22,35 @@ function renderInline(text: string, keyPrefix = "i"): React.ReactNode[] {
     if (m[1] !== undefined) {
       const label = m[2];
       const href = m[3];
-      const external = /^https?:\/\//.test(href);
-      nodes.push(
-        external ? (
-          <a key={key} href={href} target="_blank" rel="noreferrer noopener" className="font-medium text-ink-900 underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink-900">
-            {renderInline(label, key)}
-          </a>
-        ) : (
-          <Link key={key} href={href} className="font-medium text-ink-900 underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink-900">
-            {renderInline(label, key)}
-          </Link>
-        ),
-      );
+      if (href.startsWith("aff:")) {
+        // Tracked affiliate link. Pull the live URL from the registry so tracked
+        // URLs live in ONE place, and tag it with the rel Google requires for paid
+        // links. Falls back to plain text until the partner is live — prose never
+        // ships a dead or untagged affiliate link.
+        const a = affiliate(href.slice(4));
+        nodes.push(
+          a && a.live && !a.href.includes("REPLACE_ME") ? (
+            <a key={key} href={a.href} target="_blank" rel="sponsored nofollow noopener" className="font-medium text-ink-900 underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink-900">
+              {renderInline(label, key)}
+            </a>
+          ) : (
+            <span key={key}>{renderInline(label, key)}</span>
+          ),
+        );
+      } else {
+        const external = /^https?:\/\//.test(href);
+        nodes.push(
+          external ? (
+            <a key={key} href={href} target="_blank" rel="noreferrer noopener" className="font-medium text-ink-900 underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink-900">
+              {renderInline(label, key)}
+            </a>
+          ) : (
+            <Link key={key} href={href} className="font-medium text-ink-900 underline decoration-ink-300 underline-offset-4 transition hover:decoration-ink-900">
+              {renderInline(label, key)}
+            </Link>
+          ),
+        );
+      }
     } else if (m[4] !== undefined) {
       nodes.push(<strong key={key} className="font-semibold text-ink-900">{renderInline(m[5], key)}</strong>);
     } else if (m[6] !== undefined) {

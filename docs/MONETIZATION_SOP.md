@@ -105,9 +105,12 @@ Add that before scaling EU traffic.
 
 Curate ruthlessly: only tools JST actually uses. Credibility is the entire value of this channel.
 
+**STATUS — LIVE programs:**
+- ✅ **Namecheap** — ACCEPTED Jun 2026. Tracked link `https://namecheap.pxf.io/c/7420688/1632743/5618` set in `affiliates.ts`, `live:true`, relevant to all 6 categories → shows on every article's "stack" block + the `/stack` hub. Deep-dive post: `/blog/domain-name-playbook-register-manage-domains`.
+
 | Partner | Fit | Apply | Commission |
 |---|---|---|---|
-| **Namecheap** | Domains we already buy here | namecheap.com/affiliates | up to ~35%/sale |
+| **Namecheap** ✅ LIVE | Domains we already buy here | namecheap.com/affiliates | up to ~35%/sale |
 | **Hostinger** | Budget hosting referrals | hostinger.com/affiliates | 60%+/sale (~$100 avg) |
 | **Cloudways** | Managed cloud / WP | cloudways.com/en/affiliate-program.php | up to $125 or recurring |
 | **Vercel** | Our deploy platform | vercel.com/partners | partner / revenue share |

@@ -54,12 +54,14 @@ export const AFFILIATES: Affiliate[] = [
     name: "Namecheap",
     tagline: "Where we register and manage every client domain.",
     category: "infrastructure",
-    topics: ["tech", "marketing", "dispatch"],
-    href: "https://www.namecheap.com/?REPLACE_ME_affiliate_id",
+    // Domains/DNS/SSL underpin every build, so this partner is relevant across the
+    // whole publication — it intentionally surfaces on every article's "stack" block.
+    topics: ["tech", "marketing", "trading", "automation", "studio", "dispatch"],
+    href: "https://namecheap.pxf.io/c/7420688/1632743/5618",
     program: "https://www.namecheap.com/affiliates/",
     commission: "25–38% tiered (domains, hosting, SSL); $100 min payout, PayPal/Payoneer",
     cookie: "120 days",
-    live: false,
+    live: true,
   },
   {
     id: "hostinger",

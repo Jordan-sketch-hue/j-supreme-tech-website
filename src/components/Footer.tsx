@@ -7,6 +7,7 @@ const explore: [string, string][] = [
   ["Services", "/services"],
   ["SaaS — Supreme Suite", "/products"],
   ["Blog", "/blog"],
+  ["The Stack — Tools We Use", "/stack"],
   ["E-Books", "/library"],
   ["Market & Competition", "/market"],
   ["About", "/about"],
