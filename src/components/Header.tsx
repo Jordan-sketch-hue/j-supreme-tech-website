@@ -9,7 +9,6 @@ const links = [
   { label: "Services", href: "services#services" },
   { label: "SaaS", href: "products" },
   { label: "Blog", href: "blog" },
-  { label: "Stack", href: "stack" },
   { label: "E-Books", href: "library" },
   { label: "Pricing", href: "pricing" },
   { label: "Market", href: "market" },

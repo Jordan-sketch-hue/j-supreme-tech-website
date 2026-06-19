@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { getAllArticles, getFeatured, getLatest, getWire, categoryCounts } from "@/lib/blog";
+import { getAllArticles, getFeatured, getLatest, getWire, categoryCounts, getAffiliateArticles } from "@/lib/blog";
+import { liveAffiliates } from "@/lib/affiliates";
+import { DISCLOSURE } from "@/lib/ads";
 import { CATEGORIES, CATEGORY_ORDER, formatDate } from "@/lib/blog-taxonomy";
 import { Cover } from "@/components/blog/cover";
 import { ArticleCard } from "@/components/blog/article-card";
@@ -26,6 +28,9 @@ export default function BlogHub() {
   const counts = categoryCounts();
   const wire = getWire().slice(0, 4);
   const rest = featured ? getLatest(9, featured.slug) : getLatest(9);
+  const affPosts = getAffiliateArticles(3);
+  const partners = liveAffiliates();
+  const hasFeaturedTools = affPosts.length > 0 || partners.length > 0;
 
   return (
     <main className="bg-white text-ink-900">
@@ -96,6 +101,80 @@ export default function BlogHub() {
                 </div>
               </article>
             </Link>
+          </Reveal>
+        </section>
+      ) : null}
+
+      {/* ---------- Featured · Tools We Use (affiliate) ---------- */}
+      {hasFeaturedTools ? (
+        <section className="shell pt-16">
+          <Reveal>
+            <div className="relative overflow-hidden rounded-3xl border border-ink-900 bg-ink-950 text-white">
+              <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-50" />
+              <div className="relative p-8 sm:p-10">
+                <div className="flex items-center gap-2.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white" />
+                  <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-white/60">
+                    Featured · the stack we build with
+                  </span>
+                </div>
+                <h2 className="mt-4 max-w-2xl font-display text-2xl font-semibold tracking-tight sm:text-[2rem]">
+                  The tools we actually use to build and run client systems.
+                </h2>
+                <p className="mt-3 max-w-2xl text-[0.97rem] leading-relaxed text-white/65">
+                  Hand-picked, not sponsored fluff — the platforms behind our own work. A few are
+                  affiliate links: sign up through them and we may earn a commission at no extra cost to you.
+                </p>
+
+                {/* affiliate deep-dive posts */}
+                {affPosts.length ? (
+                  <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {affPosts.map((a) => (
+                      <Link
+                        key={a.slug}
+                        href={`/blog/${a.slug}`}
+                        className="group flex flex-col rounded-2xl border border-white/12 bg-white/[0.04] p-6 transition hover:border-white/40"
+                      >
+                        <span className="font-mono text-[0.56rem] uppercase tracking-[0.16em] text-white/45">
+                          {CATEGORIES[a.category].short} · {formatDate(a.date)}
+                        </span>
+                        <h3 className="mt-3 font-display text-lg font-semibold leading-snug tracking-tight">{a.title}</h3>
+                        <p className="mt-2 flex-1 text-[0.9rem] leading-relaxed text-white/60">{a.excerpt}</p>
+                        <span className="mt-5 inline-flex items-center gap-1.5 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-white">
+                          Read <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                ) : null}
+
+                {/* live partner links */}
+                {partners.length ? (
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    {partners.map((p) => (
+                      <a
+                        key={p.id}
+                        href={p.href}
+                        target="_blank"
+                        rel="sponsored nofollow noopener"
+                        className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-4 py-2 text-sm font-medium text-white/85 transition hover:border-white/45 hover:text-white"
+                      >
+                        {p.name}
+                        <ArrowUpRight className="h-3.5 w-3.5 text-white/45 transition group-hover:text-white" />
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+
+                <p className="mt-7 font-mono text-[0.58rem] leading-relaxed text-white/40">
+                  {DISCLOSURE.affiliate}{" "}
+                  <Link href="/disclosure" className="underline decoration-white/30 underline-offset-2 hover:text-white">
+                    Full disclosure
+                  </Link>
+                  .
+                </p>
+              </div>
+            </div>
           </Reveal>
         </section>
       ) : null}
