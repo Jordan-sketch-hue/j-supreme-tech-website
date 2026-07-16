@@ -14,6 +14,7 @@ const explore: [string, string][] = [
 ];
 
 const legal: [string, string][] = [
+  ["Legal Center", "/legal"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["Disclaimer", "/disclaimer"],

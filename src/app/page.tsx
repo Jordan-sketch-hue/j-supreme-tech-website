@@ -48,96 +48,144 @@ export default function Home() {
     <main className="bg-white text-ink-900">
       <ScrollProgress className="bg-ink-900" />
       {/* ============================== HERO ============================== */}
-      <section id="home" className="relative overflow-hidden">
-        <div className="grid-bg pointer-events-none absolute inset-0" />
-        <div className="shell relative grid items-center gap-16 pb-20 pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:pb-28 lg:pt-28">
-          {/* Copy */}
-          <div>
+      <section id="home" className="relative min-h-[100svh] overflow-hidden bg-ink-950 text-white flex flex-col">
+        {/* Grid texture */}
+        <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-60" />
+
+        {/* Gradient vignette */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(255,255,255,0.06),transparent)]" />
+
+        {/* Split accent line */}
+        <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-white/[0.04] lg:block" />
+
+        <div className="shell relative flex flex-1 flex-col justify-between pb-16 pt-36 md:pt-44">
+
+          {/* ── Main headline ── */}
+          <div className="max-w-5xl">
             <Reveal direction="up">
-              <span className="eyebrow no-rule">
-                <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-ink-900" />
-                Creative Technology &middot; Digital Systems
+              <span className="eyebrow no-rule text-white/40">
+                <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-white" />
+                J Supreme Tech &nbsp;·&nbsp; Kingston, JA &nbsp;·&nbsp; Worldwide
               </span>
             </Reveal>
-            <h1 className="mt-6 font-display text-5xl font-semibold leading-[0.98] tracking-tight text-ink-900 sm:text-6xl xl:text-7xl">
-              <CineWords text="We design the system." delay={0.15} />
+
+            <h1 className="mt-8 font-display text-[clamp(2.8rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-tight">
+              <CineWords text="We build the systems." delay={0.1} />
               <br />
-              <CineWords text="You run the business." delay={0.55} />
+              <span className="text-white/30">
+                <CineWords text="You grow the brand." delay={0.45} />
+              </span>
             </h1>
-            <Reveal direction="up" delay={0.2}>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-ink-600">
-                Websites, apps, CRMs, booking engines, e-commerce platforms,
-                automations, and full digital infrastructure — built clean,
-                shipped live, and organized to scale. From Jamaica to the world.
+
+            <Reveal direction="up" delay={0.25}>
+              <p className="mt-8 max-w-2xl text-lg leading-8 text-white/55">
+                Websites, apps, CRMs, booking engines, e-commerce, social media campaigns,
+                ad creative, and full digital infrastructure — built clean, shipped live,
+                and organized to scale. From Jamaica to the world.
               </p>
             </Reveal>
-            <Reveal direction="up" delay={0.3}>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link href="#contact" className="btn btn-dark">
+
+            <Reveal direction="up" delay={0.35}>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <Link href="#contact" className="btn btn-on-dark">
                   Start a Project
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="#work" className="btn btn-outline">
+                <Link href="#work" className="btn btn-ghost-dark">
                   View the Work
                 </Link>
               </div>
             </Reveal>
-            <Reveal direction="up" delay={0.4}>
-              <div className="mt-7 flex flex-col gap-4 text-sm text-ink-600 sm:flex-row sm:items-center sm:gap-6">
+
+            <Reveal direction="up" delay={0.45}>
+              <div className="mt-8 flex flex-col gap-4 text-sm text-white/40 sm:flex-row sm:items-center sm:gap-6">
                 <a
                   href="https://wa.me/16582182282"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 hover:text-ink-900"
+                  className="inline-flex items-center gap-2 hover:text-white/80 transition-colors"
                 >
                   <MessageCircle className="h-4 w-4" />
                   658-218-2282
                 </a>
                 <a
                   href="mailto:global.jsuprememarketing@gmail.com"
-                  className="inline-flex items-center gap-2 hover:text-ink-900"
+                  className="inline-flex items-center gap-2 hover:text-white/80 transition-colors"
                 >
                   <Mail className="h-4 w-4" />
                   Email the studio
                 </a>
               </div>
             </Reveal>
+          </div>
 
-            {/* Inline stats */}
-            <div className="mt-10 grid max-w-xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-4">
+          {/* ── Split capability bar ── */}
+          <Reveal direction="up" delay={0.5}>
+            <div className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] sm:grid-cols-2">
+              {/* Tech column */}
+              <div className="flex flex-col gap-5 p-7">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/5">
+                    <Monitor className="h-4 w-4 text-white/60" />
+                  </span>
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-white/40">
+                    Technology
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {["Websites", "Web Apps", "CRMs", "Mobile Apps", "E-Commerce", "Booking Systems", "Dashboards", "AI Workflows"].map((t) => (
+                    <span key={t} className="tag tag-dark text-[0.65rem]">{t}</span>
+                  ))}
+                </div>
+                <p className="font-mono text-[0.65rem] text-white/30 tracking-wider">
+                  {STATS[0].value} live platforms shipped
+                </p>
+              </div>
+
+              {/* Marketing column */}
+              <div className="flex flex-col gap-5 border-t border-white/[0.06] p-7 sm:border-l sm:border-t-0">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/5">
+                    <Globe2 className="h-4 w-4 text-white/60" />
+                  </span>
+                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-white/40">
+                    Marketing & Design
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {["Social Media", "Paid Ads", "Reels", "Brand Identity", "Ad Creative", "Strategy", "Copywriting", "Content Systems"].map((t) => (
+                    <span key={t} className="tag tag-dark text-[0.65rem]">{t}</span>
+                  ))}
+                </div>
+                <p className="font-mono text-[0.65rem] text-white/30 tracking-wider">
+                  Done-for-you · monthly retainers available
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* ── Stats strip ── */}
+          <Reveal direction="up" delay={0.6}>
+            <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] sm:grid-cols-4">
               {STATS.map((s) => (
-                <div key={s.label} className="bg-white p-4">
-                  <p className="font-display text-2xl font-semibold text-ink-900">
+                <div key={s.label} className="px-5 py-4">
+                  <p className="font-display text-2xl font-semibold text-white">
                     <StatValue value={s.value} />
                   </p>
-                  <p className="mt-1 font-mono text-[0.6rem] uppercase leading-4 tracking-[0.1em] text-ink-500">
+                  <p className="mt-1 font-mono text-[0.58rem] uppercase leading-4 tracking-[0.1em] text-white/35">
                     {s.label}
                   </p>
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          {/* Device cluster */}
-          <div className="relative mx-auto w-full max-w-xl pb-12 lg:pb-0">
-            <BrowserFrame
-              host="jsupremeconglomerate.online"
-              alt="Supreme OS — operator workspace dashboard"
-              className="float"
-            />
-            <div className="float-2 absolute -bottom-8 -left-4 w-28 sm:-left-8 sm:w-36 lg:w-40">
-              <PhoneFrame
-                host="crown-district-ja.vercel.app"
-                alt="Crown District JA storefront on mobile"
-              />
-            </div>
-            <div className="absolute -right-3 -top-5 hidden items-center gap-2 rounded-full border border-line bg-white px-3 py-1.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.25)] md:flex">
-              <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-ink-900" />
-              <span className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-ink-600">
-                12 platforms · live
-              </span>
-            </div>
-          </div>
+        </div>
+
+        {/* Scroll cue */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
+          <span className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-white">Scroll</span>
+          <span className="h-6 w-px bg-white" />
         </div>
       </section>
 
@@ -168,12 +216,12 @@ export default function Home() {
           <div className="max-w-2xl">
             <span className="eyebrow">Selected Work</span>
             <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
-              Real platforms. Live screens. Every industry.
+              Tech builds. Marketing campaigns. Both.
             </h2>
             <p className="mt-5 text-lg leading-8 text-ink-600">
-              Twelve shipped products across logistics, commerce, education, and
-              business operations — captured live, organized by use case. Click
-              any mockup to open the real site.
+              Platforms shipped live, campaigns run for real clients, brands built from the ground up —
+              across logistics, commerce, education, and marketing. Switch between Tech Work and Marketing
+              &amp; Design below.
             </p>
           </div>
           <Link

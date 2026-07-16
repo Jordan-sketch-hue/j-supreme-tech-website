@@ -37,6 +37,7 @@ export const GROUPS = [
 ] as const;
 
 export type Group = (typeof GROUPS)[number];
+export type WorkType = "tech" | "marketing";
 
 export type Project = {
   n: string;
@@ -46,6 +47,7 @@ export type Project = {
   group: Exclude<Group, "All">;
   blurb: string;
   mobile?: boolean;
+  workType: WorkType;
 };
 
 export const PROJECTS: Project[] = [
@@ -57,6 +59,7 @@ export const PROJECTS: Project[] = [
     group: "Logistics & Mobility",
     blurb: "Same-day courier operating system — booking, dispatch, and tracking for Jamaica.",
     mobile: true,
+    workType: "tech",
   },
   {
     n: "02",
@@ -65,6 +68,7 @@ export const PROJECTS: Project[] = [
     tag: "Custom CRM",
     group: "Business Systems",
     blurb: "All-in-one operator workspace — CRM, invoices, and projects under one roof.",
+    workType: "tech",
   },
   {
     n: "03",
@@ -73,6 +77,7 @@ export const PROJECTS: Project[] = [
     tag: "B2B Edtech",
     group: "Education",
     blurb: "Corporate language-training OS for teams across the Caribbean.",
+    workType: "tech",
   },
   {
     n: "04",
@@ -81,6 +86,7 @@ export const PROJECTS: Project[] = [
     tag: "E-Commerce",
     group: "Commerce & Retail",
     blurb: "Heritage wellness apothecary — catalogue, cart, and checkout.",
+    workType: "tech",
   },
   {
     n: "05",
@@ -89,6 +95,7 @@ export const PROJECTS: Project[] = [
     tag: "Healthcare B2B",
     group: "Business Systems",
     blurb: "Caribbean orthopedic supply platform with B2B ordering.",
+    workType: "tech",
   },
   {
     n: "06",
@@ -97,6 +104,7 @@ export const PROJECTS: Project[] = [
     tag: "Agency Brand",
     group: "Brand & Studio",
     blurb: "The marketing arm — the studio that designs everything else.",
+    workType: "tech",
   },
   {
     n: "07",
@@ -105,6 +113,7 @@ export const PROJECTS: Project[] = [
     tag: "Fabrication",
     group: "Business Systems",
     blurb: "Fabrication ecosystem — marketing, customer portal, and ops backoffice.",
+    workType: "tech",
   },
   {
     n: "08",
@@ -113,6 +122,7 @@ export const PROJECTS: Project[] = [
     tag: "Streetwear",
     group: "Commerce & Retail",
     blurb: "Premium streetwear storefront with lookbooks and an admin backoffice.",
+    workType: "tech",
   },
   {
     n: "09",
@@ -122,6 +132,7 @@ export const PROJECTS: Project[] = [
     group: "Logistics & Mobility",
     blurb: "Ride-hail and courier super app — rider, driver, and admin portals.",
     mobile: true,
+    workType: "tech",
   },
   {
     n: "10",
@@ -131,6 +142,7 @@ export const PROJECTS: Project[] = [
     group: "Education",
     blurb: "Flagship language-learning institute with a CMS backoffice and role portal.",
     mobile: true,
+    workType: "tech",
   },
   {
     n: "11",
@@ -139,6 +151,7 @@ export const PROJECTS: Project[] = [
     tag: "Wellness",
     group: "Commerce & Retail",
     blurb: "Herbal wellness commerce with a full admin and order system.",
+    workType: "tech",
   },
   {
     n: "12",
@@ -147,6 +160,7 @@ export const PROJECTS: Project[] = [
     tag: "Automotive",
     group: "Commerce & Retail",
     blurb: "Jamaican dealer gallery — a JSON-driven, fast car showcase.",
+    workType: "tech",
   },
 ];
 
