@@ -261,29 +261,28 @@ export type MarketingSample = { src: string; title: string; tag: string; client:
 // Selected CLIENT work first (real campaigns we ran for live brands), then a
 // couple of our own pieces. Files live in /public/marketing-samples.
 export const MARKETING_SAMPLES: MarketingSample[] = [
-  // Reel covers / hero campaign pieces
-  { src: "/marketing-samples/bp-couriers-reel-cover.png",   title: "BP Couriers — Premium Reel Cover",         tag: "Reel",     client: "BP Couriers" },
-  { src: "/marketing-samples/aboo-escape-post.png",         title: "Aboo Tours — Jamaica Escape Campaign",     tag: "Reel",     client: "Aboo Tours" },
-  { src: "/marketing-samples/lc-global-voice.jpg",          title: "The Language Cradle — Global Voice™ App",  tag: "Campaign", client: "Language Cradle" },
   // Feed posts
-  { src: "/marketing-samples/bp-couriers-fast.png",         title: "BP Couriers — FAST. Feed Post",            tag: "Feed",     client: "BP Couriers" },
-  { src: "/marketing-samples/bp-couriers-reliable.png",     title: "BP Couriers — RELIABLE. Feed Post",        tag: "Feed",     client: "BP Couriers" },
-  { src: "/marketing-samples/ship2door-fresh-friday.png",   title: "Ship 2 Door JA — Fresh Friday",            tag: "Feed",     client: "Ship 2 Door" },
-  { src: "/marketing-samples/ship2door-fresh-start.png",    title: "Ship 2 Door JA — Fresh Start",             tag: "Feed",     client: "Ship 2 Door" },
-  { src: "/marketing-samples/aboo-post-hero.png",           title: "Aboo Tours — Hero Launch Post",            tag: "Feed",     client: "Aboo Tours" },
-  { src: "/marketing-samples/aboo-post-tours.png",          title: "Aboo Tours — Tours Post",                  tag: "Feed",     client: "Aboo Tours" },
-  { src: "/marketing-samples/lc-hero-community.jpg",        title: "The Language Cradle — Community Hero",     tag: "Feed",     client: "Language Cradle" },
-  { src: "/marketing-samples/876-wash-club.png",            title: "876 Luxury Car Wash — Wash Club Launch",   tag: "Feed",     client: "876 Car Wash" },
+  { src: "/marketing-samples/bp-couriers-fast.png",       title: "BP Couriers — FAST.",             tag: "Feed",  client: "BP Couriers" },
+  { src: "/marketing-samples/bp-couriers-reliable.png",   title: "BP Couriers — RELIABLE.",         tag: "Feed",  client: "BP Couriers" },
+  { src: "/marketing-samples/bp-couriers-islandwide.png", title: "BP Couriers — ISLANDWIDE.",       tag: "Feed",  client: "BP Couriers" },
+  { src: "/marketing-samples/ship2door-fresh-friday.png", title: "Ship 2 Door — Fresh Friday",      tag: "Feed",  client: "Ship 2 Door" },
+  { src: "/marketing-samples/ship2door-fresh-start.png",  title: "Ship 2 Door — Fresh Start",       tag: "Feed",  client: "Ship 2 Door" },
+  { src: "/marketing-samples/aboo-post-hero.png",         title: "Aboo Tours — Launch Post",        tag: "Feed",  client: "Aboo Tours" },
+  { src: "/marketing-samples/aboo-post-tours.png",        title: "Aboo Tours — Tours",              tag: "Feed",  client: "Aboo Tours" },
+  { src: "/marketing-samples/aboo-escape-post.png",       title: "Aboo Tours — Escape Campaign",   tag: "Feed",  client: "Aboo Tours" },
+  { src: "/marketing-samples/lc-global-voice.jpg",        title: "Language Cradle — Global Voice™", tag: "Feed",  client: "Language Cradle" },
+  { src: "/marketing-samples/lc-hero-community.jpg",      title: "Language Cradle — Community",     tag: "Feed",  client: "Language Cradle" },
+  { src: "/marketing-samples/876-wash-club.png",          title: "876 Car Wash — Wash Club",        tag: "Feed",  client: "876 Car Wash" },
   // Stories
-  { src: "/marketing-samples/aboo-story-hero.png",          title: "Aboo Tours — Hero Story",                  tag: "Story",    client: "Aboo Tours" },
-  { src: "/marketing-samples/ship2door-story.png",          title: "Ship 2 Door JA — Follow Page Story",       tag: "Story",    client: "Ship 2 Door" },
-  { src: "/marketing-samples/876-story-wash-club.png",      title: "876 Luxury Car Wash — Wash Club Story",    tag: "Story",    client: "876 Car Wash" },
+  { src: "/marketing-samples/aboo-story-hero.png",        title: "Aboo Tours — Story",              tag: "Story", client: "Aboo Tours" },
+  { src: "/marketing-samples/ship2door-story.png",        title: "Ship 2 Door — Story",             tag: "Story", client: "Ship 2 Door" },
+  { src: "/marketing-samples/876-story-wash-club.png",    title: "876 Car Wash — Story",            tag: "Story", client: "876 Car Wash" },
 ];
 
 /* ------------------------------- Stats ------------------------------- */
 export const STATS: { value: string; label: string }[] = [
-  { value: "12+", label: "Live platforms shipped" },
+  { value: "100+", label: "Live platforms shipped" },
+  { value: "100+", label: "Apps & systems built" },
   { value: "13", label: "Ready-made SaaS systems" },
-  { value: "03", label: "Native apps (App Store + Play)" },
-  { value: "JA→∞", label: "Jamaica to worldwide" },
+  { value: "100+", label: "Clients served worldwide" },
 ];

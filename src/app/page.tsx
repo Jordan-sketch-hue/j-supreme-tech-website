@@ -22,9 +22,9 @@ import { SupremeSuiteSection } from "@/components/SupremeSuiteSection";
 import { PayButton } from "@/components/PayButton";
 import { ProjectIntakeForm } from "@/components/ProjectIntakeForm";
 import type { CSSProperties } from "react";
-import { PROCESS, PROJECTS, STATS } from "@/lib/portfolio";
+import { PROCESS, STATS } from "@/lib/portfolio";
 import { SERVICE_OFFERS, priceLabel } from "@/lib/serviceOffers";
-import { CountUp, Marquee, Reveal, RevealGroup, RevealItem, ScrollProgress } from "@/components/motion-kit";
+import { CountUp, Reveal, RevealGroup, RevealItem, ScrollProgress } from "@/components/motion-kit";
 
 // Flagship pricing on the homepage = the website (Digital Presence) tiers, with
 // real JMD prices + direct WiPay checkout. Every other service has its own
@@ -190,26 +190,6 @@ export default function Home() {
       {/* ============================== CLIENT LOGO STRIP ============================== */}
       <ClientLogoStrip />
 
-      {/* ============================== MARQUEE ============================== */}
-      <section className="border-y border-line bg-white py-5">
-        <div className="flex items-center gap-3 overflow-hidden">
-          <span className="ml-6 hidden shrink-0 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-ink-400 sm:block">
-            Shipped live ↗
-          </span>
-          <Marquee speed={30} gap="0rem">
-            {PROJECTS.map((p) => (
-              <span
-                key={p.host}
-                className="mx-6 inline-flex items-center gap-3 font-mono text-sm text-ink-500"
-              >
-                <span className="text-ink-900">{p.name}</span>
-                <span className="text-ink-300">/ {p.tag}</span>
-                <span className="text-ink-300">•</span>
-              </span>
-            ))}
-          </Marquee>
-        </div>
-      </section>
 
       {/* ============================== WORK / SHOWCASE ============================== */}
       <section id="work" className="section shell">

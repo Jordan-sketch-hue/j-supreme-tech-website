@@ -6,10 +6,9 @@ import { ArrowUpRight } from "lucide-react";
 import { MARKETING_SAMPLES } from "@/lib/portfolio";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion-kit";
 
-const reels   = MARKETING_SAMPLES.filter((m) => m.tag === "Reel" || m.tag === "Campaign");
 const feeds   = MARKETING_SAMPLES.filter((m) => m.tag === "Feed");
 const stories = MARKETING_SAMPLES.filter((m) => m.tag === "Story");
-const [featured] = reels;
+const [featured] = feeds;
 
 export function MarketingShowcase() {
   return (
