@@ -270,8 +270,6 @@ export const MARKETING_SAMPLES: MarketingSample[] = [
   { src: "/marketing-samples/aboo-post-hero.png",         title: "Aboo Tours — Launch Post",        tag: "Feed",  client: "Aboo Tours" },
   { src: "/marketing-samples/aboo-post-tours.png",        title: "Aboo Tours — Tours",              tag: "Feed",  client: "Aboo Tours" },
   { src: "/marketing-samples/aboo-escape-post.png",       title: "Aboo Tours — Escape Campaign",   tag: "Feed",  client: "Aboo Tours" },
-  { src: "/marketing-samples/lc-global-voice.jpg",        title: "Language Cradle — Global Voice™", tag: "Feed",  client: "Language Cradle" },
-  { src: "/marketing-samples/lc-hero-community.jpg",      title: "Language Cradle — Community",     tag: "Feed",  client: "Language Cradle" },
   { src: "/marketing-samples/876-wash-club.png",          title: "876 Car Wash — Wash Club",        tag: "Feed",  client: "876 Car Wash" },
   // Stories
   { src: "/marketing-samples/aboo-story-hero.png",        title: "Aboo Tours — Story",              tag: "Story", client: "Aboo Tours" },

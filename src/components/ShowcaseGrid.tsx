@@ -10,8 +10,12 @@ import { CASE_STUDIES } from "@/lib/caseStudies";
 import Link from "next/link";
 
 const REELS = [
-  { src: "/reels/aboo-tours-reel.mp4", client: "Aboo Tours" },
-  { src: "/reels/876-spotlight-reel.mp4", client: "876 Car Wash" },
+  { src: "/reels/aboo-tours-reel.mp4",        client: "Aboo Tours" },
+  { src: "/reels/876-luxury-carwash-reel.mp4", client: "876 Car Wash" },
+  { src: "/reels/language-cradle-reel.mp4",   client: "Language Cradle" },
+  { src: "/reels/lc-tip-2026-07-01.mp4",      client: "Language Cradle" },
+  { src: "/reels/bp-couriers-reel.mp4",        client: "BP Couriers" },
+  { src: "/reels/ship2door-reel.mp4",          client: "Ship 2 Door" },
 ];
 
 type WorkTab = "tech" | "marketing";
