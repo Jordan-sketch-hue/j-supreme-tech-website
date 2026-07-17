@@ -129,12 +129,8 @@ export function Footer() {
               </Link>
             ))}
           </div>
-          <p className="flex items-center gap-2 font-mono uppercase tracking-[0.14em]">
-            <span className="relative flex h-1.5 w-1.5 flex-none">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/50 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white/70" />
-            </span>
-            Currently shipping for Q3 2026
+          <p className="font-mono uppercase tracking-[0.14em]">
+            100+ clients served worldwide
           </p>
         </div>
       </div>

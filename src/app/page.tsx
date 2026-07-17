@@ -185,11 +185,6 @@ export default function Home() {
 
         </div>
 
-        {/* Scroll cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-          <span className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-white">Scroll</span>
-          <span className="h-6 w-px bg-white" />
-        </div>
       </section>
 
       {/* ============================== CLIENT LOGO STRIP ============================== */}

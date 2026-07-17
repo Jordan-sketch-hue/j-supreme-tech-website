@@ -57,7 +57,7 @@ export function Header() {
             <span className="block font-display text-sm font-semibold tracking-tight text-ink-900">
               J Supreme Tech
             </span>
-            <span className="mt-1 block font-mono text-[0.6rem] font-medium uppercase tracking-[0.22em] text-ink-500">
+            <span className="mt-0.5 block font-mono text-[0.55rem] font-medium uppercase tracking-[0.2em] text-ink-400">
               Creative Technology
             </span>
           </span>
@@ -76,13 +76,9 @@ export function Header() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <span className="flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            </span>
-            <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-emerald-700">
-              Taking clients · Q3 2026
+          <span className="hidden xl:flex items-center gap-1.5 rounded-full border border-line bg-ink-50 px-2.5 py-1">
+            <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
+              100+ clients served
             </span>
           </span>
           <DarkToggle />

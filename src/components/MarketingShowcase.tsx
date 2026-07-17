@@ -6,7 +6,10 @@ import { ArrowUpRight } from "lucide-react";
 import { MARKETING_SAMPLES } from "@/lib/portfolio";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion-kit";
 
-const [featured, ...grid] = MARKETING_SAMPLES;
+const reels   = MARKETING_SAMPLES.filter((m) => m.tag === "Reel" || m.tag === "Campaign");
+const feeds   = MARKETING_SAMPLES.filter((m) => m.tag === "Feed");
+const stories = MARKETING_SAMPLES.filter((m) => m.tag === "Story");
+const [featured] = reels;
 
 export function MarketingShowcase() {
   return (
@@ -76,38 +79,52 @@ export function MarketingShowcase() {
           </div>
         </Reveal>
 
-        {/* Supporting grid */}
-        <RevealGroup className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" amount={0.05}>
-          {grid.map((m) => (
-            <RevealItem key={m.src}>
-              <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-ink-900">
-                <div className="relative aspect-[4/5] w-full overflow-hidden">
-                  <Image
-                    src={m.src}
-                    alt={m.title}
-                    fill
-                    sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
-                    className="object-cover object-top transition duration-500 group-hover:scale-105"
-                  />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink-950/90 via-ink-950/20 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <span className="font-mono text-[0.58rem] uppercase tracking-[0.18em] text-white/50">
-                      {m.client}
-                    </span>
-                    <p className="mt-1 text-sm font-semibold leading-5 text-white">{m.title}</p>
+        {/* Feed posts */}
+        <div className="mt-10">
+          <Reveal>
+            <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.22em] text-white/30">Feed Posts</p>
+          </Reveal>
+          <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" amount={0.05}>
+            {feeds.map((m) => (
+              <RevealItem key={m.src}>
+                <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-ink-900">
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image src={m.src} alt={m.title} fill sizes="(max-width:640px) 100vw, 25vw" className="object-cover object-top transition duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink-950/90 via-transparent to-transparent p-3 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="font-mono text-[0.58rem] uppercase tracking-[0.18em] text-white/50">{m.client}</span>
+                      <p className="mt-0.5 text-xs font-semibold text-white leading-4">{m.title}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 border-t border-white/[0.07] px-3 py-2">
+                    <span className="font-mono text-[0.58rem] uppercase tracking-[0.16em] text-white/30">{m.client}</span>
+                    <span className="tag tag-dark text-[0.55rem]">{m.tag}</span>
                   </div>
                 </div>
-                {/* Static tag — always visible */}
-                <div className="flex items-center justify-between gap-2 border-t border-white/[0.07] px-3 py-2.5">
-                  <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-white/30">
-                    {m.client}
-                  </span>
-                  <span className="tag tag-dark text-[0.58rem]">{m.tag}</span>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+
+        {/* Stories */}
+        <div className="mt-8">
+          <Reveal>
+            <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.22em] text-white/30">Stories</p>
+          </Reveal>
+          <RevealGroup className="grid gap-4 grid-cols-3 sm:grid-cols-4 lg:grid-cols-6" amount={0.05}>
+            {stories.map((m) => (
+              <RevealItem key={m.src}>
+                <div className="group relative overflow-hidden rounded-xl border border-white/10 bg-ink-900">
+                  <div className="relative aspect-[9/16] w-full overflow-hidden">
+                    <Image src={m.src} alt={m.title} fill sizes="20vw" className="object-cover object-top transition duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink-950/90 via-transparent to-transparent p-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="font-mono text-[0.55rem] uppercase tracking-[0.14em] text-white/50">{m.client}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
 
         {/* Bottom CTA strip */}
         <Reveal direction="up" delay={0.1}>
