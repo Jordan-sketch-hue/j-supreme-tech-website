@@ -13,10 +13,8 @@ import {
 import { CineWords } from "@/components/CineWords";
 import { BrowserFrame, LaptopFrame, PhoneFrame } from "@/components/DeviceFrame";
 import { ShowcaseGrid } from "@/components/ShowcaseGrid";
-import { MarketingShowcase } from "@/components/MarketingShowcase";
 import { ClientLogoStrip } from "@/components/ClientLogoStrip";
 import { Testimonials } from "@/components/Testimonials";
-import { ShowreelSection } from "@/components/ShowreelSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { SupremeSuiteSection } from "@/components/SupremeSuiteSection";
 import { PayButton } from "@/components/PayButton";
@@ -217,14 +215,8 @@ export default function Home() {
         <ShowcaseGrid />
       </section>
 
-      {/* ============================== MARKETING & DESIGN ============================== */}
-      <MarketingShowcase />
-
       {/* ============================== TESTIMONIALS ============================== */}
       <Testimonials />
-
-      {/* ============================== SHOWREEL ============================== */}
-      <ShowreelSection />
 
       {/* ============================== CROSS-DEVICE BAND ============================== */}
       <section className="relative overflow-hidden bg-ink-950 text-white">

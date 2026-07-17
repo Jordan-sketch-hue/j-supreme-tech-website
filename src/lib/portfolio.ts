@@ -216,12 +216,12 @@ export const SERVICES: Service[] = [
     points: ["iOS & Android", "App Store & Play", "Customer-facing apps", "Operations apps"],
   },
   {
-    slug: "creative-technology",
+    slug: "business-automation",
     icon: Cpu,
-    title: "AI & Automation",
+    title: "Business Automation",
     blurb:
-      "AI-assisted workflows, system integrations, and automation that cuts manual work and scales what's working.",
-    points: ["AI workflows", "Automation", "System integrations", "Custom architecture"],
+      "WhatsApp auto-responders, booking automation, CRM pipelines, invoice systems, social auto-posting, email sequences, client onboarding, and reporting dashboards — done for you, monthly.",
+    points: ["WhatsApp auto-responders", "Booking & CRM automation", "Social auto-posting", "Email sequences & onboarding"],
   },
   {
     slug: "social-media-marketing",

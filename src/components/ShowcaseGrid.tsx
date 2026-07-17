@@ -9,6 +9,11 @@ import { GROUPS, MARKETING_SAMPLES, PROJECTS, type Group } from "@/lib/portfolio
 import { CASE_STUDIES } from "@/lib/caseStudies";
 import Link from "next/link";
 
+const REELS = [
+  { src: "/reels/aboo-tours-reel.mp4", client: "Aboo Tours" },
+  { src: "/reels/876-spotlight-reel.mp4", client: "876 Car Wash" },
+];
+
 type WorkTab = "tech" | "marketing";
 
 export function ShowcaseGrid() {
@@ -120,41 +125,88 @@ export function ShowcaseGrid() {
         </>
       )}
 
-      {/* ── MARKETING: masonry-style creative grid ── */}
+      {/* ── MARKETING: reels + feed + stories ── */}
       {workTab === "marketing" && (
         <>
           <p className="mt-6 text-sm leading-7 text-ink-500 max-w-xl">
-            Social campaigns, ad creative, brand identities, and strategy decks — real work
-            run for live clients across Jamaica and the Caribbean.
+            Social campaigns, reels, ad creative, and brand content — real work run for live
+            clients across Jamaica and the Caribbean.
           </p>
-          <RevealGroup
-            amount={0.05}
-            className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {MARKETING_SAMPLES.map((s, i) => (
-              <RevealItem key={s.src}>
-                <div
-                  className={`group relative overflow-hidden rounded-2xl border border-line bg-ink-50 ${
-                    i === 0 ? "sm:col-span-2 lg:col-span-1" : ""
-                  }`}
-                >
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image
-                      src={s.src}
-                      alt={s.title}
-                      fill
-                      sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 33vw"
-                      className="object-cover transition duration-500 group-hover:scale-105"
-                    />
+
+          {/* Reels row */}
+          <div className="mt-10">
+            <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.22em] text-ink-400">Reels</p>
+            <RevealGroup className="grid gap-4 grid-cols-2 sm:grid-cols-4" amount={0.05}>
+              {REELS.map((r) => (
+                <RevealItem key={r.src}>
+                  <div className="group overflow-hidden rounded-xl border border-line bg-ink-900">
+                    <div className="relative aspect-[9/16] w-full overflow-hidden sm:aspect-[4/5]">
+                      <video
+                        src={r.src}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between border-t border-white/[0.08] px-3 py-2">
+                      <span className="font-mono text-[0.57rem] uppercase tracking-[0.16em] text-white/40">{r.client}</span>
+                      <span className="tag tag-dark text-[0.55rem]">Reel</span>
+                    </div>
                   </div>
-                  <div className="p-4">
-                    <span className="tag">{s.tag}</span>
-                    <p className="mt-2 text-sm font-medium text-ink-900">{s.title}</p>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+
+          {/* Feed posts */}
+          <div className="mt-8">
+            <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.22em] text-ink-400">Feed Posts</p>
+            <RevealGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" amount={0.05}>
+              {MARKETING_SAMPLES.filter((s) => s.tag === "Feed").map((s) => (
+                <RevealItem key={s.src}>
+                  <div className="group relative overflow-hidden rounded-xl border border-line bg-ink-50">
+                    <div className="relative aspect-square w-full overflow-hidden">
+                      <Image
+                        src={s.src}
+                        alt={s.title}
+                        fill
+                        sizes="(max-width:640px) 50vw, 25vw"
+                        className="object-cover object-center transition duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between border-t border-line px-3 py-2">
+                      <span className="font-mono text-[0.57rem] uppercase tracking-[0.16em] text-ink-500">{s.client}</span>
+                      <span className="tag text-[0.55rem]">Feed</span>
+                    </div>
                   </div>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
+
+          {/* Stories */}
+          <div className="mt-8">
+            <p className="mb-4 font-mono text-[0.6rem] uppercase tracking-[0.22em] text-ink-400">Stories</p>
+            <RevealGroup className="grid gap-4 grid-cols-3 sm:grid-cols-4 lg:grid-cols-6" amount={0.05}>
+              {MARKETING_SAMPLES.filter((s) => s.tag === "Story").map((s) => (
+                <RevealItem key={s.src}>
+                  <div className="group overflow-hidden rounded-xl border border-line bg-ink-50">
+                    <div className="relative aspect-[9/16] w-full overflow-hidden">
+                      <Image
+                        src={s.src}
+                        alt={s.title}
+                        fill
+                        sizes="20vw"
+                        className="object-cover object-center transition duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
 
           {/* Marketing services callout */}
           <div className="mt-12 rounded-2xl border border-line bg-ink-950 p-8 text-white">
