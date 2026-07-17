@@ -76,11 +76,6 @@ export function Header() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <span className="hidden xl:flex items-center gap-1.5 rounded-full border border-line bg-ink-50 px-2.5 py-1">
-            <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.14em] text-ink-500">
-              100+ clients served
-            </span>
-          </span>
           <DarkToggle />
           <Link
             href="/login"
