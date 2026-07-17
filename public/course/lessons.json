@@ -1,0 +1,22 @@
+{
+  "course": "First Principles",
+  "tagline": "A daily mastery course, in the open.",
+  "lessons": [
+    {
+      "n": 1,
+      "term": "Term I — The Operating System",
+      "title": "Systems Thinking",
+      "blurb": "See the structure, not the events — stocks, flows, feedback loops, delays and leverage points. The lens the whole course is built on. Includes: Photography, Editing & Videography creative vocabulary.",
+      "href": "/course/day-1.html",
+      "date": "2026-06-23"
+    },
+    {
+      "n": 2,
+      "term": "Term I — The Operating System",
+      "title": "First-Principles Reasoning",
+      "blurb": "Strip every assumption down to undeniable truth, then build back up. The most dangerous tool a builder owns — and the one most people never pick up.",
+      "href": "/course/day-2.html",
+      "date": "2026-07-03"
+    }
+  ]
+}

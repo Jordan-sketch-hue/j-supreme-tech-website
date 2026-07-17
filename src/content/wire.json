@@ -1,82 +1,90 @@
 [
   {
-    "title": "Where AI tooling and developer platforms are heading next",
-    "source": "TechCrunch",
-    "url": "https://techcrunch.com",
-    "summary": "We read TechCrunch to spot which AI dev tools and funding moves are about to reshape how small studios ship software.",
-    "category": "tech",
-    "date": "2026-06-09"
+    "title": "A push to diversify away from a few dominant AI providers",
+    "source": "MarketingProfs",
+    "url": "https://www.marketingprofs.com/opinions/2026/55065/ai-update-june-19-2026-ai-news-and-views-from-the-past-week",
+    "summary": "Calls to avoid over-reliance on any single model vendor are a useful reminder for builders: design for portability, keep a fallback provider, and don't hard-wire one API into the core.",
+    "category": "ai",
+    "date": "2026-06-20"
   },
   {
-    "title": "The shipping side of frontend, React and the modern web stack",
-    "source": "The Verge",
-    "url": "https://www.theverge.com",
-    "summary": "A builder-friendly read on platform shifts — browsers, devices and the web APIs that decide what our apps can actually do.",
-    "category": "tech",
-    "date": "2026-06-10"
+    "title": "Top models stumble on a classic attention test as tasks get longer",
+    "source": "ScienceDaily",
+    "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
+    "summary": "A measured counterweight to the hype: performance degrades as context and complexity grow. Worth keeping in mind before handing an agent a long, multi-step job unsupervised.",
+    "category": "ai",
+    "date": "2026-06-20"
   },
   {
-    "title": "How to think about building durable software companies",
-    "source": "a16z",
-    "url": "https://a16z.com",
-    "summary": "Andreessen Horowitz's essays are a useful gut-check on which infrastructure and AI bets compound versus which fade.",
-    "category": "tech",
-    "date": "2026-06-08"
+    "title": "CRISPR that switches genes on without cutting DNA",
+    "source": "ScienceDaily",
+    "url": "https://www.sciencedaily.com/releases/2026/01/260104202813.htm",
+    "summary": "Editing by removing chemical tags rather than slicing the helix points to a gentler, potentially safer approach — early work, but a notable direction for conditions like sickle-cell.",
+    "category": "science",
+    "date": "2026-06-20"
   },
   {
-    "title": "Strategy behind the platforms every product team builds on",
-    "source": "Stratechery",
-    "url": "https://stratechery.com",
-    "summary": "Ben Thompson's framing of aggregation and platform power is the clearest lens we know for reading where distribution flows next.",
-    "category": "tech",
-    "date": "2026-06-11"
+    "title": "Gene-editing tools aimed at the antibiotic-resistance problem",
+    "source": "ScienceDaily",
+    "url": "https://www.sciencedaily.com/releases/2026/02/260217005717.htm",
+    "summary": "Researchers are borrowing gene-drive concepts to disable resistance genes across bacterial populations. Promising in the lab; the interesting questions are containment and real-world deployment.",
+    "category": "science",
+    "date": "2026-06-20"
   },
   {
-    "title": "Positioning, brand and the discipline of marketing strategy",
-    "source": "Harvard Business Review",
-    "url": "https://hbr.org",
-    "summary": "HBR keeps marketing honest — clear thinking on positioning and pricing beats another tactic-of-the-week thread.",
-    "category": "marketing",
-    "date": "2026-06-09"
+    "title": "A brain-computer interface designed to work with the brain, not against it",
+    "source": "Yale News",
+    "url": "https://news.yale.edu/2026/06/09/brain-computer-interface-works-not-against-brain",
+    "summary": "Using real-time fMRI, users learn to control a computer by thought more efficiently. The framing — cooperate with existing brain activity rather than override it — is the part worth watching.",
+    "category": "science",
+    "date": "2026-06-20"
   },
   {
-    "title": "SEO, content systems and the mechanics of organic growth",
-    "source": "Search Engine Land",
-    "url": "https://searchengineland.com",
-    "summary": "We follow it to track how search and AI answers shift, because that moves real traffic for every site we ship.",
-    "category": "marketing",
-    "date": "2026-06-12"
+    "title": "Neural rendering becomes the default at NVIDIA's 2026 events",
+    "source": "NVIDIA",
+    "url": "https://www.nvidia.com/en-us/geforce/news/computex-2026-nvidia-geforce-rtx-announcements/",
+    "summary": "Path-tracing gains and AI-assisted rendering are moving from demo to baseline. For anyone building visual or 3D products, the hybrid of classic + neural rendering is now the assumed starting point.",
+    "category": "graphics",
+    "date": "2026-06-20"
   },
   {
-    "title": "Markets, macro and the data that moves them",
-    "source": "Bloomberg Markets",
-    "url": "https://www.bloomberg.com/markets",
-    "summary": "For traders, Bloomberg's markets desk is the baseline feed for rates, equities and the macro context behind every chart — educational, not advice.",
-    "category": "trading",
-    "date": "2026-06-10"
+    "title": "Cities work out how to govern AI in the classroom",
+    "source": "Pursuit",
+    "url": "https://www.pursuit.us/news/ai-in-education-news-policies-innovations",
+    "summary": "Debate over pausing AI rollouts until governance frameworks land is a sensible pattern: pace adoption to clear equity and privacy standards rather than ship first and rule later.",
+    "category": "education",
+    "date": "2026-06-20"
   },
   {
-    "title": "Trading concepts and risk terms, defined plainly",
-    "source": "Investopedia",
-    "url": "https://www.investopedia.com",
-    "summary": "A reliable reference for the mechanics behind a strategy — we point traders here to learn the vocabulary before risking anything.",
-    "category": "trading",
-    "date": "2026-06-07"
+    "title": "Energy prices ease and markets steady on diplomatic progress",
+    "source": "World Bank — Global Economic Prospects",
+    "url": "https://www.worldbank.org/en/publication/global-economic-prospects",
+    "summary": "With global growth pencilled near 2.5% for 2026 and central banks holding a cautious line, the backdrop stays soft-but-stable. Context for planning, not a market call — never financial advice.",
+    "category": "markets",
+    "date": "2026-06-20"
   },
   {
-    "title": "Global business, supply chains and the macro picture",
-    "source": "Reuters",
-    "url": "https://www.reuters.com",
-    "summary": "Straight-down-the-middle reporting on the world economy that shapes demand across every Caribbean and global market we serve.",
+    "title": "Ceasefires and negotiations move the geopolitical picture",
+    "source": "PBS NewsHour",
+    "url": "https://www.pbs.org/newshour/show/june-19-2026-pbs-news-hour-full-episode",
+    "summary": "A round of ceasefire and diplomacy headlines, reported straight. We note these for their economic ripple — energy, shipping and demand — rather than to take a side.",
     "category": "world",
-    "date": "2026-06-11"
+    "date": "2026-06-20"
   },
   {
-    "title": "How technology is rewiring economies and work",
-    "source": "The Economist",
-    "url": "https://www.economist.com",
-    "summary": "We read it for the long view — how automation, AI and trade reshape the markets our clients sell into.",
-    "category": "world",
-    "date": "2026-06-08"
+    "title": "Philosophers reframe machine consciousness as a spectrum, not a switch",
+    "source": "PhilPapers",
+    "url": "https://philpapers.org/archive/BIRACA-4.pdf",
+    "summary": "A growing view treats awareness as multidimensional and probabilistic rather than yes/no. Even as an open question, it sharpens how we think about the systems we increasingly build on.",
+    "category": "ideas",
+    "date": "2026-06-20"
+  },
+  {
+    "title": "Wearables shape up as the next interface for AI",
+    "source": "ScienceDaily",
+    "url": "https://www.sciencedaily.com/news/computers_math/artificial_intelligence/",
+    "summary": "Pendants, glasses and screen-free 'AI for work' devices are where several big players are pointing next. A space worth tracking if you think about where attention and product flow.",
+    "category": "tech",
+    "date": "2026-06-20"
   }
 ]

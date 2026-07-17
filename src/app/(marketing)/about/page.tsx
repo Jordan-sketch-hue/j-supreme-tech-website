@@ -127,8 +127,8 @@ export default function AboutPage() {
                 <span className="live-dot h-1.5 w-1.5 rounded-full bg-ink-900" />
               </div>
               <div className="grid grid-cols-[auto_1fr] items-center gap-5 p-5">
-                <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-ink-950 font-mono text-xl font-bold tracking-tight text-white">
-                  JS
+                <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-ink-950 font-mono text-lg font-bold tracking-tight text-white">
+                  JST
                 </span>
                 <div className="min-w-0 space-y-2">
                   {TYPE_SPECIMEN.map((t) => (

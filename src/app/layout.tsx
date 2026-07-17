@@ -11,6 +11,7 @@ import PwaUpdate from "@/components/pwa-update";
 import { VisitorTracker } from "@/components/VisitorTracker";
 import { Analytics } from "@vercel/analytics/next";
 import { ADS_ENABLED, ADSENSE_CLIENT } from "@/lib/ads";
+import { CustomCursor } from "@/components/CustomCursor";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -148,6 +149,7 @@ export default function RootLayout({
         <NewsletterPopup />
         <PwaUpdate />
         <Analytics />
+        <CustomCursor />
       </body>
     </html>
   );

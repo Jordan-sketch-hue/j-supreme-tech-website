@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 2 · First-Principles Reasoning — First Principles</title>
+<meta name="description" content="Day 2 of First Principles: strip every problem down to undeniable truths, then build back up. The most dangerous tool a builder owns." />
+<meta property="og:title" content="First-Principles Reasoning — First Principles · Day 2" />
+<meta property="og:description" content="Strip every assumption to bedrock. Rebuild from truth. The most dangerous tool a builder owns." />
+<meta property="og:type" content="article" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0a0c; --panel:#121216; --panel2:#17171c; --line:#23232b;
+    --ink:#ececf2; --mut:#9a9aa6; --dim:#6a6a76;
+    --gold:#d4a23a; --blue:#6ea8fe; --green:#34d399; --purple:#a78bfa; --red:#f06a6a;
+    --serif:'Fraunces',ui-serif,Georgia,serif; --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  /* progress */
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--purple));z-index:60;transition:width .1s linear}
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(10,10,12,.6);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--serif);font-weight:900;letter-spacing:.3px;font-size:15px}
+  .brand b{color:var(--gold)}
+  .lesson-nav{display:flex;align-items:center;gap:6px}
+  .lnav-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:14px;text-decoration:none;cursor:pointer;transition:.15s;line-height:1;font-family:var(--sans);user-select:none}
+  .lnav-btn:hover:not(.lnav-disabled){border-color:var(--gold);color:var(--gold)}
+  .lnav-disabled{opacity:.3;cursor:default;pointer-events:none}
+  .lesson-jump{background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:12px;padding:5px 10px;font-family:var(--sans);cursor:pointer;-webkit-appearance:none;appearance:none;min-width:70px;text-align:center}
+  .nav-links{display:flex;gap:18px;font-size:12.5px;color:var(--mut)}
+  .nav-links a{text-decoration:none;color:var(--mut)}
+  .nav-links a:hover{color:var(--ink)}
+  /* hero */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px 24px 60px;position:relative;overflow:hidden}
+  .hero .glow{position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 38%,rgba(110,168,254,.09),transparent 70%);pointer-events:none}
+  .kick{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .term{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-top:8px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(44px,9vw,86px);line-height:1.02;margin:14px 0 10px;letter-spacing:-1px}
+  .sub{font-size:clamp(16px,2.4vw,20px);color:var(--mut);max-width:560px;margin:0 auto;font-family:var(--serif);font-weight:400;font-style:italic}
+  .hero-svg{width:min(560px,92vw);margin:34px auto 0}
+  .scrollcue{margin-top:30px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);animation:bob 2s infinite}
+  @keyframes bob{50%{transform:translateY(6px);opacity:.5}}
+  /* sections */
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  .ey{font-size:11.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,4.4vw,38px);line-height:1.12;margin:0 0 18px;letter-spacing:-.4px}
+  p{font-size:17px;color:#d2d2dc;margin:0 0 18px}
+  p strong,li strong{color:#fff;font-weight:600}
+  em{font-style:italic;color:#e7e7ef}
+  .lead{font-size:20px;color:#e2e2ea;font-family:var(--serif)}
+  /* steps */
+  .steps{display:flex;flex-direction:column;gap:10px;margin-top:8px;counter-reset:step}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;transition:.2s;position:relative;counter-increment:step}
+  .step:hover{border-color:var(--blue);transform:translateX(4px)}
+  .step .st{display:flex;align-items:center;gap:14px}
+  .step .sn{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:rgba(110,168,254,.12);border:1px solid rgba(110,168,254,.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue)}
+  .step .sl{font-weight:700;font-size:15px}
+  .step .sb{max-height:0;overflow:hidden;transition:max-height .3s ease,margin .3s;color:var(--mut);font-size:14.5px;padding-left:42px}
+  .step.open .sb{max-height:200px;margin-top:8px}
+  /* cards */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:8px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .card h3{margin:14px 0 8px;font-size:18px;font-family:var(--sans);font-weight:700}
+  .card p{font-size:14.5px;margin:0}
+  .card.blue{border-color:rgba(110,168,254,.3)}
+  .card.red{border-color:rgba(240,106,106,.3)}
+  /* callout */
+  .note{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;padding:22px 24px;margin:6px 0}
+  .note .nh{font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px}
+  .note ul{margin:8px 0 0;padding-left:18px}
+  .note li{font-size:14.5px;color:#cdcdd8;margin-bottom:7px}
+  .insight{border-left-color:var(--purple)}
+  .insight .nh{color:var(--purple)}
+  /* quote */
+  blockquote{font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.4;color:#fff;border:0;margin:10px 0;padding:0}
+  blockquote .cite{display:block;font-size:13px;font-style:normal;color:var(--mut);margin-top:12px;font-family:var(--sans)}
+  /* lock-in */
+  .lock{background:linear-gradient(180deg,rgba(110,168,254,.07),transparent);border:1px solid rgba(110,168,254,.22);border-radius:18px;padding:28px}
+  /* media */
+  .media{background:var(--panel);border:1px dashed var(--line);border-radius:16px;padding:30px;text-align:center;color:var(--dim);font-size:13.5px}
+  /* next / prev */
+  .lesson-links{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+  .ll{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;transition:.2s}
+  .ll:hover{border-color:var(--gold)}
+  .ll .llab{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+  .ll .lt{font-family:var(--serif);font-size:22px;margin-top:6px;color:#fff}
+  .ll .ld{color:var(--mut);font-size:14px;margin-top:6px}
+  .ll.prev-ll{border-left:3px solid rgba(212,162,58,.4)}
+  .ll.next-ll{text-align:right;border-right:3px solid rgba(212,162,58,.4)}
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:40px 0 70px;text-align:center;color:var(--dim);font-size:13px}
+  footer a{color:var(--gold);text-decoration:none}
+  /* reveal */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .rv.in{opacity:1;transform:none}
+  ul.clean{list-style:none;padding:0;margin:0 0 8px}
+  ul.clean li{position:relative;padding-left:22px;margin-bottom:12px;font-size:16.5px;color:#d2d2dc}
+  ul.clean li:before{content:"";position:absolute;left:0;top:10px;width:8px;height:8px;border-radius:50%;background:var(--blue)}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}h1{font-size:48px}.lesson-links{grid-template-columns:1fr}.lesson-nav{display:none}}
+  /* fat quote */
+  .fat-q .fq-bar{width:40px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:20px}
+  .fat-q .fqt{font-family:var(--serif);font-size:clamp(26px,5.2vw,50px);font-weight:900;line-height:1.06;letter-spacing:-.7px;color:#fff;margin:0}
+  .fat-q .fqt mark{background:transparent;color:var(--gold)}
+  .fat-q .fqc{font-size:11px;color:var(--dim);margin-top:16px;font-family:var(--sans);letter-spacing:1.5px;text-transform:uppercase}
+  /* real talk */
+  .real-talk{background:#0e0e13;border:1px solid rgba(240,106,106,.18);border-left:3px solid var(--red);border-radius:14px;padding:18px 22px;margin:24px 0}
+  .real-talk .rth{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:9px}
+  .real-talk p{font-size:15px;color:#bfbfcb;margin:0;line-height:1.65}
+  /* assumption strip viz */
+  .strip-box{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:20px 0}
+  .strip-box-lbl{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);font-weight:700;padding:14px 20px 0}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="brand">First <b>Principles</b></div>
+  <div class="lesson-nav">
+    <a class="lnav-btn" href="/course/day-1.html" aria-label="Previous lesson">←</a>
+    <select class="lesson-jump" id="ljump" aria-label="Jump to lesson"><option value="/course/day-2.html" selected>Day 2</option></select>
+    <span class="lnav-btn lnav-disabled" aria-label="Next lesson not yet published">→</span>
+  </div>
+  <div class="nav-links">
+    <a href="/course/">All Lessons</a>
+    <a href="/blog/category/principles">Series</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="glow"></div>
+  <div class="kick">Lesson 02</div>
+  <div class="term">Term I — The Operating System</div>
+  <h1>First-Principles<br>Reasoning</h1>
+  <div class="sub">Strip every assumption to undeniable truth. Then build back up. The most dangerous tool a builder owns.</div>
+
+  <!-- Decomposition SVG -->
+  <svg class="hero-svg" viewBox="0 0 560 230" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="goldg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d4a23a" stop-opacity="0"/><stop offset=".5" stop-color="#d4a23a"/><stop offset="1" stop-color="#d4a23a" stop-opacity="0"/></linearGradient>
+      <linearGradient id="blueg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6ea8fe" stop-opacity="0"/><stop offset=".5" stop-color="#6ea8fe"/><stop offset="1" stop-color="#6ea8fe" stop-opacity="0"/></linearGradient>
+      <radialGradient id="ndark" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#1e1e28"/><stop offset="1" stop-color="#12121a"/></radialGradient>
+    </defs>
+
+    <!-- ASSUMED block -->
+    <rect x="14" y="30" width="150" height="170" rx="12" fill="url(#ndark)" stroke="#2d2d38"/>
+    <text x="89" y="54" fill="#6a6a76" font-size="9" text-anchor="middle" font-family="Inter" letter-spacing="2" font-weight="700">ASSUMED</text>
+    <!-- assumption rows with strikethrough -->
+    <rect x="26" y="64" width="126" height="32" rx="7" fill="#1a1a22" stroke="#2d2d38"/>
+    <text x="89" y="84" fill="#9a9aa6" font-size="11" text-anchor="middle" font-family="Inter">"Clients won't pay more"</text>
+    <line x1="32" y1="80" x2="146" y2="80" stroke="#f06a6a" stroke-width="1.5" stroke-opacity=".7"><animate attributeName="stroke-opacity" values="0;0;.7;.7" keyTimes="0;.3;.6;1" dur="3.5s" repeatCount="indefinite"/><animate attributeName="x2" values="32;32;146;146" keyTimes="0;.3;.6;1" dur="3.5s" repeatCount="indefinite"/></line>
+
+    <rect x="26" y="106" width="126" height="32" rx="7" fill="#1a1a22" stroke="#2d2d38"/>
+    <text x="89" y="126" fill="#9a9aa6" font-size="11" text-anchor="middle" font-family="Inter">"Takes 6 weeks minimum"</text>
+    <line x1="32" y1="122" x2="146" y2="122" stroke="#f06a6a" stroke-width="1.5" stroke-opacity=".7"><animate attributeName="stroke-opacity" values="0;0;0;.7;.7" keyTimes="0;.25;.5;.75;1" dur="3.5s" repeatCount="indefinite"/><animate attributeName="x2" values="32;32;32;146;146" keyTimes="0;.25;.5;.75;1" dur="3.5s" repeatCount="indefinite"/></line>
+
+    <rect x="26" y="148" width="126" height="32" rx="7" fill="#1a1a22" stroke="#2d2d38"/>
+    <text x="89" y="168" fill="#9a9aa6" font-size="11" text-anchor="middle" font-family="Inter">"Market is too small"</text>
+    <line x1="32" y1="164" x2="146" y2="164" stroke="#f06a6a" stroke-width="1.5" stroke-opacity=".7"><animate attributeName="stroke-opacity" values="0;0;0;0;.7;.7" keyTimes="0;.2;.4;.6;.8;1" dur="3.5s" repeatCount="indefinite"/><animate attributeName="x2" values="32;32;32;32;146;146" keyTimes="0;.2;.4;.6;.8;1" dur="3.5s" repeatCount="indefinite"/></line>
+
+    <!-- transform arrow -->
+    <path d="M174 115 H240" stroke="url(#goldg)" stroke-width="2" stroke-dasharray="6 4"><animate attributeName="stroke-dashoffset" from="80" to="0" dur="1.8s" repeatCount="indefinite"/></path>
+    <text x="207" y="108" fill="#d4a23a" font-size="9" text-anchor="middle" font-family="Inter" letter-spacing="1">STRIP</text>
+    <polygon points="240,111 234,107 234,115" fill="#d4a23a"/>
+
+    <!-- TRUTH block -->
+    <rect x="248" y="46" width="134" height="137" rx="12" fill="url(#ndark)" stroke="#2d2d38"/>
+    <text x="315" y="70" fill="#6a6a76" font-size="9" text-anchor="middle" font-family="Inter" letter-spacing="2" font-weight="700">BASE TRUTHS</text>
+    <rect x="260" y="80" width="110" height="40" rx="7" fill="#12201a" stroke="rgba(52,211,153,.3)"/>
+    <text x="315" y="96" fill="#34d399" font-size="11" text-anchor="middle" font-family="Inter" font-weight="600">Real cost to deliver</text>
+    <text x="315" y="112" fill="#6a9e88" font-size="10" text-anchor="middle" font-family="Inter">Labor + tools + time</text>
+
+    <rect x="260" y="130" width="110" height="40" rx="7" fill="#12201a" stroke="rgba(52,211,153,.3)"/>
+    <text x="315" y="146" fill="#34d399" font-size="11" text-anchor="middle" font-family="Inter" font-weight="600">Value actually created</text>
+    <text x="315" y="162" fill="#6a9e88" font-size="10" text-anchor="middle" font-family="Inter">Measured outcome</text>
+
+    <!-- build arrow -->
+    <path d="M390 115 H440" stroke="url(#blueg)" stroke-width="2" stroke-dasharray="6 4"><animate attributeName="stroke-dashoffset" from="80" to="0" dur="1.8s" repeatCount="indefinite"/></path>
+    <text x="415" y="108" fill="#6ea8fe" font-size="9" text-anchor="middle" font-family="Inter" letter-spacing="1">BUILD</text>
+    <polygon points="440,111 434,107 434,115" fill="#6ea8fe"/>
+
+    <!-- RESULT node -->
+    <rect x="448" y="74" width="100" height="82" rx="12" fill="url(#ndark)" stroke="rgba(212,162,58,.5)"/>
+    <text x="498" y="100" fill="#d4a23a" font-size="11" text-anchor="middle" font-family="Inter" font-weight="700">NEW</text>
+    <text x="498" y="116" fill="#d4a23a" font-size="11" text-anchor="middle" font-family="Inter" font-weight="700">POSITION</text>
+    <text x="498" y="136" fill="#9a9aa6" font-size="10" text-anchor="middle" font-family="Inter">built from</text>
+    <text x="498" y="150" fill="#9a9aa6" font-size="10" text-anchor="middle" font-family="Inter">truth</text>
+  </svg>
+
+  <div class="scrollcue">scroll ↓</div>
+</header>
+
+<main class="wrap">
+
+  <section class="rv" style="padding-top:44px">
+    <div class="ey" style="color:var(--gold)">Watch · the 60-second version</div>
+    <div id="vid-wrap" style="border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px -42px rgba(0,0,0,.85)">
+      <video controls preload="metadata" playsinline id="lesson-vid" style="width:100%;display:block;aspect-ratio:16/9;background:#000">
+        <source src="https://ibtadbwtrxglujkzqofs.supabase.co/storage/v1/object/public/course-media/day-2.mp4" type="video/mp4" />
+        Your browser doesn't support embedded video — <a href="https://ibtadbwtrxglujkzqofs.supabase.co/storage/v1/object/public/course-media/day-2.mp4" style="color:var(--gold)">watch it here</a>.
+      </video>
+    </div>
+    <p style="font-size:13.5px;color:var(--dim);margin-top:10px;text-align:center">A narrated, animated primer — then read the full lesson below.</p>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--blue)">The Big Idea</div>
+    <p class="lead">Almost every constraint you're operating under is borrowed. Someone else hit a wall, accepted it, and you inherited their ceiling.</p>
+    <p>First-principles reasoning is the discipline of going the other direction: stripping every problem or assumption down to the things that are <em>undeniably true</em> — not analogies, not conventions, not what similar businesses do — and reasoning back up from there to a new conclusion. It's the operating tool behind every genuinely novel move.</p>
+    <p>The reason it's rare isn't that it's hard. It's that <strong>reasoning by analogy is faster and usually good enough</strong> — and the brain defaults to it. "Similar agencies charge around $X." "That kind of build usually takes Y weeks." "No one in this market has done that." Those statements are always observations about the past, dressed up as facts about the present. First-principles asks whether they're actually true — and most of the time, under examination, they're not.</p>
+  </section>
+
+  <!-- Fat quote: Feynman -->
+  <section class="rv fat-q">
+    <div class="fq-bar"></div>
+    <p class="fqt">"The first principle is that you must not <mark>fool yourself</mark> — and you are the easiest person to fool."</p>
+    <p class="fqc">— Richard Feynman · physicist</p>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--gold)">The Assumption Machine</div>
+    <h2>How analogical thinking becomes a ceiling</h2>
+    <div class="grid2">
+      <div class="card blue">
+        <svg viewBox="0 0 100 56" style="height:56px;width:100%" aria-hidden="true">
+          <rect x="8" y="8" width="84" height="40" rx="8" fill="rgba(110,168,254,.08)" stroke="rgba(110,168,254,.3)"/>
+          <text x="50" y="32" fill="#6ea8fe" font-size="11" text-anchor="middle" font-family="Inter" font-weight="600">Analogy</text>
+        </svg>
+        <h3 style="color:var(--blue)">Analogical (fast)</h3>
+        <p>"X works like Y because it looks similar." Draws from memory and pattern. Fast, efficient, usually correct — and entirely dependent on whether the pattern actually applies here.</p>
+      </div>
+      <div class="card" style="border-color:rgba(212,162,58,.3)">
+        <svg viewBox="0 0 100 56" style="height:56px;width:100%" aria-hidden="true">
+          <circle cx="50" cy="28" r="20" fill="rgba(212,162,58,.08)" stroke="rgba(212,162,58,.3)"/>
+          <circle cx="50" cy="28" r="6" fill="#d4a23a" fill-opacity=".4"/>
+          <text x="50" y="32" fill="#d4a23a" font-size="9" text-anchor="middle" font-family="Inter" font-weight="700">TRUTH</text>
+        </svg>
+        <h3 style="color:var(--gold)">First Principles (powerful)</h3>
+        <p>"What do I know is actually true here?" Identifies the bedrock. Slower, effortful — and the only path to a genuinely different outcome.</p>
+      </div>
+    </div>
+    <p style="margin-top:18px">The trap isn't that analogy is wrong. Most of the time it's right, and you should use it. The trap is applying it to the decisions where it's <em>building a false floor under your thinking</em> — especially pricing, positioning, what's possible, and how long things take. Those four are where inherited ceilings cost the most.</p>
+
+    <!-- Animated strip-and-rebuild viz -->
+    <div class="strip-box">
+      <div class="strip-box-lbl">Watch the process</div>
+      <svg viewBox="0 0 560 155" style="width:100%;display:block;padding:10px 0 18px" aria-hidden="true">
+        <defs>
+          <linearGradient id="truthg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#34d399" stop-opacity=".3"/></linearGradient>
+        </defs>
+        <!-- Phase 1: ASSUMED box -->
+        <rect x="12" y="20" width="142" height="116" rx="10" fill="#151520" stroke="#2d2d3a"/>
+        <text x="83" y="38" fill="#6a6a76" font-size="8.5" text-anchor="middle" font-family="Inter" letter-spacing="2" font-weight="700">ASSUMED</text>
+        <rect x="22" y="46" width="122" height="24" rx="6" fill="#1a1a26" stroke="#2c2c38"/>
+        <text x="83" y="62" fill="#9a9aa6" font-size="11" text-anchor="middle" font-family="Inter">"Clients won't pay more"</text>
+        <line x1="28" y1="58" x2="138" y2="58" stroke="#f06a6a" stroke-width="1.5" stroke-linecap="round">
+          <animate attributeName="x2" values="28;28;138;138" keyTimes="0;.2;.45;1" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0;0;.8;.8" keyTimes="0;.2;.45;1" dur="4s" repeatCount="indefinite"/>
+        </line>
+        <rect x="22" y="78" width="122" height="24" rx="6" fill="#1a1a26" stroke="#2c2c38"/>
+        <text x="83" y="94" fill="#9a9aa6" font-size="11" text-anchor="middle" font-family="Inter">"Takes 6 weeks min"</text>
+        <line x1="28" y1="90" x2="138" y2="90" stroke="#f06a6a" stroke-width="1.5" stroke-linecap="round">
+          <animate attributeName="x2" values="28;28;28;138;138" keyTimes="0;.25;.45;.65;1" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0;0;0;.8;.8" keyTimes="0;.25;.45;.65;1" dur="4s" repeatCount="indefinite"/>
+        </line>
+        <rect x="22" y="110" width="122" height="20" rx="6" fill="#1a1a26" stroke="#2c2c38"/>
+        <text x="83" y="124" fill="#9a9aa6" font-size="11" text-anchor="middle" font-family="Inter">"Market is too small"</text>
+        <line x1="28" y1="120" x2="138" y2="120" stroke="#f06a6a" stroke-width="1.5" stroke-linecap="round">
+          <animate attributeName="x2" values="28;28;28;28;138;138" keyTimes="0;.3;.5;.68;.85;1" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-opacity" values="0;0;0;0;.8;.8" keyTimes="0;.3;.5;.68;.85;1" dur="4s" repeatCount="indefinite"/>
+        </line>
+
+        <!-- Arrow 1 -->
+        <path d="M162 78 H198" stroke="#d4a23a" stroke-width="1.5" stroke-dasharray="4 3"><animate attributeName="stroke-dashoffset" from="30" to="0" dur="1s" repeatCount="indefinite"/></path>
+        <polygon points="198,74 194,78 198,82 202,78" fill="#d4a23a"/>
+        <text x="180" y="68" fill="#d4a23a" font-size="8" text-anchor="middle" font-family="Inter" letter-spacing="1">STRIP</text>
+
+        <!-- Phase 2: TRUTHS box -->
+        <rect x="208" y="36" width="138" height="90" rx="10" fill="#0f1f17" stroke="rgba(52,211,153,.35)"/>
+        <text x="277" y="54" fill="#34d399" font-size="8.5" text-anchor="middle" font-family="Inter" letter-spacing="2" font-weight="700">BASE TRUTHS</text>
+        <rect x="218" y="62" width="118" height="26" rx="6" fill="rgba(52,211,153,.06)" stroke="rgba(52,211,153,.2)"/>
+        <text x="277" y="79" fill="#34d399" font-size="11" text-anchor="middle" font-family="Inter" font-weight="600">Real delivery cost</text>
+        <rect x="218" y="96" width="118" height="26" rx="6" fill="rgba(52,211,153,.06)" stroke="rgba(52,211,153,.2)"/>
+        <text x="277" y="113" fill="#34d399" font-size="11" text-anchor="middle" font-family="Inter" font-weight="600">Value actually created</text>
+
+        <!-- Arrow 2 -->
+        <path d="M354 78 H388" stroke="#6ea8fe" stroke-width="1.5" stroke-dasharray="4 3"><animate attributeName="stroke-dashoffset" from="30" to="0" dur="1s" repeatCount="indefinite"/></path>
+        <polygon points="388,74 384,78 388,82 392,78" fill="#6ea8fe"/>
+        <text x="371" y="68" fill="#6ea8fe" font-size="8" text-anchor="middle" font-family="Inter" letter-spacing="1">BUILD</text>
+
+        <!-- Phase 3: NEW POSITION -->
+        <rect x="398" y="30" width="148" height="102" rx="10" fill="#0d1525" stroke="rgba(212,162,58,.45)"/>
+        <text x="472" y="50" fill="#d4a23a" font-size="8.5" text-anchor="middle" font-family="Inter" letter-spacing="2" font-weight="700">NEW POSITION</text>
+        <text x="472" y="72" fill="#fff" font-size="13" text-anchor="middle" font-family="Fraunces,serif" font-weight="700">Built from</text>
+        <text x="472" y="92" fill="#fff" font-size="13" text-anchor="middle" font-family="Fraunces,serif" font-weight="700">first principles</text>
+        <text x="472" y="114" fill="#6a6a76" font-size="10.5" text-anchor="middle" font-family="Inter">not from precedent</text>
+        <!-- glow pulse -->
+        <rect x="398" y="30" width="148" height="102" rx="10" fill="none" stroke="#d4a23a" stroke-opacity=".0">
+          <animate attributeName="stroke-opacity" values="0;.35;0" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-width" values="1;3;1" dur="2.5s" repeatCount="indefinite"/>
+        </rect>
+      </svg>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--green)">Seen In The Wild</div>
+    <h2>The SpaceX moment — and yours</h2>
+    <ul class="clean">
+      <li><strong>SpaceX, 2001.</strong> Every aerospace company quoted Musk $65M+ per rocket launch. The analogical answer: that's what rockets cost, buy one. The first-principles question: what is a rocket <em>made of</em>? Aerospace-grade aluminum, titanium, carbon fiber, copper, electronics — available on commodity markets for roughly 2–3% of the quoted price. The rest was manufacturing margin and institutional overhead. SpaceX didn't reinvent physics. They took the same materials and removed the inherited cost structure.</li>
+      <li><strong>Your pricing.</strong> "JST charges $X" or "competitors are at $Y" — that's analogical pricing. What is your service actually made of? Labor (time), tooling (AI-compressed effort), expertise (compounded skill). What does each unit <em>actually cost you</em> to deliver, and what outcome does it produce for the client? That math gives a number with no reference to competitors — and usually produces a different answer in both directions.</li>
+      <li><strong>Your build timeline.</strong> "A site like this takes 4–6 weeks" is an analogy. What does it actually require? Design decisions (async, done in hours with the right brief), development (which components already exist?), client feedback loops (the real variable). Strip it and you may find the true bottleneck is a single waiting period — and that the rest compresses.</li>
+    </ul>
+    <div class="real-talk">
+      <div class="rth">Real talk</div>
+      <p>Most "I can't charge more" beliefs aren't financial facts — they're social ones. Someone comparable didn't charge more, and you inherited their hesitation. Strip it: what does the outcome actually produce for the client? What would it cost them to not have it? That math has nothing to do with what a competitor charged. Start there.</p>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--blue)">The Process</div>
+    <h2>Five moves — tap each to expand</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="st"><span class="sn">1</span><span class="sl">Identify the constraint or question precisely</span></div>
+        <div class="sb">Don't start with "how do we fix this?" Start with "what exactly is the constraint?" Vague problems produce vague first principles. The more specific the question, the sharper the reasoning. Write it as a sentence.</div>
+      </div>
+      <div class="step">
+        <div class="st"><span class="sn">2</span><span class="sl">List every assumption baked into it</span></div>
+        <div class="sb">Ask: "Why does this seem true?" Keep asking. You're hunting for statements like "because everyone does it this way" or "because that's what it costs." Those are assumptions, not truths. List them all explicitly — they become visible for the first time.</div>
+      </div>
+      <div class="step">
+        <div class="st"><span class="sn">3</span><span class="sl">Strike the borrowed ones</span></div>
+        <div class="sb">For each assumption: is this undeniably true, or is it inherited from someone else's experience/context? Strike anything borrowed. You're not destroying them — you're testing whether they actually apply here. Most don't survive this step unchanged.</div>
+      </div>
+      <div class="step">
+        <div class="st"><span class="sn">4</span><span class="sl">State what you know is actually true</span></div>
+        <div class="sb">What's left after the strike? The bedrock — the things that would be true regardless of context, convention, or what anyone else has done. These are your actual inputs. Physical limits. Actual cost structure. Real buyer psychology. Write them.</div>
+      </div>
+      <div class="step">
+        <div class="st"><span class="sn">5</span><span class="sl">Build back up from there</span></div>
+        <div class="sb">Now construct your solution, price, timeline, or position from the truths — not from the assumptions you just stripped. The result usually looks different from what everyone else is doing. That's not a warning sign. That's the point.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--gold)">The Threads</div>
+    <h2>Where this plugs in</h2>
+    <p>The reason Systems Thinking (L1) came first is that first-principles reasoning operates on the <em>structure</em> of a problem, not its events. When you stripped SpaceX's launch cost to raw materials, you were finding the actual stocks and flows — not reacting to the sticker price event. The two tools work together: systems thinking shows you the structure; first principles strips that structure to bedrock.</p>
+    <p>In the lessons ahead: Expected Value (L3) uses first principles to define what the real inputs to a bet actually are. Decision Hygiene (L10) formalises the pre-mortem as an explicit assumption-audit before you commit. And when we get to Pricing Power (L27), this will return — because pricing from first principles produces a fundamentally different position than pricing by analogy.</p>
+    <div class="note insight">
+      <div class="nh">The question that cuts</div>
+      <p style="font-size:15px;color:#d6d6e0;margin:0">"What would have to be true for this to work?" is almost always more productive than "why won't this work?" The second question ends at the first obstacle. The first question identifies whether the obstacle is a law of physics or an inherited assumption — and those are very different things.</p>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="note">
+      <div class="nh">🛠 Operator's Field Note · Apple Developer Program</div>
+      <p style="font-size:14.5px;color:#cdcdd8;margin:0 0 8px">Before an app ships on iOS it must pass through a platform review process — which is itself a first-principles system: Apple doesn't ask whether your app is good, it asks whether it satisfies specific binary rules. Knowing the rules exactly lets you build to them, not discover them post-rejection. As of mid-2026 (Apple revises continuously — confirm before submitting):</p>
+      <ul>
+        <li><strong>$99/year</strong> for an individual or organisation Apple Developer Program membership. Required for any production TestFlight or App Store release. Enroll at developer.apple.com.</li>
+        <li><strong>Certificates & provisioning profiles</strong> — Apple signs every build. You need a Distribution Certificate (generated in Keychain) and an App Store provisioning profile (generated in App Store Connect) before Xcode can archive for distribution. If one expires, builds stop shipping.</li>
+        <li><strong>App Store Connect roles</strong> — Account Holder, Admin, Developer, Marketing, Sales. If you're handing access to a contractor, give them Developer — not Admin. Admin can revoke your own access.</li>
+        <li><strong>Bundle ID</strong> — set once, never changes. Uses reverse-domain notation: <code>online.jsupremetech.appname</code>. Changing it creates a new app in App Store Connect.</li>
+        <li><strong>App Privacy nutrition labels</strong> — you self-declare what data the app collects and how it's used. These must match the actual code — reviewers check. Mismatch = rejection or removal.</li>
+      </ul>
+      <p style="font-size:14.5px;color:#cdcdd8;margin:10px 0 0"><strong>First-principles lens:</strong> the 3-7 day review window isn't random — it's a balancing loop Apple built to keep the store quality above a threshold. Design your submission to satisfy the loop's rules on first entry, not through iteration. One clean submission beats three rushed rejections. <span style="color:var(--dim)">(Not legal advice.)</span></p>
+    </div>
+  </section>
+
+  <section class="rv fat-q">
+    <div class="fq-bar"></div>
+    <p class="fqt">"Make sure you understand the <mark>fundamental principles</mark> first — or there is nothing for the details to hang on to."</p>
+    <p class="fqc">— Elon Musk</p>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--gold)">Carry This</div>
+    <div class="lock">
+      <p style="font-size:18px;color:#eee;margin:0">Almost every constraint is a borrowed assumption wearing the costume of a fact. The question isn't "why can't this be done?" — it's <strong>"what would have to be true for this to work?"</strong> Strip the problem to undeniable truths — physical limits, actual cost structures, real human needs — then build back up from there. Anything that falls in between is negotiable. Most limits are priced-in history, not physics. <em>Check before you accept them.</em></p>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--mut)">Navigate</div>
+    <div class="lesson-links">
+      <a class="ll prev-ll" href="/course/day-1.html">
+        <div class="llab">← Lesson 01 · Term I</div>
+        <div class="lt">Systems Thinking</div>
+        <div class="ld">Stocks, flows, feedback loops and leverage points — the lens everything else plugs into.</div>
+      </a>
+      <div class="ll next-ll" style="opacity:.45;pointer-events:none;cursor:default">
+        <div class="llab">Lesson 03 · Term I →</div>
+        <div class="lt">Expected Value & Asymmetry</div>
+        <div class="ld">Arrives tomorrow at 7AM.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    First Principles · a daily mastery course · Lesson 2 of an ongoing series.<br>
+    <a href="/course/">All lessons</a> &nbsp;·&nbsp; <a href="/blog/category/principles">Read on The Signal</a> &nbsp;·&nbsp; <a href="https://jsupremetech.online">J Supreme Tech</a>
+  </div>
+</footer>
+
+<script>
+  // reading progress
+  var prog=document.getElementById('prog');
+  addEventListener('scroll',function(){var h=document.documentElement;var sc=h.scrollTop/(h.scrollHeight-h.clientHeight);prog.style.width=(sc*100)+'%';},{passive:true});
+  // reveal on scroll
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  // expandable steps
+  document.querySelectorAll('.step').forEach(function(s){s.addEventListener('click',function(){s.classList.toggle('open')})});
+  // video fallback
+  var vid=document.getElementById('lesson-vid');
+  if(vid){vid.addEventListener('error',function(){document.getElementById('vid-wrap').innerHTML='<div class="media" style="padding:40px">Video renders with today\'s lesson send — check back at 7AM.</div>';},true);}
+  // lesson jump nav
+  fetch('/course/lessons.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+    var sel=document.getElementById('ljump');if(!sel)return;
+    var L=(d.lessons||[]).slice().sort(function(a,b){return a.n-b.n});
+    sel.innerHTML='';
+    L.forEach(function(x){var o=document.createElement('option');o.value=x.href;o.textContent='Day '+x.n+' · '+x.title;if(x.n===2)o.selected=true;sel.appendChild(o);});
+    sel.addEventListener('change',function(){if(sel.value&&sel.value!==location.pathname)location.href=sel.value;});
+  }).catch(function(){});
+</script>
+</body>
+</html>

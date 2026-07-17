@@ -14,6 +14,8 @@ import { CineWords } from "@/components/CineWords";
 import { BrowserFrame, LaptopFrame, PhoneFrame } from "@/components/DeviceFrame";
 import { ShowcaseGrid } from "@/components/ShowcaseGrid";
 import { MarketingShowcase } from "@/components/MarketingShowcase";
+import { ClientLogoStrip } from "@/components/ClientLogoStrip";
+import { Testimonials } from "@/components/Testimonials";
 import { ServicesSection } from "@/components/ServicesSection";
 import { SupremeSuiteSection } from "@/components/SupremeSuiteSection";
 import { PayButton } from "@/components/PayButton";
@@ -189,6 +191,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ============================== CLIENT LOGO STRIP ============================== */}
+      <ClientLogoStrip />
+
       {/* ============================== MARQUEE ============================== */}
       <section className="border-y border-line bg-white py-5">
         <div className="flex items-center gap-3 overflow-hidden">
@@ -238,6 +243,9 @@ export default function Home() {
 
       {/* ============================== MARKETING & DESIGN ============================== */}
       <MarketingShowcase />
+
+      {/* ============================== TESTIMONIALS ============================== */}
+      <Testimonials />
 
       {/* ============================== CROSS-DEVICE BAND ============================== */}
       <section className="relative overflow-hidden bg-ink-950 text-white">

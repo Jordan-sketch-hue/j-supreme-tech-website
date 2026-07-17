@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Day 1 · Systems Thinking — First Principles</title>
+<meta name="description" content="Day 1 of First Principles: stocks, flows, feedback loops, delays and leverage points — the systems-thinking lens the whole course is built on." />
+<meta property="og:title" content="Systems Thinking — First Principles · Day 1" />
+<meta property="og:description" content="See the structure, not the events. The lens the whole course is built on." />
+<meta property="og:type" content="article" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0a0c; --panel:#121216; --panel2:#17171c; --line:#23232b;
+    --ink:#ececf2; --mut:#9a9aa6; --dim:#6a6a76;
+    --gold:#d4a23a; --blue:#6ea8fe; --green:#34d399; --purple:#a78bfa; --red:#f06a6a;
+    --serif:'Fraunces',ui-serif,Georgia,serif; --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  /* progress */
+  #prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--purple));z-index:60;transition:width .1s linear}
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(10,10,12,.6);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .brand{font-family:var(--serif);font-weight:900;letter-spacing:.3px;font-size:15px}
+  .brand b{color:var(--gold)}
+  .nav-links{display:flex;gap:18px;font-size:12.5px;color:var(--mut);text-decoration:none}
+  .nav-links a{text-decoration:none;color:var(--mut)}
+  .nav-links a:hover{color:var(--ink)}
+  /* hero */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:96px 24px 60px;position:relative;overflow:hidden}
+  .hero .glow{position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 38%,rgba(212,162,58,.10),transparent 70%);pointer-events:none}
+  .kick{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .term{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--mut);margin-top:8px}
+  h1{font-family:var(--serif);font-weight:900;font-size:clamp(44px,9vw,86px);line-height:1.02;margin:14px 0 10px;letter-spacing:-1px}
+  .sub{font-size:clamp(16px,2.4vw,20px);color:var(--mut);max-width:560px;margin:0 auto;font-family:var(--serif);font-weight:400;font-style:italic}
+  .hero-svg{width:min(520px,90vw);margin:34px auto 0}
+  .scrollcue{margin-top:30px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);animation:bob 2s infinite}
+  @keyframes bob{50%{transform:translateY(6px);opacity:.5}}
+  /* sections */
+  section{padding:56px 0;border-top:1px solid var(--line)}
+  .ey{font-size:11.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,4.4vw,38px);line-height:1.12;margin:0 0 18px;letter-spacing:-.4px}
+  p{font-size:17px;color:#d2d2dc;margin:0 0 18px}
+  p strong,li strong{color:#fff;font-weight:600}
+  em{font-style:italic;color:#e7e7ef}
+  .lead{font-size:20px;color:#e2e2ea;font-family:var(--serif)}
+  /* cards / loops */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:8px 0 6px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .card h3{margin:14px 0 8px;font-size:18px;font-family:var(--sans);font-weight:700}
+  .card.snow{border-color:rgba(110,168,254,.3)}
+  .card.bal{border-color:rgba(52,211,153,.3)}
+  .card p{font-size:14.5px;margin:0}
+  .mini{height:64px}
+  /* leverage ladder */
+  .ladder{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .rung{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;cursor:pointer;transition:.2s;position:relative}
+  .rung:hover{border-color:var(--gold);transform:translateX(4px)}
+  .rung .rt{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .rung .label{font-weight:700;font-size:15px}
+  .rung .tag{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .rung .body{max-height:0;overflow:hidden;transition:max-height .3s ease,margin .3s;color:var(--mut);font-size:14.5px}
+  .rung.open .body{max-height:200px;margin-top:10px}
+  .rung[data-l="3"]{border-left:3px solid var(--gold)}
+  .rung[data-l="2"]{border-left:3px solid var(--purple)}
+  .rung[data-l="1"]{border-left:3px solid var(--dim)}
+  /* callout */
+  .note{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;padding:22px 24px;margin:6px 0}
+  .note .nh{font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:10px}
+  .note ul{margin:8px 0 0;padding-left:18px}
+  .note li{font-size:14.5px;color:#cdcdd8;margin-bottom:7px}
+  .insight{border-left-color:var(--purple)}
+  .insight .nh{color:var(--purple)}
+  /* quote */
+  blockquote{font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.4;color:#fff;border:0;margin:10px 0;padding:0}
+  blockquote .cite{display:block;font-size:13px;font-style:normal;color:var(--mut);margin-top:12px;font-family:var(--sans)}
+  /* lock-in */
+  .lock{background:linear-gradient(180deg,rgba(212,162,58,.08),transparent);border:1px solid rgba(212,162,58,.25);border-radius:18px;padding:28px}
+  /* media slot */
+  .media{background:var(--panel);border:1px dashed var(--line);border-radius:16px;padding:30px;text-align:center;color:var(--dim);font-size:13.5px}
+  /* next */
+  .next{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px;transition:.2s;margin-top:18px}
+  .next:hover{border-color:var(--gold)}
+  .next .nlab{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+  .next .nt{font-family:var(--serif);font-size:24px;margin-top:6px;color:#fff}
+  .next .nd{color:var(--mut);font-size:14.5px;margin-top:6px}
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:40px 0 70px;text-align:center;color:var(--dim);font-size:13px}
+  footer a{color:var(--gold);text-decoration:none}
+  /* reveal */
+  .rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .rv.in{opacity:1;transform:none}
+  ul.clean{list-style:none;padding:0;margin:0 0 8px}
+  ul.clean li{position:relative;padding-left:22px;margin-bottom:12px;font-size:16.5px;color:#d2d2dc}
+  ul.clean li:before{content:"";position:absolute;left:0;top:10px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}h1{font-size:48px}}
+  /* lesson nav */
+  .lesson-nav{display:flex;align-items:center;gap:6px}
+  .lnav-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:14px;text-decoration:none;cursor:pointer;transition:.15s;line-height:1;font-family:var(--sans);user-select:none}
+  .lnav-btn:hover:not(.lnav-disabled){border-color:var(--gold);color:var(--gold)}
+  .lnav-disabled{opacity:.3;cursor:default;pointer-events:none}
+  .lesson-jump{background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:12px;padding:5px 10px;font-family:var(--sans);cursor:pointer;-webkit-appearance:none;appearance:none;min-width:70px;text-align:center}
+  /* creative stack */
+  .creative-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 8px}
+  .creative-col{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 16px}
+  .cc-head{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--purple);margin-bottom:12px}
+  .creative-col dl{margin:0;padding:0}
+  .creative-col dt{font-size:13px;font-weight:700;color:#e8e8f0;margin:11px 0 2px}
+  .creative-col dt:first-of-type{margin-top:0}
+  .creative-col dd{margin:0;font-size:12.5px;color:var(--mut);line-height:1.45}
+  .brief-tip{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:14px;color:#cdcdd8}
+  .brief-tip .tip-n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.35);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--purple)}
+  @media(max-width:700px){.creative-grid{grid-template-columns:1fr}.lesson-nav{display:none}}
+  /* fat quote */
+  .fat-q .fq-bar{width:40px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:20px}
+  .fat-q .fqt{font-family:var(--serif);font-size:clamp(26px,5.2vw,50px);font-weight:900;line-height:1.06;letter-spacing:-.7px;color:#fff;margin:0}
+  .fat-q .fqt mark{background:transparent;color:var(--gold)}
+  .fat-q .fqc{font-size:11px;color:var(--dim);margin-top:16px;font-family:var(--sans);letter-spacing:1.5px;text-transform:uppercase}
+  /* real talk */
+  .real-talk{background:#0e0e13;border:1px solid rgba(240,106,106,.18);border-left:3px solid var(--red);border-radius:14px;padding:18px 22px;margin:24px 0}
+  .real-talk .rth{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:9px}
+  .real-talk p{font-size:15px;color:#bfbfcb;margin:0;line-height:1.65}
+  /* loop/event game */
+  .loe-game{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;margin:10px 0}
+  .loe-gh{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:18px}
+  .loe-item{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+  .loe-item:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+  .loe-qt{font-size:16px;color:#e0e0ea;margin:0 0 12px;line-height:1.5}
+  .loe-opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+  .loe-opt{background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--mut);font-size:13px;padding:8px 18px;cursor:pointer;font-family:var(--sans);transition:.15s;outline:none}
+  .loe-opt:hover:not(.picked){border-color:var(--gold);color:var(--gold)}
+  .loe-opt.correct{background:rgba(52,211,153,.1);border-color:var(--green);color:var(--green)}
+  .loe-opt.wrong{background:rgba(240,106,106,.1);border-color:var(--red);color:var(--red)}
+  .loe-ans{font-size:14px;color:var(--mut);margin-top:11px;display:none;line-height:1.55;border-left:2px solid var(--green);padding-left:12px}
+  .loe-ans.vis{display:block}
+  /* inline viz box */
+  .viz-box{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:20px 0 0}
+  .viz-box-lbl{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);font-weight:700;padding:14px 20px 0}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="brand">First <b>Principles</b></div>
+  <div class="lesson-nav">
+    <span class="lnav-btn lnav-disabled" aria-label="No previous lesson">←</span>
+    <select class="lesson-jump" id="ljump" aria-label="Jump to lesson"><option value="/course/day-1.html" selected>Day 1</option></select>
+    <a class="lnav-btn" href="/course/day-2.html" aria-label="Next lesson">→</a>
+  </div>
+  <div class="nav-links">
+    <a href="/course/">All Lessons</a>
+    <a href="/blog/category/principles">Series</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="glow"></div>
+  <div class="kick">Lesson 01</div>
+  <div class="term">Term I — The Operating System</div>
+  <h1>Systems<br>Thinking</h1>
+  <div class="sub">See the structure, not the events. The lens the whole course is built on.</div>
+  <svg class="hero-svg" viewBox="0 0 520 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="flow" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#d4a23a" stop-opacity="0"/><stop offset=".5" stop-color="#d4a23a"/><stop offset="1" stop-color="#d4a23a" stop-opacity="0"/>
+      </linearGradient>
+      <radialGradient id="node" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#2a2a33"/><stop offset="1" stop-color="#15151a"/></radialGradient>
+    </defs>
+    <!-- pipes -->
+    <path d="M70 120 H200" stroke="#23232b" stroke-width="2"/>
+    <path d="M260 120 H390" stroke="#23232b" stroke-width="2"/>
+    <!-- flowing flux -->
+    <path d="M70 120 H200" stroke="url(#flow)" stroke-width="3" stroke-dasharray="22 120"><animate attributeName="stroke-dashoffset" from="142" to="0" dur="2.2s" repeatCount="indefinite"/></path>
+    <path d="M260 120 H390" stroke="url(#flow)" stroke-width="3" stroke-dasharray="22 120"><animate attributeName="stroke-dashoffset" from="142" to="0" dur="2.2s" begin="-1.1s" repeatCount="indefinite"/></path>
+    <!-- feedback loop arc -->
+    <path d="M430 120 C490 120 490 40 300 40 C150 40 150 96 150 116" stroke="#a78bfa" stroke-width="2" stroke-opacity=".55" fill="none" stroke-dasharray="6 8"/>
+    <circle r="4" fill="#a78bfa"><animateMotion dur="4s" repeatCount="indefinite" path="M430 120 C490 120 490 40 300 40 C150 40 150 96 150 116"/></circle>
+    <!-- stock node (the tank) -->
+    <rect x="200" y="92" width="60" height="56" rx="10" fill="url(#node)" stroke="#3a3a45"/>
+    <rect x="206" y="120" width="48" height="22" rx="6" fill="#d4a23a" fill-opacity=".22"/>
+    <rect x="206" y="112" width="48" height="8" rx="4" fill="#d4a23a" fill-opacity=".5"><animate attributeName="y" values="120;108;120" dur="3s" repeatCount="indefinite"/><animate attributeName="height" values="22;30;22" dur="3s" repeatCount="indefinite"/></rect>
+    <!-- end nodes -->
+    <circle cx="60" cy="120" r="14" fill="url(#node)" stroke="#3a3a45"/>
+    <circle cx="430" cy="120" r="14" fill="url(#node)" stroke="#3a3a45"/>
+    <text x="230" y="172" fill="#9a9aa6" font-size="11" text-anchor="middle" font-family="Inter">STOCK</text>
+    <text x="135" y="148" fill="#6a6a76" font-size="10" text-anchor="middle" font-family="Inter">inflow</text>
+    <text x="325" y="148" fill="#6a6a76" font-size="10" text-anchor="middle" font-family="Inter">outflow</text>
+    <text x="300" y="30" fill="#a78bfa" font-size="10" text-anchor="middle" font-family="Inter">feedback loop</text>
+  </svg>
+  <div class="scrollcue">scroll ↓</div>
+</header>
+
+<main class="wrap">
+
+  <section class="rv" style="padding-top:44px">
+    <div class="ey" style="color:var(--gold)">Watch · the 60-second version</div>
+    <div style="border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#000;box-shadow:0 30px 80px -42px rgba(0,0,0,.85)">
+      <video controls preload="metadata" playsinline style="width:100%;display:block;aspect-ratio:16/9;background:#000">
+        <source src="https://ibtadbwtrxglujkzqofs.supabase.co/storage/v1/object/public/course-media/day-1.mp4" type="video/mp4" />
+        Your browser doesn't support embedded video — <a href="https://ibtadbwtrxglujkzqofs.supabase.co/storage/v1/object/public/course-media/day-1.mp4" style="color:var(--gold)">watch it here</a>.
+      </video>
+    </div>
+    <p style="font-size:13.5px;color:var(--dim);margin-top:10px;text-align:center">A narrated, animated primer — then read the full lesson below.</p>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--blue)">The Big Idea</div>
+    <p class="lead">Most people manage their work one event at a time — a deal falls through, a launch underperforms, a number dips — and they fight each fire as it appears.</p>
+    <p>The people who compound do something different: they look past the events to the <em>structure</em> underneath, because the same structure keeps producing the same kind of events no matter how many fires you put out. Strip away the jargon and any system — a company, a market, a body, a habit — is built from just three things:</p>
+    <ul class="clean">
+      <li><strong>Stocks</strong> — what accumulates. Cash, trust, subscribers, skill, reputation. Anything you could snapshot and measure right now.</li>
+      <li><strong>Flows</strong> — the rates that fill or drain a stock. Revenue in, expenses out. Customers in, churn out. The verbs to the stock's nouns.</li>
+      <li><strong>Feedback loops</strong> — what you get when a stock's level loops back to change its own flows. Where systems get their power, and their surprises.</li>
+    </ul>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--green)">Two Loops Run Everything</div>
+    <h2>Snowballs and thermostats</h2>
+    <div class="grid2">
+      <div class="card snow">
+        <svg class="mini" viewBox="0 0 120 64"><circle cx="30" cy="40" r="8" fill="#6ea8fe" fill-opacity=".3"/><circle cx="58" cy="32" r="12" fill="#6ea8fe" fill-opacity=".45"/><circle cx="92" cy="20" r="17" fill="#6ea8fe" fill-opacity=".7"/></svg>
+        <h3 style="color:var(--blue)">Reinforcing</h3>
+        <p>More leads to more. Money compounds; a trusted brand earns more trust. How empires <em>and</em> bankruptcies are built — exponential in both directions.</p>
+      </div>
+      <div class="card bal">
+        <svg class="mini" viewBox="0 0 120 64"><line x1="14" y1="32" x2="106" y2="32" stroke="#34d399" stroke-opacity=".4" stroke-width="2"/><path d="M20 48 Q60 8 100 48" stroke="#34d399" stroke-width="2" fill="none"/><circle cx="60" cy="32" r="4" fill="#34d399"/></svg>
+        <h3 style="color:var(--green)">Balancing</h3>
+        <p>Resists change, pulls toward a target. A thermostat, hunger, a market reverting to its mean, a risk limit that refuses the next bad trade. How systems stay stable.</p>
+      </div>
+    </div>
+    <p style="margin-top:18px">And the most underrated force of all: <strong>delays</strong> — the gap between an action and its result. You post for weeks before traction; you cut spend and sales sag a month later. Delays are why people over-correct, panic, and oscillate — acting as if feedback were instant when it never is.</p>
+
+    <!-- Inline animated loop viz -->
+    <div class="viz-box">
+      <div class="viz-box-lbl">Watch them move</div>
+      <svg viewBox="0 0 540 168" style="width:100%;display:block;padding:8px 0 18px" aria-hidden="true">
+        <defs>
+          <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea8fe"/><stop offset="1" stop-color="#6ea8fe" stop-opacity=".25"/></linearGradient>
+        </defs>
+        <!-- REINFORCING -->
+        <text x="22" y="24" fill="#6a6a76" font-size="9" letter-spacing="2" font-weight="700" font-family="Inter">REINFORCING</text>
+        <rect x="22" y="148" width="16" rx="3" fill="url(#bg1)"><animate attributeName="height" values="12;28;12" dur="3s" repeatCount="indefinite"/><animate attributeName="y" values="136;120;136" dur="3s" repeatCount="indefinite"/></rect>
+        <rect x="44" y="128" width="16" rx="3" fill="url(#bg1)"><animate attributeName="height" values="24;50;24" dur="3s" begin="-0.5s" repeatCount="indefinite"/><animate attributeName="y" values="116;90;116" dur="3s" begin="-0.5s" repeatCount="indefinite"/></rect>
+        <rect x="66" y="108" width="16" rx="3" fill="url(#bg1)"><animate attributeName="height" values="38;72;38" dur="3s" begin="-1s" repeatCount="indefinite"/><animate attributeName="y" values="96;64;96" dur="3s" begin="-1s" repeatCount="indefinite"/></rect>
+        <rect x="88" y="88" width="16" rx="3" fill="url(#bg1)"><animate attributeName="height" values="54;96;54" dur="3s" begin="-1.5s" repeatCount="indefinite"/><animate attributeName="y" values="82;52;82" dur="3s" begin="-1.5s" repeatCount="indefinite"/></rect>
+        <rect x="110" y="60" width="16" rx="3" fill="url(#bg1)"><animate attributeName="height" values="72;118;72" dur="3s" begin="-2s" repeatCount="indefinite"/><animate attributeName="y" values="56;30;56" dur="3s" begin="-2s" repeatCount="indefinite"/></rect>
+        <path d="M22 62 C22 28 126 28 126 62" stroke="#6ea8fe" stroke-width="1.5" stroke-opacity=".35" fill="none" stroke-dasharray="4 5"/>
+        <circle r="4" fill="#6ea8fe" fill-opacity=".9"><animateMotion dur="2.4s" repeatCount="indefinite" path="M22 62 C22 28 126 28 126 62"/></circle>
+        <text x="74" y="162" fill="#6a6a76" font-size="9.5" text-anchor="middle" font-family="Inter">more → more → more</text>
+
+        <!-- divider -->
+        <line x1="162" y1="14" x2="162" y2="154" stroke="#23232b" stroke-width="1"/>
+
+        <!-- BALANCING -->
+        <text x="178" y="24" fill="#6a6a76" font-size="9" letter-spacing="2" font-weight="700" font-family="Inter">BALANCING</text>
+        <line x1="178" y1="98" x2="518" y2="98" stroke="#34d399" stroke-opacity=".2" stroke-width="1.5" stroke-dasharray="5 4"/>
+        <text x="514" y="88" fill="#34d399" font-size="9" text-anchor="end" font-family="Inter" font-weight="600">target</text>
+        <!-- oscillating dot seeking equilibrium -->
+        <circle cx="348" cy="98" r="7" fill="#34d399" fill-opacity=".88">
+          <animate attributeName="cy" values="155;42;118;72;104;90;98;95;98" keyTimes="0;.12;.26;.4;.54;.67;.8;.9;1" dur="5.5s" repeatCount="indefinite"/>
+          <animate attributeName="cx" values="185;230;275;320;348;348;348;348;348" keyTimes="0;.12;.26;.4;.54;.67;.8;.9;1" dur="5.5s" repeatCount="indefinite"/>
+        </circle>
+        <!-- trail -->
+        <polyline points="185,155 215,90 250,120 285,80 315,106 335,92 348,98" stroke="#34d399" stroke-width="1.5" stroke-opacity=".15" fill="none" stroke-linejoin="round"/>
+        <text x="348" y="162" fill="#6a6a76" font-size="9.5" text-anchor="middle" font-family="Inter">always seeks equilibrium</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Fat pull quote -->
+  <section class="rv fat-q">
+    <div class="fq-bar"></div>
+    <p class="fqt">"Stop fighting the events. <mark>Redesign the structure</mark> that keeps producing them."</p>
+    <p class="fqc">— The Operator's Shift · Lesson 01</p>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--gold)">Why It's The Operator's Lens</div>
+    <p>You don't really run a company — you run a <em>system of systems</em>, every product line and team its own web of stocks and flows. The leap from operator to owner is the moment you stop fighting events one by one and start redesigning the structure that produces them.</p>
+    <p>A founder who personally closes every sale has built an <strong>event</strong>. A founder who builds a referral engine — happy customers producing more customers — has built a <strong>loop</strong>. The first needs you forever; the second compounds while you sleep. Ask it of everything: <em>is this an event, or a loop?</em></p>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--blue)">Seen In The Wild</div>
+    <h2>The same shape, everywhere</h2>
+    <div style="text-align:center;margin:6px 0 22px">
+      <svg viewBox="0 0 220 220" width="200" height="200" aria-hidden="true">
+        <g fill="none" stroke="#d4a23a" stroke-opacity=".5" stroke-width="1.5">
+          <circle cx="110" cy="110" r="78" stroke-dasharray="4 6"/>
+        </g>
+        <g class="spin" style="transform-origin:110px 110px">
+          <circle cx="110" cy="32" r="6" fill="#d4a23a"/><circle cx="188" cy="110" r="6" fill="#d4a23a"/><circle cx="110" cy="188" r="6" fill="#d4a23a"/><circle cx="32" cy="110" r="6" fill="#d4a23a"/>
+        </g>
+        <text x="110" y="106" fill="#ecf" font-size="12" text-anchor="middle" font-family="Inter" font-weight="600">FLYWHEEL</text>
+        <text x="110" y="124" fill="#9a9aa6" font-size="9" text-anchor="middle" font-family="Inter">more → more</text>
+      </svg>
+    </div>
+    <ul class="clean">
+      <li><strong>Amazon's flywheel</strong> — lower prices bring customers, attract sellers, widen selection, improve experience, bring more customers. Bezos sketched it on a napkin.</li>
+      <li><strong>A bank run</strong> — the identical loop turned malignant: fear drives withdrawals, which cause real insolvency, which deepen the fear.</li>
+      <li><strong>A drawdown spiral</strong> <span style="color:var(--dim)">(educational, not advice)</span> — a loss shrinks the account, so the same % risk is fewer dollars to recover with, while stress raises risk-taking. A pre-set limit is an installed balancing loop that breaks it. Discipline is engineering, not personality.</li>
+    </ul>
+    <div class="real-talk">
+      <div class="rth">Real talk</div>
+      <p>Most client-work chaos is a loop problem wearing an event costume. A client ghosts, a launch underperforms, a team member keeps missing deadlines — and you keep reacting to each one individually. The loop is the thing: an unclear scope flow, a trust deficit, a missing accountability structure. Same structure, same events. Find the loop first.</p>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--gold)">Leverage Points</div>
+    <h2>Where to actually push</h2>
+    <p>Donella Meadows ranked the places you can intervene in a system, weakest to strongest. The trap: the obvious, satisfying moves are the weak ones — and everyone crowds there. <span style="color:var(--dim)">(tap each)</span></p>
+    <div class="ladder">
+      <div class="rung" data-l="1"><div class="rt"><span class="label">Tweak the numbers</span><span class="tag">Weak</span></div><div class="body">A 5% discount, a bigger budget, one more feature. Everyone competes here and it barely moves the system.</div></div>
+      <div class="rung" data-l="2"><div class="rt"><span class="label">Change the loops</span><span class="tag">Stronger</span></div><div class="body">Add a referral mechanic. Install a hard risk limit. Automate a flow so it runs without a human. You're editing the structure now, not its dials.</div></div>
+      <div class="rung" data-l="3"><div class="rt"><span class="label">Change the goal &amp; paradigm</span><span class="tag">Strongest</span></div><div class="body">What is the system actually <em>for</em>? Shifting from "I sell services" to "I build assets that compound" silently rewires every decision beneath it. Almost no one operates here.</div></div>
+    </div>
+    <div class="note insight" style="margin-top:22px"><div class="nh">The quiet truth about leverage</div><p style="font-size:15px;color:#d6d6e0;margin:0">The highest-leverage move is usually small and invisible — a rule, a default, a changed incentive — not a louder version of the effort everyone else is making. Find the structural one.</p></div>
+  </section>
+
+  <!-- Interactive: Loop or Event? -->
+  <section class="rv">
+    <div class="ey" style="color:var(--green)">Loop or Event?</div>
+    <h2>You tell me</h2>
+    <p style="font-size:16px;color:var(--mut)">Read each situation. Decide before you tap. <span style="color:var(--dim)">No penalty — just pattern recognition.</span></p>
+    <div class="loe-game">
+      <div class="loe-gh">Three scenarios</div>
+
+      <div class="loe-item" data-ans="loop">
+        <p class="loe-qt">You've been posting daily content for 3 weeks straight. Engagement is flat. Then in week 4 — traction. Comments, shares, new follows arriving daily.</p>
+        <div class="loe-opts">
+          <button class="loe-opt" data-v="loop">A Loop</button>
+          <button class="loe-opt" data-v="event">An Event</button>
+        </div>
+        <div class="loe-ans"><strong>Loop.</strong> The audience trust stock and algorithm signal were building invisibly the whole time. The "traction moment" was the overflow — not a sudden change, but the accumulated stock finally crossing a threshold. Delays hid the compounding from you.</div>
+      </div>
+
+      <div class="loe-item" data-ans="event">
+        <p class="loe-qt">A vendor sent you the wrong invoice amount. Overcharged by $200. First time this has happened.</p>
+        <div class="loe-opts">
+          <button class="loe-opt" data-v="loop">A Loop</button>
+          <button class="loe-opt" data-v="event">An Event</button>
+        </div>
+        <div class="loe-ans"><strong>Event.</strong> An isolated billing error with no structural cause. Fix it, flag it, move on. Don't build a system around a one-off. (If it happens again next month — that's a different answer.)</div>
+      </div>
+
+      <div class="loe-item" data-ans="loop">
+        <p class="loe-qt">A client paid late. Again. Third time this quarter. Different reason each time.</p>
+        <div class="loe-opts">
+          <button class="loe-opt" data-v="loop">A Loop</button>
+          <button class="loe-opt" data-v="event">An Event</button>
+        </div>
+        <div class="loe-ans"><strong>Loop.</strong> Three different reasons is the tell — it's never really about the reason. There's a structural dynamic: unclear payment terms, no real consequence for late payment, or the client's own cash flow loop. The event is the late payment; the loop is the relationship structure. Fix the structure, not the excuses.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="note"><div class="nh">🛠 Operator's Field Note · clearing App Store review</div>
+      <p style="font-size:14.5px;color:#cdcdd8;margin:0 0 8px">A review process is itself a <em>balancing loop</em> — it exists to reject anything off-spec. Don't react after each rejection; design to its rules up front. As of mid-2026 (Apple revises its guidelines, so confirm before submitting):</p>
+      <ul>
+        <li><strong>Completeness</strong> — a working demo account, no broken or empty states. "It does nothing" is an instant no.</li>
+        <li><strong>Permissions</strong> — a clear purpose string for each; no login wall unless the app is genuinely account-based.</li>
+        <li><strong>Account deletion</strong> — if users can sign up, they must be able to delete in-app, not via "contact us."</li>
+        <li><strong>Privacy labels</strong> that actually match what you collect.</li>
+      </ul>
+      <p style="font-size:14.5px;color:#cdcdd8;margin:10px 0 0"><strong>Structural fix:</strong> one reusable pre-submit checklist across all your apps, so the same loop never bites twice. <span style="color:var(--dim)">(Not legal advice.)</span></p>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--purple)">Creative Stack</div>
+    <h2>Photography · Editing · Videography</h2>
+    <p class="lead">The language gap between what you picture and what gets delivered is almost always a vocabulary problem — not a talent problem.</p>
+    <p>You know what you want. The issue is that photographers, videographers, and editors operate in a shared technical dialect that most clients never learn. Once you know the terms, your briefs become specs — and specs cut revision cycles the same way a clear system structure cuts rework. Each term below is one you can use tomorrow.</p>
+    <div class="creative-grid">
+      <div class="creative-col">
+        <div class="cc-head">Photography</div>
+        <dl>
+          <dt>Hero shot</dt><dd>The single primary image — the "face" of a campaign, page, or ad. Brief: "I need a hero shot for the website header."</dd>
+          <dt>Lifestyle shot</dt><dd>Subject in a real, chosen context. The environment matters as much as the product. Implies casting, location scouting.</dd>
+          <dt>Flat lay</dt><dd>Overhead arrangement of objects on a surface. Standard for e-commerce and product social.</dd>
+          <dt>Bokeh</dt><dd>The aesthetic background blur from a shallow depth of field. "Heavy bokeh" = subject sharp, everything else melted. Signals premium.</dd>
+          <dt>Catchlight</dt><dd>The light reflection in a subject's eyes. Its absence makes portraits feel flat. Brief: "Make sure we have catchlight."</dd>
+          <dt>RAW files</dt><dd>Unprocessed sensor data — maximum post-production flexibility. Always ask for RAWs alongside delivered JPEGs.</dd>
+          <dt>Culling</dt><dd>Sorting through all images to select the best. "Send the culled selects" = your edited picks, not everything shot.</dd>
+          <dt>Moodboard</dt><dd>A reference collection (images, ads, editorial) that defines the style and tone you want. Non-negotiable in every brief. Send it before the shoot, not after.</dd>
+          <dt>300 DPI</dt><dd>Resolution for print. Web/screen: 72-96 DPI. Always specify the intended use so the photographer delivers the right format.</dd>
+        </dl>
+      </div>
+      <div class="creative-col">
+        <div class="cc-head">Videography</div>
+        <dl>
+          <dt>A-roll</dt><dd>Primary footage — interview, on-camera speaking, main subject action. The spine of the edit.</dd>
+          <dt>B-roll</dt><dd>Supplementary coverage — environment, product close-ups, cutaways. Without it, an editor has nowhere to cut.</dd>
+          <dt>Shot list</dt><dd>A pre-planned list of specific shots to capture on the day. Write this before every shoot. "Document the event" is not a shot list.</dd>
+          <dt>Coverage</dt><dd>Getting enough angles and takes that the editor has options. "We didn't get coverage" means you're stuck with what you have.</dd>
+          <dt>Gimbal</dt><dd>Motorized stabilizer — smooth, cinematic movement without a dolly track. Handheld without one reads as intentionally raw.</dd>
+          <dt>24fps</dt><dd>The cinematic frame rate. Gives the "movie feel." Use 60fps if you want slow-motion capability in the edit (play back at 30fps = 2× slow-mo).</dd>
+          <dt>Talking head</dt><dd>On-camera interview or statement setup. Standard for testimonials, brand messaging, explainer content.</dd>
+          <dt>Aspect ratio</dt><dd>16:9 = YouTube / landscape. 9:16 = Reels / Stories. 4:5 = feed portrait. 1:1 = square post. Specify this upfront — it determines framing decisions on the day.</dd>
+          <dt>Run-and-gun</dt><dd>Minimal gear, single operator, fast-moving. Documentary feel. Signals authenticity, not budget cuts — if that's intentional.</dd>
+        </dl>
+      </div>
+      <div class="creative-col">
+        <div class="cc-head">Editing</div>
+        <dl>
+          <dt>J-cut / L-cut</dt><dd>The audio from the next (J) or previous (L) clip overlaps the video cut. Makes edits feel seamless instead of abrupt. "I want smooth J-cuts throughout."</dd>
+          <dt>LUT</dt><dd>Look Up Table — a one-click color grade preset. "Apply a warm cinematic LUT" is a complete instruction.</dd>
+          <dt>Color correction vs grading</dt><dd>Correction = technical fix (exposure, balance). Grading = creative treatment (mood, palette). They're two separate steps.</dd>
+          <dt>VO</dt><dd>Voice over. Narration recorded separately and laid over the visuals. "I need VO on this" is clear. "I need narration" sometimes isn't.</dd>
+          <dt>Ducking</dt><dd>Automatically lowering background music when dialogue or VO plays. Standard in any polished edit — if it's not there, you hear it instantly.</dd>
+          <dt>H.264 / H.265</dt><dd>The standard export codecs for web and social. H.265 = same quality, roughly half the file size. "Export H.264 MP4, 1080p" is a complete delivery spec.</dd>
+          <dt>Deliverables</dt><dd>The specific final files you're paying for. Define them explicitly: "10 edited JPEGs at 300 DPI + web copies + original RAWs. One 60s Reel cut 9:16 + a 16:9 version."</dd>
+          <dt>Revisions</dt><dd>"Revisions" = changes to the edit from existing footage. "Re-shoot" = going back on location. Make this distinction explicit in every contract or the line blurs.</dd>
+        </dl>
+      </div>
+    </div>
+    <div class="note insight" style="margin-top:6px">
+      <div class="nh">How to Brief a Creative — 8 Rules</div>
+      <div class="brief-tip"><span class="tip-n">1</span><span><strong>Send a moodboard first.</strong> 5–10 reference images or videos that show the vibe, tone, and feel. One moodboard replaces a paragraph of adjectives.</span></div>
+      <div class="brief-tip"><span class="tip-n">2</span><span><strong>Name the platform and placement.</strong> "9:16 for Instagram Reels, 30 seconds, hook must land in first 3 seconds" is a brief. "A video for social" is not.</span></div>
+      <div class="brief-tip"><span class="tip-n">3</span><span><strong>State the style register.</strong> "Commercial polished" vs "documentary raw" vs "cinematic moody" vs "UGC-style organic." These produce completely different outputs.</span></div>
+      <div class="brief-tip"><span class="tip-n">4</span><span><strong>Name your color direction.</strong> "Warm, earthy tones — amber, terracotta, cream" vs "cool and clinical — white, grey-blue" vs "on-brand colors only: [hex codes]."</span></div>
+      <div class="brief-tip"><span class="tip-n">5</span><span><strong>Write a shot list for video.</strong> Not "capture the event" — "wide establishing of the storefront, medium on the handshake, ECU on the product label, talking head 1 min to camera."</span></div>
+      <div class="brief-tip"><span class="tip-n">6</span><span><strong>Separate corrections from revisions.</strong> State upfront how many rounds are included and what each covers. "Two rounds of revisions on the edit; re-shoots are a separate fee."</span></div>
+      <div class="brief-tip"><span class="tip-n">7</span><span><strong>Specify deliverables exactly.</strong> File format, resolution, codec, color space, quantity. Don't leave it open — you'll get whatever's easiest to export.</span></div>
+      <div class="brief-tip"><span class="tip-n">8</span><span><strong>Give a hard deadline, not "ASAP."</strong> "Delivered by [date], final files by [date + 2 days]" in the contract. Urgency without a date is noise.</span></div>
+    </div>
+  </section>
+
+  <section class="rv fat-q">
+    <div class="fq-bar"></div>
+    <p class="fqt">"A system is never the sum of its parts; it is the <mark>product of their interactions.</mark>"</p>
+    <p class="fqc">— Russell Ackoff · systems scientist</p>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--gold)">Carry This</div>
+    <div class="lock">
+      <p style="font-size:18px;color:#eee;margin:0">Whatever accumulates is a <strong>stock</strong>; whatever changes it is a <strong>flow</strong>; when a stock changes its own flows you have a <strong>loop</strong> — reinforcing if it snowballs, balancing if it seeks a target — and <strong>delays</strong> are why people over-react to both. Empires are reinforcing loops <em>with patience</em>; ruin is a reinforcing loop <em>without a brake</em>. Install the right loops; push the high-leverage points.</p>
+    </div>
+  </section>
+
+  <section class="rv">
+    <div class="ey" style="color:var(--mut)">Tomorrow</div>
+    <a class="next" href="/course/day-2.html">
+      <div class="nlab">Lesson 02 · Term I</div>
+      <div class="nt">First-Principles Reasoning</div>
+      <div class="nd">How to take any problem apart to bedrock and rebuild it — the most dangerous tool a builder owns.</div>
+    </a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    First Principles · a daily mastery course · Lesson 1 of an ongoing series.<br>
+    <a href="/course/">All lessons</a> &nbsp;·&nbsp; <a href="/blog/category/principles">Read on The Signal</a> &nbsp;·&nbsp; <a href="https://jsupremetech.online">J Supreme Tech</a>
+  </div>
+</footer>
+
+<style>.spin{animation:rot 14s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spin{animation:none}}</style>
+<script>
+  // reading progress
+  var prog=document.getElementById('prog');
+  addEventListener('scroll',function(){var h=document.documentElement;var sc=h.scrollTop/(h.scrollHeight-h.clientHeight);prog.style.width=(sc*100)+'%';},{passive:true});
+  // reveal on scroll
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  // ladder
+  document.querySelectorAll('.rung').forEach(function(r){r.addEventListener('click',function(){r.classList.toggle('open')})});
+  // loop-or-event game
+  document.querySelectorAll('.loe-item').forEach(function(item){
+    var correct=item.dataset.ans;
+    item.querySelectorAll('.loe-opt').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        if(item.classList.contains('done'))return;
+        item.classList.add('done');
+        item.querySelectorAll('.loe-opt').forEach(function(b){
+          b.classList.add('picked');
+          if(b.dataset.v===correct)b.classList.add('correct');
+          else b.classList.add('wrong');
+        });
+        var rev=item.querySelector('.loe-ans');
+        if(rev)rev.classList.add('vis');
+      });
+    });
+  });
+  // lesson jump nav
+  fetch('/course/lessons.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){
+    var sel=document.getElementById('ljump');if(!sel)return;
+    var L=(d.lessons||[]).slice().sort(function(a,b){return a.n-b.n});
+    sel.innerHTML='';
+    L.forEach(function(x){var o=document.createElement('option');o.value=x.href;o.textContent='Day '+x.n+' · '+x.title;if(x.n===1)o.selected=true;sel.appendChild(o);});
+    sel.addEventListener('change',function(){if(sel.value&&sel.value!==location.pathname)location.href=sel.value;});
+  }).catch(function(){});
+</script>
+</body>
+</html>
