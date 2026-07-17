@@ -1,8 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, MessageCircle, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, MessageCircle, Moon, Sun, X } from "lucide-react";
+import { useState, useEffect } from "react";
+
+function DarkToggle() {
+  const [dark, setDark] = useState(false);
+  useEffect(() => {
+    const stored = localStorage.getItem("jst-theme");
+    if (stored === "dark") { setDark(true); document.documentElement.setAttribute("data-theme", "dark"); }
+  }, []);
+  const toggle = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.setAttribute("data-theme", next ? "dark" : "light");
+    localStorage.setItem("jst-theme", next ? "dark" : "light");
+  };
+  return (
+    <button
+      type="button"
+      aria-label="Toggle dark mode"
+      onClick={toggle}
+      className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink-500 hover:text-ink-900 hover:border-ink-900 transition-colors"
+    >
+      {dark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+    </button>
+  );
+}
 
 const links = [
   { label: "Work", href: "#work" },
@@ -61,6 +85,7 @@ export function Header() {
               Taking clients · Q3 2026
             </span>
           </span>
+          <DarkToggle />
           <Link
             href="/login"
             className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ink-600 hover:text-ink-900"

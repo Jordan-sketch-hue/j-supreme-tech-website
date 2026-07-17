@@ -12,6 +12,7 @@ import { VisitorTracker } from "@/components/VisitorTracker";
 import { Analytics } from "@vercel/analytics/next";
 import { ADS_ENABLED, ADSENSE_CLIENT } from "@/lib/ads";
 import { CustomCursor } from "@/components/CustomCursor";
+import { PageTransition } from "@/components/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -142,7 +143,7 @@ export default function RootLayout({
         <div aria-hidden className="cn-grain" />
         <Header />
         <VisitorTracker />
-        {children}
+        <PageTransition>{children}</PageTransition>
         <Footer />
         <Chatbot />
         <CookieConsent />

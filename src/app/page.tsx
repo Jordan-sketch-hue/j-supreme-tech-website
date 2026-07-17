@@ -16,6 +16,7 @@ import { ShowcaseGrid } from "@/components/ShowcaseGrid";
 import { MarketingShowcase } from "@/components/MarketingShowcase";
 import { ClientLogoStrip } from "@/components/ClientLogoStrip";
 import { Testimonials } from "@/components/Testimonials";
+import { ShowreelSection } from "@/components/ShowreelSection";
 import { ServicesSection } from "@/components/ServicesSection";
 import { SupremeSuiteSection } from "@/components/SupremeSuiteSection";
 import { PayButton } from "@/components/PayButton";
@@ -247,6 +248,9 @@ export default function Home() {
       {/* ============================== TESTIMONIALS ============================== */}
       <Testimonials />
 
+      {/* ============================== SHOWREEL ============================== */}
+      <ShowreelSection />
+
       {/* ============================== CROSS-DEVICE BAND ============================== */}
       <section className="relative overflow-hidden bg-ink-950 text-white">
         <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-70" />
@@ -310,43 +314,63 @@ export default function Home() {
       <SupremeSuiteSection />
 
       {/* ============================== PROCESS ============================== */}
-      <section id="process" className="border-y border-line bg-ink-50">
+      <section id="process" className="overflow-hidden border-y border-line bg-ink-950 text-white">
         <div className="shell section">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="eyebrow no-rule justify-center">How We Work</span>
-            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-ink-900 sm:text-5xl">
-              A standard delivery workflow.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-ink-600">
-              Discover, design, architect, build, test, launch, scale. Clear at
-              every step, measurable at every milestone.
-            </p>
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <Reveal>
+                <span className="eyebrow no-rule text-white/40">How We Work</span>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight md:text-4xl">
+                  Eight steps. Every build.
+                </h2>
+              </Reveal>
+            </div>
+            <Reveal delay={0.12}>
+              <p className="max-w-sm text-sm leading-7 text-white/45 md:text-right">
+                From discovery to launch — a repeatable system that makes fast delivery possible
+                without cutting corners.
+              </p>
+            </Reveal>
           </div>
 
-          <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-            {PROCESS.map((p, i) => (
-              <div
-                key={p.step}
-                className="pm-step bg-white p-6"
-                style={{ "--pm-d": `${i * 1.5}s`, "--pm-dur": `${PROCESS.length * 1.5}s` } as CSSProperties}
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-mono text-sm font-bold text-ink-900">{p.step}</p>
-                  <span className="relative flex h-2 w-2">
-                    <span
-                      className="pm-ping absolute inline-flex h-full w-full rounded-full border-2 border-ink-900"
-                      style={{ "--pm-d": `${i * 1.5}s` } as CSSProperties}
-                    />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-ink-900" />
-                  </span>
+          {/* Horizontal scrolling timeline */}
+          <div className="mt-14 overflow-x-auto pb-4 scrollbar-none">
+            <div className="flex min-w-max gap-px">
+              {PROCESS.map((p, i) => (
+                <div
+                  key={p.step}
+                  className="pm-step relative w-56 flex-none border border-white/[0.08] bg-white/[0.03] p-6 first:rounded-l-2xl last:rounded-r-2xl"
+                  style={{ "--pm-d": `${i * 1.5}s`, "--pm-dur": `${PROCESS.length * 1.5}s` } as CSSProperties}
+                >
+                  {/* connector line */}
+                  {i < PROCESS.length - 1 && (
+                    <div className="absolute -right-px top-8 h-px w-px bg-white/20" />
+                  )}
+                  <div className="flex items-start justify-between gap-2">
+                    <span className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.2em] text-white/30">
+                      {p.step}
+                    </span>
+                    <span className="relative flex h-2 w-2 flex-none mt-0.5">
+                      <span
+                        className="pm-ping absolute inline-flex h-full w-full rounded-full border border-white/60"
+                        style={{ "--pm-d": `${i * 1.5}s` } as CSSProperties}
+                      />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-white/40" />
+                    </span>
+                  </div>
+                  <h3 className="mt-4 font-display text-sm font-semibold text-white">{p.title}</h3>
+                  <p className="mt-2 text-xs leading-5 text-white/40">{p.blurb}</p>
                 </div>
-                <h3 className="mt-3 text-base font-semibold text-ink-900">
-                  {p.title}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-ink-500">{p.blurb}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+          <Reveal>
+            <p className="mt-4 text-center font-mono text-[0.58rem] uppercase tracking-[0.18em] text-white/20">
+              scroll to see all steps →
+            </p>
+          </Reveal>
         </div>
       </section>
 

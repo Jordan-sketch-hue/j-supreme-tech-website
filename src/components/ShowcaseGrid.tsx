@@ -6,6 +6,8 @@ import { ArrowUpRight, Code2, Megaphone } from "lucide-react";
 import { BrowserFrame } from "@/components/DeviceFrame";
 import { RevealGroup, RevealItem } from "@/components/motion-kit";
 import { GROUPS, MARKETING_SAMPLES, PROJECTS, type Group } from "@/lib/portfolio";
+import { CASE_STUDIES } from "@/lib/caseStudies";
+import Link from "next/link";
 
 type WorkTab = "tech" | "marketing";
 
@@ -74,34 +76,46 @@ export function ShowcaseGrid() {
             amount={0.05}
             className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3"
           >
-            {techProjects.map((p) => (
-              <RevealItem key={p.host}>
-                <a
-                  href={`https://${p.host}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group block"
-                >
-                  <BrowserFrame
-                    host={p.host}
-                    alt={`${p.name} — ${p.tag}`}
-                    className="transition duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_34px_64px_-30px_rgba(0,0,0,0.4)]"
-                  />
-                  <div className="mt-5 px-1">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs text-ink-400">{p.n}</span>
-                      <span className="tag">{p.tag}</span>
-                      <span className="ml-auto inline-flex items-center gap-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-ink-400 opacity-0 transition group-hover:opacity-100">
-                        Live
-                        <ArrowUpRight className="h-3.5 w-3.5" />
-                      </span>
+            {techProjects.map((p) => {
+              const cs = CASE_STUDIES.find((c) => c.host === p.host);
+              return (
+                <RevealItem key={p.host}>
+                  <div className="group block">
+                    <a href={`https://${p.host}`} target="_blank" rel="noreferrer">
+                      <BrowserFrame
+                        host={p.host}
+                        alt={`${p.name} — ${p.tag}`}
+                        className="transition duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_34px_64px_-30px_rgba(0,0,0,0.4)]"
+                      />
+                    </a>
+                    <div className="mt-5 px-1">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-xs text-ink-400">{p.n}</span>
+                        <span className="tag">{p.tag}</span>
+                        <a
+                          href={`https://${p.host}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="ml-auto inline-flex items-center gap-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-ink-400 opacity-0 transition group-hover:opacity-100"
+                        >
+                          Live <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
+                      </div>
+                      <h3 className="mt-3 text-xl font-semibold text-ink-900">{p.name}</h3>
+                      <p className="mt-1.5 text-sm leading-6 text-ink-500">{p.blurb}</p>
+                      {cs && (
+                        <Link
+                          href={`/work/${cs.slug}`}
+                          className="mt-3 inline-flex items-center gap-1 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-ink-500 hover:text-ink-900 underline underline-offset-4"
+                        >
+                          Read case study <ArrowUpRight className="h-3 w-3" />
+                        </Link>
+                      )}
                     </div>
-                    <h3 className="mt-3 text-xl font-semibold text-ink-900">{p.name}</h3>
-                    <p className="mt-1.5 text-sm leading-6 text-ink-500">{p.blurb}</p>
                   </div>
-                </a>
-              </RevealItem>
-            ))}
+                </RevealItem>
+              );
+            })}
           </RevealGroup>
         </>
       )}

@@ -391,3 +391,45 @@ button {
     scroll-behavior: auto;
   }
 }
+
+/* ---------------------- Page transition ---------------------- */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-transition {
+  animation: page-in 0.35s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ---------------------- Dark mode ---------------------- */
+[data-theme="dark"] {
+  --color-background: #0a0a0a;
+  --color-foreground: #f4f4f4;
+  --color-line: #1f1f1f;
+  --color-ink-50:  #0a0a0a;
+  --color-ink-100: #141414;
+  --color-ink-200: #1f1f1f;
+  --color-ink-300: #3d3d3d;
+  --color-ink-400: #525252;
+  --color-ink-500: #a3a3a3;
+  --color-ink-600: #cfcfcf;
+  --color-ink-700: #e6e6e6;
+  --color-ink-800: #f4f4f4;
+  --color-ink-900: #f4f4f4;
+  --color-ink-950: #ffffff;
+}
+[data-theme="dark"] body,
+[data-theme="dark"] html {
+  background: #0a0a0a;
+  color: #f4f4f4;
+}
+[data-theme="dark"] .bg-white { background: #0a0a0a !important; }
+[data-theme="dark"] .bg-ink-50\/40,
+[data-theme="dark"] .bg-ink-50\/50,
+[data-theme="dark"] .bg-ink-50\/60 { background: #111111 !important; }
+[data-theme="dark"] .bg-ink-50 { background: #111111 !important; }
+[data-theme="dark"] .card { background: #111111; border-color: #1f1f1f; }
+[data-theme="dark"] .btn-dark { background: #f4f4f4; color: #0a0a0a; border-color: #f4f4f4; }
+[data-theme="dark"] .btn-dark:hover { background: #0a0a0a; color: #f4f4f4; }
+[data-theme="dark"] .btn-outline { background: #111111; color: #f4f4f4; border-color: #3d3d3d; }
+[data-theme="dark"] header { background: rgba(10,10,10,0.85) !important; border-color: #1f1f1f !important; }
