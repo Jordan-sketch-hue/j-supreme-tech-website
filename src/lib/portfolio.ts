@@ -256,18 +256,16 @@ export const PROCESS: { step: string; title: string; blurb: string }[] = [
 /* --------------------- Marketing & Design — selected work --------------------- */
 // Image samples shown in the Marketing & Design gallery (flyers, social creative,
 // brand identity, a marketing-plan mockup). Files live in /public/marketing-samples.
-export type MarketingSample = { src: string; title: string; tag: string };
+export type MarketingSample = { src: string; title: string; tag: string; client: string };
 
 // Selected CLIENT work first (real campaigns we ran for live brands), then a
 // couple of our own pieces. Files live in /public/marketing-samples.
 export const MARKETING_SAMPLES: MarketingSample[] = [
-  { src: "/marketing-samples/aboo-tours-escape.png", title: "Aboo Tours — Jamaica tourism campaign", tag: "Social" },
-  { src: "/marketing-samples/ship2door-launch.png", title: "Ship 2 Door JA — launch campaign", tag: "Social" },
-  { src: "/marketing-samples/language-cradle-globalvoice.png", title: "The Language Cradle — Global Voice™", tag: "Social" },
-  { src: "/marketing-samples/ship2door-free-address.png", title: "Ship 2 Door JA — offer creative", tag: "Ad creative" },
-  { src: "/marketing-samples/language-cradle-smm-flyer.png", title: "The Language Cradle — packages flyer", tag: "Print / Ad" },
-  { src: "/marketing-samples/plan-sample.webp", title: "Marketing growth plan", tag: "Strategy" },
-  { src: "/marketing-samples/logo-jst.png", title: "Identity & brand mark", tag: "Logo" },
+  { src: "/marketing-samples/language-cradle-globalvoice.png", title: "The Language Cradle — Global Voice™ Campaign", tag: "Campaign", client: "Language Cradle" },
+  { src: "/marketing-samples/ship2door-launch.png", title: "Ship 2 Door JA — Brand Launch", tag: "Social", client: "Ship 2 Door" },
+  { src: "/marketing-samples/aboo-tours-escape.png", title: "Aboo Tours — Jamaica Tourism Campaign", tag: "Social", client: "Aboo Tours" },
+  { src: "/marketing-samples/language-cradle-smm-flyer.png", title: "The Language Cradle — Packages Flyer", tag: "Print", client: "Language Cradle" },
+  { src: "/marketing-samples/ship2door-free-address.png", title: "Ship 2 Door JA — Free US Address Offer", tag: "Ad Creative", client: "Ship 2 Door" },
 ];
 
 /* ------------------------------- Stats ------------------------------- */
