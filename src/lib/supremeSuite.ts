@@ -7,7 +7,7 @@
  * demo workspace, branded example site, or the real 3-day trial wizard).
  */
 
-export const SUITE_URL = "https://supreme-suite.vercel.app";
+export const SUITE_URL = "https://suite.jsupremetech.online";
 
 export type SuiteCategory =
   | "Operations & Logistics"

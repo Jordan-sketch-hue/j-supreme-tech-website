@@ -37,7 +37,7 @@ const taglines = [
 ];
 
 /** Count-up for numeric stats while preserving the exact formatting from
-    portfolio.ts — "12+" (suffix), "07"/"03" (leading zeros), "JA→∞" (as-is). */
+    portfolio.ts — "100+" (suffix), "07"/"03" (leading zeros), "JA→∞" (as-is). */
 function StatValue({ value }: { value: string }) {
   const m = /^(0*)(\d+)(\+?)$/.exec(value);
   if (!m) return <>{value}</>;
@@ -416,7 +416,7 @@ export default function Home() {
         </RevealGroup>
 
         <p className="mt-8 text-center font-mono text-xs uppercase tracking-[0.12em] text-ink-500">
-          Secure card payment via WiPay · after payment we collect your project details
+          PayPal or bank transfer · after payment we collect your project details
         </p>
         <p className="mt-3 text-center">
           <Link

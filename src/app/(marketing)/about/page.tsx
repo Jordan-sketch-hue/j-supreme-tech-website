@@ -174,7 +174,7 @@ export default function AboutPage() {
         <Reveal>
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-4">
             {[
-              { v: <><CountUp to={12} className="tabular-nums" />+</>, l: "live platforms shipped" },
+              { v: <><CountUp to={100} className="tabular-nums" />+</>, l: "live platforms shipped" },
               { v: <CountUp to={13} className="tabular-nums" />, l: "ready-made SaaS systems" },
               { v: <CountUp to={3} className="tabular-nums" />, l: "native apps in the stores" },
               { v: "01", l: "house standard — mono" },

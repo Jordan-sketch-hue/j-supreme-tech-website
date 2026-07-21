@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 const FAQS: { q: string; a: React.ReactNode }[] = [
   {
     q: "How do payments work?",
-    a: "Card payments are processed securely by WiPay in JMD. Pick a package, pay, and you land on our intake form — most projects start the same day.",
+    a: "Pay via PayPal or bank transfer (NCB / Scotiabank). Pick a package, complete payment, and you land on our intake form — most projects start the same day.",
   },
   {
     q: "What does “deposit to start” mean?",
@@ -92,7 +92,7 @@ export default function PricingPage() {
             </div>
           </Reveal>
           <p className="mt-5 flex items-center justify-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.18em] text-ink-500">
-            <ShieldCheck className="h-3.5 w-3.5" /> Secure WiPay card checkout · intake form right after payment
+            <ShieldCheck className="h-3.5 w-3.5" /> PayPal or bank transfer · intake form right after payment
           </p>
         </div>
       </section>

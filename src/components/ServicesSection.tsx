@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { ArrowRight, Check, Loader2, MessageCircle, X } from "lucide-react";
+import { ArrowRight, Check, MessageCircle, X } from "lucide-react";
 import { SERVICES } from "@/lib/portfolio";
 import {
   SERVICE_OFFERS,
@@ -11,6 +11,7 @@ import {
   type Package,
   type ServiceOffer,
 } from "@/lib/serviceOffers";
+import { PayButton } from "@/components/PayButton";
 
 const WA = "https://wa.me/16582182282";
 
@@ -117,28 +118,8 @@ function ServiceModal({
 }) {
   const initial = offer.packages.find((p) => p.popular) ?? offer.packages[0];
   const [selected, setSelected] = useState<Package>(initial);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
-
-  async function pay() {
-    setLoading(true);
-    setError("");
-    try {
-      const res = await fetch("/api/payments/wipay", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug: offer.slug, pkg: selected.id }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.url) throw new Error(data.message || "Checkout unavailable.");
-      window.location.href = data.url;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Checkout unavailable. Reach us on WhatsApp to pay.");
-      setLoading(false);
-    }
-  }
 
   if (!mounted) return null;
 
@@ -218,25 +199,14 @@ function ServiceModal({
 
         {/* Actions */}
         <div className="border-t border-line bg-ink-50 px-6 py-5">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <button
-              type="button"
-              onClick={pay}
-              disabled={loading}
-              className="btn btn-dark flex-1 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" /> Starting secure checkout…
-                </>
-              ) : (
-                <>
-                  Pay {priceLabel(selected)}
-                  {selected.period === "month" ? " (first month)" : ""} now
-                  <ArrowRight className="h-4 w-4" />
-                </>
-              )}
-            </button>
+          <PayButton
+            slug={offer.slug}
+            pkg={selected.id}
+            label={`Pay ${priceLabel(selected)}${selected.period === "month" ? " (first month)" : ""}`}
+            planName={`${title} — ${selected.name}`}
+            className="btn btn-dark w-full"
+          />
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
             <a href={WA} target="_blank" rel="noreferrer" className="btn btn-outline flex-1">
               <MessageCircle className="h-4 w-4" /> Book a free call
             </a>
@@ -245,13 +215,8 @@ function ServiceModal({
             </a>
           </div>
           <p className="mt-3 text-center font-mono text-[0.65rem] uppercase tracking-[0.1em] text-ink-500">
-            Secure card payment via WiPay · Visa · Mastercard · after payment we collect your project details
+            PayPal or bank transfer · after payment we collect your project details
           </p>
-          {error ? (
-            <p className="mt-3 rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-center text-sm text-red-700">
-              {error}
-            </p>
-          ) : null}
         </div>
       </div>
     </div>

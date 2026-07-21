@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { PageViewConversion } from "@/components/GoogleConversions";
 import { SystemScreen } from "@/components/products/screens";
+import { SuitePayButton } from "@/components/SuitePayButton";
 import {
   LEGACY_PRODUCT_MAP,
   SUITE_SYSTEMS,
@@ -167,6 +168,14 @@ export default async function ProductDetailPage({
                 US${t.monthly}
                 <span className="text-sm font-normal text-ink-500">/mo</span>
               </p>
+              <div className="mt-5">
+                <SuitePayButton
+                  systemSlug={sys.slug}
+                  tier={t.tier}
+                  amountUsd={t.monthly}
+                  planName={`${sys.name} ${t.tier}`}
+                />
+              </div>
             </div>
           ))}
         </div>

@@ -35,7 +35,11 @@ function json(data: unknown, init?: ResponseInit) {
   });
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  const token = request.headers.get("x-admin-token") ?? new URL(request.url).searchParams.get("token");
+  if (!token || token !== process.env.SECURITY_ADMIN_TOKEN) {
+    return new NextResponse(null, { status: 401 });
+  }
   return json(await getSecuritySummaryFromStore());
 }
 

@@ -19,7 +19,7 @@ const STACK = [
   "Tailwind v4",
   "Supabase",
   "Vercel Edge",
-  "WiPay checkout",
+  "PayPal & bank transfer",
   "AI chat & voice staff",
   "Expo (iOS + Android)",
   "Motion design system",
@@ -55,7 +55,7 @@ export default function ServicesPage() {
             </Reveal>
             <Reveal delay={0.24}>
               <div className="mt-7 flex flex-wrap items-center gap-2">
-                {["Published prices", "Card checkout (WiPay)", "Same-day start", "One studio, no hand-offs"].map((chip) => (
+                {["Published prices", "PayPal & bank transfer", "Same-day start", "One studio, no hand-offs"].map((chip) => (
                   <span key={chip} className="tag">{chip}</span>
                 ))}
               </div>
@@ -175,7 +175,7 @@ export default function ServicesPage() {
       <section className="section shell text-center">
         <Reveal>
           <span className="eyebrow no-rule justify-center">
-            <ShieldCheck className="mr-1 h-3.5 w-3.5" /> Secure WiPay checkout · intake right after payment
+            <ShieldCheck className="mr-1 h-3.5 w-3.5" /> PayPal or bank transfer · intake right after payment
           </span>
         </Reveal>
         <Reveal delay={0.08}>

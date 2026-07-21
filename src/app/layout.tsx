@@ -13,6 +13,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { ADS_ENABLED, ADSENSE_CLIENT } from "@/lib/ads";
 import { CustomCursor } from "@/components/CustomCursor";
 import { PageTransition } from "@/components/PageTransition";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -145,6 +146,7 @@ export default function RootLayout({
         <VisitorTracker />
         <PageTransition>{children}</PageTransition>
         <Footer />
+        <WhatsAppButton />
         <Chatbot />
         <CookieConsent />
         <NewsletterPopup />

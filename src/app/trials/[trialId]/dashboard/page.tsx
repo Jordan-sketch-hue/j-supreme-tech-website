@@ -104,9 +104,59 @@ export default function TrialDashboardPage({ params }: { params: Promise<{ trial
     100 - (daysRemaining / 14) * 100
   );
 
+  const isExpired = daysRemaining <= 0;
+  const isExpiring = daysRemaining <= 1 && daysRemaining > 0;
+
+  async function handleUpgrade() {
+    if (!trial) return;
+    await fetch("/api/trials/notify-upgrade", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        trialId,
+        email: trial.email,
+        firstName: trial.firstName,
+        company: trial.company,
+        productSlugs: trial.productSlugs,
+      }),
+    }).catch(() => {});
+    const slug = trial.productSlugs[0] ?? "";
+    window.location.href = `https://suite.jsupremetech.online/start${slug ? `?system=${slug}` : ""}`;
+  }
+
   return (
     <main className="min-h-screen bg-linear-to-br from-blue-50 via-white to-indigo-50">
       <div className="max-w-7xl mx-auto px-6 py-12">
+
+        {/* Expiry banner */}
+        {(isExpired || isExpiring) && (
+          <div className={`mb-8 rounded-2xl p-6 text-white ${isExpired ? "bg-red-600" : "bg-amber-500"}`}>
+            <h2 className="text-xl font-bold mb-1">
+              {isExpired ? "Your trial has ended" : "Your trial expires today"}
+            </h2>
+            <p className="text-sm opacity-90 mb-4">
+              {isExpired
+                ? "Upgrade to a paid plan to keep your data, branding, and AI staff — nothing is deleted for 7 days."
+                : "Last chance — upgrade now to continue without interruption."}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={handleUpgrade}
+                className="rounded-full bg-white px-5 py-2.5 text-sm font-bold text-gray-900 hover:bg-gray-100 transition"
+              >
+                Upgrade now →
+              </button>
+              <a
+                href={`https://wa.me/16582182282?text=${encodeURIComponent(`Hi Jordan, my Supreme Suite trial (${trialId}) just expired and I want to upgrade. Company: ${trial.company}`)}`}
+                target="_blank" rel="noreferrer"
+                className="rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10 transition"
+              >
+                WhatsApp Jordan
+              </a>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="mb-12">
           <div className="flex justify-between items-start mb-6">

@@ -5,12 +5,14 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion-kit";
 const REELS = [
   {
     src: "/reels/aboo-tours-reel.mp4",
+    poster: "/reels/posters/aboo-tours-poster.jpg",
     client: "Aboo Tours",
     title: "Jamaica Cinematic Reel",
     tag: "Reel · 2026",
   },
   {
     src: "/reels/876-spotlight-reel.mp4",
+    poster: "/reels/posters/876-spotlight-poster.jpg",
     client: "876 Luxury Car Wash",
     title: "Spotlight Reel",
     tag: "Reel · 2026",
@@ -48,10 +50,12 @@ export function ShowreelSection() {
                 <div className="relative aspect-[9/16] w-full overflow-hidden sm:aspect-[4/5]">
                   <video
                     src={r.src}
+                    poster={r.poster}
                     autoPlay
                     muted
                     loop
                     playsInline
+                    preload="none"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                 </div>

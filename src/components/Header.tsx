@@ -31,6 +31,7 @@ function DarkToggle() {
 const links = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "services#services" },
+  { label: "AXIOM", href: "axiom" },
   { label: "SaaS", href: "products" },
   { label: "Blog", href: "blog" },
   { label: "E-Books", href: "library" },
