@@ -7,15 +7,16 @@ import { BrowserFrame } from "@/components/DeviceFrame";
 import { RevealGroup, RevealItem } from "@/components/motion-kit";
 import { GROUPS, MARKETING_SAMPLES, PROJECTS, type Group } from "@/lib/portfolio";
 import { CASE_STUDIES } from "@/lib/caseStudies";
+import { LazyReel } from "@/components/LazyReel";
 import Link from "next/link";
 
 const REELS = [
-  { src: "/reels/aboo-tours-reel.mp4",        client: "Aboo Tours" },
-  { src: "/reels/876-luxury-carwash-reel.mp4", client: "876 Car Wash" },
-  { src: "/reels/language-cradle-reel.mp4",   client: "Language Cradle" },
-  { src: "/reels/lc-tip-2026-07-01.mp4",      client: "Language Cradle" },
-  { src: "/reels/bp-couriers-reel.mp4",        client: "BP Couriers" },
-  { src: "/reels/ship2door-reel.mp4",          client: "Ship 2 Door" },
+  { src: "/reels/aboo-tours-reel.mp4",         poster: "/reels/posters/aboo-tours-reel-poster.jpg",         client: "Aboo Tours" },
+  { src: "/reels/876-spotlight-reel.mp4",      poster: "/reels/posters/876-spotlight-reel-poster.jpg",      client: "876 Car Wash" },
+  { src: "/reels/language-cradle-reel.mp4",    poster: "/reels/posters/language-cradle-reel-poster.jpg",    client: "Language Cradle" },
+  { src: "/reels/lc-tip-2026-07-01-opt.mp4",   poster: "/reels/posters/lc-tip-2026-07-01-opt-poster.jpg",   client: "Language Cradle" },
+  { src: "/reels/bp-couriers-reel.mp4",        poster: "/reels/posters/bp-couriers-reel-poster.jpg",        client: "BP Couriers" },
+  { src: "/reels/ship2door-reel.mp4",          poster: "/reels/posters/ship2door-reel-poster.jpg",          client: "Ship 2 Door" },
 ];
 
 type WorkTab = "tech" | "marketing";
@@ -144,16 +145,11 @@ export function ShowcaseGrid() {
               {REELS.map((r) => (
                 <RevealItem key={r.src}>
                   <div className="group overflow-hidden rounded-xl border border-line bg-ink-900">
-                    <div className="relative aspect-[9/16] w-full overflow-hidden sm:aspect-[4/5]">
-                      <video
-                        src={r.src}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="absolute inset-0 h-full w-full object-cover"
-                      />
-                    </div>
+                    <LazyReel
+                      src={r.src}
+                      poster={r.poster}
+                      className="relative aspect-[9/16] w-full overflow-hidden sm:aspect-[4/5]"
+                    />
                     <div className="flex items-center justify-between border-t border-white/[0.08] px-3 py-2">
                       <span className="font-mono text-[0.57rem] uppercase tracking-[0.16em] text-white/40">{r.client}</span>
                       <span className="tag tag-dark text-[0.55rem]">Reel</span>
