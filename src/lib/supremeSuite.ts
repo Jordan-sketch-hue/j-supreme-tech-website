@@ -5,6 +5,8 @@
  * and the /market cross-links. Slugs match the platform's system slugs, so
  * every CTA deep-links straight into the live product (sales page, instant
  * demo workspace, branded example site, or the real 3-day trial wizard).
+ *
+ * Official product names from JST Strategy 2026.
  */
 
 export const SUITE_URL = "https://suite.jsupremetech.online";
@@ -30,13 +32,14 @@ export interface SuiteSystem {
 }
 
 export const SUITE_SYSTEMS: SuiteSystem[] = [
+  // ── Operations & Logistics ────────────────────────────────────────────────
   {
     slug: "courier",
-    name: "Courier & Delivery CRM",
-    shortName: "Courier",
+    name: "FleetRun",
+    shortName: "FleetRun",
     category: "Operations & Logistics",
     accent: "#2563eb",
-    tagline: "Dispatch, track and get paid — islandwide.",
+    tagline: "Driver dispatch, order tracking, client notifications, route management.",
     blurb:
       "A complete delivery back office: booking intake, dispatch pipeline, driver assignment, COD tracking and customer notifications — wrapped in your brand with a public booking site.",
     features: [
@@ -50,11 +53,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "movers",
-    name: "Movers & Storage CRM",
-    shortName: "Movers",
+    name: "HaulBase",
+    shortName: "HaulBase",
     category: "Operations & Logistics",
     accent: "#d97706",
-    tagline: "From survey to settled-in — every move on one board.",
+    tagline: "Job scheduling, crew management, storage unit tracking, client intake.",
     blurb:
       "Quotes, surveys, crew scheduling, storage units and packing-supply inventory for moving companies — plus a branded site that books jobs while your trucks roll.",
     features: [
@@ -68,11 +71,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "warehouse",
-    name: "Warehouse & Inventory (WMS)",
-    shortName: "Warehouse",
+    name: "StockOps",
+    shortName: "StockOps",
     category: "Operations & Logistics",
     accent: "#475569",
-    tagline: "Every pallet accounted for, every order out on time.",
+    tagline: "Real-time stock management, purchase orders, low-stock alerts.",
     blurb:
       "A lean WMS for 3PLs and wholesalers: orders through pick/pack/ship, SKU-level stock with reorder alerts, B2B customers and revenue reporting.",
     features: [
@@ -85,11 +88,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "property",
-    name: "Property Management CRM",
-    shortName: "Property",
+    name: "DwellDesk",
+    shortName: "DwellDesk",
     category: "Operations & Logistics",
     accent: "#0d9488",
-    tagline: "Rent in on time, repairs done right, owners kept happy.",
+    tagline: "Tenant management, lease tracking, maintenance requests, rent collection.",
     blurb:
       "Tenants, leases, rent invoicing and a maintenance work-order pipeline — with a public site that takes applications, viewings and repair requests.",
     features: [
@@ -102,11 +105,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "restaurant",
-    name: "Restaurant & Reservations",
-    shortName: "Restaurant",
+    name: "TableFlow",
+    shortName: "TableFlow",
     category: "Operations & Logistics",
     accent: "#dc2626",
-    tagline: "Full tables, smooth service, a kitchen that never runs dry.",
+    tagline: "Table management, reservation booking, order tracking, waitlist.",
     blurb:
       "Orders, table reservations, kitchen stock and loyalty for restaurants — from placed to served to paid, with a site that takes bookings and event requests.",
     features: [
@@ -118,13 +121,14 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
     fromUsd: 69,
     badge: "New",
   },
+  // ── Booking & Appointments ────────────────────────────────────────────────
   {
     slug: "salon",
-    name: "Beauty & Salon Booking CRM",
-    shortName: "Beauty & Salon",
+    name: "GlowDesk",
+    shortName: "GlowDesk",
     category: "Booking & Appointments",
     accent: "#db2777",
-    tagline: "Booked, deposited, and never ghosted again.",
+    tagline: "Appointment scheduling, stylist management, client history, retail tracking.",
     blurb:
       "Built for nail techs, lash artists, barbers and stylists: deposit-first booking, client style history, loyalty punch cards and an AI receptionist that books while you work.",
     features: [
@@ -138,11 +142,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "appointments",
-    name: "Universal Appointment CRM",
-    shortName: "Appointments",
+    name: "SlotIQ",
+    shortName: "SlotIQ",
     category: "Booking & Appointments",
     accent: "#7c3aed",
-    tagline: "Fill the calendar. Cut the no-shows.",
+    tagline: "Multi-staff, multi-location, automated reminders, waitlist.",
     blurb:
       "For consultants, clinics, barbers — anyone who runs on appointments. Requests, confirmations, reminders and fees on one calendar, with a booking site included.",
     features: [
@@ -156,11 +160,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "tours",
-    name: "Tours & Experiences CRM",
-    shortName: "Tours",
+    name: "TourBase",
+    shortName: "TourBase",
     category: "Booking & Appointments",
     accent: "#059669",
-    tagline: "From first inquiry to five-star review.",
+    tagline: "Group booking, itinerary management, guide scheduling, payment collection.",
     blurb:
       "Tour operators and transfer services: inquiries, quotes, deposits and trip-day logistics — guests, pickups, guides — plus a site that sells your experiences.",
     features: [
@@ -171,13 +175,14 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
     ],
     fromUsd: 49,
   },
+  // ── Education ─────────────────────────────────────────────────────────────
   {
     slug: "school",
-    name: "School & Academy Management",
-    shortName: "School",
+    name: "EnrollIQ",
+    shortName: "EnrollIQ",
     category: "Education",
     accent: "#1d4ed8",
-    tagline: "Applications, tuition and timetables — sorted.",
+    tagline: "Student enrollment, class scheduling, fee collection, parent comms.",
     blurb:
       "Private academies and tutoring schools: enrollment pipeline, programs and schedules, guardians, tuition invoicing — and a site that takes applications.",
     features: [
@@ -188,13 +193,14 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
     ],
     fromUsd: 59,
   },
+  // ── Growth & Retention ────────────────────────────────────────────────────
   {
     slug: "loyalty",
-    name: "Loyalty & Rewards Platform",
-    shortName: "Loyalty",
+    name: "PunchPro",
+    shortName: "PunchPro",
     category: "Growth & Retention",
     accent: "#ea580c",
-    tagline: "Turn one-time buyers into regulars on autopilot.",
+    tagline: "Digital punch cards, points tracking, tiered rewards, retention campaigns.",
     blurb:
       "Points, tiers and digital punch cards for any business — standalone, or bolted onto any other Supreme Suite system. Campaigns included.",
     features: [
@@ -205,13 +211,14 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
     ],
     fromUsd: 29,
   },
+  // ── AI & Intelligence ─────────────────────────────────────────────────────
   {
     slug: "dashboards",
-    name: "Analytics Dashboards",
-    shortName: "Dashboards",
+    name: "SignalBoard",
+    shortName: "SignalBoard",
     category: "AI & Intelligence",
     accent: "#0891b2",
-    tagline: "Every number that matters, on one branded screen.",
+    tagline: "Cross-platform performance, revenue, engagement, conversions unified.",
     blurb:
       "A BI workspace for operators: KPI dashboards from your data or any Supreme Suite system, published to your team — analyst-grade clarity without hiring an analyst.",
     features: [
@@ -224,11 +231,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "chatbot",
-    name: "AI Chatbot Builder",
-    shortName: "AI Chatbot",
+    name: "DeskBot",
+    shortName: "DeskBot",
     category: "AI & Intelligence",
     accent: "#8b5cf6",
-    tagline: "A receptionist that never sleeps, sells while you do.",
+    tagline: "No-code chatbot trained on business content, converts visitors to leads 24/7.",
     blurb:
       "Train a branded AI assistant on your prices, hours and services. It answers instantly on your website and captures bookings with a human touch — try it live in any demo.",
     features: [
@@ -242,11 +249,11 @@ export const SUITE_SYSTEMS: SuiteSystem[] = [
   },
   {
     slug: "voice",
-    name: "AI Voice Agent",
-    shortName: "Voice Agent",
+    name: "RingPilot",
+    shortName: "RingPilot",
     category: "AI & Intelligence",
     accent: "#16a34a",
-    tagline: "Answers the phone, books the job, sends you the summary.",
+    tagline: "Handles inbound calls, qualifies leads, books appointments autonomously.",
     blurb:
       "A voice receptionist that greets callers, answers questions out loud and captures bookings — every call logged and summarized. Try a live call in your browser right now.",
     features: [
