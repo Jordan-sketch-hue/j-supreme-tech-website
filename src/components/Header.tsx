@@ -1,145 +1,225 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, MessageCircle, Moon, Sun, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ChevronDown, Menu, X } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 
-function DarkToggle() {
-  const [dark, setDark] = useState(false);
+const NAV = [
+  { label: "Work", href: "/#work" },
+  {
+    label: "Solutions",
+    children: [
+      { label: "Websites", href: "/services#websites" },
+      { label: "Web Apps", href: "/services#web-apps" },
+      { label: "Mobile Apps", href: "/services#mobile-apps" },
+      { label: "CRMs", href: "/services#crms" },
+      { label: "E-Commerce", href: "/services#ecommerce" },
+      { label: "Booking Systems", href: "/services#booking" },
+      { label: "Automation", href: "/services#automation" },
+      { label: "AI Systems", href: "/services#ai" },
+      { label: "Marketing & Creative", href: "/services#marketing" },
+    ],
+  },
+  {
+    label: "Products",
+    children: [
+      { label: "Supreme Suite", href: "/products" },
+      { label: "AXIOM", href: "/axiom" },
+      { label: "Ready-Made Systems", href: "/products#ready-made" },
+      { label: "Shop", href: "/gumroad" },
+    ],
+  },
+  {
+    label: "Insights",
+    children: [
+      { label: "The Signal", href: "/blog" },
+      { label: "Library", href: "/library" },
+      { label: "Market", href: "/market" },
+    ],
+  },
+  {
+    label: "Studio",
+    children: [
+      { label: "About", href: "/about" },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Contact", href: "/#contact" },
+      { label: "Sign In", href: "/login" },
+    ],
+  },
+];
+
+function Dropdown({
+  label,
+  children,
+}: {
+  label: string;
+  children: { label: string; href: string }[];
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const stored = localStorage.getItem("jst-theme");
-    if (stored === "dark") { setDark(true); document.documentElement.setAttribute("data-theme", "dark"); }
+    function handler(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
-  const toggle = () => {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.setAttribute("data-theme", next ? "dark" : "light");
-    localStorage.setItem("jst-theme", next ? "dark" : "light");
-  };
+
   return (
-    <button
-      type="button"
-      aria-label="Toggle dark mode"
-      onClick={toggle}
-      className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink-500 hover:text-ink-900 hover:border-ink-900 transition-colors"
-    >
-      {dark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
-    </button>
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="nav-link flex items-center gap-1"
+        aria-expanded={open}
+      >
+        {label}
+        <ChevronDown
+          className={`h-3 w-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full z-50 mt-2 min-w-[200px] overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 py-1.5 shadow-2xl backdrop-blur-xl">
+          {/* spectrum top accent */}
+          <div className="h-[2px] w-full" style={{ background: "var(--sp-h)" }} />
+          {children.map((c) => (
+            <Link
+              key={c.href}
+              href={c.href}
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/60 transition-colors hover:bg-white/5 hover:text-white"
+            >
+              {c.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
-const links = [
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "services#services" },
-  { label: "AXIOM", href: "axiom" },
-  { label: "SaaS", href: "products" },
-  { label: "Blog", href: "blog" },
-  { label: "E-Books", href: "library" },
-  { label: "Pricing", href: "pricing" },
-  { label: "Market", href: "market" },
-  { label: "About", href: "about" },
-];
-
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", handler, { passive: true });
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-line bg-white/80 backdrop-blur-xl">
-      <nav className="shell flex items-center justify-between py-3.5">
+    <header
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? "border-b border-white/8 bg-[#080808]/90 backdrop-blur-xl"
+          : "border-b border-transparent bg-[#080808]"
+      }`}
+    >
+      {/* spectrum top line */}
+      <div className="h-[3px] w-full" style={{ background: "var(--sp-h)" }} />
+
+      <nav className="shell flex items-center justify-between py-3">
+        {/* Logo */}
         <Link
-          href="/#home"
+          href="/"
           className="flex items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink-900 text-[0.7rem] font-bold tracking-tight text-white font-mono">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-[0.62rem] font-bold tracking-tight text-black font-mono">
             JST
           </span>
-          <span className="leading-none">
-            <span className="block font-display text-sm font-semibold tracking-tight text-ink-900">
+          <span className="hidden sm:block leading-none">
+            <span className="block font-display text-[0.82rem] font-semibold tracking-tight text-white">
               J Supreme Tech
             </span>
-            <span className="mt-0.5 block font-mono text-[0.55rem] font-medium uppercase tracking-[0.2em] text-ink-400">
+            <span className="mt-0.5 block font-mono text-[0.5rem] font-medium uppercase tracking-[0.2em] text-white/35">
               Creative Technology
             </span>
           </span>
         </Link>
 
-        <div className="hidden items-center gap-5 lg:flex xl:gap-6">
-          {links.map((link) => (
-            <Link
-              key={link.label}
-              href={`/${link.href}`}
-              className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ink-600 hover:text-ink-900"
-            >
-              {link.label}
-            </Link>
-          ))}
+        {/* Desktop nav */}
+        <div className="hidden items-center gap-1 lg:flex">
+          {NAV.map((item) =>
+            item.children ? (
+              <Dropdown key={item.label} label={item.label} children={item.children} />
+            ) : (
+              <Link key={item.label} href={item.href!} className="nav-link">
+                {item.label}
+              </Link>
+            ),
+          )}
         </div>
 
+        {/* Desktop CTA */}
         <div className="hidden items-center gap-3 lg:flex">
-          <DarkToggle />
           <Link
-            href="/login"
-            className="font-mono text-xs font-medium uppercase tracking-[0.14em] text-ink-600 hover:text-ink-900"
+            href="/#contact"
+            className="relative overflow-hidden rounded-full bg-white px-5 py-2.5 font-mono text-[0.7rem] font-bold uppercase tracking-[0.1em] text-black transition-all hover:bg-white/90 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
           >
-            Sign in
-          </Link>
-          <Link href="/#contact" className="btn btn-dark">
-            Start a Project
+            Start a Project →
           </Link>
         </div>
 
+        {/* Mobile burger */}
         <button
           type="button"
           aria-label="Toggle navigation"
           onClick={() => setOpen(!open)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-white text-ink-900 lg:hidden"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white lg:hidden"
         >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
       </nav>
 
-      {open ? (
-        <div className="border-t border-line bg-white px-6 py-4 lg:hidden">
-          <div className="space-y-1">
-            {links.map((link) => (
-              <Link
-                key={link.label}
-                href={`/${link.href}`}
-                onClick={() => setOpen(false)}
-                className="block rounded-lg px-3 py-3 font-mono text-xs font-medium uppercase tracking-[0.14em] text-ink-700 hover:bg-ink-100"
-              >
-                {link.label}
-              </Link>
+      {/* Mobile drawer */}
+      {open && (
+        <div className="border-t border-white/10 bg-[#080808] px-6 py-4 lg:hidden">
+          <div className="space-y-0.5">
+            {NAV.map((item) => (
+              <div key={item.label}>
+                {item.children ? (
+                  <>
+                    <p className="px-3 pb-1 pt-3 font-mono text-[0.58rem] uppercase tracking-[0.2em] text-white/30">
+                      {item.label}
+                    </p>
+                    {item.children.map((c) => (
+                      <Link
+                        key={c.href}
+                        href={c.href}
+                        onClick={() => setOpen(false)}
+                        className="block rounded-lg px-3 py-2.5 font-mono text-xs font-medium uppercase tracking-[0.12em] text-white/70 hover:bg-white/5 hover:text-white"
+                      >
+                        {c.label}
+                      </Link>
+                    ))}
+                  </>
+                ) : (
+                  <Link
+                    href={item.href!}
+                    onClick={() => setOpen(false)}
+                    className="block rounded-lg px-3 py-3 font-mono text-xs font-bold uppercase tracking-[0.14em] text-white hover:bg-white/5"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
             ))}
-            <Link
-              href="/login"
-              onClick={() => setOpen(false)}
-              className="block rounded-lg px-3 py-3 font-mono text-xs font-medium uppercase tracking-[0.14em] text-ink-700 hover:bg-ink-100"
-            >
-              Sign in
-            </Link>
-            <div className="grid grid-cols-2 gap-2 pt-3">
-              <a
-                href="https://wa.me/16582182282"
-                target="_blank"
-                rel="noreferrer"
-                className="btn btn-outline"
-              >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp
-              </a>
+            <div className="pt-4">
               <Link
                 href="/#contact"
                 onClick={() => setOpen(false)}
-                className="btn btn-dark"
+                className="block w-full rounded-full bg-white py-3 text-center font-mono text-[0.7rem] font-bold uppercase tracking-[0.1em] text-black"
               >
-                Start a Project
+                Start a Project →
               </Link>
             </div>
           </div>
         </div>
-      ) : null}
+      )}
     </header>
   );
 }

@@ -30,6 +30,18 @@
   --font-display: var(--font-space), "Space Grotesk", system-ui, sans-serif;
   --font-mono: var(--font-jet), "JetBrains Mono", ui-monospace, monospace;
   --font-sans: var(--font-inter), Inter, system-ui, -apple-system, sans-serif;
+
+  /* ── Full Spectrum Signal ── */
+  --sp-red:     #ff2020;
+  --sp-orange:  #ff8c00;
+  --sp-yellow:  #ffd700;
+  --sp-green:   #00e054;
+  --sp-cyan:    #00d4ff;
+  --sp-blue:    #3d6bff;
+  --sp-violet:  #9b51ff;
+  --sp-magenta: #ff2db4;
+  --sp-h: linear-gradient(90deg,#ff2020,#ff8c00,#ffd700,#00e054,#00d4ff,#3d6bff,#9b51ff,#ff2db4);
+  --sp-v: linear-gradient(180deg,#ff2020,#ff8c00,#ffd700,#00e054,#00d4ff,#3d6bff,#9b51ff,#ff2db4);
 }
 
 * {
@@ -183,6 +195,26 @@ button {
 .btn-ghost-dark:hover {
   border-color: #ffffff;
   transform: translateY(-1px);
+}
+
+/* ---------------------- Nav link ---------------------- */
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* ---------------------- Grid backgrounds ---------------------- */

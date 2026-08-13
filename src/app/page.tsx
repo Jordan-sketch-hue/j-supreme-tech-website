@@ -3,7 +3,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
-  Globe2,
   Mail,
   MessageCircle,
   Monitor,
@@ -11,7 +10,7 @@ import {
   Tablet,
 } from "lucide-react";
 import { CineWords } from "@/components/CineWords";
-import { BrowserFrame, LaptopFrame, PhoneFrame } from "@/components/DeviceFrame";
+import { LaptopFrame, PhoneFrame } from "@/components/DeviceFrame";
 import { ShowcaseGrid } from "@/components/ShowcaseGrid";
 import { ClientLogoStrip } from "@/components/ClientLogoStrip";
 import { Testimonials } from "@/components/Testimonials";
@@ -49,131 +48,141 @@ export default function Home() {
     <main className="bg-white text-ink-900">
       <ScrollProgress className="bg-ink-900" />
       {/* ============================== HERO ============================== */}
-      <section id="home" className="relative min-h-[100svh] overflow-hidden bg-ink-950 text-white flex flex-col">
+      <section id="home" className="relative min-h-[100svh] overflow-hidden bg-[#080808] text-white flex flex-col">
         {/* Grid texture */}
-        <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-60" />
+        <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-40" />
 
-        {/* Gradient vignette */}
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(255,255,255,0.06),transparent)]" />
+        {/* Left spectrum strip — matches ad creative */}
+        <div
+          className="pointer-events-none absolute left-0 top-0 h-full w-[4px] hidden lg:block"
+          style={{ background: "var(--sp-v)" }}
+        />
 
-        {/* Split accent line */}
-        <div className="pointer-events-none absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-white/[0.04] lg:block" />
+        {/* Bottom spectrum strip */}
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full"
+          style={{ background: "var(--sp-h)" }}
+        />
 
-        <div className="shell relative flex flex-1 flex-col justify-between pb-16 pt-36 md:pt-44">
+        {/* Founder photo — right side, editorial bleed */}
+        <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[42%] lg:block">
+          {/* gradient fade left→transparent so photo merges into dark bg */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#080808] via-[#080808]/60 to-transparent" />
+          {/* gradient fade bottom */}
+          <div className="absolute inset-x-0 bottom-0 z-10 h-48 bg-gradient-to-t from-[#080808] to-transparent" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/jordan-founder.jpg"
+            alt="Jordan Morris — Founder, J Supreme Tech"
+            className="h-full w-full object-cover object-top opacity-80"
+          />
+        </div>
+
+        {/* Radial ambient glow */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_30%_40%,rgba(61,107,255,0.07),transparent)]" />
+
+        <div className="shell relative flex flex-1 flex-col justify-between pb-20 pt-16 md:pt-24 lg:pl-12">
+
+          {/* ── Studio tag ── */}
+          <Reveal direction="up">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/30">
+                J Supreme Tech · Full Service Studio
+              </span>
+              <span className="font-mono text-[0.58rem] uppercase tracking-[0.18em] text-white/20">·</span>
+              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/30">
+                Kingston, JA · Worldwide
+              </span>
+            </div>
+          </Reveal>
 
           {/* ── Main headline ── */}
-          <div className="max-w-5xl">
-            <Reveal direction="up">
-              <span className="eyebrow no-rule text-white/40">
-                <span className="live-dot inline-block h-1.5 w-1.5 rounded-full bg-white" />
-                J Supreme Tech &nbsp;·&nbsp; Kingston, JA &nbsp;·&nbsp; Worldwide
-              </span>
-            </Reveal>
-
-            <h1 className="mt-8 font-display text-[clamp(2.8rem,7vw,5.5rem)] font-semibold leading-[0.95] tracking-tight">
+          <div className="mt-10 max-w-[56rem]">
+            <h1 className="font-display text-[clamp(3rem,7.5vw,6rem)] font-semibold leading-[0.92] tracking-[-0.03em]">
               <CineWords text="We build the systems." delay={0.1} />
               <br />
-              <span className="text-white/30">
+              <span className="text-white/28">
                 <CineWords text="You grow the brand." delay={0.45} />
               </span>
             </h1>
 
             <Reveal direction="up" delay={0.25}>
-              <p className="mt-8 max-w-2xl text-lg leading-8 text-white/55">
-                Websites, apps, CRMs, booking engines, e-commerce, social media campaigns,
-                ad creative, and full digital infrastructure — built clean, shipped live,
-                and organized to scale. From Jamaica to the world.
+              <p className="mt-8 max-w-xl text-[1.05rem] leading-8 text-white/50">
+                Websites, apps, CRMs, automation, AI systems, and marketing —
+                engineered as one connected digital infrastructure.
+                From Jamaica to the world.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.35}>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <Link href="#contact" className="btn btn-on-dark">
-                  Start a Project
-                  <ArrowRight className="h-4 w-4" />
+              <div className="mt-10 flex flex-wrap gap-3">
+                <Link
+                  href="#contact"
+                  className="relative overflow-hidden rounded-full bg-white px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-px"
+                >
+                  Start a Project →
                 </Link>
-                <Link href="#work" className="btn btn-ghost-dark">
-                  View the Work
+                <Link
+                  href="#work"
+                  className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 transition-all hover:border-white/50 hover:text-white hover:-translate-y-px"
+                >
+                  Explore the Work
                 </Link>
               </div>
             </Reveal>
 
             <Reveal direction="up" delay={0.45}>
-              <div className="mt-8 flex flex-col gap-4 text-sm text-white/40 sm:flex-row sm:items-center sm:gap-6">
+              <div className="mt-8 flex flex-wrap gap-5 text-[0.78rem] text-white/35">
                 <a
                   href="https://wa.me/16582182282"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 hover:text-white/80 transition-colors"
+                  className="inline-flex items-center gap-2 hover:text-white/70 transition-colors"
                 >
-                  <MessageCircle className="h-4 w-4" />
-                  658-218-2282
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  (658) 218-2282
                 </a>
                 <a
                   href="mailto:global.jsuprememarketing@gmail.com"
-                  className="inline-flex items-center gap-2 hover:text-white/80 transition-colors"
+                  className="inline-flex items-center gap-2 hover:text-white/70 transition-colors"
                 >
-                  <Mail className="h-4 w-4" />
+                  <Mail className="h-3.5 w-3.5" />
                   Email the studio
                 </a>
               </div>
             </Reveal>
+
+            {/* ── Service pills — matches ad creative service menu ── */}
+            <Reveal direction="up" delay={0.55}>
+              <div className="mt-12 space-y-2">
+                {[
+                  { label: "Websites, CRMs & Landing Pages", price: "from J$50K" },
+                  { label: "Web & Mobile Apps", price: "from J$80K" },
+                  { label: "Digital Marketing & Graphics", price: "from J$30K/mo" },
+                ].map((row) => (
+                  <div
+                    key={row.label}
+                    className="flex items-center justify-between rounded-xl border border-white/8 bg-white/[0.04] px-5 py-3.5 transition-colors hover:border-white/15 hover:bg-white/[0.06]"
+                  >
+                    <span className="text-sm font-medium text-white/80">{row.label}</span>
+                    <span className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.08em] text-white/40">
+                      {row.price}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </Reveal>
           </div>
 
-          {/* ── Split capability bar ── */}
-          <Reveal direction="up" delay={0.5}>
-            <div className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] sm:grid-cols-2">
-              {/* Tech column */}
-              <div className="flex flex-col gap-5 p-7">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/5">
-                    <Monitor className="h-4 w-4 text-white/60" />
-                  </span>
-                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-white/40">
-                    Technology
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {["Websites", "Web Apps", "CRMs", "Mobile Apps", "E-Commerce", "Booking Systems", "Dashboards", "AI Workflows"].map((t) => (
-                    <span key={t} className="tag tag-dark text-[0.65rem]">{t}</span>
-                  ))}
-                </div>
-                <p className="font-mono text-[0.65rem] text-white/30 tracking-wider">
-                  {STATS[0].value} live platforms shipped
-                </p>
-              </div>
-
-              {/* Marketing column */}
-              <div className="flex flex-col gap-5 border-t border-white/[0.06] p-7 sm:border-l sm:border-t-0">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/5">
-                    <Globe2 className="h-4 w-4 text-white/60" />
-                  </span>
-                  <span className="font-mono text-[0.65rem] uppercase tracking-[0.18em] text-white/40">
-                    Marketing & Design
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {["Social Media", "Paid Ads", "Reels", "Brand Identity", "Ad Creative", "Strategy", "Copywriting", "Content Systems"].map((t) => (
-                    <span key={t} className="tag tag-dark text-[0.65rem]">{t}</span>
-                  ))}
-                </div>
-                <p className="font-mono text-[0.65rem] text-white/30 tracking-wider">
-                  Done-for-you · monthly retainers available
-                </p>
-              </div>
-            </div>
-          </Reveal>
-
           {/* ── Stats strip ── */}
-          <Reveal direction="up" delay={0.6}>
-            <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] sm:grid-cols-4">
+          <Reveal direction="up" delay={0.65}>
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] sm:grid-cols-4">
               {STATS.map((s) => (
                 <div key={s.label} className="px-5 py-4">
                   <p className="font-display text-2xl font-semibold text-white">
                     <StatValue value={s.value} />
                   </p>
-                  <p className="mt-1 font-mono text-[0.58rem] uppercase leading-4 tracking-[0.1em] text-white/35">
+                  <p className="mt-1 font-mono text-[0.56rem] uppercase leading-4 tracking-[0.1em] text-white/30">
                     {s.label}
                   </p>
                 </div>
