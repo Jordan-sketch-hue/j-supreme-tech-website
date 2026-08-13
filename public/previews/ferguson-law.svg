@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#0a0a0a"/>
+  <rect width="800" height="38" fill="#1a1410"/>
+  <circle cx="18" cy="19" r="5.5" fill="#ff5f56"/><circle cx="34" cy="19" r="5.5" fill="#ffbd2e"/><circle cx="50" cy="19" r="5.5" fill="#27c93f"/>
+  <rect x="80" y="9" width="640" height="20" rx="10" fill="#ffffff0d"/>
+  <text x="400" y="23" font-family="Arial,sans-serif" font-size="10" fill="#ffffff44" text-anchor="middle">ferguson-law.vercel.app</text>
+  <!-- Page bg -->
+  <rect y="38" width="800" height="462" fill="#faf8f4"/>
+  <!-- Nav -->
+  <rect y="38" width="800" height="48" fill="white" opacity="0.95"/>
+  <rect x="20" y="52" width="8" height="18" fill="#FF8C00"/>
+  <text x="36" y="66" font-family="Georgia,serif" font-size="11" fill="#1a1008" font-weight="bold">Ferguson Law</text>
+  <text x="580" y="66" font-family="Arial,sans-serif" font-size="8" fill="#666">Practice Areas</text>
+  <text x="660" y="66" font-family="Arial,sans-serif" font-size="8" fill="#666">Contact</text>
+  <rect x="700" y="56" width="64" height="18" rx="9" fill="#FF8C00"/>
+  <text x="732" y="68" font-family="Arial,sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="700">Book Now</text>
+  <!-- Hero -->
+  <rect y="86" width="800" height="200" fill="#1a1008"/>
+  <rect y="86" width="800" height="200" fill="url(#flGrad)" opacity="0.85"/>
+  <defs>
+    <linearGradient id="flGrad" x1="0" y1="0" x2="800" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF8C00" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#1a1008" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <text x="60" y="140" font-family="Georgia,serif" font-size="9" fill="#FF8C00" font-weight="bold" letter-spacing="3">TRUSTED COUNSEL</text>
+  <text x="60" y="168" font-family="Georgia,serif" font-size="26" fill="white" font-weight="bold">Protecting Your Rights,</text>
+  <text x="60" y="196" font-family="Georgia,serif" font-size="26" fill="white" font-weight="bold">Securing Your Future.</text>
+  <rect x="60" y="216" width="120" height="26" rx="13" fill="#FF8C00"/>
+  <text x="120" y="232" font-family="Arial,sans-serif" font-size="9" fill="white" text-anchor="middle" font-weight="700">Book Consultation</text>
+  <!-- Feature cards -->
+  <rect x="40" y="306" width="220" height="80" rx="10" fill="white" stroke="#e8e0d0" stroke-width="1"/>
+  <rect x="290" y="306" width="220" height="80" rx="10" fill="white" stroke="#e8e0d0" stroke-width="1"/>
+  <rect x="540" y="306" width="220" height="80" rx="10" fill="white" stroke="#e8e0d0" stroke-width="1"/>
+  <text x="150" y="330" font-family="Arial,sans-serif" font-size="9" fill="#FF8C00" text-anchor="middle" font-weight="700">AI CHATBOT</text>
+  <text x="400" y="330" font-family="Arial,sans-serif" font-size="9" fill="#FF8C00" text-anchor="middle" font-weight="700">BOOKING SYSTEM</text>
+  <text x="650" y="330" font-family="Arial,sans-serif" font-size="9" fill="#FF8C00" text-anchor="middle" font-weight="700">ADMIN DASHBOARD</text>
+  <text x="150" y="350" font-family="Arial,sans-serif" font-size="8" fill="#888" text-anchor="middle">24/7 legal Q&amp;A assistant</text>
+  <text x="400" y="350" font-family="Arial,sans-serif" font-size="8" fill="#888" text-anchor="middle">Client appointment portal</text>
+  <text x="650" y="350" font-family="Arial,sans-serif" font-size="8" fill="#888" text-anchor="middle">Full CMS &amp; case manager</text>
+  <!-- Footer strip -->
+  <rect y="420" width="800" height="80" fill="#1a1008"/>
+  <text x="400" y="465" font-family="Georgia,serif" font-size="10" fill="#FF8C00" text-anchor="middle">Ferguson Law · Jamaica · Professional Legal Services</text>
+</svg>

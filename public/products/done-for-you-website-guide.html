@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Done-For-You Business Website — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#00B4D8;--dark:#071520;--mid:#555;--light:#f0fafd;--border:#b8e8f5;--nav-h:60px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(7,21,32,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #0e2a3a}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#4a8aa8;text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:var(--dark);font-size:11px;font-weight:700;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,180,216,.12),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;margin-bottom:24px}.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#aaa;max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #0e2a3a;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#4a8aa8;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#050e15;border-top:1px solid #0e2a3a;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#3a6a80;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0f0f0}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}li{margin-bottom:8px}
+.process{display:flex;flex-direction:column;gap:0}
+.process-step{display:flex;gap:28px;padding:28px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start}
+.process-step:last-child{border-bottom:none}
+.step-badge{background:var(--a);color:var(--dark);font-size:11px;font-weight:900;border-radius:8px;padding:8px 12px;flex-shrink:0;min-width:48px;text-align:center}
+.step-day{font-size:9px;display:block;margin-bottom:2px;letter-spacing:.1em}
+.step-body h3{margin:0 0 8px;font-size:15px;color:#1a1a1a}
+.step-body p{margin:0;font-size:14px}
+.includes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.inc-card{background:var(--light);border:1px solid var(--border);border-radius:12px;padding:20px}
+.inc-card h3{margin:0 0 6px;font-size:13px;color:#1a1a1a}
+.inc-card p{margin:0;font-size:12px;color:#888}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.checklist{background:var(--light);border-radius:12px;padding:28px;margin:24px 0}
+.checklist ul{list-style:none;margin:0;padding:0}
+.checklist li{padding:8px 0;border-bottom:1px solid rgba(0,180,216,.1);font-size:14px;color:#555;display:flex;align-items:center;gap:10px}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'✓';color:var(--a);font-weight:700;flex-shrink:0}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a);color:var(--dark)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0f0f0}
+.compare tbody td.hl{background:#f0fafd;font-weight:600;color:#1a1a1a}
+.compare .check{color:#22c55e;font-weight:700}.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#4a8aa8;font-size:12px;margin-bottom:6px}footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:var(--dark);border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center;font-weight:900}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.includes-grid{grid-template-columns:1fr}.process-step{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Done-For-You Website</span></div>
+  <ul class="nav-links">
+    <li><a href="#process">The Process</a></li>
+    <li><a href="#includes">What's Included</a></li>
+    <li><a href="#checklist">Client Checklist</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · Done-For-You Service · 5–7 Business Days</div>
+  <h1 class="hero-title">Done-For-You<br/><em>Business</em><br/>Website</h1>
+  <p class="hero-sub">We build it. You own it. A complete, custom website — designed, developed, and deployed live by J Supreme Tech in 5–7 business days. You provide the content. We handle everything else.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Delivery</label><span>5–7 Business Days</span></div>
+    <div class="meta-item"><label>Revisions</label><span>2 Rounds Included</span></div>
+    <div class="meta-item"><label>Handoff</label><span>Full Source Code + Training</span></div>
+    <div class="meta-item"><label>Hosting</label><span>Vercel (Free Tier)</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$499</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="5">0</span><div class="stat-label">Day Delivery</div></div>
+  <div class="stat"><span class="stat-num" data-target="2">0</span><div class="stat-label">Revision Rounds</div></div>
+  <div class="stat"><span class="stat-num" data-target="8">0</span><div class="stat-label">Sections Built</div></div>
+  <div class="stat"><span class="stat-num" data-target="100">0</span><div class="stat-label">% Yours — No Subscriptions</div></div>
+</div>
+
+<section id="process">
+  <div class="sec-tag">How It Works</div>
+  <h1 class="sec-title">The 5-Step Process</h1>
+  <p class="sec-intro">From payment to live website in under a week. Every step is transparent — you know exactly what's happening and when.</p>
+
+  <div class="process">
+    <div class="process-step">
+      <div class="step-badge"><span class="step-day">DAY</span>1</div>
+      <div class="step-body">
+        <h3>Intake &amp; Brief</h3>
+        <p>Within 4 hours of payment, you receive a brand questionnaire via WhatsApp or email. We collect: business name, services, tagline, target audience, color preferences, and any reference sites you like. This is the only thing we ask of you.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-badge"><span class="step-day">DAY</span>2</div>
+      <div class="step-body">
+        <h3>Design Preview</h3>
+        <p>We send you a desktop and mobile preview of the homepage design for approval. You can request one round of changes at this stage — layout, colors, copy tone. No code is written until you sign off on the design direction.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-badge"><span class="step-day">DAY</span>3–4</div>
+      <div class="step-body">
+        <h3>Full Build</h3>
+        <p>We build all 8 sections of your website: Hero, About, Services, Pricing (if applicable), Testimonials, FAQ, Contact, and Footer. WhatsApp CTA integration, Google Analytics, and mobile responsiveness are standard in every build.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-badge"><span class="step-day">DAY</span>5</div>
+      <div class="step-body">
+        <h3>Staging Review</h3>
+        <p>You receive a live staging URL (e.g., your-business.vercel.app). Review every section. One more round of changes is included here — copy edits, image swaps, layout tweaks. No full redesigns at this stage.</p>
+      </div>
+    </div>
+    <div class="process-step">
+      <div class="step-badge"><span class="step-day">DAY</span>6–7</div>
+      <div class="step-body">
+        <h3>Launch &amp; Handoff</h3>
+        <p>We connect your custom domain (you purchase, we configure), confirm SSL is active, and push the site live. You receive the full source code via GitHub or ZIP, plus a 15-minute Loom walkthrough of how to make basic edits yourself.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="includes">
+  <div class="sec-tag">What's Included</div>
+  <h1 class="sec-title">Everything in the Build</h1>
+
+  <div class="includes-grid">
+    <div class="inc-card"><h3>8 Pre-Built Sections</h3><p>Hero · About · Services · Pricing · Testimonials · FAQ · Contact · Footer. All sections included as standard.</p></div>
+    <div class="inc-card"><h3>Mobile-First Responsive</h3><p>Built to look perfect on mobile first, then tablet and desktop. Over 60% of your visitors are on mobile.</p></div>
+    <div class="inc-card"><h3>WhatsApp CTA Integration</h3><p>A floating WhatsApp button on every page that routes visitors directly to your WhatsApp with a pre-filled message.</p></div>
+    <div class="inc-card"><h3>Contact Form</h3><p>Functional contact form connected to your email via Resend. Submissions arrive in your inbox — no third-party form tool subscription needed.</p></div>
+    <div class="inc-card"><h3>SEO Baseline</h3><p>Page title, meta description, OpenGraph image, alt text on all images, structured H1/H2 hierarchy, and Google Search Console submission.</p></div>
+    <div class="inc-card"><h3>Google Analytics</h3><p>GA4 installed and configured. You own the analytics property. From day one you can see who's visiting, where they're from, and which pages perform.</p></div>
+    <div class="inc-card"><h3>Full Source Code</h3><p>Delivered via GitHub repository or ZIP file. You own 100% of the code. No platform lock-in, no monthly subscription to JST required.</p></div>
+    <div class="inc-card"><h3>Training Walkthrough</h3><p>A 15-minute Loom video showing you how to edit text, swap images, and update colors without a developer. Yours to keep forever.</p></div>
+  </div>
+</section>
+
+<section id="checklist">
+  <div class="sec-tag">Client Checklist</div>
+  <h1 class="sec-title">What You Need to Provide</h1>
+  <p>This is everything we'll ask from you. Nothing more.</p>
+  <div class="checklist">
+    <ul>
+      <li>Business name and tagline (or we write one for you)</li>
+      <li>List of services you offer and a 1–2 sentence description of each</li>
+      <li>Your target customer (who you serve and where)</li>
+      <li>Brand colors, if you have them (hex codes or "I want blue, professional")</li>
+      <li>Your logo file (PNG preferred), or we design a simple text logo</li>
+      <li>3–5 photos for the site, or we use premium stock photos</li>
+      <li>Your WhatsApp number and email address for the contact section</li>
+      <li>Your preferred domain name (you purchase at Namecheap, ~$10/yr)</li>
+      <li>Optional: testimonials from past clients</li>
+      <li>Optional: pricing information, if you want it public</li>
+    </ul>
+  </div>
+  <div class="callout">
+    <strong>No Content? No Problem.</strong>
+    If you don't have professional photos, we source high-quality stock photography matched to your industry. If you're unsure about your tagline or service descriptions, we write them for you as part of the brief process. The only thing we truly need is that you show up for the intake call.
+  </div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">$499 vs. Every Other Option</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>Alternative</th><th>Cost</th><th>Custom Design</th><th>You Own the Code</th><th>No Monthly Fee</th><th class="hl">JST Done-For-You</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Local agency (JA/Caribbean)</td><td>$2,000–$8,000</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">US$499</td></tr>
+        <tr><td>Fiverr / freelancer</td><td>$100–$500 (low quality risk)</td><td>Hit or miss</td><td>Sometimes</td><td class="check">✓</td><td class="hl check">✓ + Quality guaranteed</td></tr>
+        <tr><td>Squarespace / Wix DIY</td><td>$16–$49/mo forever ($600–$1,800 over 3 yrs)</td><td>Template only</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>WordPress + theme</td><td>$5–$30/mo + setup time (20–40 hrs)</td><td>Limited</td><td class="check">✓</td><td>Partial</td><td class="hl check">✓ Faster</td></tr>
+        <tr><td>Build it yourself (no experience)</td><td>$0 cash, 3–6 months learning</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td><td class="hl check">✓ 5–7 days</td></tr>
+        <tr><td><strong>JST Done-For-You</strong></td><td><strong>US$499 once</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Before You Order</h1>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q">What if I need more than 2 revision rounds? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Additional revision rounds are available at $75/round. Most clients complete their revisions within the 2 included rounds when they come prepared with specific, consolidated feedback. The intake process is designed to minimize surprises.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Do I need to pay for hosting after delivery? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Vercel's free tier covers most small business websites with no monthly cost. If your site exceeds ~100GB bandwidth or requires Edge Functions, Vercel Pro starts at $20/month. For 95% of small business use, the free tier is sufficient for years.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I request specific features (booking, e-commerce, etc.)? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>This package covers a standard marketing/brochure website. Booking systems, e-commerce, client portals, and custom functionality are available as add-ons. Request a custom quote via WhatsApp at (658) 218-2282 before purchasing if you have specific feature needs.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What if I'm not happy with the result? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>If after the 2 included revision rounds the site doesn't meet the agreed brief, we'll work with you until it does — no extra charge. We've never had a client walk away unsatisfied when they engaged with the intake and revision process.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How do I get started? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Your purchase confirms the order. Within 4 business hours, you'll receive an intake questionnaire via WhatsApp or email (whichever you prefer). Complete it at your convenience — we start the build within 24 hours of receiving your completed brief.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>Done-For-You Business Website © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#0e2a3a">Questions: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');a.style.maxHeight=open?a.scrollHeight+'px':'0';});});
+</script>
+</body>
+</html>

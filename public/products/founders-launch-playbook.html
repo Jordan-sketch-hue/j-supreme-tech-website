@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>The Founder's Launch Playbook — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#FF3B3B;--dark:#0a0a0a;--mid:#555;--light:#fff5f5;--border:#ffc5c5;--nav-h:60px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--dark);background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999;transition:width .1s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(10,10,10,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #1f1f1f}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#888;text-decoration:none;letter-spacing:.05em;transition:color .2s}
+.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.nav-cta:hover{opacity:.85}
+
+/* HERO */
+.hero{background:var(--dark);min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,59,59,.15),transparent 70%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,8vw,88px);font-weight:900;line-height:1.0;margin-bottom:24px}
+.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:18px;color:#bbb;max-width:560px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #222;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#555;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}
+.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+
+/* STATS BAR */
+.stats{background:#111;border-top:1px solid #1f1f1f;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}
+.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#666;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+
+/* SECTIONS */
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0f0f0}
+section:last-of-type{border-bottom:none}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px;color:var(--dark)}
+h3{font-size:15px;font-weight:700;margin:28px 0 10px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}
+ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}
+li{margin-bottom:8px}
+
+/* CARDS */
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:24px 0}
+.card{background:var(--light);border:1px solid var(--border);border-radius:14px;padding:28px}
+.card h3{margin-top:0;font-size:14px;color:var(--dark)}
+.card ul{margin-bottom:0}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.action-box{background:var(--dark);color:#fff;border-radius:14px;padding:32px;margin:32px 0}
+.action-box h3{color:var(--a);margin-top:0}
+.action-box ul{color:#ccc}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:24px;padding:28px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-num{background:var(--a);color:#fff;font-size:13px;font-weight:900;border-radius:50%;min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body h3{margin:0 0 8px;font-size:15px;color:var(--dark)}
+.step-body p{margin:0;font-size:14px}
+
+/* TOC */
+.toc-list{list-style:none;margin:0;padding:0}
+.toc-list li{display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--border)}
+.toc-list li:last-child{border-bottom:none}
+.toc-num{font-size:10px;font-weight:700;color:var(--a);min-width:28px}
+.toc-title{font-weight:600;flex:1;font-size:14px}
+.toc-pg{font-size:11px;color:#aaa}
+
+/* COMPARISON */
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}
+.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left;letter-spacing:.05em}
+.compare thead th.hl{background:var(--a);color:#fff}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0f0f0}
+.compare tbody td.hl{background:#fff5f5;color:var(--dark);font-weight:600}
+.compare tbody td.check{color:#22c55e;font-weight:700;font-size:15px}
+.compare tbody td.cross{color:#ef4444;font-weight:700;font-size:15px}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}
+.faq-icon{font-size:20px;font-weight:300;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+
+/* FOOTER */
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#555;font-size:12px;margin-bottom:6px}
+footer a{color:var(--a);text-decoration:none}
+.footer-brand{font-size:13px;font-weight:700;color:#fff;margin-bottom:12px}
+
+/* BACK TO TOP */
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center}
+#btt.show{opacity:1;transform:translateY(0)}
+
+/* PRINT */
+@media print{
+  #prog,nav,#btt{display:none!important}
+  body{padding-top:0}
+  .hero{page-break-after:always;min-height:100vh}
+  section{page-break-inside:avoid}
+  .compare-wrap{overflow:visible}
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero{padding:60px 24px;min-height:auto;padding-top:80px}
+  .stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}
+  section{padding:56px 24px}
+  .grid-2{grid-template-columns:1fr}
+  .step{flex-direction:column;gap:12px}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Founder's Launch Playbook</span></div>
+  <ul class="nav-links">
+    <li><a href="#inside">Contents</a></li>
+    <li><a href="#chapters">Chapters</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · Digital E-Book · 60 Pages</div>
+  <h1 class="hero-title">The Founder's<br/><em>Launch</em><br/>Playbook</h1>
+  <p class="hero-sub">A complete, battle-tested system for launching a profitable digital business from zero — no VC, no team, no luck required. Built by someone who did it.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Format</label><span>PDF E-Book · 60 Pages</span></div>
+    <div class="meta-item"><label>Level</label><span>Beginner → Intermediate</span></div>
+    <div class="meta-item"><label>Market</label><span>Global</span></div>
+    <div class="meta-item"><label>Access</label><span>Lifetime · Instant Download</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$47</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="60">0</span><div class="stat-label">Pages of Systems</div></div>
+  <div class="stat"><span class="stat-num" data-target="8">0</span><div class="stat-label">Chapters</div></div>
+  <div class="stat"><span class="stat-num" data-target="30">0</span><div class="stat-label">Action Frameworks</div></div>
+  <div class="stat"><span class="stat-num" data-target="100">0</span><div class="stat-label">% No-Fluff</div></div>
+</div>
+
+<section id="inside">
+  <div class="sec-tag">What's Inside</div>
+  <h1 class="sec-title">Table of Contents</h1>
+  <p class="sec-intro">Eight chapters, zero padding. Every page delivers a framework, a checklist, or a decision-making tool you can apply the same day you read it.</p>
+  <ul class="toc-list">
+    <li><span class="toc-num">01</span><span class="toc-title">The Founder's Mindset — Why Most Fail Before They Start</span><span class="toc-pg">8</span></li>
+    <li><span class="toc-num">02</span><span class="toc-title">Finding Your Niche — The 3-Filter Method</span><span class="toc-pg">14</span></li>
+    <li><span class="toc-num">03</span><span class="toc-title">Offer Design — Packaging What You Know for Sale</span><span class="toc-pg">22</span></li>
+    <li><span class="toc-num">04</span><span class="toc-title">Your First Sale — Closing Before You Build</span><span class="toc-pg">30</span></li>
+    <li><span class="toc-num">05</span><span class="toc-title">The 30-Day Sprint — Launch Week by Week</span><span class="toc-pg">38</span></li>
+    <li><span class="toc-num">06</span><span class="toc-title">Distribution Channels — Getting Customers Without Ads</span><span class="toc-pg">44</span></li>
+    <li><span class="toc-num">07</span><span class="toc-title">Revenue Systems — From $1K to $10K/Month</span><span class="toc-pg">50</span></li>
+    <li><span class="toc-num">08</span><span class="toc-title">The Second Machine — Scaling Without Burning Out</span><span class="toc-pg">56</span></li>
+  </ul>
+</section>
+
+<section id="chapters">
+  <div class="sec-tag">Chapter Breakdown</div>
+  <h1 class="sec-title">What You'll Actually Learn</h1>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Ch. 1 — The Founder's Mindset</h3>
+      <p>Why the planning trap kills most businesses before they start. The decision framework used to cut through analysis paralysis in under 48 hours.</p>
+      <ul><li>The 3 lies new founders believe</li><li>Opportunity vs. ego: how to choose a direction that sticks</li><li>The "start ugly" rule — why polished kills progress</li></ul>
+    </div>
+    <div class="card">
+      <h3>Ch. 2 — The 3-Filter Niche Method</h3>
+      <p>A systematic process for finding a niche that has demand, doesn't require you to be famous, and can reach $5K/month within 90 days.</p>
+      <ul><li>Filter 1: Skill audit — what you can actually sell</li><li>Filter 2: Market proof — is anyone already paying for this?</li><li>Filter 3: Personal fit — can you talk about this for 3 years?</li></ul>
+    </div>
+    <div class="card">
+      <h3>Ch. 3 — Offer Design</h3>
+      <p>How to package knowledge, skills, or templates into a product someone will pay for today — including what price to charge and why.</p>
+      <ul><li>The 4 offer formats (and when to use each)</li><li>Pricing psychology: why $97 sells better than $99</li><li>The "minimum viable offer" you can build this week</li></ul>
+    </div>
+    <div class="card">
+      <h3>Ch. 4 — Your First Sale</h3>
+      <p>Close your first customer before you build anything. The exact outreach script, DM template, and conversation flow used to generate $0→$1,000 in under two weeks.</p>
+      <ul><li>The 10-message DM sequence that works</li><li>How to handle objections without discounting</li><li>Following up without feeling pushy</li></ul>
+    </div>
+    <div class="card">
+      <h3>Ch. 5 — The 30-Day Sprint</h3>
+      <p>A week-by-week launch calendar from zero to live product. Every day has a task, every week has a milestone, and every milestone builds momentum.</p>
+      <ul><li>Week 1: Research + offer finalization</li><li>Week 2: Build minimum product</li><li>Week 3: Pre-sell and launch</li><li>Week 4: Optimize and repeat</li></ul>
+    </div>
+    <div class="card">
+      <h3>Ch. 6 — Distribution Without Ads</h3>
+      <p>Seven channels for getting customers that cost zero dollars. Ranked by speed, effort, and conversion rate — with specific tactics for each.</p>
+      <ul><li>LinkedIn organic (fastest for B2B)</li><li>Instagram/TikTok content flywheel</li><li>Community-first distribution</li><li>Referral loops you can install day one</li></ul>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <h3>The 30-Day Action Framework</h3>
+    <p>Every chapter ends with a "This Week" list — specific, time-boxed tasks you can complete in under 2 hours each. No vague advice. By the end of Chapter 5, you'll have a product listed and your first 3 prospects contacted.</p>
+    <ul>
+      <li>Days 1–7: Niche + offer defined, page live</li>
+      <li>Days 8–14: Product built to MVP standard</li>
+      <li>Days 15–21: First 10 outreach messages sent</li>
+      <li>Days 22–30: First sale closed or follow-up pipeline active</li>
+    </ul>
+  </div>
+
+  <h2>Revenue Milestones Covered</h2>
+  <p>Chapter 7 covers the exact systems needed at each income level — because what gets you to $1K/month will stall you at $3K. Here's the map:</p>
+  <div class="grid-2">
+    <div class="card"><h3>$0 → $1,000/mo</h3><ul><li>One offer, direct outreach, manual delivery</li><li>No automation needed yet</li><li>Focus: getting 2–3 paying clients</li></ul></div>
+    <div class="card"><h3>$1,000 → $5,000/mo</h3><ul><li>Content channel switched on</li><li>Offer expanded to passive product</li><li>Simple email list started</li></ul></div>
+    <div class="card"><h3>$5,000 → $10,000/mo</h3><ul><li>Paid traffic layer added</li><li>Referral program formalized</li><li>First hire: VA or part-time contractor</li></ul></div>
+    <div class="card"><h3>$10,000+/mo</h3><ul><li>Product suite with upsells</li><li>Team runs delivery</li><li>Founder works on business, not in it</li></ul></div>
+  </div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">The Founder's Playbook vs. Every Alternative</h1>
+  <p style="color:#666;margin-bottom:32px;font-size:15px">You could get this information other ways. Here's an honest comparison of time, cost, and quality.</p>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>What You Could Do Instead</th><th>Cost</th><th>Time to Value</th><th>Structured System</th><th>Caribbean Context</th><th class="hl">Founder's Playbook</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Watch random YouTube videos</td><td>Free</td><td>100+ hrs</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Buy an online business course</td><td>$297–$2,000</td><td>4–8 weeks</td><td class="check">✓</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Hire a business coach (1 session)</td><td>$150–$300</td><td>1 hr of advice</td><td class="cross">✗</td><td>Maybe</td><td class="hl check">✓</td></tr>
+        <tr><td>Trial and error on your own</td><td>$0 cash, 12+ months</td><td>Months–years</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Business degree / diploma</td><td>$5,000–$50,000</td><td>2–4 years</td><td class="check">✓</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td><strong>Founder's Launch Playbook</strong></td><td><strong>US$47</strong></td><td><strong>Read in a weekend</strong></td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>The Math</strong>
+    The cheapest business coach charges $150/hr. The average reading time for this book is 3–4 hours. You'd need to pay $450–$600 for the same depth of coverage — and they still wouldn't give you the templates, frameworks, and Caribbean-specific context built into this guide.
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">Frequently Asked Questions</div>
+  <h1 class="sec-title">Questions Before You Buy</h1>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q">Is this for complete beginners or people who already have a business? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Both. Chapters 1–4 are written for people who haven't launched yet. Chapters 5–8 are equally valuable for founders who've started but are stuck under $3K/month. The 30-Day Sprint (Chapter 5) works whether you're starting from scratch or restarting.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Does this work for service businesses or only digital products? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Both. The offer design framework in Chapter 3 covers service packaging, digital products, and hybrid models. Most of the readers who've applied these frameworks run service businesses (design, dev, consulting, social media management).</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How is this different from free content on the internet? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Free content gives you fragments. This gives you a system. The difference is structure, sequence, and accountability. The internet will tell you "build an email list" — this tells you when, how, which tool, what to send first, and how many subscribers before you monetize. Plus there's Caribbean context (WiPay, local pricing, JA/CARICOM market fit) you won't find on US-centric YouTube channels.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How long does it take to read? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>60 pages at a normal reading pace takes 2.5–3 hours. Most readers spread it over a weekend and start applying Chapter 4's outreach templates within 5 days of downloading.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Is there a refund policy? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes — Gumroad's standard 30-day refund policy applies. If you read the full guide, apply the Chapter 4 outreach system for 14 days with zero results, email the support address on the footer and we'll process your refund. We stand behind the content.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What format does it come in? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>You're reading the web version right now — fully accessible, printable, and saveable. A PDF version is also included in your download. Both are identical in content. The web version loads faster and works on any device.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-brand">J Supreme Tech</div>
+  <p>The Founder's Launch Playbook © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a> · <a href="https://gumroad.com/jsupreme">store.jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#333">Questions? WhatsApp: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+
+<button id="btt" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Progress bar
+const prog = document.getElementById('prog');
+const btt = document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+  const s = document.documentElement.scrollTop;
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  prog.style.width = (s/h*100)+'%';
+  btt.classList.toggle('show', s > 400);
+});
+
+// Stat counters
+const counters = document.querySelectorAll('.stat-num[data-target]');
+const runCounter = (el) => {
+  const target = +el.dataset.target;
+  const suffix = el.dataset.suffix||'';
+  let current = 0;
+  const step = Math.ceil(target/40);
+  const t = setInterval(()=>{
+    current = Math.min(current+step, target);
+    el.textContent = current+suffix;
+    if(current>=target) clearInterval(t);
+  }, 30);
+};
+const ob = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ runCounter(e.target); ob.unobserve(e.target); }});
+},{threshold:.5});
+counters.forEach(c=>ob.observe(c));
+
+// FAQ
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const a = item.querySelector('.faq-a');
+    const open = item.classList.toggle('open');
+    a.style.maxHeight = open ? a.scrollHeight+'px' : '0';
+  });
+});
+</script>
+</body>
+</html>

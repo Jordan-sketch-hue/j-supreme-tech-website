@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>90-Day Content Calendar — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#FFD700;--dark:#0d0a00;--mid:#555;--light:#fffde7;--border:#ffe57f;--nav-h:60px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a0a;background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(13,10,0,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #1a1500}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#6a5a00;text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:var(--dark);font-size:11px;font-weight:700;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,215,0,.1),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.05;margin-bottom:24px}.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#bba;max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #1a1500;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#6a5a00;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#080600;border-top:1px solid #1a1500;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#4a3a00;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f5f0e0}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:#a07800}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}li{margin-bottom:8px}
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.phase-card{border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.phase-header{background:var(--a);padding:16px 20px}
+.phase-header h3{margin:0;font-size:13px;color:var(--dark);font-weight:900}
+.phase-header span{font-size:11px;color:rgba(0,0,0,.6)}
+.phase-body{padding:16px 20px}
+.phase-body li{font-size:12px;color:#555;margin-bottom:6px}
+.content-type-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:24px 0}
+.ct-card{background:var(--light);border:1px solid var(--border);border-radius:10px;padding:16px}
+.ct-card h3{margin:0 0 4px;font-size:13px;color:#1a1a0a}
+.ct-card p{margin:0;font-size:11px;color:#888}
+.caption-sample{background:var(--dark);border-radius:12px;padding:24px;margin:24px 0;color:#fff}
+.caption-sample .label{font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--a);text-transform:uppercase;margin-bottom:16px}
+.caption-item{border-bottom:1px solid #1a1500;padding:12px 0;font-size:13px;color:#ccc;line-height:1.5}
+.caption-item:last-child{border-bottom:none}
+.caption-item strong{color:var(--a);display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#a07800;margin-bottom:8px}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #f0e8c0}
+.compare thead{background:var(--dark)}.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a);color:var(--dark)}
+.compare tbody tr:nth-child(even){background:#fffde7}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f5f0e0}
+.compare tbody td.hl{background:#fffde7;font-weight:600;color:#1a1a0a}
+.compare .check{color:#22c55e;font-weight:700}.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}.faq-item{border-bottom:1px solid #f5f0e0}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:#1a1a0a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:#a07800}.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#4a3a00;font-size:12px;margin-bottom:6px}footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:var(--dark);border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center;font-weight:900}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.phase-grid,.content-type-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>90-Day Content Calendar</span></div>
+  <ul class="nav-links">
+    <li><a href="#phases">3 Phases</a></li>
+    <li><a href="#types">Content Types</a></li>
+    <li><a href="#captions">Caption Vault</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · Digital Download · Instant Delivery</div>
+  <h1 class="hero-title">90-Day<br/><em>Content</em><br/>Calendar</h1>
+  <p class="hero-sub">Three months of planned, strategic social media content — plus 120 plug-and-post caption templates. Built specifically for Caribbean and small business owners who need to show up consistently without burning hours a week on content.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Format</label><span>Google Sheets + PDF</span></div>
+    <div class="meta-item"><label>Captions</label><span>120 Ready-to-Post Templates</span></div>
+    <div class="meta-item"><label>Platforms</label><span>Instagram · Facebook · TikTok</span></div>
+    <div class="meta-item"><label>Industry Kits</label><span>5 Niches Included</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$19</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="90">0</span><div class="stat-label">Days Planned</div></div>
+  <div class="stat"><span class="stat-num" data-target="120">0</span><div class="stat-label">Caption Templates</div></div>
+  <div class="stat"><span class="stat-num" data-target="5">0</span><div class="stat-label">Industry Kits</div></div>
+  <div class="stat"><span class="stat-num" data-target="3">0</span><div class="stat-label">Platforms Covered</div></div>
+</div>
+
+<section id="phases">
+  <div class="sec-tag">The System</div>
+  <h1 class="sec-title">90 Days Broken Into 3 Phases</h1>
+  <p class="sec-intro">Not a random mix of post ideas. A structured 90-day strategy with a clear purpose for each phase — building awareness, building trust, then converting followers into buyers.</p>
+  <div class="phase-grid">
+    <div class="phase-card">
+      <div class="phase-header"><h3>Phase 1: Awareness</h3><span>Days 1–30</span></div>
+      <div class="phase-body"><ul><li>Brand introduction posts</li><li>Meet-the-team content</li><li>Behind-the-scenes glimpses</li><li>"What we do" explainers</li><li>Community content &amp; local hooks</li><li>Problem-awareness content</li></ul></div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-header"><h3>Phase 2: Authority</h3><span>Days 31–60</span></div>
+      <div class="phase-body"><ul><li>Tips &amp; educational posts</li><li>Client testimonials &amp; wins</li><li>Before/after showcases</li><li>FAQ answer posts</li><li>Process &amp; method reveals</li><li>Industry myth-busting</li></ul></div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-header"><h3>Phase 3: Conversion</h3><span>Days 61–90</span></div>
+      <div class="phase-body"><ul><li>Direct offer posts</li><li>Limited-time promotions</li><li>Objection-handling content</li><li>Social proof stacking</li><li>Call-to-action sequences</li><li>Re-engagement campaigns</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="types">
+  <div class="sec-tag">Content Mix</div>
+  <h1 class="sec-title">8 Content Types — One Per Day</h1>
+  <p class="sec-intro">Each day is pre-assigned a content type. You never stare at a blank "what do I post today" screen again.</p>
+  <div class="content-type-grid">
+    <div class="ct-card"><h3>Educational Post</h3><p>Tips, how-tos, and industry knowledge that position you as the expert. High share rate.</p></div>
+    <div class="ct-card"><h3>Testimonial / Social Proof</h3><p>Client wins, reviews, and results. Converts fence-sitters into buyers.</p></div>
+    <div class="ct-card"><h3>Behind-the-Scenes</h3><p>Your process, workspace, or team. Humanizes the brand and builds trust.</p></div>
+    <div class="ct-card"><h3>Product / Service Spotlight</h3><p>Clear, benefits-focused posts about what you offer. Rotated to avoid feeling salesy.</p></div>
+    <div class="ct-card"><h3>Community / Culture</h3><p>Local pride, holidays, relatable moments. Builds connection and emotional resonance.</p></div>
+    <div class="ct-card"><h3>Engagement Post</h3><p>Questions, polls, "this or that." Boosts reach by triggering comment activity in the algorithm.</p></div>
+    <div class="ct-card"><h3>Story / Reel Hook</h3><p>Prompt-based story content and reel concepts pre-written for each week.</p></div>
+    <div class="ct-card"><h3>Offer / CTA</h3><p>Direct sales content — limited slots, specials, or "DM us to get started." Used sparingly, strategically.</p></div>
+  </div>
+</section>
+
+<section id="captions">
+  <div class="sec-tag">Caption Vault Preview</div>
+  <h1 class="sec-title">120 Captions. Plug in Your Details. Post.</h1>
+  <p>Every caption has [BRACKETS] where you fill in your business-specific details. Platform-native, algorithm-aware, written in tones Caribbean businesses actually use.</p>
+  <div class="caption-sample">
+    <div class="label">Sample Captions from the Vault</div>
+    <div class="caption-item"><strong>Authority · Instagram</strong>The question I get asked most often is [QUESTION]. Here's the honest answer nobody talks about: [ANSWER]. Save this if it helps you — and drop a ✅ if you've been wondering the same thing. #[NICHE] #[LOCATION]</div>
+    <div class="caption-item"><strong>Testimonial · Facebook</strong>"[CLIENT QUOTE]" — [CLIENT NAME], [CLIENT LOCATION]. This is exactly WHY we do what we do. If you're dealing with [PROBLEM], reach out. We might be exactly what you need. Link in bio.</div>
+    <div class="caption-item"><strong>Community · Any Platform</strong>Shoutout to every [LOCATION] business owner who shows up every single day — no fanfare, no shortcuts, just the work. 🇯🇲 Tag a business owner who deserves some love today.</div>
+    <div class="caption-item"><strong>CTA · Instagram</strong>We have [NUMBER] spots left for [MONTH]. First come, first served. DM us "[KEYWORD]" to claim yours — we'll send you the details. Don't sleep on this.</div>
+  </div>
+  <h2>Industry Kits Included</h2>
+  <ul>
+    <li><strong>Service Businesses</strong> (salons, cleaning, moving, repairs)</li>
+    <li><strong>Food &amp; Beverage</strong> (restaurants, bakeries, catering)</li>
+    <li><strong>Professional Services</strong> (lawyers, accountants, consultants)</li>
+    <li><strong>Retail / Products</strong> (boutiques, dropshipping, handmade goods)</li>
+    <li><strong>Tourism &amp; Hospitality</strong> (tours, transfers, villas, hotels)</li>
+  </ul>
+  <div class="callout"><strong>Hashtag Strategy Included</strong>Each post type includes a curated hashtag set organized by audience size (niche, mid-tier, broad) for maximum algorithmic reach without looking like a bot.</div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">$19 vs. Every Other Option</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead><tr><th>Alternative</th><th>Cost</th><th>Caribbean Context</th><th>Caption Templates</th><th>90-Day Plan</th><th class="hl">This Calendar</th></tr></thead>
+      <tbody>
+        <tr><td>Social media manager</td><td>$300–$600/mo</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">US$19 + you stay in control</td></tr>
+        <tr><td>Content agency</td><td>$500–$2,000/mo</td><td>Rarely</td><td class="check">✓</td><td class="check">✓</td><td class="hl check">✓ at 1% the cost</td></tr>
+        <tr><td>Later / Hootsuite content ideas</td><td>$18–$99/mo forever</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Generic Etsy content calendar</td><td>$5–$30 once</td><td class="cross">✗</td><td>Sometimes</td><td class="cross">✗</td><td class="hl check">✓ + industry kits</td></tr>
+        <tr><td>DIY (figuring it out yourself)</td><td>$0 + 5–10 hrs/week</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td><strong>90-Day Content Calendar</strong></td><td><strong>US$19 (once)</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Before You Buy</h1>
+  <div class="faq">
+    <div class="faq-item"><button class="faq-q">What format is the calendar delivered in? <span class="faq-icon">+</span></button><div class="faq-a"><p>Google Sheets (copy to your Drive and edit freely), plus a PDF version for printing or reading offline. Captions are also provided as plain-text for easy copy-paste into any scheduling tool.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can I use this for multiple businesses? <span class="faq-icon">+</span></button><div class="faq-a"><p>Your purchase covers personal use (one business). If you're a social media manager using this for client accounts, purchase one copy per client, or contact us at (658) 218-2282 for a bulk license.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Do I need to post every single day? <span class="faq-icon">+</span></button><div class="faq-a"><p>Designed for 5 posts per week (Mon–Fri). You can reduce frequency — the strategic structure holds even at 3 posts per week. The phase system adapts regardless of your posting cadence.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Is there a specific month the calendar starts from? <span class="faq-icon">+</span></button><div class="faq-a"><p>No. The calendar is undated — you fill in dates yourself starting from whatever day you begin. It runs from Day 1 through Day 90, not specific calendar dates, so it works whenever you start.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>90-Day Content Calendar © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#1a1500">Questions: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');a.style.maxHeight=open?a.scrollHeight+'px':'0';});});
+</script>
+</body>
+</html>

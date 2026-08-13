@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Courier & Logistics App Template — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#00C853;--dark:#0f2d1a;--mid:#555;--light:#f0faf4;--border:#b8eac8;--nav-h:60px;--code-bg:#0d1117}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999;transition:width .1s}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(15,45,26,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #1a4a2a}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#5a8a6a;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:#0f2d1a;font-size:11px;font-weight:700;letter-spacing:.08em;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,200,83,.1),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;margin-bottom:24px}
+.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#aaa;max-width:580px;margin-bottom:48px}
+.live-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,200,83,.15);border:1px solid rgba(0,200,83,.3);border-radius:20px;padding:6px 16px;font-size:12px;font-weight:700;color:var(--a);margin-bottom:20px}
+.live-badge::before{content:'';width:8px;height:8px;background:var(--a);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #1a4a2a;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#4a8a5a;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}
+.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#0a1f10;border-top:1px solid #1a4a2a;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}
+.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#4a8a5a;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0f0f0}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}
+h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}
+ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}
+li{margin-bottom:8px}
+.portal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0}
+.portal-card{background:var(--dark);color:#fff;border-radius:14px;padding:28px}
+.portal-card h3{color:var(--a);margin-top:0;font-size:15px}
+.portal-card ul{color:#9dbdaa;margin-bottom:0}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.stack-table{width:100%;border-collapse:collapse;margin:24px 0}
+.stack-table th{background:var(--dark);color:#fff;padding:12px 16px;text-align:left;font-size:12px;font-weight:700}
+.stack-table td{padding:12px 16px;border-bottom:1px solid #f0f0f0;font-size:13px;color:var(--mid)}
+.stack-table tr:nth-child(even) td{background:#fafafa}
+.code-wrap{position:relative;margin:20px 0}
+.code-block{background:var(--code-bg);color:#c9d1d9;border-radius:10px;padding:24px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre}
+.code-copy{position:absolute;top:12px;right:12px;background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.code-copy:hover{background:#30363d;color:#c9d1d9}
+.code-copy.copied{color:#3fb950}
+.money-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.money-card{border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center}
+.money-card .amount{font-size:28px;font-weight:900;color:var(--a);display:block;margin-bottom:4px}
+.money-card .model{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#666;margin-bottom:8px}
+.money-card p{font-size:12px;color:#888;margin:0}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}
+.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a);color:var(--dark)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0f0f0}
+.compare tbody td.hl{background:#f0faf4;font-weight:600;color:#1a1a1a}
+.compare .check{color:#22c55e;font-weight:700}
+.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}
+.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#4a8a5a;font-size:12px;margin-bottom:6px}
+footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:var(--dark);border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center;font-weight:900}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.portal-grid,.money-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Courier &amp; Logistics App</span></div>
+  <ul class="nav-links">
+    <li><a href="#portals">Portals</a></li>
+    <li><a href="#stack">Tech Stack</a></li>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#business">Business Model</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="live-badge">PRODUCTION-TESTED · Live at bpcouriers.online</div>
+  <div class="hero-tag">J Supreme Tech · Full-Stack App Template · Source Code Included</div>
+  <h1 class="hero-title">Courier &amp;<br/><em>Logistics</em><br/>App</h1>
+  <p class="hero-sub">A complete, production-tested courier booking and dispatch platform. Client portal, driver dashboard, admin panel — this isn't a starter kit. It's the exact code running a live courier business, sold to you as a template.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Stack</label><span>Next.js + Payload CMS + Clerk</span></div>
+    <div class="meta-item"><label>Portals</label><span>3 — Client · Driver · Admin</span></div>
+    <div class="meta-item"><label>Live Reference</label><span>bpcouriers.online</span></div>
+    <div class="meta-item"><label>License</label><span>Commercial Use Included</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$197</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="3">0</span><div class="stat-label">User Portals</div></div>
+  <div class="stat"><span class="stat-num" data-target="197">0</span><div class="stat-label">USD vs $10K+ Custom</div></div>
+  <div class="stat"><span class="stat-num" data-target="100">0</span><div class="stat-label">% Source Included</div></div>
+  <div class="stat"><span class="stat-num" data-target="7">0</span><div class="stat-label">Layers in the Stack</div></div>
+</div>
+
+<section id="portals">
+  <div class="sec-tag">Platform Architecture</div>
+  <h1 class="sec-title">3 Portals. One Platform.</h1>
+  <p class="sec-intro">Every role in a courier operation gets their own purpose-built interface. No one sees what they don't need — drivers get their runs, clients track their packages, admins run the business.</p>
+
+  <div class="portal-grid">
+    <div class="portal-card">
+      <h3>Client Portal</h3>
+      <ul>
+        <li>Schedule pickups and deliveries</li>
+        <li>Real-time tracking dashboard</li>
+        <li>Order history and receipts</li>
+        <li>Multiple address book</li>
+        <li>Stripe + WiPay payment integration</li>
+        <li>SMS &amp; email notifications</li>
+        <li>Repeat order in one click</li>
+      </ul>
+    </div>
+    <div class="portal-card">
+      <h3>Driver Dashboard</h3>
+      <ul>
+        <li>Assigned deliveries queue</li>
+        <li>Route details and stop sequence</li>
+        <li>One-tap delivery status updates</li>
+        <li>Photo proof of delivery upload</li>
+        <li>Daily earnings summary</li>
+        <li>Mobile-first layout (works on any phone)</li>
+      </ul>
+    </div>
+    <div class="portal-card">
+      <h3>Admin Panel</h3>
+      <ul>
+        <li>All orders — filterable by status, date, driver</li>
+        <li>Drag-and-drop delivery assignment</li>
+        <li>Driver fleet management</li>
+        <li>Revenue and performance reports</li>
+        <li>Customer management</li>
+        <li>Pricing configuration per zone/weight</li>
+      </ul>
+    </div>
+    <div class="portal-card">
+      <h3>Payload CMS Backend</h3>
+      <ul>
+        <li>Full REST and GraphQL API — auto-generated</li>
+        <li>Collections: Orders, Users, Drivers, Routes</li>
+        <li>Custom hooks for business logic</li>
+        <li>Webhook integrations (Stripe, SMS)</li>
+        <li>File uploads for proof of delivery</li>
+        <li>Role-based access control</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="sec-tag">Technical Foundation</div>
+  <h1 class="sec-title">Production-Grade Tech Stack</h1>
+  <p>Every technology choice was made for a real business — reliability, Caribbean payment support, and Vercel-native deployment.</p>
+  <table class="stack-table">
+    <tr><th>Layer</th><th>Technology</th><th>Why This Choice</th></tr>
+    <tr><td><strong>Frontend</strong></td><td>Next.js 15 App Router</td><td>Server components, streaming, fast SSR, Vercel-native</td></tr>
+    <tr><td><strong>CMS / API</strong></td><td>Payload CMS 3.x</td><td>Headless, type-safe, self-hostable — no lock-in</td></tr>
+    <tr><td><strong>Auth</strong></td><td>Clerk</td><td>Managed auth with roles, webhooks, and React SDK</td></tr>
+    <tr><td><strong>Database</strong></td><td>PostgreSQL (Supabase)</td><td>Scalable, real-time, RLS for multi-tenant security</td></tr>
+    <tr><td><strong>Styling</strong></td><td>Tailwind CSS 4</td><td>Utility-first, consistent design system, zero bloat</td></tr>
+    <tr><td><strong>Payments</strong></td><td>Stripe + WiPay</td><td>International cards + Caribbean local payment coverage</td></tr>
+    <tr><td><strong>Deploy</strong></td><td>Vercel + Railway</td><td>Frontend on Vercel, Payload CMS on Railway</td></tr>
+  </table>
+</section>
+
+<section id="setup">
+  <div class="sec-tag">Quick Start</div>
+  <h1 class="sec-title">From Download to Running in Under an Hour</h1>
+
+  <div class="code-wrap">
+    <pre class="code-block"># 1. Clone and install all dependencies
+git clone [your-download-url] courier-app
+cd courier-app && npm install
+
+# 2. Copy environment file
+cp .env.example .env.local
+
+# Required environment variables:
+# DATABASE_URL               → Supabase connection string
+# CLERK_SECRET_KEY           → Clerk dashboard → API Keys
+# NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+# PAYLOAD_SECRET             → Any random 32-char string
+# STRIPE_SECRET_KEY          → Stripe dashboard → Developers
+# WIPAY_API_KEY              → WiPay merchant portal
+# WIPAY_ACCOUNT_NUMBER
+# NEXT_PUBLIC_APP_URL        → Your domain
+
+# 3. Run database migrations (creates all tables)
+npx payload migrate
+
+# 4. Start development server
+npm run dev
+# → App:  http://localhost:3000
+# → CMS:  http://localhost:3000/admin
+
+# 5. Deploy to Vercel + Railway
+vercel --prod                 # Frontend
+railway up                    # Payload CMS backend</pre>
+    <button class="code-copy" onclick="copyCode(this)">Copy</button>
+  </div>
+
+  <h2>Enabling WiPay (Caribbean Payments)</h2>
+  <p>Set <code>WIPAY_API_KEY</code> and <code>WIPAY_ACCOUNT_NUMBER</code> in your environment. The payment selector in checkout automatically shows WiPay alongside Stripe based on detected location. No additional code changes needed.</p>
+
+  <h2>Adding a New Service Type</h2>
+  <div class="code-wrap">
+    <pre class="code-block">// src/payload/collections/Services.ts
+// Add to the serviceTypes enum:
+{
+  label: 'Same-Day Premium',
+  value: 'same_day_premium',
+}
+// Pricing is auto-picked up from src/lib/pricing.ts</pre>
+    <button class="code-copy" onclick="copyCode(this)">Copy</button>
+  </div>
+</section>
+
+<section id="business">
+  <div class="sec-tag">Business Model</div>
+  <h1 class="sec-title">Three Ways to Make Money With This</h1>
+
+  <div class="money-grid">
+    <div class="money-card">
+      <span class="amount">SaaS</span>
+      <div class="model">Subscription</div>
+      <p>Host the platform. Charge courier companies $50–$300/month to use your hosted platform. 10 clients = $500–$3,000 MRR.</p>
+    </div>
+    <div class="money-card">
+      <span class="amount">Commission</span>
+      <div class="model">Per-Delivery %</div>
+      <p>Run your own courier service. Take 15–25% commission on each delivery booked through the platform. Scale by adding drivers.</p>
+    </div>
+    <div class="money-card">
+      <span class="amount">White-Label</span>
+      <div class="model">Setup + Retainer</div>
+      <p>Sell the setup to existing courier companies. Charge $1,000–$3,000 setup + $100–$200/month maintenance. Recover cost in 2 clients.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Real Deployment Reference</strong>
+    This exact codebase powers bpcouriers.online — a live courier business with real drivers, real clients, and real deliveries. You're not buying a prototype. You're buying a proven system.
+  </div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">$197 vs. What Else Would It Cost?</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>Alternative</th><th>Cost</th><th>Custom Branding</th><th>Source Code</th><th>Caribbean Payments</th><th class="hl">Courier App</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Hire a dev to build from scratch</td><td>$5,000–$15,000</td><td class="check">✓</td><td class="check">✓</td><td>Extra charge</td><td class="hl check">✓</td></tr>
+        <tr><td>Onfleet (SaaS dispatch tool)</td><td>$549/mo forever</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Bringg / Route4Me</td><td>$200–$500+/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Freelancer (Upwork/Fiverr)</td><td>$2,000–$8,000</td><td class="check">✓</td><td class="check">✓</td><td>Maybe</td><td class="hl check">✓</td></tr>
+        <tr><td>Generic booking WordPress plugin</td><td>$50–$200/yr</td><td>Limited</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td><strong>Courier App Template</strong></td><td><strong>US$197 (once)</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Questions</h1>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q">Do I need coding experience to use this? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Basic JavaScript knowledge helps. You need to be able to edit environment variables, run npm commands, and do simple text replacements in config files. If you can follow the setup guide above step by step, you can deploy this. The README includes specific troubleshooting for every common error.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I remove the WiPay integration and use Stripe only? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. Set <code>WIPAY_ENABLED=false</code> in your environment and the checkout UI will show only Stripe. No code changes needed.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I white-label this and sell it to clients? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. The commercial license included with your purchase allows you to deploy this for client projects and charge for setup + maintenance. You may not resell the source code as a template itself — but built, deployed applications for clients are fully permitted.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What hosting does this require? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Frontend: Vercel free tier handles most small deployments. Payload CMS backend: Railway's Starter plan ($5/month) is sufficient for early-stage. Supabase: Free tier covers up to 500MB database + 50,000 monthly active users. Total hosting cost: ~$5–$20/month depending on scale.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Is this updated for Next.js 15? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. Built on Next.js 15 App Router with React Server Components throughout. Payload CMS 3.x is also fully compatible. The last update timestamp is shown at the bottom of this page.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>Courier &amp; Logistics App Template © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#1a4a2a">Support: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);
+});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');
+    a.style.maxHeight=open?a.scrollHeight+'px':'0';
+  });
+});
+function copyCode(btn){navigator.clipboard.writeText(btn.previousElementSibling.textContent).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);});}
+</script>
+</body>
+</html>

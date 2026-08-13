@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/><style>*{margin:0;padding:0;box-sizing:border-box}html,body{width:1280px;height:720px;overflow:hidden;background:#0d0d0d;font-family:'Inter',sans-serif}body{position:relative}.bg-glow{position:absolute;width:500px;height:500px;border-radius:50%;background:#00B4D8;opacity:.07;filter:blur(100px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}.label{font-size:10px;font-weight:700;letter-spacing:.18em;color:#00B4D8;text-transform:uppercase;margin-bottom:8px}.accent{color:#00B4D8}
+body{display:grid;grid-template-columns:260px 1fr;height:720px}
+.sidebar{background:#0a0a0a;border-right:1px solid #1a1a1a;padding:32px 20px;overflow:hidden}
+.main{padding:40px 48px}
+.file{padding:4px 0;font-size:11px;color:rgba(255,255,255,.45);font-family:'JetBrains Mono',monospace}
+.file.folder{color:#00B4D8;font-weight:700;margin-top:10px}
+.file.indent{padding-left:18px}
+.code-block{background:#111;border:1px solid #1e1e1e;border-radius:6px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;margin-bottom:20px}
+.kw{color:#7B2FFF}.fn{color:#00B4D8}.str{color:#FFD700}.cm{color:#444}
+.tag2{display:inline-block;border:1px solid #00B4D8;color:#00B4D8;font-size:10px;font-weight:700;letter-spacing:.15em;padding:3px 12px;border-radius:2px;margin-bottom:16px}
+h3{font-size:20px;font-weight:800;color:#fff;margin-bottom:16px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.badge{background:#1a1a1a;border:1px solid #222;color:rgba(255,255,255,.5);font-size:10px;font-weight:600;padding:4px 12px;border-radius:20px}
+</style></head><body><div class="bg-glow"></div>
+<div class="sidebar">
+  <div class="label" style="margin-bottom:14px">File Structure</div>
+  <div class="file folder">/ src</div><div class="file indent">/ app</div><div class="file indent">  layout.tsx</div><div class="file indent">  page.tsx</div><div class="file indent">  / (auth)</div><div class="file folder">/ components</div><div class="file indent">ui/Button.tsx</div><div class="file indent">ui/Modal.tsx</div><div class="file folder">/ lib</div><div class="file indent">supabase.ts</div><div class="file indent">auth.ts</div><div class="file indent">utils.ts</div><div class="file folder">/ hooks</div><div class="file indent">useUser.ts</div><div class="file ">middleware.ts</div><div class="file ">.env.example</div><div class="file ">tailwind.config.ts</div>
+</div>
+<div class="main">
+  <div class="tag2">INCLUDED CODE</div>
+  <h3>Production-Ready <span class="accent">Boilerplate</span></h3>
+  <div class="code-block">
+<span class="cm">// Auth middleware - ready to use</span>
+<span class="kw">export async function</span> <span class="fn">middleware</span>(req) {
+  <span class="kw">const</span> { data: { session } } = <span class="kw">await</span> supabase
+    .auth.<span class="fn">getSession</span>();
+  <span class="kw">if</span> (!session) <span class="fn">redirect</span>(<span class="str">'/login'</span>);
+}</div>
+  <div class="badges"><div class="badge">Next.js 15</div><div class="badge">Tailwind 4</div><div class="badge">Supabase</div><div class="badge">TypeScript</div><div class="badge">Auth Ready</div><div class="badge">SEO Meta</div><div class="badge">Dark Mode</div><div class="badge">Vercel Deploy</div><div class="badge">MDX Blog</div><div class="badge">API Routes</div></div>
+</div></body></html>

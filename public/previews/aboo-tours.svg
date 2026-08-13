@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#0a0a0a"/>
+  <rect width="800" height="38" fill="#1a1500"/>
+  <circle cx="18" cy="19" r="5.5" fill="#ff5f56"/><circle cx="34" cy="19" r="5.5" fill="#ffbd2e"/><circle cx="50" cy="19" r="5.5" fill="#27c93f"/>
+  <rect x="80" y="9" width="640" height="20" rx="10" fill="#ffffff0d"/>
+  <text x="400" y="23" font-family="Arial,sans-serif" font-size="10" fill="#ffffff44" text-anchor="middle">abo-tours.vercel.app</text>
+  <!-- Sky gradient bg -->
+  <rect y="38" width="800" height="462" fill="#0a1628"/>
+  <rect y="38" width="800" height="200" fill="url(#skyGrad)"/>
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0a2a4a"/>
+      <stop offset="1" stop-color="#1a3a5c"/>
+    </linearGradient>
+  </defs>
+  <!-- Sun/glow -->
+  <circle cx="400" cy="150" r="80" fill="#FFD700" opacity="0.08"/>
+  <circle cx="400" cy="150" r="40" fill="#FFD700" opacity="0.12"/>
+  <!-- Nav -->
+  <rect y="38" width="800" height="44" fill="#00000033"/>
+  <text x="24" y="64" font-family="Georgia,serif" font-size="14" fill="#FFD700" font-weight="bold">Aboo Tours</text>
+  <text x="580" y="64" font-family="Arial,sans-serif" font-size="8" fill="#ffffffbb">Tours</text>
+  <text x="630" y="64" font-family="Arial,sans-serif" font-size="8" fill="#ffffffbb">Transfers</text>
+  <rect x="700" y="53" width="68" height="18" rx="9" fill="#FFD700"/>
+  <text x="734" y="65" font-family="Arial,sans-serif" font-size="7" fill="#1a1500" text-anchor="middle" font-weight="700">Book Now</text>
+  <!-- Hero text -->
+  <text x="400" y="125" font-family="Georgia,serif" font-size="10" fill="#FFD700" text-anchor="middle" letter-spacing="3">JAMAICA TOURISM &amp; TRANSFERS</text>
+  <text x="400" y="156" font-family="Georgia,serif" font-size="24" fill="white" text-anchor="middle" font-weight="bold">Experience Jamaica</text>
+  <text x="400" y="182" font-family="Georgia,serif" font-size="24" fill="#FFD700" text-anchor="middle" font-weight="bold">Like Never Before.</text>
+  <rect x="300" y="200" width="200" height="26" rx="13" fill="#FFD700"/>
+  <text x="400" y="217" font-family="Arial,sans-serif" font-size="9" fill="#1a1500" text-anchor="middle" font-weight="700">Explore Tours →</text>
+  <!-- Tour cards -->
+  <rect y="252" width="800" height="248" fill="#0f1e30"/>
+  <rect x="30" y="270" width="224" height="130" rx="12" fill="#152840" stroke="#FFD70033" stroke-width="1"/>
+  <rect x="30" y="270" width="224" height="50" rx="12" fill="#FFD700" opacity="0.15"/>
+  <text x="142" y="300" font-family="Georgia,serif" font-size="10" fill="#FFD700" text-anchor="middle" font-weight="bold">Dunn's River Falls</text>
+  <text x="142" y="316" font-family="Arial,sans-serif" font-size="7" fill="#ffffff88" text-anchor="middle">Day tour · transport included</text>
+  <text x="142" y="368" font-family="Arial Black,sans-serif" font-size="16" fill="white" text-anchor="middle">US$85</text>
+  <text x="142" y="384" font-family="Arial,sans-serif" font-size="7" fill="#FFD700" text-anchor="middle">per person</text>
+  <rect x="284" y="270" width="224" height="130" rx="12" fill="#152840" stroke="#FFD70033" stroke-width="1"/>
+  <rect x="284" y="270" width="224" height="50" rx="12" fill="#FFD700" opacity="0.15"/>
+  <text x="396" y="300" font-family="Georgia,serif" font-size="10" fill="#FFD700" text-anchor="middle" font-weight="bold">Airport Transfers</text>
+  <text x="396" y="316" font-family="Arial,sans-serif" font-size="7" fill="#ffffff88" text-anchor="middle">Private · meet &amp; greet</text>
+  <text x="396" y="368" font-family="Arial Black,sans-serif" font-size="16" fill="white" text-anchor="middle">US$55</text>
+  <text x="396" y="384" font-family="Arial,sans-serif" font-size="7" fill="#FFD700" text-anchor="middle">one way</text>
+  <rect x="538" y="270" width="232" height="130" rx="12" fill="#152840" stroke="#FFD70033" stroke-width="1"/>
+  <rect x="538" y="270" width="232" height="50" rx="12" fill="#FFD700" opacity="0.15"/>
+  <text x="654" y="300" font-family="Georgia,serif" font-size="10" fill="#FFD700" text-anchor="middle" font-weight="bold">Private Island Tour</text>
+  <text x="654" y="316" font-family="Arial,sans-serif" font-size="7" fill="#ffffff88" text-anchor="middle">Custom itinerary · full day</text>
+  <text x="654" y="368" font-family="Arial Black,sans-serif" font-size="16" fill="white" text-anchor="middle">US$220</text>
+  <text x="654" y="384" font-family="Arial,sans-serif" font-size="7" fill="#FFD700" text-anchor="middle">group of 4</text>
+  <!-- Footer strip -->
+  <rect y="440" width="800" height="60" fill="#0a1220"/>
+  <text x="400" y="475" font-family="Georgia,serif" font-size="9" fill="#FFD70066" text-anchor="middle">Aboo Tours · Jamaica · Built by J Supreme Tech</text>
+</svg>

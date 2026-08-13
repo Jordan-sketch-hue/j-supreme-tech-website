@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Brand Starter Kit — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#7B2FFF;--dark:#0a0410;--mid:#555;--light:#f5f0ff;--border:#ddd5ff;--nav-h:60px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(10,4,16,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #180830}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#6a4a9a;text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(123,47,255,.15),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.05;margin-bottom:24px}.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#bbb;max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #180830;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#6a4a9a;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#07020e;border-top:1px solid #180830;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#4a2a7a;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0eaff}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}li{margin-bottom:8px}
+.deliverable-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.del-card{border:1px solid var(--border);border-radius:12px;padding:20px;background:var(--light)}
+.del-card .emoji{font-size:24px;margin-bottom:12px;display:block}
+.del-card h3{margin:0 0 4px;font-size:13px;color:#1a1a1a}
+.del-card p{margin:0;font-size:12px;color:#888}
+.format-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:24px 0}
+.format-item{background:var(--light);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;align-items:flex-start;gap:12px}
+.format-item .icon{font-size:18px;flex-shrink:0}
+.format-item h3{margin:0 0 2px;font-size:13px;color:#1a1a1a}
+.format-item p{margin:0;font-size:11px;color:#888}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px var(--border)}
+.compare thead{background:var(--dark)}.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0eaff}
+.compare tbody td.hl{background:#f5f0ff;font-weight:600;color:#1a1a1a}
+.compare .check{color:#22c55e;font-weight:700}.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#4a2a7a;font-size:12px;margin-bottom:6px}footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.deliverable-grid{grid-template-columns:1fr}.format-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Brand Starter Kit</span></div>
+  <ul class="nav-links">
+    <li><a href="#deliverables">What's Inside</a></li>
+    <li><a href="#formats">File Formats</a></li>
+    <li><a href="#system">Brand System</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · Digital Download · Instant Delivery</div>
+  <h1 class="hero-title">Brand<br/><em>Starter</em><br/>Kit</h1>
+  <p class="hero-sub">A complete brand identity package — logo suite, color palette, typography system, social media templates, and brand guidelines — for businesses that are serious about looking professional from day one.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Deliverables</label><span>Logo Suite + 12 Templates</span></div>
+    <div class="meta-item"><label>Formats</label><span>SVG · PNG · PDF · Canva</span></div>
+    <div class="meta-item"><label>Editable</label><span>100% Customizable</span></div>
+    <div class="meta-item"><label>License</label><span>Commercial Use Included</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$29</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="12">0</span><div class="stat-label">Social Templates</div></div>
+  <div class="stat"><span class="stat-num" data-target="6">0</span><div class="stat-label">Logo Variations</div></div>
+  <div class="stat"><span class="stat-num" data-target="3">0</span><div class="stat-label">Color Palettes</div></div>
+  <div class="stat"><span class="stat-num" data-target="100">0</span><div class="stat-label">% Commercially Licensed</div></div>
+</div>
+
+<section id="deliverables">
+  <div class="sec-tag">What's Inside</div>
+  <h1 class="sec-title">Everything a New Brand Needs</h1>
+  <p class="sec-intro">Not just a logo file. A complete brand system that ensures you look consistent everywhere your business shows up — online, in print, on packaging.</p>
+  <div class="deliverable-grid">
+    <div class="del-card"><span class="emoji">🔤</span><h3>Logo Suite</h3><p>6 variations: full logo, horizontal, stacked, icon-only, white version, black version. Every use case covered.</p></div>
+    <div class="del-card"><span class="emoji">🎨</span><h3>Color Palette</h3><p>3 color palettes with HEX, RGB, and CMYK values. Primary, secondary, and accent — plus usage guidelines for each.</p></div>
+    <div class="del-card"><span class="emoji">🖋️</span><h3>Typography System</h3><p>2-font pairing (heading + body) with weight hierarchy. Size scale for web, print, and social media.</p></div>
+    <div class="del-card"><span class="emoji">📱</span><h3>Social Media Templates</h3><p>12 Canva templates: 4 feed posts, 3 stories, 2 reels covers, 2 highlight icons, 1 profile banner. All editable.</p></div>
+    <div class="del-card"><span class="emoji">📄</span><h3>Brand Guidelines PDF</h3><p>8-page document covering logo usage, spacing rules, color applications, typography rules, and what not to do.</p></div>
+    <div class="del-card"><span class="emoji">🗂️</span><h3>File Organization Kit</h3><p>Pre-organized folder structure (Brand Assets → Logo → Social → Print → Web) so your files never get messy.</p></div>
+    <div class="del-card"><span class="emoji">🖼️</span><h3>Business Card Template</h3><p>Print-ready front and back business card design (3.5" × 2") — editable in Canva, exportable to PDF.</p></div>
+    <div class="del-card"><span class="emoji">💬</span><h3>Brand Voice Guide</h3><p>1-page tone and messaging framework: what you are, what you're not, sample phrases to use and avoid.</p></div>
+    <div class="del-card"><span class="emoji">🏷️</span><h3>Favicon + App Icon</h3><p>Square icon optimized for browser favicon (32px), iOS app icon (180px), and Android icon (192px).</p></div>
+  </div>
+</section>
+
+<section id="formats">
+  <div class="sec-tag">File Formats</div>
+  <h1 class="sec-title">Works Everywhere You Need It</h1>
+  <div class="format-list">
+    <div class="format-item"><div class="icon">📐</div><div><h3>SVG (Vector)</h3><p>Infinitely scalable. Use for web, large print, signage, embroidery. Never pixelates.</p></div></div>
+    <div class="format-item"><div class="icon">🖼️</div><div><h3>PNG (Transparent)</h3><p>Raster with transparent background. Use in social media, email headers, documents.</p></div></div>
+    <div class="format-item"><div class="icon">📄</div><div><h3>PDF (Print-Ready)</h3><p>CMYK color mode for professional printing — business cards, letterheads, banners.</p></div></div>
+    <div class="format-item"><div class="icon">🎨</div><div><h3>Canva Templates</h3><p>Editable Canva files. No design software needed. Change text, colors, and photos directly.</p></div></div>
+  </div>
+  <div class="callout"><strong>Why Source Files Matter</strong>Many designers deliver only a JPEG of your logo — a dead-end file you can't resize without quality loss. This kit gives you source files in every format you'll ever need, so you're never locked out of your own brand.</div>
+</section>
+
+<section id="system">
+  <div class="sec-tag">Brand System</div>
+  <h1 class="sec-title">Rules That Make Every Touchpoint Consistent</h1>
+  <p>A brand system isn't a logo — it's a set of rules that make every touchpoint look like it came from the same place.</p>
+  <ul>
+    <li><strong>Visual hierarchy</strong> — which elements get attention first, second, and third</li>
+    <li><strong>Consistency rules</strong> — minimum clear space, color substitution on dark vs. light backgrounds</li>
+    <li><strong>Application examples</strong> — mockups showing your logo on a website header, business card, and Instagram profile</li>
+    <li><strong>Misuse examples</strong> — explicitly showing what NOT to do (stretching, recoloring, adding effects)</li>
+  </ul>
+  <div class="callout"><strong>Custom Version Available</strong>The kit is an editable starting point. If you'd prefer J Supreme Tech to customize colors, fonts, and layouts for your specific business before delivery — that's available as a $99 add-on. WhatsApp (658) 218-2282 to arrange it.</div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">$29 vs. Every Other Path to a Brand</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead><tr><th>Option</th><th>Cost</th><th>Source Files</th><th>Commercial License</th><th>Brand Guidelines</th><th class="hl">Brand Starter Kit</th></tr></thead>
+      <tbody>
+        <tr><td>Branding agency</td><td>$2,000–$10,000+</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">US$29</td></tr>
+        <tr><td>Freelance designer (Fiverr)</td><td>$50–$300</td><td>Sometimes</td><td>Sometimes</td><td class="cross">✗</td><td class="hl check">✓ + guidelines</td></tr>
+        <tr><td>Canva "Brand Kit"</td><td>$15/mo forever</td><td class="cross">✗</td><td>Limited</td><td class="cross">✗</td><td class="hl check">✓ at one-time cost</td></tr>
+        <tr><td>99designs logo only</td><td>$299–$999</td><td class="check">✓</td><td class="check">✓</td><td class="cross">✗</td><td class="hl check">✓ + more included</td></tr>
+        <tr><td>AI logo generator (Looka)</td><td>$65–$200 (limited formats)</td><td class="cross">✗</td><td>Subscription</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td><strong>Brand Starter Kit</strong></td><td><strong>US$29 (once)</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Before You Buy</h1>
+  <div class="faq">
+    <div class="faq-item"><button class="faq-q">Is this a custom logo or a template I customize? <span class="faq-icon">+</span></button><div class="faq-a"><p>This is a professional template kit you customize with your business name and preferred colors. If you want a fully custom logo designed from scratch, that's a separate J Supreme Tech service — contact us at (658) 218-2282 for a quote.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Do I need design skills to use this? <span class="faq-icon">+</span></button><div class="faq-a"><p>The Canva templates require no design skills — just change text and colors in Canva's drag-and-drop editor. SVG and PDF files require basic design software (Illustrator, Affinity, Canva Pro). A getting-started guide is included.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can I use this for a client's brand? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes, with commercial license — you can customize and deliver this to a client as part of your design services. You may not resell the raw kit files as-is. You're selling your customization work, not the kit itself.</p></div></div>
+    <div class="faq-item"><button class="faq-q">What Canva plan do I need? <span class="faq-icon">+</span></button><div class="faq-a"><p>Canva Free is sufficient for basic text and color editing. Canva Pro (~$15/month) unlocks brand kit storage, background remover, and additional export options. Both plans work with the included templates.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>Brand Starter Kit © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#180830">Questions: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');a.style.maxHeight=open?a.scrollHeight+'px':'0';});});
+</script>
+</body>
+</html>

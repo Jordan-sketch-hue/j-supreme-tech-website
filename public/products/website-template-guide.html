@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Business Website Template — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#FF8C00;--dark:#0a0500;--mid:#555;--light:#fff8f0;--border:#ffcf80;--nav-h:60px;--code-bg:#0d1117}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(10,5,0,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #1a0e00}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#6a4000;text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,140,0,.12),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;margin-bottom:24px}.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#bba;max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #1a0e00;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#6a4000;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#070300;border-top:1px solid #1a0e00;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#4a2500;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f5ede0}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}li{margin-bottom:8px}
+.section-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+.sec-card{background:var(--light);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.sec-card .num{font-size:20px;font-weight:900;color:var(--a);display:block;margin-bottom:8px}
+.sec-card strong{font-size:12px;color:#1a1a1a;display:block;margin-bottom:4px}
+.sec-card span{font-size:11px;color:#888}
+.code-wrap{position:relative;margin:20px 0}
+.code-block{background:var(--code-bg);color:#c9d1d9;border-radius:10px;padding:24px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre}
+.code-copy{position:absolute;top:12px;right:12px;background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif}
+.code-copy:hover{background:#30363d;color:#c9d1d9}.code-copy.copied{color:#3fb950}
+.tech-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px var(--border);margin:24px 0}
+.tech-table thead{background:var(--dark)}.tech-table thead th{color:#fff;padding:14px 20px;font-size:12px;font-weight:700;text-align:left}
+.tech-table tbody tr:nth-child(even){background:var(--light)}
+.tech-table tbody td{padding:12px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid var(--border)}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f5ede0}
+.compare tbody td.hl{background:#fff8f0;font-weight:600;color:#1a1a1a}
+.compare .check{color:#22c55e;font-weight:700}.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#4a2500;font-size:12px;margin-bottom:6px}footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center;font-weight:900}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.section-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Website Template</span></div>
+  <ul class="nav-links">
+    <li><a href="#whats-inside">Sections</a></li>
+    <li><a href="#tech">Tech Stack</a></li>
+    <li><a href="#setup">Deploy in 15 Min</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · HTML/CSS/JS Template · Full Source Code</div>
+  <h1 class="hero-title">Business<br/><em>Website</em><br/>Template</h1>
+  <p class="hero-sub">A clean, fast, professional business website template built in pure HTML, CSS, and JavaScript. No frameworks, no build tools, no npm. Deploy in 15 minutes on any host. Customize with a text editor.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Stack</label><span>HTML · CSS · Vanilla JS</span></div>
+    <div class="meta-item"><label>Sections</label><span>8 Pre-Built Sections</span></div>
+    <div class="meta-item"><label>Deploy</label><span>Vercel · Netlify · GitHub Pages</span></div>
+    <div class="meta-item"><label>License</label><span>Commercial Use Included</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$47</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="8">0</span><div class="stat-label">Pre-Built Sections</div></div>
+  <div class="stat"><span class="stat-num" data-target="0">0</span><div class="stat-label">npm Packages Required</div></div>
+  <div class="stat"><span class="stat-num" data-target="15">0</span><div class="stat-label">Minutes to Deploy</div></div>
+  <div class="stat"><span class="stat-num" data-target="100">0</span><div class="stat-label">% Lighthouse Score Target</div></div>
+</div>
+
+<section id="whats-inside">
+  <div class="sec-tag">What's Included</div>
+  <h1 class="sec-title">8 Sections, Ready to Customize</h1>
+  <p class="sec-intro">Every section a business website needs — structured, designed, and ready to swap in your content. Change text and colors in any text editor.</p>
+  <div class="section-grid">
+    <div class="sec-card"><span class="num">01</span><strong>Hero Section</strong><span>Headline, CTA button, background options</span></div>
+    <div class="sec-card"><span class="num">02</span><strong>About</strong><span>Brand story, values, founder photo layout</span></div>
+    <div class="sec-card"><span class="num">03</span><strong>Services</strong><span>3-column card grid with icons</span></div>
+    <div class="sec-card"><span class="num">04</span><strong>Pricing</strong><span>3-tier table, highlight one as featured</span></div>
+    <div class="sec-card"><span class="num">05</span><strong>Testimonials</strong><span>Quote carousel with star ratings</span></div>
+    <div class="sec-card"><span class="num">06</span><strong>FAQ Accordion</strong><span>Animated expand/collapse answers</span></div>
+    <div class="sec-card"><span class="num">07</span><strong>Contact Form</strong><span>Name, email, message — Formspree-ready</span></div>
+    <div class="sec-card"><span class="num">08</span><strong>Footer</strong><span>Social links, nav, legal, WhatsApp button</span></div>
+  </div>
+  <h2>JavaScript Features Included</h2>
+  <ul>
+    <li>Sticky navigation that highlights active section on scroll</li>
+    <li>Animated counter numbers when they scroll into view</li>
+    <li>FAQ accordion with smooth height transitions</li>
+    <li>Testimonial carousel with auto-play and manual controls</li>
+    <li>Mobile hamburger menu with smooth open/close</li>
+    <li>Floating WhatsApp button (pre-wired with your number)</li>
+    <li>Back-to-top button that appears after scrolling 400px</li>
+    <li>Scroll progress bar at top of viewport</li>
+  </ul>
+</section>
+
+<section id="tech">
+  <div class="sec-tag">Technical Specs</div>
+  <h1 class="sec-title">No Build Step. No Dependencies.</h1>
+  <p>Pure HTML, CSS, and Vanilla JavaScript. Open the folder. Edit the files. Upload. Done. No Node.js, no npm install, no webpack, no build command.</p>
+  <table class="tech-table">
+    <thead><tr><th>What</th><th>How</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Fonts</td><td>Google Fonts via CDN link in &lt;head&gt;</td><td>Zero local files to manage</td></tr>
+      <tr><td>Icons</td><td>Inline SVG or Unicode emoji</td><td>No icon library dependency</td></tr>
+      <tr><td>Contact Form</td><td>Formspree (free tier: 50 submissions/mo)</td><td>No server-side code needed</td></tr>
+      <tr><td>Animations</td><td>Pure CSS transitions + IntersectionObserver JS</td><td>Smooth without libraries</td></tr>
+      <tr><td>Layout</td><td>CSS Flexbox + Grid</td><td>Responsive without frameworks</td></tr>
+      <tr><td>Colors</td><td>CSS Custom Properties (variables)</td><td>Change accent color in one line</td></tr>
+      <tr><td>Deploy</td><td>Drag-and-drop to Vercel, Netlify, or GitHub Pages</td><td>Free static hosting</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="setup">
+  <div class="sec-tag">Quick Start</div>
+  <h1 class="sec-title">Live in 15 Minutes</h1>
+  <div class="code-wrap">
+    <pre class="code-block"># No installation needed — just open and edit
+
+# 1. Download and unzip the template
+# 2. Open index.html in your text editor
+# 3. Find these variables at the top of styles.css:
+#    --primary: #FF8C00;      ← your brand color
+#    --font-heading: 'Inter'; ← your heading font
+#    --font-body: 'Inter';    ← your body font
+
+# 4. In index.html, find all [PLACEHOLDER] text and replace:
+#    [YOUR BUSINESS NAME]
+#    [YOUR TAGLINE]
+#    [YOUR PHONE / WHATSAPP NUMBER]
+#    [YOUR EMAIL]
+#    [YOUR SERVICE 1, 2, 3]
+
+# 5. Deploy to Vercel (free):
+#    → vercel.com → New Project → Import Folder → Done</pre>
+    <button class="code-copy" onclick="copyCode(this)">Copy</button>
+  </div>
+  <div class="callout"><strong>Formspree Contact Form Setup</strong>Sign up free at formspree.io. Create a form. Copy your Form ID (looks like xpzbkwgl). In index.html, find the &lt;form&gt; tag and replace action="https://formspree.io/f/YOUR_ID" with your actual form ID. Submissions arrive in your email immediately — no server code needed.</div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">$47 vs. Every Other Way to Get a Website</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead><tr><th>Option</th><th>Cost</th><th>No Monthly Fee</th><th>Full Source Code</th><th>No Build Tool</th><th class="hl">This Template</th></tr></thead>
+      <tbody>
+        <tr><td>Squarespace</td><td>$23–$65/mo ($828/yr min)</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td><td class="hl check">✓ No subscription</td></tr>
+        <tr><td>WordPress + premium theme</td><td>$100–$200/yr + $5–$20/mo hosting</td><td class="cross">✗</td><td class="check">✓</td><td class="cross">✗</td><td class="hl check">✓ Simpler</td></tr>
+        <tr><td>ThemeForest HTML template</td><td>$14–$49 (often over-engineered)</td><td class="check">✓</td><td class="check">✓</td><td>Varies</td><td class="hl check">✓ Caribbean-native</td></tr>
+        <tr><td>Hire a developer</td><td>$500–$3,000</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">US$47 same result</td></tr>
+        <tr><td>Build from scratch</td><td>$0 + 20–40 hours</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl check">✓ Saves all 40hrs</td></tr>
+        <tr><td><strong>Business Website Template</strong></td><td><strong>US$47 (once)</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Before You Buy</h1>
+  <div class="faq">
+    <div class="faq-item"><button class="faq-q">Do I need to know how to code? <span class="faq-icon">+</span></button><div class="faq-a"><p>Basic HTML editing (changing text between tags) is sufficient. The template is heavily commented — every section is labeled. If you can change text in a Word document, you can customize this template. A customization guide video is included.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can I add more sections? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes. Every section is a self-contained HTML block. Copy a section, paste it below, and change the content. The CSS grid and flexbox layouts adapt automatically. Additional section templates (portfolio, team, gallery) are included as bonus files.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Does this work on mobile? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes — built mobile-first. Tested on iPhone SE (375px) through 4K desktop (2560px). The hamburger menu, responsive grid, and fluid typography are all included and functioning out of the box.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can I use this template for client work? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes. The commercial license covers deploying this for clients. You may not resell the raw template files — you're billing your customization work, not redistributing the source kit.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>Business Website Template © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#1a0e00">Questions: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');a.style.maxHeight=open?a.scrollHeight+'px':'0';});});
+function copyCode(btn){navigator.clipboard.writeText(btn.previousElementSibling.textContent).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);});}
+</script>
+</body>
+</html>

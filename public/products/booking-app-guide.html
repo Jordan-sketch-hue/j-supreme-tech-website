@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Booking & Service App Template — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#FF3B3B;--dark:#0a0a0a;--mid:#555;--light:#fff5f5;--border:#ffc5c5;--nav-h:60px;--code-bg:#0d1117}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--dark);background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(10,10,10,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #1f1f1f}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#888;text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(255,59,59,.12),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;margin-bottom:24px}.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#bbb;max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #222;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#555;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#0f0505;border-top:1px solid #200;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#5a3a3a;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0f0f0}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}li{margin-bottom:8px}
+.use-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.use-card{background:var(--light);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+.use-card strong{display:block;font-size:13px;font-weight:700;margin-bottom:6px;color:var(--dark)}
+.use-card span{font-size:11px;color:#888}
+.feat-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.feat-item{display:flex;gap:14px;align-items:flex-start;padding:18px;border:1px solid #f0f0f0;border-radius:10px}
+.feat-item .icon{font-size:22px;flex-shrink:0}
+.feat-item h3{margin:0 0 4px;font-size:13px;color:var(--dark)}
+.feat-item p{margin:0;font-size:12px;color:#888}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.code-wrap{position:relative;margin:20px 0}
+.code-block{background:var(--code-bg);color:#c9d1d9;border-radius:10px;padding:24px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre}
+.code-copy{position:absolute;top:12px;right:12px;background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif}
+.code-copy:hover{background:#30363d;color:#c9d1d9}.code-copy.copied{color:#3fb950}
+.revenue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.rev-card{border:1px solid var(--border);border-radius:12px;padding:24px}
+.rev-card h3{margin-top:0;font-size:14px;color:var(--dark)}
+.rev-card .amount{font-size:22px;font-weight:900;color:var(--a);margin-bottom:8px;display:block}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0f0f0}
+.compare tbody td.hl{background:#fff5f5;font-weight:600;color:var(--dark)}
+.compare .check{color:#22c55e;font-weight:700}.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#555;font-size:12px;margin-bottom:6px}footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.use-grid,.feat-list,.revenue-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Booking &amp; Service App</span></div>
+  <ul class="nav-links">
+    <li><a href="#usecases">Use Cases</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#setup">Setup</a></li>
+    <li><a href="#revenue">Revenue Models</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · Full-Stack App Template · Any Service Business</div>
+  <h1 class="hero-title">Booking &amp;<br/><em>Service</em><br/>App</h1>
+  <p class="hero-sub">A complete online booking system with Stripe payments, real-time availability calendar, automated email reminders, admin dashboard, and client self-service. Works for any service business globally. Own it once, deploy it forever.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Stack</label><span>Next.js · Supabase · Stripe</span></div>
+    <div class="meta-item"><label>Key Feature</label><span>Real-Time Availability Calendar</span></div>
+    <div class="meta-item"><label>Automated Emails</label><span>Confirm · Remind · Follow-up</span></div>
+    <div class="meta-item"><label>License</label><span>Commercial Use Included</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$147</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="9">0</span><div class="stat-label">Industry Templates</div></div>
+  <div class="stat"><span class="stat-num" data-target="3">0</span><div class="stat-label">Automated Emails</div></div>
+  <div class="stat"><span class="stat-num" data-target="147">0</span><div class="stat-label">USD vs $16/mo Forever</div></div>
+  <div class="stat"><span class="stat-num" data-target="100">0</span><div class="stat-label">% Source Code Yours</div></div>
+</div>
+
+<section id="usecases">
+  <div class="sec-tag">Who This Is For</div>
+  <h1 class="sec-title">Any Business That Takes Appointments</h1>
+  <p class="sec-intro">Nine pre-configured industry templates. Switch the service catalogue and you have a booking system tuned for your business in under an hour.</p>
+
+  <div class="use-grid">
+    <div class="use-card"><strong>Hair Salons</strong><span>Chair bookings, stylist selection, deposit collection</span></div>
+    <div class="use-card"><strong>Massage / Spa</strong><span>Treatment type, duration, therapist assignment</span></div>
+    <div class="use-card"><strong>Moving Services</strong><span>Date, crew size, item list, quote calculator</span></div>
+    <div class="use-card"><strong>Tours &amp; Transfers</strong><span>Group size, pickup location, tour selection</span></div>
+    <div class="use-card"><strong>Coaches &amp; Consultants</strong><span>Session type, duration, upfront payment</span></div>
+    <div class="use-card"><strong>Photography</strong><span>Shoot type, location, package + deposit</span></div>
+    <div class="use-card"><strong>Cleaning Services</strong><span>Property size, frequency, add-ons</span></div>
+    <div class="use-card"><strong>Fitness / Trainers</strong><span>Class type, slot, membership packages</span></div>
+    <div class="use-card"><strong>Car Detailing</strong><span>Vehicle size, service level, deposit required</span></div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="sec-tag">Core Features</div>
+  <h1 class="sec-title">Everything a Booking System Needs</h1>
+
+  <div class="feat-list">
+    <div class="feat-item"><div class="icon">📅</div><div><h3>Live Availability Calendar</h3><p>Real-time date/time picker showing only open slots. Automatic blocking of booked times, buffer periods, and holidays.</p></div></div>
+    <div class="feat-item"><div class="icon">💳</div><div><h3>Stripe Checkout</h3><p>Full payment or deposit collection at booking. Automatic receipts. Refunds managed from admin. 135+ countries supported.</p></div></div>
+    <div class="feat-item"><div class="icon">📧</div><div><h3>Automated Email Flow</h3><p>Booking confirmation sent instantly. Reminder sent 24 hours before. Follow-up request for review sent after completion.</p></div></div>
+    <div class="feat-item"><div class="icon">🗓️</div><div><h3>Admin Calendar</h3><p>Weekly and monthly view of all bookings. Drag-and-drop rescheduling. One-click status updates (confirmed, completed, cancelled).</p></div></div>
+    <div class="feat-item"><div class="icon">👤</div><div><h3>Client Dashboard</h3><p>Clients view upcoming and past bookings, reschedule (within your rules), cancel, and re-book in one click.</p></div></div>
+    <div class="feat-item"><div class="icon">👥</div><div><h3>Staff Management</h3><p>Assign bookings to specific staff members. Each staff member has their own availability schedule. Clients can choose their preferred person.</p></div></div>
+    <div class="feat-item"><div class="icon">⚙️</div><div><h3>Booking Rules Engine</h3><p>Minimum notice period, maximum advance booking window, buffer time between appointments. All configurable per service.</p></div></div>
+    <div class="feat-item"><div class="icon">📊</div><div><h3>Service Catalogue Admin</h3><p>Add unlimited services with names, descriptions, durations, prices, and deposit amounts. Toggle active/inactive without deleting.</p></div></div>
+  </div>
+</section>
+
+<section id="setup">
+  <div class="sec-tag">Quick Start</div>
+  <h1 class="sec-title">Up and Running in 45 Minutes</h1>
+
+  <div class="code-wrap">
+    <pre class="code-block"># 1. Install
+git clone [your-download-url] booking-app
+cd booking-app && npm install
+
+# 2. Environment variables
+cp .env.example .env.local
+# NEXT_PUBLIC_SUPABASE_URL
+# SUPABASE_SERVICE_ROLE_KEY
+# STRIPE_SECRET_KEY
+# STRIPE_WEBHOOK_SECRET
+# RESEND_API_KEY
+# NEXT_PUBLIC_APP_URL
+
+# 3. Push database schema
+npx supabase db push
+
+# 4. Start
+npm run dev  →  localhost:3000</pre>
+    <button class="code-copy" onclick="copyCode(this)">Copy</button>
+  </div>
+
+  <h2>Configuring Your First Service</h2>
+  <p>Go to <code>/admin/services</code> in your running app. Click "Add Service." Fill in name, duration (minutes), price, and optional deposit. Toggle it active. The booking calendar immediately shows this service as an option for clients.</p>
+
+  <h2>Setting Availability</h2>
+  <p>Go to <code>/admin/availability</code>. Set your working days and hours, lunch breaks, and buffer time between appointments. Add blocked dates for holidays. The system calculates open slots automatically — no manual calendar management.</p>
+
+  <div class="callout">
+    <strong>WhatsApp Booking Link</strong>
+    Add your booking page URL to your WhatsApp auto-reply: "Hi! Book your appointment here: [your-domain]/book". Every incoming WhatsApp enquiry self-converts into a structured booking — zero back-and-forth scheduling needed.
+  </div>
+</section>
+
+<section id="revenue">
+  <div class="sec-tag">Business Models</div>
+  <h1 class="sec-title">Three Ways to Make Money With This Template</h1>
+
+  <div class="revenue-grid">
+    <div class="rev-card">
+      <h3>Use It Yourself</h3>
+      <span class="amount">$0 extra/mo</span>
+      <p>Deploy for your own service business. Eliminate phone bookings, cut no-shows by 40–60% with reminders, collect deposits upfront. Pays for itself in the first week.</p>
+    </div>
+    <div class="rev-card">
+      <h3>Client Projects</h3>
+      <span class="amount">$300–$800 setup</span>
+      <p>Deploy for service-business clients as a done-for-you booking system. Charge setup fee + $50–$100/month maintenance. Recover your template cost in the first client.</p>
+    </div>
+    <div class="rev-card">
+      <h3>White-Label SaaS</h3>
+      <span class="amount">$29–$99/mo/client</span>
+      <p>Host the platform, let multiple businesses use it. 10 clients at $49/month = $490 MRR. The booking app becomes the core of a productized service.</p>
+    </div>
+  </div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">$147 Once vs. Paying Monthly Forever</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>Alternative</th><th>Cost</th><th>Source Code</th><th>Custom Domain</th><th>No Monthly Fee</th><th class="hl">Booking App</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Calendly (Pro)</td><td>$16/mo → $576 over 3 years</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Acuity Scheduling</td><td>$16–$49/mo forever</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Square Appointments</td><td>Free (takes 2.6% per booking)</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Hire a dev to build it</td><td>$3,000–$8,000 one-time</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl check">✓ at 2–5% cost</td></tr>
+        <tr><td>WordPress booking plugin</td><td>$60–$200/yr + WP hosting</td><td class="cross">✗</td><td class="check">✓</td><td>Partial</td><td class="hl check">✓</td></tr>
+        <tr><td><strong>Booking App Template</strong></td><td><strong>US$147 (once)</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>The Real Math on Calendly</strong>
+    Calendly Pro at $16/month costs $576 over 3 years — and you still don't own anything. This template costs $147 once, includes source code, works on your domain, and can be deployed for unlimited clients.
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Questions</h1>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q">Do clients need to create an account to book? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Optional. By default, clients can book as guests (email only). If you enable accounts, returning clients get a dashboard with booking history. The <code>REQUIRE_ACCOUNT</code> env flag toggles between modes.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I accept deposits instead of full payment? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. Each service has a separate deposit amount field in the admin. When set, the checkout collects the deposit at booking. The balance is collected separately (you handle that directly with the client). Stripe Checkout handles the split automatically.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How does the reminder email work? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>A Supabase Edge Function runs on a schedule (every hour) and sends reminders to any bookings happening within the next 24 hours that haven't been reminded yet. No third-party scheduler needed. The email template is in <code>src/emails/reminder.tsx</code> — fully customizable.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I use this for group bookings (classes, tours)? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. Set a <code>max_capacity</code> on any service. The system tracks confirmed bookings against that capacity and hides the slot when full. Perfect for fitness classes, group tours, or workshop sessions.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What happens if a client needs to cancel or reschedule? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Clients can cancel/reschedule from their booking confirmation email link — no login required. You set the cancellation window (e.g., "24 hours minimum notice"). Stripe refunds are processed automatically based on your refund policy settings in the admin.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>Booking &amp; Service App Template © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#333">Support: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');a.style.maxHeight=open?a.scrollHeight+'px':'0';});});
+function copyCode(btn){navigator.clipboard.writeText(btn.previousElementSibling.textContent).then(()=>{btn.textContent='Copied!';btn.classList.add('copied');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);});}
+</script>
+</body>
+</html>

@@ -216,7 +216,7 @@ export const SERVICES: Service[] = [
     points: ["iOS & Android", "App Store & Play", "Customer-facing apps", "Operations apps"],
   },
   {
-    slug: "business-automation",
+    slug: "creative-technology",
     icon: Cpu,
     title: "Business Automation",
     blurb:

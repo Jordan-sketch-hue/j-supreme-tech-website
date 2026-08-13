@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Next.js Pro Starter — J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#00B4D8;--dark:#0a0a0a;--mid:#555;--light:#f0fafd;--border:#b8e8f5;--nav-h:60px;--code-bg:#0d1117}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--dark);background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999;transition:width .1s}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(10,10,10,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #1f1f1f}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#888;text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(0,180,216,.12),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;margin-bottom:24px}
+.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#bbb;max-width:560px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #222;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#555;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}
+.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#0a0f12;border-top:1px solid #111;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}
+.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#555;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0f0f0}
+section:last-of-type{border-bottom:none}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}
+h3{font-size:14px;font-weight:700;margin:28px 0 10px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}
+ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}
+li{margin-bottom:8px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin:24px 0}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.card{background:var(--light);border:1px solid var(--border);border-radius:14px;padding:24px}
+.card h3{margin-top:0;font-size:13px;color:var(--dark)}
+.card p{margin:0;font-size:12px;color:#888}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+
+/* CODE BLOCKS */
+.code-wrap{position:relative;margin:20px 0}
+.code-block{background:var(--code-bg);color:#c9d1d9;border-radius:10px;padding:24px;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;overflow-x:auto;white-space:pre}
+.code-copy{position:absolute;top:12px;right:12px;background:#21262d;color:#8b949e;border:1px solid #30363d;border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.code-copy:hover{background:#30363d;color:#c9d1d9}
+.code-copy.copied{color:#3fb950}
+
+.badge{display:inline-block;background:var(--a);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.05em;margin-left:8px;vertical-align:middle}
+.badge.free{background:#22c55e}
+.badge.hot{background:#f97316}
+
+/* FEATURE CARDS */
+.feat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0}
+.feat-card{border:1px solid var(--border);border-radius:12px;padding:22px;background:#fff;transition:border-color .2s,box-shadow .2s}
+.feat-card:hover{border-color:var(--a);box-shadow:0 4px 20px rgba(0,180,216,.1)}
+.feat-card .feat-icon{font-size:22px;margin-bottom:10px}
+.feat-card h3{margin:0 0 6px;font-size:13px;color:var(--dark)}
+.feat-card p{margin:0;font-size:12px;color:#888}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:0}
+.step{display:flex;gap:24px;padding:24px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-num{background:var(--a);color:#fff;font-size:12px;font-weight:900;border-radius:50%;min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body h3{margin:0 0 6px;font-size:14px;color:var(--dark)}
+.step-body p{margin:0;font-size:13px}
+
+/* COMPARE */
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}
+.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0f0f0}
+.compare tbody td.hl{background:#f0fafd;color:var(--dark);font-weight:600}
+.compare .check{color:#22c55e;font-weight:700}
+.compare .cross{color:#ef4444;font-weight:700}
+
+/* ENV TABLE */
+.env-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13px}
+.env-table th{background:#f5f5f5;padding:10px 14px;text-align:left;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#888}
+.env-table td{padding:10px 14px;border-bottom:1px solid #f0f0f0;color:var(--mid)}
+.env-table td:first-child{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--a)}
+.env-table td:last-child{color:#888;font-size:12px}
+
+.faq{display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}
+.faq-icon{font-size:20px;font-weight:300;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#555;font-size:12px;margin-bottom:6px}
+footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}.hero{page-break-after:always;min-height:100vh}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.feat-grid,.grid-2,.grid-3{grid-template-columns:1fr}.step{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Next.js Pro Starter</span></div>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#quickstart">Quick Start</a></li>
+    <li><a href="#envvars">Env Vars</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · Developer Boilerplate · Production-Ready</div>
+  <h1 class="hero-title">Next.js<br/><em>Pro Starter</em><br/>App Router</h1>
+  <p class="hero-sub">A production-ready Next.js 15 boilerplate with Supabase auth, Stripe payments, Resend email, Tailwind 4, dark mode, SEO, MDX blog, and one-command Vercel deployment. Ship your SaaS in days, not months.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Stack</label><span>Next.js 15 · Supabase · Stripe</span></div>
+    <div class="meta-item"><label>Deploy</label><span>Vercel (one command)</span></div>
+    <div class="meta-item"><label>License</label><span>Commercial Use Included</span></div>
+    <div class="meta-item"><label>Setup Time</label><span>~30 Minutes</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$97</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="40">0</span><div class="stat-label">Hours of Setup Saved</div></div>
+  <div class="stat"><span class="stat-num" data-target="8">0</span><div class="stat-label">Pre-Built Systems</div></div>
+  <div class="stat"><span class="stat-num" data-target="30">0</span><div class="stat-label">Min to First Deploy</div></div>
+  <div class="stat"><span class="stat-num" data-target="0">0</span><div class="stat-label">Lock-In (Own Your Code)</div></div>
+</div>
+
+<section id="features">
+  <div class="sec-tag">What's Included</div>
+  <h1 class="sec-title">8 Production Systems. Out of the Box.</h1>
+  <p class="sec-intro">Every system is pre-wired and tested. You're not stitching libraries together — you're launching from a working baseline.</p>
+
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-icon">⚡</div><h3>Next.js 15 App Router</h3><p>React Server Components, streaming, layouts, parallel routes, and the latest App Router conventions. Built for performance and SEO from day one.</p></div>
+    <div class="feat-card"><div class="feat-icon">🎨</div><h3>Tailwind CSS 4</h3><p>Utility-first CSS with the new CSS variables approach in v4. Full dark mode support with class strategy. No config conflicts.</p></div>
+    <div class="feat-card"><div class="feat-icon">🔐</div><h3>Supabase Auth</h3><p>Email/password, magic links, OAuth (Google, GitHub). Row-level security pre-configured. SSR session handling with the @supabase/ssr package.</p></div>
+    <div class="feat-card"><div class="feat-icon">💳</div><h3>Stripe Payments</h3><p>Checkout sessions, webhook handling, subscription management, and customer portal. Test mode pre-configured. Works in 135+ countries.</p></div>
+    <div class="feat-card"><div class="feat-icon">📧</div><h3>Resend Transactional Email</h3><p>Welcome, password reset, and receipt emails via React Email templates. Deliverability built in. Switch providers with one env var.</p></div>
+    <div class="feat-card"><div class="feat-icon">📝</div><h3>MDX Blog System</h3><p>File-based blog with MDX support, syntax highlighting, estimated read time, OpenGraph images, and RSS feed. Zero CMS required.</p></div>
+    <div class="feat-card"><div class="feat-icon">🔍</div><h3>Full SEO Package</h3><p>generateMetadata API, sitemap.xml, robots.txt, OpenGraph image generation, and JSON-LD structured data. Score 90+ on SEO audits immediately.</p></div>
+    <div class="feat-card"><div class="feat-icon">🌙</div><h3>Dark Mode</h3><p>System preference detection + manual toggle. CSS variables for all colors. No flash of unstyled content on load. Persisted via localStorage.</p></div>
+  </div>
+</section>
+
+<section id="quickstart">
+  <div class="sec-tag">Quick Start</div>
+  <h1 class="sec-title">From Download to Live in 30 Minutes</h1>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Clone &amp; Install</h3>
+        <p>Extract your download, then run:</p>
+        <div class="code-wrap">
+          <pre class="code-block">git clone [your-download-url] my-saas
+cd my-saas && npm install</pre>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Configure Environment Variables</h3>
+        <p>Copy the example file and fill in your keys (see Env Vars section below):</p>
+        <div class="code-wrap">
+          <pre class="code-block">cp .env.example .env.local</pre>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Run Supabase Migrations</h3>
+        <p>This creates the users, subscriptions, and profiles tables in your Supabase project:</p>
+        <div class="code-wrap">
+          <pre class="code-block">npx supabase db push --db-url $DATABASE_URL</pre>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Start Development Server</h3>
+        <div class="code-wrap">
+          <pre class="code-block">npm run dev
+# → http://localhost:3000</pre>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Deploy to Vercel</h3>
+        <div class="code-wrap">
+          <pre class="code-block">vercel --prod
+# Or connect your GitHub repo in the Vercel dashboard
+# Environment variables sync automatically</pre>
+          <button class="code-copy" onclick="copyCode(this)">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Stripe Webhook Local Testing</strong>
+    Run <code>stripe listen --forward-to localhost:3000/api/webhooks/stripe</code> to forward webhook events during development. The webhook secret is printed in the terminal — paste it into <code>STRIPE_WEBHOOK_SECRET</code> in your .env.local.
+  </div>
+</section>
+
+<section id="envvars">
+  <div class="sec-tag">Configuration</div>
+  <h1 class="sec-title">Environment Variables Reference</h1>
+  <p>All required variables — where to find each one and what it does.</p>
+  <table class="env-table">
+    <tr><th>Variable</th><th>Where to Get It</th><th>Required?</th></tr>
+    <tr><td>NEXT_PUBLIC_SUPABASE_URL</td><td>Supabase Dashboard → Project Settings → API</td><td>Yes</td></tr>
+    <tr><td>NEXT_PUBLIC_SUPABASE_ANON_KEY</td><td>Supabase Dashboard → Project Settings → API</td><td>Yes</td></tr>
+    <tr><td>SUPABASE_SERVICE_ROLE_KEY</td><td>Supabase Dashboard → Project Settings → API (secret)</td><td>Yes</td></tr>
+    <tr><td>STRIPE_SECRET_KEY</td><td>Stripe Dashboard → Developers → API Keys</td><td>Yes</td></tr>
+    <tr><td>NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY</td><td>Stripe Dashboard → Developers → API Keys</td><td>Yes</td></tr>
+    <tr><td>STRIPE_WEBHOOK_SECRET</td><td>Stripe Dashboard → Webhooks → Signing Secret</td><td>Yes</td></tr>
+    <tr><td>RESEND_API_KEY</td><td>resend.com → API Keys</td><td>Yes</td></tr>
+    <tr><td>NEXT_PUBLIC_APP_URL</td><td>Your domain (e.g. https://myapp.com)</td><td>Yes</td></tr>
+    <tr><td>NEXT_PUBLIC_GA_ID</td><td>Google Analytics → Data Streams</td><td>Optional</td></tr>
+  </table>
+
+  <h2>Customizing Your Brand</h2>
+  <p>Open <code>src/config/site.ts</code> — this is the single source of truth for your app name, description, URLs, and social links. Everything references this config.</p>
+  <div class="code-wrap">
+    <pre class="code-block">// src/config/site.ts
+export const siteConfig = {
+  name: "Your App Name",
+  description: "Your app description for SEO",
+  url: "https://yourapp.com",
+  ogImage: "/og.png",
+  links: {
+    twitter: "https://twitter.com/yourhandle",
+    github: "https://github.com/yourname/yourapp",
+  },
+}</pre>
+    <button class="code-copy" onclick="copyCode(this)">Copy</button>
+  </div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">Next.js Pro Starter vs. Every Alternative</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>Alternative</th><th>Cost</th><th>Setup Time</th><th>Auth + Payments</th><th>MDX Blog</th><th>Dark Mode</th><th class="hl">Pro Starter</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Build from scratch</td><td>$0 (40+ hrs of your time)</td><td>2–4 weeks</td><td class="cross">Manual</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ All</td></tr>
+        <tr><td>Shipfast</td><td>$299–$499</td><td>~2 hrs</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td><td class="hl check">✓ All</td></tr>
+        <tr><td>create-t3-app</td><td>Free</td><td>1 hr (config heavy)</td><td>Partial</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ All</td></tr>
+        <tr><td>SaaS Pegasus</td><td>$249+</td><td>~3 hrs</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td><td class="hl check">✓ All</td></tr>
+        <tr><td>Vercel templates</td><td>Free (minimal)</td><td>30 min (no payments)</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ All</td></tr>
+        <tr><td><strong>Next.js Pro Starter</strong></td><td><strong>US$97</strong></td><td><strong>~30 minutes</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <strong>Real Cost of "Build From Scratch"</strong>
+    A developer charging $75/hr who spends 40 hours on boilerplate setup would bill $3,000 — just for infrastructure, before writing a single line of business logic. The Pro Starter is the $97 version of those 40 hours.
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Common Questions</h1>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q">Can I use this for commercial projects / client work? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. The license included with your purchase allows unlimited commercial use — build your own SaaS, use it for client projects, or deploy multiple apps from the same codebase. You own the output.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Does this work with the new Next.js 15 App Router? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes — built entirely on the App Router. No pages/ directory. Uses React Server Components, Server Actions, and streaming layouts throughout. Fully compatible with Next.js 15 as of the last update.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">I'm new to Next.js. Is this too advanced? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>You need basic React knowledge. Every file is commented explaining what it does and why. The README walks through every system. If you can build a React component, you can customize this starter. The goal is to avoid you needing to understand Supabase auth flows from scratch — we've already solved that.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I swap Supabase for another database? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. The database layer is abstracted in <code>src/lib/db.ts</code>. Swap Supabase for PlanetScale, Neon, or any Postgres provider by updating that file and the env vars. The auth layer is separate — you can also swap Supabase Auth for Clerk or NextAuth without touching the rest of the app.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">How do I get updates? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Updates are delivered via Gumroad — you'll get an email when a new version drops. Since you own the source code, you manually merge changes from the new download into your project. Breaking changes are always flagged in the changelog.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>Next.js Pro Starter © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#333">Support: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;
+  prog.style.width=(s/h*100)+'%';
+  btt.classList.toggle('show',s>400);
+});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target,suf=el.dataset.suffix||'';let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c+suf;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}},{threshold:.5}));
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');
+    a.style.maxHeight=open?a.scrollHeight+'px':'0';
+  });
+});
+function copyCode(btn){
+  const code=btn.previousElementSibling.textContent;
+  navigator.clipboard.writeText(code).then(()=>{
+    btn.textContent='Copied!';btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  });
+}
+</script>
+</body>
+</html>

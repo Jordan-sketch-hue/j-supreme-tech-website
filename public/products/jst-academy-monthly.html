@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>JST Academy — Monthly Membership · J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#00B4D8;--dark:#071520;--mid:#555;--light:#f0fafd;--border:#b8e8f5;--nav-h:60px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(7,21,32,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #0e2a3a}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#4a8aa8;text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:var(--dark);font-size:11px;font-weight:700;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:600px;height:600px;background:radial-gradient(circle,rgba(0,180,216,.12),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;margin-bottom:24px}.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#aaa;max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #0e2a3a;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#4a8aa8;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#050e15;border-top:1px solid #0e2a3a;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#3a6a80;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0f0f0}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}li{margin-bottom:8px}
+.curriculum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.month-card{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.month-header{background:var(--a);color:var(--dark);padding:12px 16px}
+.month-header strong{font-size:12px;font-weight:900;display:block}
+.month-header span{font-size:10px;color:rgba(0,0,0,.6)}
+.month-body{padding:12px 16px;background:var(--light)}
+.month-body ul{margin:0 0 0 16px;padding:0}
+.month-body li{font-size:12px;color:#555;margin-bottom:4px}
+.membership-perks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+.perk{background:var(--light);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start}
+.perk .icon{font-size:22px;flex-shrink:0}
+.perk h3{margin:0 0 4px;font-size:13px;color:#1a1a1a}
+.perk p{margin:0;font-size:12px;color:#888}
+.pricing-card{border:2px solid var(--a);border-radius:20px;padding:40px;max-width:520px;margin:40px auto 0;background:var(--light)}
+.pricing-card .badge{background:var(--a);color:var(--dark);font-size:10px;font-weight:900;padding:6px 14px;border-radius:20px;letter-spacing:.1em;text-transform:uppercase;display:inline-block;margin-bottom:20px}
+.pricing-card .price-main{font-size:64px;font-weight:900;color:#1a1a1a;line-height:1}
+.pricing-card .price-sub{font-size:14px;color:#888;margin-bottom:28px}
+.pricing-card ul{list-style:none;padding:0;margin:0 0 16px}
+.pricing-card ul li{padding:10px 0;border-bottom:1px solid rgba(0,180,216,.15);font-size:14px;color:#555;display:flex;align-items:center;gap:10px}
+.pricing-card ul li:last-child{border-bottom:none}
+.pricing-card ul li::before{content:'✓';color:var(--a);font-weight:900;flex-shrink:0}
+.pricing-card .cta-note{font-size:12px;color:#888;margin-top:12px}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a);color:var(--dark)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0f0f0}
+.compare tbody td.hl{background:#f0fafd;font-weight:600;color:#1a1a1a}
+.compare .check{color:#22c55e;font-weight:700}.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:#1a1a1a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#4a8aa8;font-size:12px;margin-bottom:6px}footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:var(--dark);border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center;font-weight:900}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.curriculum-grid{grid-template-columns:1fr}.membership-perks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>JST Academy</span></div>
+  <ul class="nav-links">
+    <li><a href="#curriculum">12-Month Plan</a></li>
+    <li><a href="#perks">Member Perks</a></li>
+    <li><a href="#pricing">Join</a></li>
+    <li><a href="#comparison">vs Alternatives</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · Monthly Membership · Live at academy.jsupremetech.online</div>
+  <h1 class="hero-title">JST<br/><em>Academy</em><br/>Membership</h1>
+  <p class="hero-sub">A structured 12-month curriculum for Caribbean entrepreneurs and developers who want to build real digital businesses — not just learn theory. Courses, community, templates, and direct access to J Supreme Tech.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Curriculum</label><span>12-Month Structured Path</span></div>
+    <div class="meta-item"><label>Format</label><span>Video · PDF · Live Q&amp;A</span></div>
+    <div class="meta-item"><label>Community</label><span>Private Discord + WhatsApp Group</span></div>
+    <div class="meta-item"><label>Access</label><span>academy.jsupremetech.online</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">US$15/mo</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="12">0</span><div class="stat-label">Months of Curriculum</div></div>
+  <div class="stat"><span class="stat-num" data-target="50">0</span><div class="stat-label">Lessons</div></div>
+  <div class="stat"><span class="stat-num" data-target="15">0</span><div class="stat-label">USD Per Month</div></div>
+  <div class="stat"><span class="stat-num" data-target="1">0</span><div class="stat-label">Live Q&amp;A Per Month</div></div>
+</div>
+
+<section id="curriculum">
+  <div class="sec-tag">12-Month Curriculum</div>
+  <h1 class="sec-title">What You'll Build Month by Month</h1>
+  <p class="sec-intro">Each month has a theme, 4 lessons, and a deliverable — something you actually build and publish, not just watch.</p>
+  <div class="curriculum-grid">
+    <div class="month-card"><div class="month-header"><strong>Month 1</strong><span>Foundation</span></div><div class="month-body"><ul><li>Domain &amp; hosting setup</li><li>First HTML page live</li><li>Brand identity basics</li><li>Deliverable: Personal site live</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 2</strong><span>Design System</span></div><div class="month-body"><ul><li>CSS variables &amp; resets</li><li>Layout: Flexbox + Grid</li><li>Typography hierarchy</li><li>Deliverable: Brand style guide</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 3</strong><span>JavaScript Core</span></div><div class="month-body"><ul><li>DOM manipulation</li><li>Events &amp; listeners</li><li>IntersectionObserver</li><li>Deliverable: Interactive portfolio</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 4</strong><span>Next.js Intro</span></div><div class="month-body"><ul><li>App Router basics</li><li>Pages &amp; routing</li><li>Tailwind CSS setup</li><li>Deliverable: Multi-page site</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 5</strong><span>Database &amp; Auth</span></div><div class="month-body"><ul><li>Supabase intro</li><li>Tables &amp; RLS</li><li>Auth with Clerk</li><li>Deliverable: Auth-gated app</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 6</strong><span>Payments</span></div><div class="month-body"><ul><li>Stripe Checkout setup</li><li>Webhooks &amp; events</li><li>WiPay integration (JA)</li><li>Deliverable: Paid product live</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 7</strong><span>Marketing Ops</span></div><div class="month-body"><ul><li>Instagram Graph API</li><li>Meta Ads basics</li><li>Email with Resend</li><li>Deliverable: Auto-post system</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 8</strong><span>Client Work</span></div><div class="month-body"><ul><li>Scoping &amp; quoting</li><li>WhatsApp client comms</li><li>Vercel deploy + handoff</li><li>Deliverable: First client project</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 9</strong><span>AI Integration</span></div><div class="month-body"><ul><li>Claude API basics</li><li>Building with prompts</li><li>AI-powered features</li><li>Deliverable: AI-enhanced app</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 10</strong><span>Productize</span></div><div class="month-body"><ul><li>Gumroad &amp; digital products</li><li>Pricing strategy</li><li>Landing page optimization</li><li>Deliverable: Digital product selling</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 11</strong><span>Scale Systems</span></div><div class="month-body"><ul><li>Multi-tenant SaaS basics</li><li>Railway deployment</li><li>Automations &amp; bots</li><li>Deliverable: Scalable system live</li></ul></div></div>
+    <div class="month-card"><div class="month-header"><strong>Month 12</strong><span>Build a Business</span></div><div class="month-body"><ul><li>Revenue models review</li><li>Portfolio &amp; case studies</li><li>Next-level planning</li><li>Deliverable: Business plan + pitch deck</li></ul></div></div>
+  </div>
+</section>
+
+<section id="perks">
+  <div class="sec-tag">Member Benefits</div>
+  <h1 class="sec-title">More Than a Course Library</h1>
+  <div class="membership-perks">
+    <div class="perk"><div class="icon">🎓</div><div><h3>Structured Curriculum</h3><p>50 lessons across 12 months. Not a random course dump — a deliberate path from beginner to operational digital business owner.</p></div></div>
+    <div class="perk"><div class="icon">💬</div><div><h3>Private Community</h3><p>Discord server with channels per month-theme. Ask questions, share progress, get feedback. Caribbean entrepreneurs learning alongside each other.</p></div></div>
+    <div class="perk"><div class="icon">📹</div><div><h3>Monthly Live Q&amp;A</h3><p>One group call per month with Jordan — bring your current project, get specific feedback and get unstuck on whatever's blocking you.</p></div></div>
+    <div class="perk"><div class="icon">📁</div><div><h3>Template Vault</h3><p>Every template, script, and boilerplate used across J Supreme Tech's real projects — available for download as a member. Grows monthly.</p></div></div>
+    <div class="perk"><div class="icon">💰</div><div><h3>Member Discount</h3><p>30% off all other JST products while subscribed. Apply the savings to the Booking App Template, Website Template, or Done-For-You service.</p></div></div>
+    <div class="perk"><div class="icon">🚀</div><div><h3>Project Reviews</h3><p>Submit your project each month for written feedback from the JST team. Real human review with specific, actionable notes.</p></div></div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="sec-tag">Join the Academy</div>
+  <h1 class="sec-title">One Subscription. Everything Included.</h1>
+  <div class="pricing-card">
+    <div class="badge">Monthly Membership</div>
+    <div class="price-main">US$15</div>
+    <div class="price-sub">per month · cancel any time</div>
+    <ul>
+      <li>Full 12-month curriculum access</li>
+      <li>All 50 lessons (video + PDF)</li>
+      <li>Private Discord community</li>
+      <li>Monthly live Q&amp;A call</li>
+      <li>Template Vault downloads</li>
+      <li>30% off all JST products</li>
+      <li>Monthly project review</li>
+    </ul>
+    <p class="cta-note">Access immediately after checkout. Account provisioned within 10 minutes at academy.jsupremetech.online.</p>
+  </div>
+  <div class="callout" style="max-width:520px;margin:24px auto 0"><strong>Annual Plan Available</strong>Pay 12 months upfront at US$149 (saves $31 vs. monthly). Same access, locked in at the current rate. WhatsApp (658) 218-2282 to set up the annual plan directly.</div>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">$15/Month vs. Other Ways to Learn</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead><tr><th>Alternative</th><th>Cost</th><th>Caribbean Context</th><th>Community</th><th>Project Feedback</th><th class="hl">JST Academy</th></tr></thead>
+      <tbody>
+        <tr><td>Udemy (individual courses)</td><td>$15–$200 per course</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓</td></tr>
+        <tr><td>Coursera (specialization)</td><td>$49–$99/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl">US$15/mo</td></tr>
+        <tr><td>Coding bootcamp</td><td>$5,000–$20,000 once</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td><td class="hl">US$180/yr</td></tr>
+        <tr><td>YouTube (free, unstructured)</td><td>$0</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ + structure</td></tr>
+        <tr><td>Local mentorship</td><td>$100–$300/hr</td><td class="check">✓</td><td class="cross">✗</td><td class="check">✓</td><td class="hl">US$15/mo</td></tr>
+        <tr><td><strong>JST Academy</strong></td><td><strong>US$15/mo</strong></td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="hl">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Before You Join</h1>
+  <div class="faq">
+    <div class="faq-item"><button class="faq-q">What level do I need to be to join? <span class="faq-icon">+</span></button><div class="faq-a"><p>Month 1 starts at absolute beginner — no prior coding or business experience required. If you're intermediate (know HTML/CSS), skip ahead to Month 4. The curriculum is self-paced; you move at your own speed.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Is this specifically for Jamaica / the Caribbean? <span class="faq-icon">+</span></button><div class="faq-a"><p>Curriculum is globally applicable, but examples, payment integrations (WiPay), and business context are Caribbean-first. Month 6 covers WiPay alongside Stripe. The community skews JA/TT/BB. If you're outside the Caribbean, everything still applies.</p></div></div>
+    <div class="faq-item"><button class="faq-q">How much time per week does this require? <span class="faq-icon">+</span></button><div class="faq-a"><p>Each lesson averages 30–45 minutes. Four lessons per month = roughly 3 hours of content. Add the monthly Q&amp;A (1 hour) and project work (2–4 hours). Realistic minimum: 6–8 hours per month.</p></div></div>
+    <div class="faq-item"><button class="faq-q">Can I cancel any time? <span class="faq-icon">+</span></button><div class="faq-a"><p>Yes. Cancel from your account at academy.jsupremetech.online at any time. You retain access through the end of the current billing period. No cancellation fees. Re-joining later reactivates access to everything, plus anything new added since you left.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>JST Academy © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://academy.jsupremetech.online">academy.jsupremetech.online</a> · <a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#0e2a3a">Questions: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');a.style.maxHeight=open?a.scrollHeight+'px':'0';});});
+</script>
+</body>
+</html>

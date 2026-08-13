@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <rect width="800" height="500" fill="#0a0a0a"/>
+  <!-- Browser chrome -->
+  <rect width="800" height="38" rx="0" fill="#1a1a2e"/>
+  <circle cx="18" cy="19" r="5.5" fill="#ff5f56"/>
+  <circle cx="34" cy="19" r="5.5" fill="#ffbd2e"/>
+  <circle cx="50" cy="19" r="5.5" fill="#27c93f"/>
+  <rect x="80" y="9" width="640" height="20" rx="10" fill="#ffffff0d"/>
+  <text x="400" y="23" font-family="Arial,sans-serif" font-size="10" fill="#ffffff44" text-anchor="middle">thelanguagecradle.com</text>
+  <!-- Hero bg gradient -->
+  <rect y="38" width="800" height="462" fill="#0f0f1a"/>
+  <rect y="38" width="800" height="462" fill="url(#lcGrad)"/>
+  <defs>
+    <linearGradient id="lcGrad" x1="0" y1="0" x2="800" y2="462" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7B2FFF" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#00B4D8" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  <!-- Nav -->
+  <rect y="38" width="800" height="44" fill="#ffffff08"/>
+  <rect x="20" y="52" width="36" height="16" rx="4" fill="#7B2FFF"/>
+  <text x="38" y="63" font-family="Arial Black,sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="900">LC</text>
+  <text x="68" y="63" font-family="Arial,sans-serif" font-size="8" fill="#ffffff88">The Language Cradle</text>
+  <rect x="620" y="54" width="60" height="14" rx="7" fill="#7B2FFF"/>
+  <text x="650" y="64" font-family="Arial,sans-serif" font-size="7" fill="white" text-anchor="middle">Enroll</text>
+  <!-- Hero text -->
+  <text x="400" y="155" font-family="Arial Black,sans-serif" font-size="28" fill="white" text-anchor="middle" font-weight="900" opacity="0.95">Learn a Language.</text>
+  <text x="400" y="188" font-family="Arial Black,sans-serif" font-size="28" fill="#7B2FFF" text-anchor="middle" font-weight="900">Live the Culture.</text>
+  <rect x="310" y="205" width="180" height="26" rx="13" fill="#7B2FFF"/>
+  <text x="400" y="222" font-family="Arial,sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="700">Start Learning →</text>
+  <!-- Feature cards row -->
+  <rect x="40" y="270" width="216" height="88" rx="12" fill="#ffffff0a" stroke="#7B2FFF33" stroke-width="1"/>
+  <rect x="292" y="270" width="216" height="88" rx="12" fill="#ffffff0a" stroke="#7B2FFF33" stroke-width="1"/>
+  <rect x="544" y="270" width="216" height="88" rx="12" fill="#ffffff0a" stroke="#7B2FFF33" stroke-width="1"/>
+  <text x="148" y="302" font-family="Arial Black,sans-serif" font-size="9" fill="#7B2FFF" text-anchor="middle" font-weight="900">STUDENT PORTAL</text>
+  <text x="400" y="302" font-family="Arial Black,sans-serif" font-size="9" fill="#7B2FFF" text-anchor="middle" font-weight="900">ADMIN CMS</text>
+  <text x="652" y="302" font-family="Arial Black,sans-serif" font-size="9" fill="#7B2FFF" text-anchor="middle" font-weight="900">GLOBAL VOICE™</text>
+  <text x="148" y="320" font-family="Arial,sans-serif" font-size="8" fill="#ffffff66" text-anchor="middle">Track progress &amp; lessons</text>
+  <text x="400" y="320" font-family="Arial,sans-serif" font-size="8" fill="#ffffff66" text-anchor="middle">Full content management</text>
+  <text x="652" y="320" font-family="Arial,sans-serif" font-size="8" fill="#ffffff66" text-anchor="middle">AI-powered voice coaching</text>
+  <!-- Stats -->
+  <text x="200" y="415" font-family="Arial Black,sans-serif" font-size="20" fill="white" text-anchor="middle" font-weight="900">500+</text>
+  <text x="200" y="432" font-family="Arial,sans-serif" font-size="8" fill="#ffffff55" text-anchor="middle">Students</text>
+  <text x="400" y="415" font-family="Arial Black,sans-serif" font-size="20" fill="white" text-anchor="middle" font-weight="900">12</text>
+  <text x="400" y="432" font-family="Arial,sans-serif" font-size="8" fill="#ffffff55" text-anchor="middle">Languages</text>
+  <text x="600" y="415" font-family="Arial Black,sans-serif" font-size="20" fill="white" text-anchor="middle" font-weight="900">LIVE</text>
+  <text x="600" y="432" font-family="Arial,sans-serif" font-size="8" fill="#27c93f" text-anchor="middle">● Active</text>
+</svg>

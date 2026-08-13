@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1280px;height:720px;overflow:hidden;background:#0a0a0a;font-family:'Inter',sans-serif}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;text-align:center}
+
+/* Radial glow */
+.glow{position:absolute;width:700px;height:700px;border-radius:50%;background:#00B4D8;opacity:.12;filter:blur(120px);top:50%;left:50%;transform:translate(-50%,-50%)}
+
+/* Grid lines */
+body::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:60px 60px}
+
+/* Top tag */
+.tag{display:inline-block;border:1.5px solid #00B4D8;color:#00B4D8;font-size:11px;font-weight:700;letter-spacing:.2em;padding:6px 20px;border-radius:2px;margin-bottom:32px;position:relative;z-index:1}
+
+/* Title */
+.title{font-size:68px;font-weight:900;line-height:1.05;letter-spacing:-.03em;color:#fff;position:relative;z-index:1;margin-bottom:20px;max-width:1100px;width:100%;text-align:center}
+.title span{color:#00B4D8}
+
+/* Sub */
+.sub{font-size:17px;font-weight:400;color:rgba(255,255,255,.45);letter-spacing:.02em;position:relative;z-index:1;margin-bottom:44px;text-align:center}
+
+/* Price */
+.price-wrap{display:flex;align-items:center;gap:16px;position:relative;z-index:1}
+.price-line{height:1px;width:60px;background:#00B4D8;opacity:.4}
+.price{font-size:32px;font-weight:800;color:#00B4D8;letter-spacing:-.02em}
+
+/* Brand */
+.brand{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:.25em;color:rgba(255,255,255,.2);text-transform:uppercase;z-index:1}
+
+/* Corner accents */
+.corner{position:absolute;width:40px;height:40px}
+.tl{top:24px;left:24px;border-top:2px solid #00B4D8;border-left:2px solid #00B4D8;opacity:.4}
+.tr{top:24px;right:24px;border-top:2px solid #00B4D8;border-right:2px solid #00B4D8;opacity:.4}
+.bl{bottom:24px;left:24px;border-bottom:2px solid #00B4D8;border-left:2px solid #00B4D8;opacity:.4}
+.br{bottom:24px;right:24px;border-bottom:2px solid #00B4D8;border-right:2px solid #00B4D8;opacity:.4}
+</style></head>
+<body>
+<div class="glow"></div>
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+<div class="tag">DEV TEMPLATE</div>
+<div class="title">Next.js Pro<br/><span>Starter Kit</span></div>
+<div class="sub">Production-Ready Boilerplate</div>
+<div class="price-wrap">
+  <div class="price-line"></div>
+  <div class="price">$97</div>
+  <div class="price-line"></div>
+</div>
+<div class="brand">J Supreme Tech · jsupremetech.online</div>
+</body></html>

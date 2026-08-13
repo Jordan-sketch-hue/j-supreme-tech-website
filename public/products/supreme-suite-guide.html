@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Supreme Suite — 13 Business Systems · J Supreme Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--a:#7B2FFF;--dark:#0a0a0a;--mid:#555;--light:#f5f0ff;--border:#ddd5ff;--nav-h:60px}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--dark);background:#fff;line-height:1.7;padding-top:var(--nav-h)}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--a);width:0%;z-index:9999}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:rgba(10,10,10,.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:999;border-bottom:1px solid #1f1f1f}
+.nav-brand{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff}.nav-brand span{color:var(--a)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:11px;font-weight:600;color:#888;text-decoration:none;transition:color .2s}.nav-links a:hover{color:var(--a)}
+.nav-cta{background:var(--a);color:#fff;font-size:11px;font-weight:700;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.hero{background:var(--dark);min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:80px max(5vw,40px);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-5%;width:700px;height:700px;background:radial-gradient(circle,rgba(123,47,255,.15),transparent 65%);pointer-events:none}
+.hero-tag{font-size:10px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--a);margin-bottom:28px}
+.hero-title{font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;margin-bottom:24px}.hero-title em{color:var(--a);font-style:normal}
+.hero-sub{font-size:17px;color:#bbb;max-width:580px;margin-bottom:48px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:32px;border-top:1px solid #222;padding-top:32px}
+.meta-item label{font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#555;display:block;margin-bottom:4px}
+.meta-item span{font-weight:700;color:#fff;font-size:14px}.meta-price{font-size:36px;font-weight:900;color:var(--a)}
+.stats{background:#07040f;border-top:1px solid #180a30;padding:40px max(5vw,40px);display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat{text-align:center}.stat-num{font-size:40px;font-weight:900;color:var(--a);display:block;line-height:1}
+.stat-label{font-size:11px;color:#5a4a7a;margin-top:6px;text-transform:uppercase;letter-spacing:.1em}
+section{padding:80px max(5vw,40px);border-bottom:1px solid #f0f0f0}
+.sec-tag{font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--a);margin-bottom:16px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:900;margin-bottom:20px;line-height:1.15}
+.sec-intro{font-size:16px;color:#666;max-width:640px;margin-bottom:48px;border-left:3px solid var(--a);padding-left:20px}
+h2{font-size:22px;font-weight:700;margin:48px 0 16px}h3{font-size:14px;font-weight:700;margin:24px 0 8px;color:var(--a)}
+p{margin-bottom:16px;color:var(--mid);font-size:15px}ul,ol{margin:12px 0 24px 24px;color:var(--mid);font-size:15px}li{margin-bottom:8px}
+.sys-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
+.sys-card{border:1px solid var(--border);border-radius:12px;padding:20px;background:var(--light);transition:border-color .2s,box-shadow .2s}
+.sys-card:hover{border-color:var(--a);box-shadow:0 4px 16px rgba(123,47,255,.12)}
+.sys-card .num{font-size:10px;font-weight:900;color:var(--a);letter-spacing:.15em;margin-bottom:8px;display:block}
+.sys-card h3{margin:0 0 4px;font-size:13px;color:var(--dark)}
+.sys-card p{margin:0;font-size:11px;color:#888}
+.pricing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:32px 0}
+.price-card{border:2px solid var(--border);border-radius:16px;padding:32px;text-align:center;transition:border-color .2s}
+.price-card.featured{border-color:var(--a);background:var(--light)}
+.price-card .plan{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--a);margin-bottom:12px}
+.price-card .amount{font-size:40px;font-weight:900;color:var(--dark);line-height:1;margin-bottom:4px}
+.price-card .period{font-size:13px;color:#888;margin-bottom:20px}
+.price-card ul{list-style:none;margin:0;padding:0;text-align:left}
+.price-card ul li{padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:13px;color:#555;display:flex;align-items:center;gap:8px}
+.price-card ul li::before{content:'✓';color:var(--a);font-weight:700;flex-shrink:0}
+.callout{background:var(--light);border-left:4px solid var(--a);border-radius:10px;padding:24px 28px;margin:32px 0}
+.callout strong{display:block;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:8px}
+.steps{display:flex;flex-direction:column}
+.step{display:flex;gap:24px;padding:20px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-num{background:var(--a);color:#fff;font-size:12px;font-weight:900;border-radius:50%;min-width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body h3{margin:0 0 6px;font-size:14px;color:var(--dark)}.step-body p{margin:0;font-size:13px}
+.compare-wrap{overflow-x:auto;margin:32px 0}
+.compare{width:100%;border-collapse:separate;border-spacing:0;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #eee}
+.compare thead{background:var(--dark)}.compare thead th{color:#fff;padding:16px 20px;font-size:12px;font-weight:700;text-align:left}
+.compare thead th.hl{background:var(--a)}
+.compare tbody tr:nth-child(even){background:#fafafa}
+.compare tbody td{padding:14px 20px;font-size:13px;color:var(--mid);border-bottom:1px solid #f0f0f0}
+.compare tbody td.hl{background:#f5f0ff;font-weight:600;color:var(--dark)}
+.compare .check{color:#22c55e;font-weight:700}.compare .cross{color:#ef4444;font-weight:700}
+.faq{display:flex;flex-direction:column}.faq-item{border-bottom:1px solid #eee}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-size:15px;font-weight:600;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--a)}.faq-icon{font-size:20px;color:var(--a);flex-shrink:0;transition:transform .25s}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:14px;color:#666;padding-bottom:20px;margin:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+footer{background:var(--dark);color:#fff;padding:60px max(5vw,40px);text-align:center}
+footer p{color:#555;font-size:12px;margin-bottom:6px}footer a{color:var(--a);text-decoration:none}
+#btt{position:fixed;bottom:28px;right:28px;background:var(--a);color:#fff;border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;z-index:888;display:flex;align-items:center;justify-content:center}
+#btt.show{opacity:1;transform:translateY(0)}
+@media print{#prog,nav,#btt{display:none!important}body{padding-top:0}}
+@media(max-width:768px){.nav-links{display:none}.hero{padding:60px 24px;padding-top:80px}.stats{grid-template-columns:repeat(2,1fr);padding:32px 24px}section{padding:56px 24px}.sys-grid{grid-template-columns:repeat(2,1fr)}.pricing-cards{grid-template-columns:1fr}.step{flex-direction:column;gap:12px}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<nav>
+  <div class="nav-brand">J Supreme Tech · <span>Supreme Suite</span></div>
+  <ul class="nav-links">
+    <li><a href="#systems">13 Systems</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#setup">Getting Started</a></li>
+    <li><a href="#reseller">Reseller</a></li>
+    <li><a href="#comparison">vs Competitors</a></li>
+  </ul>
+  <button class="nav-cta" onclick="window.print()">Print / PDF</button>
+</nav>
+
+<section class="hero" id="top">
+  <div class="hero-tag">J Supreme Tech · White-Label SaaS Platform · Live at supreme-suite.vercel.app</div>
+  <h1 class="hero-title">Supreme Suite<br/><em>13 Business</em><br/>Systems</h1>
+  <p class="hero-sub">One white-label platform. Thirteen enterprise-grade business systems. Courier management, bookings, CRM, POS, inventory, employee portal, and more — all branded as yours, on your domain, configured for your business.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><label>Systems</label><span>13 Enterprise Modules</span></div>
+    <div class="meta-item"><label>Trial</label><span>3 Days Free — No Card</span></div>
+    <div class="meta-item"><label>White-Label</label><span>Full Brand Customization</span></div>
+    <div class="meta-item"><label>Live Demo</label><span>supreme-suite.vercel.app</span></div>
+    <div class="meta-item"><label>Price</label><div class="meta-price">From US$29/mo</div></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><span class="stat-num" data-target="13">0</span><div class="stat-label">Business Systems</div></div>
+  <div class="stat"><span class="stat-num" data-target="1">0</span><div class="stat-label">Login for All</div></div>
+  <div class="stat"><span class="stat-num" data-target="3">0</span><div class="stat-label">Days Free Trial</div></div>
+  <div class="stat"><span class="stat-num" data-target="300">0</span><div class="stat-label">USD+ Saved vs Point Tools</div></div>
+</div>
+
+<section id="systems">
+  <div class="sec-tag">Platform Overview</div>
+  <h1 class="sec-title">13 Systems. One Login.</h1>
+  <p class="sec-intro">Instead of paying for 13 separate tools — and the headaches of connecting them — you get everything in one platform, under your brand, on your domain.</p>
+
+  <div class="sys-grid">
+    <div class="sys-card"><span class="num">01</span><h3>Courier Management</h3><p>Full dispatch, booking, and driver management with real-time tracking</p></div>
+    <div class="sys-card"><span class="num">02</span><h3>Booking Engine</h3><p>Appointment scheduling with live availability calendar and Stripe payments</p></div>
+    <div class="sys-card"><span class="num">03</span><h3>CRM</h3><p>Client records, deal pipeline, communication history, and follow-up reminders</p></div>
+    <div class="sys-card"><span class="num">04</span><h3>Point of Sale</h3><p>In-person and online sales with inventory sync and receipt generation</p></div>
+    <div class="sys-card"><span class="num">05</span><h3>Inventory Manager</h3><p>Product tracking, low-stock alerts, and supplier purchase order management</p></div>
+    <div class="sys-card"><span class="num">06</span><h3>Employee Portal</h3><p>Scheduling, timesheets, payroll reporting, and shift management</p></div>
+    <div class="sys-card"><span class="num">07</span><h3>Client Portal</h3><p>Self-service account management, order tracking, and document access</p></div>
+    <div class="sys-card"><span class="num">08</span><h3>Invoice &amp; Billing</h3><p>Professional invoices, recurring billing, and overdue payment tracking</p></div>
+    <div class="sys-card"><span class="num">09</span><h3>Project Manager</h3><p>Tasks, timelines, team assignments, milestones, and client-facing updates</p></div>
+    <div class="sys-card"><span class="num">10</span><h3>Analytics Dashboard</h3><p>Revenue, customer retention, and operational performance metrics</p></div>
+    <div class="sys-card"><span class="num">11</span><h3>Email &amp; SMS</h3><p>Automated client communications, campaigns, and transactional notifications</p></div>
+    <div class="sys-card"><span class="num">12</span><h3>Document Manager</h3><p>Contracts, templates, e-signatures, and file storage per client</p></div>
+    <div class="sys-card"><span class="num">13</span><h3>Review &amp; Reputation</h3><p>Collect and display client reviews — automated request sequences included</p></div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="sec-tag">Plans</div>
+  <h1 class="sec-title">Pick Your Plan. Cancel Any Time.</h1>
+
+  <div class="pricing-cards">
+    <div class="price-card">
+      <div class="plan">Starter</div>
+      <div class="amount">US$29</div>
+      <div class="period">per month</div>
+      <ul>
+        <li>5 business systems</li>
+        <li>Up to 3 team members</li>
+        <li>500 client records</li>
+        <li>Email &amp; WhatsApp support</li>
+        <li>JST-branded platform</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="plan">Growth</div>
+      <div class="amount">US$59</div>
+      <div class="period">per month</div>
+      <ul>
+        <li>10 business systems</li>
+        <li>Up to 10 team members</li>
+        <li>Unlimited client records</li>
+        <li>Priority support</li>
+        <li>Custom domain support</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="plan">Enterprise</div>
+      <div class="amount">US$99</div>
+      <div class="period">per month</div>
+      <ul>
+        <li>All 13 systems</li>
+        <li>Unlimited team members</li>
+        <li>Full white-label branding</li>
+        <li>Reseller sub-accounts</li>
+        <li>Dedicated onboarding call</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="setup">
+  <div class="sec-tag">Getting Started</div>
+  <h1 class="sec-title">Live in 10 Minutes</h1>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body"><h3>Start Your 3-Day Free Trial</h3><p>No credit card required. Visit supreme-suite.vercel.app and click "Start Free Trial." Your account is provisioned immediately via automated email.</p></div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body"><h3>Configure Your Business Profile</h3><p>In Settings → Business, add your business name, logo, primary brand color, and contact information. These appear throughout the platform and in all client-facing documents.</p></div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body"><h3>Connect Your Domain (Enterprise)</h3><p>In Settings → Domain, add your custom domain. You'll receive a CNAME record to add to your DNS. The platform loads on your domain within 24 hours of DNS propagation.</p></div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body"><h3>Activate Your First Module</h3><p>From the left sidebar, activate the first system relevant to your business. Each module has a setup wizard that walks you through initial configuration in under 5 minutes.</p></div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body"><h3>Invite Your Team</h3><p>Go to Settings → Team. Add team members by email. Assign roles (Admin, Manager, Staff). Each person logs into their own account with access limited to their role.</p></div></div>
+  </div>
+</section>
+
+<section id="reseller">
+  <div class="sec-tag">Reseller Opportunity</div>
+  <h1 class="sec-title">Turn $99/Month Into a Revenue Stream</h1>
+  <p>At the Enterprise plan, you can provision sub-accounts for your own clients and charge them whatever you want. A typical reseller charges $50–$150/month per client sub-account.</p>
+
+  <div class="callout">
+    <strong>The Reseller Math</strong>
+    Enterprise plan: $99/month. 2 clients at $99/month covers your subscription — everything after that is profit. 10 clients at $99/month = $990 gross, $891 net margin. 20 clients = $1,980/month. This is a real MRR business built on top of Supreme Suite.
+  </div>
+
+  <h2>What You Can White-Label</h2>
+  <ul>
+    <li><strong>Platform name</strong> — your clients see your brand, not "Supreme Suite"</li>
+    <li><strong>Logo and colors</strong> — full visual brand customization</li>
+    <li><strong>Custom domain</strong> — platform runs on app.yourdomain.com</li>
+    <li><strong>Email sender</strong> — all automated emails come from your domain</li>
+    <li><strong>Client-facing documents</strong> — invoices, contracts, and reports carry your branding</li>
+  </ul>
+</section>
+
+<section id="comparison">
+  <div class="sec-tag">Value Comparison</div>
+  <h1 class="sec-title">13 Systems for $99/mo vs. Paying Separately</h1>
+  <div class="compare-wrap">
+    <table class="compare">
+      <thead>
+        <tr><th>Tool</th><th>Individual Cost/mo</th><th>White-Label</th><th>All in One</th><th class="hl">Supreme Suite</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>HubSpot CRM (Professional)</td><td>$800+/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ Included</td></tr>
+        <tr><td>Salesforce (Essentials)</td><td>$25/user/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ Included</td></tr>
+        <tr><td>Calendly (Pro)</td><td>$16/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ Included</td></tr>
+        <tr><td>Onfleet (dispatch)</td><td>$549/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ Included</td></tr>
+        <tr><td>QuickBooks (invoicing)</td><td>$30–$90/mo</td><td class="cross">✗</td><td class="cross">✗</td><td class="hl check">✓ Included</td></tr>
+        <tr><td>All 13 tools separately</td><td><strong>$300–$1,500+/mo</strong></td><td class="cross">✗</td><td class="cross">✗</td><td class="hl">US$29–$99/mo</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="sec-tag">FAQ</div>
+  <h1 class="sec-title">Questions</h1>
+  <div class="faq">
+    <div class="faq-item">
+      <button class="faq-q">Is there a setup fee? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>No. Your first month starts with the 3-day free trial. No setup fee, no activation fee. Cancel any time from the billing portal.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Can I switch plans mid-month? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. Upgrades are prorated and take effect immediately. Downgrades take effect at the next billing cycle. You won't lose data when downgrading — unused systems are paused, not deleted.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What payment methods are accepted? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>All major credit/debit cards via Stripe. WiPay (Caribbean local payments) accepted for JMD billing. Bank transfer available for Enterprise annual plans — contact support.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">Is my data secure? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>Yes. The platform uses Supabase with Row-Level Security — your data is completely isolated from other tenants. All data is encrypted at rest and in transit. Supabase maintains SOC 2 compliance. Backups run daily.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">What support is included? <span class="faq-icon">+</span></button>
+      <div class="faq-a"><p>All plans include WhatsApp support during Jamaica business hours (9AM–6PM JMT, Mon–Fri). Enterprise subscribers get a dedicated onboarding call and priority response (within 2 hours on business days).</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="color:#fff;font-size:13px;font-weight:700;margin-bottom:12px">J Supreme Tech</p>
+  <p>Supreme Suite © 2026 J Supreme Tech. All rights reserved.</p>
+  <p style="margin-top:8px"><a href="https://supreme-suite.vercel.app">supreme-suite.vercel.app</a> · <a href="https://jsupremetech.online">jsupremetech.online</a></p>
+  <p style="margin-top:16px;color:#333">Support: <a href="https://wa.me/16582182282">(658) 218-2282</a></p>
+</footer>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+const prog=document.getElementById('prog'),btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{const s=document.documentElement.scrollTop,h=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(s/h*100)+'%';btt.classList.toggle('show',s>400);});
+const ob=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){const el=x.target,t=+el.dataset.target;let c=0;const i=setInterval(()=>{c=Math.min(c+Math.ceil(t/40),t);el.textContent=c;if(c>=t)clearInterval(i);},30);ob.unobserve(el);}}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(c=>ob.observe(c));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{const a=item.querySelector('.faq-a'),open=item.classList.toggle('open');a.style.maxHeight=open?a.scrollHeight+'px':'0';});});
+</script>
+</body>
+</html>

@@ -10,66 +10,100 @@ type LazyReelProps = {
 };
 
 /**
- * A reel that costs nothing until it's about to be seen.
+ * A reel that costs nothing until you actually engage with it.
  *
- * Why this exists: a plain `<video autoPlay>` forces the browser to download the
- * entire clip on mount — six of them at once saturates the connection and the
- * whole grid feels broken. Here the poster still paints immediately, and the
- * <video> (and therefore the network request) is only mounted once the card is
- * within ~300px of the viewport. Off-screen reels pause so they don't burn CPU.
+ * - Default: only the poster still is painted — no <video>, no network, no decode.
+ * - Desktop (hover-capable): the clip loads + plays on hover, pauses + resets on leave.
+ *   So at most one reel ever decodes at a time → the grid stays buttery.
+ * - Touch (no hover): falls back to play-when-centered via IntersectionObserver,
+ *   since there's no hover on a phone.
  */
 export function LazyReel({ src, poster, className }: LazyReelProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  // `activated` latches true the first time we near the viewport → mount the <video>.
-  const [activated, setActivated] = useState(false);
-  const [inView, setInView] = useState(false);
+  const hoverCapable = useRef(false);
+  const [activated, setActivated] = useState(false); // mount <video> (starts loading)
+  const [playing, setPlaying] = useState(false); // desired play state
   const [ready, setReady] = useState(false); // first frame decoded → cross-fade poster out
 
-  // Observe the wrapper; activate on approach, and track in/out of view for play/pause.
+  // Decide the interaction model once, and wire up the touch observer if needed.
   useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
+    const hover =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    hoverCapable.current = hover;
 
-    // No IntersectionObserver (very old browsers / SSR edge) → just load it.
+    const el = wrapRef.current;
+    if (!el || hover) return; // hover devices drive play via pointer handlers below
+
     if (typeof IntersectionObserver === "undefined") {
       setActivated(true);
-      setInView(true);
+      setPlaying(true);
       return;
     }
 
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setActivated(true);
-        setInView(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setActivated(true);
+          setPlaying(true);
+        } else {
+          setPlaying(false);
+        }
       },
-      { rootMargin: "300px 0px", threshold: 0.1 },
+      { threshold: 0.5 }, // play once the card is meaningfully on screen
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  // Play only while visible; pause when it scrolls away. Runs after the <video> mounts.
+  // Reflect the desired play state onto the actual element (runs after it mounts).
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    if (inView) v.play().catch(() => {});
+    if (playing) v.play().catch(() => {});
     else v.pause();
-  }, [inView, activated]);
+  }, [playing, activated]);
+
+  const handleEnter = () => {
+    if (!hoverCapable.current) return;
+    setActivated(true);
+    setPlaying(true);
+  };
+
+  const handleLeave = () => {
+    if (!hoverCapable.current) return;
+    setPlaying(false);
+    setReady(false); // fade the poster back in for a clean re-hover
+    const v = videoRef.current;
+    if (v) {
+      try {
+        v.currentTime = 0;
+      } catch {
+        /* ignore */
+      }
+    }
+  };
 
   return (
-    <div ref={wrapRef} className={className}>
+    <div
+      ref={wrapRef}
+      className={className}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+    >
       {poster && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={poster}
           alt=""
           aria-hidden
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
             ready ? "opacity-0" : "opacity-100"
           }`}
         />
       )}
+
       {activated && (
         <video
           ref={videoRef}
@@ -81,11 +115,23 @@ export function LazyReel({ src, poster, className }: LazyReelProps) {
           preload="none"
           onLoadedData={() => setReady(true)}
           onPlaying={() => setReady(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
             ready ? "opacity-100" : "opacity-0"
           }`}
         />
       )}
+
+      {/* Play affordance — hides while playing so the reel reads as interactive. */}
+      <span
+        aria-hidden
+        className={`pointer-events-none absolute bottom-2.5 left-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-black/45 backdrop-blur-sm transition-opacity duration-300 ${
+          playing && ready ? "opacity-0" : "opacity-100"
+        }`}
+      >
+        <svg viewBox="0 0 24 24" fill="white" className="h-3.5 w-3.5 translate-x-[1px]">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </span>
     </div>
   );
 }
