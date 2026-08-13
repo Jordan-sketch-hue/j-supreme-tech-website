@@ -171,19 +171,6 @@ export default async function SolutionPage({
         <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-30" />
 
         <div className="shell relative py-20 md:py-28">
-          <Reveal>
-            <span
-              className="mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.18em]"
-              style={{ borderColor: `${accent}40`, color: accent }}
-            >
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: accent }}
-              />
-              {solution.eyebrow}
-            </span>
-          </Reveal>
-
           <div className="max-w-4xl">
             <h1 className="mt-3 font-display text-[clamp(2.8rem,6vw,5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
               {solution.headline}

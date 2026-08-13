@@ -79,27 +79,27 @@ export default function Home() {
         />
 
         {/* Founder photo — right bleed, editorial */}
-        <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[52%] lg:block">
-          {/* Deep left fade — content bleeds cleanly into photo */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#080808] via-[#080808]/80 to-[#080808]/10" />
+        <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[45%] lg:block">
+          {/* Deep left fade */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#080808] via-[#080808]/75 to-transparent" />
           {/* Bottom fade */}
-          <div className="absolute inset-x-0 bottom-0 z-10 h-72 bg-gradient-to-t from-[#080808] to-transparent" />
-          {/* Top subtle fade */}
-          <div className="absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-[#080808]/60 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 z-10 h-64 bg-gradient-to-t from-[#080808] to-transparent" />
+          {/* Top fade */}
+          <div className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-[#080808]/50 to-transparent" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/jordan-founder.jpg"
             alt="Jordan Morris — Founder, J Supreme Tech"
-            className="h-full w-full object-cover object-[center_15%] opacity-75"
+            className="h-full w-full object-cover object-top opacity-85"
           />
 
-          {/* Floating glass capability card */}
-          <div className="absolute left-8 top-20 z-20 hidden xl:block">
-            <div className="rounded-2xl border border-white/12 bg-white/[0.06] p-5 shadow-2xl backdrop-blur-xl">
+          {/* Floating glass capability card — anchored in photo, NOT overlapping text */}
+          <div className="absolute bottom-32 right-8 z-20 hidden xl:block">
+            <div className="rounded-2xl border border-white/12 bg-[#080808]/70 p-5 shadow-2xl backdrop-blur-xl">
               <div className="mb-3 flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#00e054]" />
                 <span className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-white/40">
-                  J Supreme Tech · Live
+                  Live · Full service
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-1.5">
@@ -122,7 +122,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="shell relative flex flex-1 flex-col justify-between pb-20 pt-16 md:pt-24 lg:pl-12">
+        <div className="shell relative flex flex-1 flex-col justify-between pb-20 pt-16 md:pt-24">
 
           {/* ── Studio tag ── */}
           <Reveal direction="up">
@@ -143,7 +143,7 @@ export default function Home() {
 
           {/* ── Main headline ── */}
           <div className="mt-10 max-w-[42rem]">
-            <h1 className="font-display text-[clamp(3.2rem,7vw,5.8rem)] font-semibold leading-[0.92] tracking-[-0.03em]">
+            <h1 className="font-display text-[clamp(2.8rem,5.5vw,5rem)] font-semibold leading-[0.92] tracking-[-0.03em]">
               <CineWords text="We build the systems." delay={0.1} />
               <br />
               <span className="text-white/28">
