@@ -22,7 +22,7 @@ export function ClientLogoStrip() {
         {CLIENTS.map((name) => (
           <span
             key={name}
-            className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-black/70 transition-colors hover:text-black"
+            className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-black transition-colors"
           >
             {name}
           </span>
