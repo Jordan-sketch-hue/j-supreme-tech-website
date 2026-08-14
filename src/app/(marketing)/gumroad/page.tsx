@@ -310,11 +310,10 @@ function ProductCard({ product }: { product: Product }) {
       >
         {/* Cover art */}
         <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1/1" }}>
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={`/covers/${product.coverSlug}.svg`}
             alt={product.name}
-            width={400}
-            height={400}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
           {product.highlight && (
