@@ -39,10 +39,7 @@ export default function ProductsPage() {
         <div className="shell relative py-16 md:py-20">
           <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.15fr]">
             <div className="min-w-0">
-              <Reveal>
-                <span className="eyebrow">Products · Supreme Suite</span>
-              </Reveal>
-              <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-ink-900 md:text-[3.4rem] md:leading-[1.05]">
+              <h1 className="font-display text-4xl font-semibold tracking-tight text-ink-900 md:text-[3.4rem] md:leading-[1.05]">
                 <CineWords text="Ready-made systems." delay={0.15} />{" "}
                 <span className="underline decoration-4 underline-offset-8">
                   <CineWords text="Watch them run." delay={0.5} />

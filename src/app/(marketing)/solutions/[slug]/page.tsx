@@ -13,6 +13,7 @@ import { SERVICE_OFFERS, type Package, priceLabel } from "@/lib/serviceOffers";
 import { PayButton } from "@/components/PayButton";
 import { Reveal, RevealGroup, RevealItem, ScrollProgress } from "@/components/motion-kit";
 import { PageViewConversion } from "@/components/GoogleConversions";
+import { SolutionHeroMedia } from "@/components/SolutionHeroMedia";
 
 export function generateStaticParams() {
   return SOLUTIONS.map((s) => ({ slug: s.slug }));
@@ -156,66 +157,67 @@ export default async function SolutionPage({
 
       {/* ═══════════════════ HERO ═══════════════════ */}
       <section className="relative overflow-hidden border-b border-white/8">
-        {/* spectrum top strip */}
-        <div
-          className="absolute left-0 top-0 h-[3px] w-full"
-          style={{ background: "var(--sp-h)" }}
-        />
         {/* ambient glow */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            background: `radial-gradient(ellipse 60% 50% at 50% 0%, ${accent}18, transparent)`,
+            background: `radial-gradient(ellipse 60% 50% at 30% 0%, ${accent}14, transparent)`,
           }}
         />
         <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-30" />
 
-        <div className="shell relative py-20 md:py-28">
-          <div className="max-w-4xl">
-            <h1 className="mt-3 font-display text-[clamp(2.8rem,6vw,5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
+        <div className="shell relative flex flex-col gap-12 py-20 md:py-28 lg:flex-row lg:items-center">
+          {/* Left — text */}
+          <div className="min-w-0 flex-1">
+            <h1 className="font-display text-[clamp(2.4rem,5vw,4.2rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
               {solution.headline}
             </h1>
             <Reveal delay={0.12}>
-              <p className="mt-6 max-w-2xl text-xl leading-relaxed text-white/55">
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/55">
                 {solution.subhead}
               </p>
             </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="mt-10 flex flex-wrap gap-3">
+                <a
+                  href="https://wa.me/16582182282"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 rounded-full bg-white px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black transition-all hover:-translate-y-px hover:bg-white/90"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" />
+                  Start on WhatsApp
+                </a>
+                <Link
+                  href="/#contact"
+                  className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 transition-all hover:-translate-y-px hover:border-white/50 hover:text-white"
+                >
+                  Book a discovery call
+                </Link>
+              </div>
+            </Reveal>
+
+            {/* Process steps */}
+            <Reveal delay={0.28}>
+              <div className="mt-12 flex flex-wrap items-center gap-2">
+                {solution.processHighlights.map((step, i) => (
+                  <span key={step} className="flex items-center gap-2">
+                    <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/50">
+                      {step}
+                    </span>
+                    {i < solution.processHighlights.length - 1 && (
+                      <ArrowRight className="h-3 w-3 flex-none text-white/20" />
+                    )}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
           </div>
 
-          <Reveal delay={0.2}>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href="https://wa.me/16582182282"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 rounded-full bg-white px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black hover:bg-white/90 hover:-translate-y-px transition-all"
-              >
-                <MessageCircle className="h-3.5 w-3.5" />
-                Start on WhatsApp
-              </a>
-              <Link
-                href="/#contact"
-                className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 hover:border-white/50 hover:text-white hover:-translate-y-px transition-all"
-              >
-                Book a discovery call
-              </Link>
-            </div>
-          </Reveal>
-
-          {/* Process steps */}
-          <Reveal delay={0.28}>
-            <div className="mt-14 flex flex-wrap items-center gap-2">
-              {solution.processHighlights.map((step, i) => (
-                <span key={step} className="flex items-center gap-2">
-                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-white/50">
-                    {step}
-                  </span>
-                  {i < solution.processHighlights.length - 1 && (
-                    <ArrowRight className="h-3 w-3 flex-none text-white/20" />
-                  )}
-                </span>
-              ))}
-            </div>
+          {/* Right — live media */}
+          <Reveal direction="left" delay={0.15} className="hidden w-full max-w-[440px] flex-none lg:block">
+            <SolutionHeroMedia slug={slug} />
           </Reveal>
         </div>
       </section>

@@ -117,42 +117,32 @@ export default function AboutPage() {
             </Reveal>
           </div>
 
-          {/* brand identity board */}
+          {/* Founder photo */}
           <Reveal direction="left" delay={0.15} className="min-w-0">
-            <div className="card overflow-hidden">
-              <div className="flex items-center justify-between border-b border-line bg-ink-50/60 px-5 py-3">
-                <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-ink-500">
-                  House identity — the rubric
-                </span>
-                <span className="live-dot h-1.5 w-1.5 rounded-full bg-ink-900" />
+            <div className="relative overflow-hidden rounded-2xl bg-ink-950 shadow-[0_24px_60px_rgba(0,0,0,0.18)]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/jordan-founder.jpg"
+                alt="Jordan Morris — Founder & CEO, J Supreme Tech"
+                className="block h-[420px] w-full object-cover object-top"
+              />
+              {/* gradient footer */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950 to-transparent px-5 pb-5 pt-16">
+                <p className="font-display text-sm font-semibold text-white">Jordan Morris</p>
+                <p className="mt-0.5 font-mono text-[0.58rem] uppercase tracking-[0.18em] text-white/45">
+                  Founder & CEO · J Supreme Tech
+                </p>
               </div>
-              <div className="grid grid-cols-[auto_1fr] items-center gap-5 p-5">
-                <span className="flex h-20 w-20 items-center justify-center rounded-2xl bg-ink-950 font-mono text-lg font-bold tracking-tight text-white">
-                  JST
-                </span>
-                <div className="min-w-0 space-y-2">
-                  {TYPE_SPECIMEN.map((t) => (
-                    <div key={t.label} className="flex items-baseline gap-3">
-                      <span className="w-14 flex-none font-mono text-[0.55rem] uppercase tracking-[0.16em] text-ink-400">
-                        {t.label}
-                      </span>
-                      <span className={`truncate text-ink-900 ${t.className}`}>{t.sample}</span>
-                    </div>
-                  ))}
+              {/* floating stat chips */}
+              <div className="absolute right-4 top-4 flex flex-col gap-2">
+                <div className="rounded-xl border border-white/10 bg-black/60 px-3.5 py-2 text-center backdrop-blur-sm">
+                  <p className="font-display text-xl font-bold text-white">100+</p>
+                  <p className="font-mono text-[0.48rem] uppercase tracking-[0.16em] text-white/40">Platforms</p>
                 </div>
-              </div>
-              <div className="flex">
-                {INKS.map((c) => (
-                  <span key={c} className="h-8 flex-1" style={{ background: c }} title={c} />
-                ))}
-              </div>
-              <div className="flex items-center justify-between border-t border-line px-5 py-3">
-                <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-500">
-                  Pure mono · no accent color
-                </span>
-                <span className="font-mono text-[0.6rem] uppercase tracking-[0.16em] text-ink-400">
-                  ink-950 → ink-50
-                </span>
+                <div className="rounded-xl border border-white/10 bg-black/60 px-3.5 py-2 text-center backdrop-blur-sm">
+                  <p className="font-display text-xl font-bold text-white">13</p>
+                  <p className="font-mono text-[0.48rem] uppercase tracking-[0.16em] text-white/40">SaaS Products</p>
+                </div>
               </div>
             </div>
           </Reveal>
