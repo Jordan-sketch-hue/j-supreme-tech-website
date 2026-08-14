@@ -163,7 +163,7 @@ export default function Home() {
                   <p className="font-display text-2xl font-semibold text-white">
                     <StatValue value={s.value} />
                   </p>
-                  <p className="mt-1 font-mono text-[0.52rem] uppercase leading-4 tracking-[0.1em] text-white/30">
+                  <p className="mt-1 font-mono text-[0.52rem] uppercase leading-4 tracking-[0.1em] text-white/60">
                     {s.label}
                   </p>
                 </div>
