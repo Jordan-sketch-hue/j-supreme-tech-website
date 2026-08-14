@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
 type IntakePayload = {
@@ -20,7 +21,7 @@ type IntakePayload = {
 };
 
 export async function GET() {
-  return NextResponse.json({ status: "ok" });
+  return NextResponse.json({ status: "ok", table: "jst_intake_submissions" });
 }
 
 export async function POST(request: Request) {
@@ -33,7 +34,34 @@ export async function POST(request: Request) {
     );
   }
 
+  const supabaseUrl = process.env.JST_SUPABASE_URL;
+  const supabaseKey = process.env.JST_SUPABASE_SERVICE_ROLE_KEY;
   const resendKey = process.env.RESEND_API_KEY;
+
+  // 1. Save to ibtadbwtrxglujkzqofs (primary shared DB)
+  if (supabaseUrl && supabaseKey) {
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    await supabase.from("jst_intake_submissions").insert({
+      name: payload.name,
+      business_name: payload.businessName,
+      email: payload.email,
+      whatsapp: payload.whatsapp,
+      service_needed: payload.serviceNeeded,
+      budget_range: payload.budgetRange,
+      project_stage: payload.projectStage,
+      timeline: payload.timeline,
+      sop_category: payload.sopCategory,
+      discovery_requirements: payload.discoveryRequirements,
+      integrations: payload.integrations,
+      goals_audience: payload.goalsAudience,
+      project_references: payload.references,
+      project_description: payload.projectDescription,
+      quality_control_notes: payload.qualityControlNotes,
+    });
+    // DB errors are non-fatal — email is the primary notification
+  }
+
+  // 2. Email both addresses via Resend
   if (!resendKey) {
     return NextResponse.json({ error: "Email service not configured." }, { status: 503 });
   }
@@ -56,7 +84,6 @@ export async function POST(request: Request) {
     <p style="margin:0;font-size:10px;letter-spacing:0.2em;color:#666;text-transform:uppercase">J Supreme Tech</p>
     <h1 style="margin:8px 0 0;font-size:20px;font-weight:700">New Project Inquiry</h1>
   </div>
-
   <table style="width:100%;border-collapse:collapse">
     <tr><td style="padding:6px 0;color:#888;font-size:11px;width:160px">Name</td><td style="padding:6px 0;font-size:13px">${payload.name}</td></tr>
     <tr><td style="padding:6px 0;color:#888;font-size:11px">Business</td><td style="padding:6px 0;font-size:13px">${payload.businessName ?? "—"}</td></tr>
@@ -68,28 +95,24 @@ export async function POST(request: Request) {
     <tr><td style="padding:6px 0;color:#888;font-size:11px">Timeline</td><td style="padding:6px 0;font-size:13px">${payload.timeline ?? "—"}</td></tr>
     <tr><td style="padding:6px 0;color:#888;font-size:11px">SOP Category</td><td style="padding:6px 0;font-size:13px">${payload.sopCategory ?? "—"}</td></tr>
   </table>
-
   <div style="margin-top:20px;padding:16px;background:#111;border-radius:8px">
     <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Goals & Audience</p>
     <p style="margin:0;font-size:13px;line-height:1.6">${payload.goalsAudience ?? "—"}</p>
   </div>
-
   <div style="margin-top:12px;padding:16px;background:#111;border-radius:8px">
     <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Project Description</p>
     <p style="margin:0;font-size:13px;line-height:1.6">${payload.projectDescription}</p>
   </div>
-
-  ${payload.references ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">References / Assets</p><p style="margin:0;font-size:13px;line-height:1.6">${payload.references}</p></div>` : ""}
+  ${payload.references ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">References</p><p style="margin:0;font-size:13px;line-height:1.6">${payload.references}</p></div>` : ""}
   ${discovery !== "—" ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Discovery Requirements</p><p style="margin:0;font-size:13px;line-height:1.6">${discovery}</p></div>` : ""}
   ${integrations !== "—" ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Integrations Needed</p><p style="margin:0;font-size:13px;line-height:1.6">${integrations}</p></div>` : ""}
   ${payload.qualityControlNotes ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Quality Control Notes</p><p style="margin:0;font-size:13px;line-height:1.6">${payload.qualityControlNotes}</p></div>` : ""}
-
   <p style="margin-top:24px;font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.15em">J Supreme Tech · jsupremetech.online · (658) 218-2282</p>
 </div>`,
   });
 
   if (error) {
-    return NextResponse.json({ error: "Failed to send inquiry. Contact us directly at (658) 218-2282." }, { status: 500 });
+    return NextResponse.json({ error: "Failed to send inquiry. Contact us at (658) 218-2282." }, { status: 500 });
   }
 
   return NextResponse.json({
