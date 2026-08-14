@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 
 type IntakePayload = {
@@ -21,12 +20,7 @@ type IntakePayload = {
 };
 
 export async function GET() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  return NextResponse.json({
-    databaseConnected: Boolean(supabaseUrl && supabaseServiceRoleKey),
-    pipelineTable: "project_intake_submissions",
-  });
+  return NextResponse.json({ status: "ok" });
 }
 
 export async function POST(request: Request) {
@@ -39,61 +33,24 @@ export async function POST(request: Request) {
     );
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const resendKey = process.env.RESEND_API_KEY;
-
-  if (!supabaseUrl || !supabaseServiceRoleKey) {
-    return NextResponse.json(
-      { error: "The project intake database is not connected. Contact J Supreme Tech directly." },
-      { status: 503 },
-    );
+  if (!resendKey) {
+    return NextResponse.json({ error: "Email service not configured." }, { status: 503 });
   }
 
-  // 1. Save to Supabase
-  const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
-  const { error: dbError } = await supabase.from("project_intake_submissions").insert({
-    name: payload.name,
-    business_name: payload.businessName,
-    email: payload.email,
-    whatsapp: payload.whatsapp,
-    service_needed: payload.serviceNeeded,
-    budget_range: payload.budgetRange,
-    project_stage: payload.projectStage,
-    timeline: payload.timeline,
-    sop_category: payload.sopCategory,
-    discovery_requirements: payload.discoveryRequirements,
-    integrations: payload.integrations,
-    goals_audience: payload.goalsAudience,
-    project_references: payload.references,
-    project_description: payload.projectDescription,
-    quality_control_notes: payload.qualityControlNotes,
-    pipeline_stage: "new_lead",
-    lead_status: "needs_review",
-    lead_source: "website_intake_form",
-    source: "website",
-  });
+  const discovery = Array.isArray(payload.discoveryRequirements)
+    ? (payload.discoveryRequirements as string[]).join(", ")
+    : String(payload.discoveryRequirements ?? "—");
+  const integrations = Array.isArray(payload.integrations)
+    ? (payload.integrations as string[]).join(", ")
+    : String(payload.integrations ?? "—");
 
-  if (dbError) {
-    return NextResponse.json({ error: dbError.message }, { status: 500 });
-  }
-
-  // 2. Email notification via Resend
-  if (resendKey) {
-    try {
-      const resend = new Resend(resendKey);
-      const discovery = Array.isArray(payload.discoveryRequirements)
-        ? (payload.discoveryRequirements as string[]).join(", ")
-        : String(payload.discoveryRequirements ?? "—");
-      const integrations = Array.isArray(payload.integrations)
-        ? (payload.integrations as string[]).join(", ")
-        : String(payload.integrations ?? "—");
-
-      await resend.emails.send({
-        from: "J Supreme Tech Intake <hello@jsupremetech.online>",
-        to: ["jordanroad631@gmail.com"],
-        subject: `New Lead: ${payload.name} — ${payload.serviceNeeded ?? "Inquiry"}`,
-        html: `
+  const resend = new Resend(resendKey);
+  const { error } = await resend.emails.send({
+    from: "J Supreme Tech Intake <hello@jsupremetech.online>",
+    to: ["jordanmorrisr@gmail.com", "global.jsuprememarketing@gmail.com"],
+    subject: `New Lead: ${payload.name} — ${payload.serviceNeeded ?? "Inquiry"}`,
+    html: `
 <div style="font-family:monospace;max-width:640px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:12px">
   <div style="border-bottom:1px solid #222;padding-bottom:16px;margin-bottom:24px">
     <p style="margin:0;font-size:10px;letter-spacing:0.2em;color:#666;text-transform:uppercase">J Supreme Tech</p>
@@ -123,19 +80,16 @@ export async function POST(request: Request) {
   </div>
 
   ${payload.references ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">References / Assets</p><p style="margin:0;font-size:13px;line-height:1.6">${payload.references}</p></div>` : ""}
-
-  ${discovery ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Discovery Requirements</p><p style="margin:0;font-size:13px;line-height:1.6">${discovery}</p></div>` : ""}
-
-  ${integrations ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Integrations Needed</p><p style="margin:0;font-size:13px;line-height:1.6">${integrations}</p></div>` : ""}
-
+  ${discovery !== "—" ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Discovery Requirements</p><p style="margin:0;font-size:13px;line-height:1.6">${discovery}</p></div>` : ""}
+  ${integrations !== "—" ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Integrations Needed</p><p style="margin:0;font-size:13px;line-height:1.6">${integrations}</p></div>` : ""}
   ${payload.qualityControlNotes ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Quality Control Notes</p><p style="margin:0;font-size:13px;line-height:1.6">${payload.qualityControlNotes}</p></div>` : ""}
 
   <p style="margin-top:24px;font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.15em">J Supreme Tech · jsupremetech.online · (658) 218-2282</p>
 </div>`,
-      });
-    } catch {
-      // Email failure is non-fatal — submission already saved to DB
-    }
+  });
+
+  if (error) {
+    return NextResponse.json({ error: "Failed to send inquiry. Contact us directly at (658) 218-2282." }, { status: 500 });
   }
 
   return NextResponse.json({
