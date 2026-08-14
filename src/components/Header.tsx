@@ -119,7 +119,7 @@ export function Header() {
       }`}
     >
       {/* spectrum top line */}
-      <div className="h-[3px] w-full" style={{ background: "var(--sp-h)" }} />
+      <div className="h-[4px] w-full flex-none" style={{ background: "var(--sp-h)" }} />
 
       <nav className="shell flex items-center justify-between py-3">
         {/* Logo */}

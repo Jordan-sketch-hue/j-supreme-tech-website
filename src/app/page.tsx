@@ -79,7 +79,7 @@ export default function Home() {
         />
 
         {/* Founder photo — right bleed, editorial */}
-        <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[45%] lg:block">
+        <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[42%] lg:block">
           {/* Deep left fade */}
           <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#080808] via-[#080808]/75 to-transparent" />
           {/* Bottom fade */}
@@ -90,7 +90,7 @@ export default function Home() {
           <img
             src="/jordan-founder.jpg"
             alt="Jordan Morris — Founder, J Supreme Tech"
-            className="h-full w-full object-cover object-top opacity-85"
+            className="h-full w-full object-cover object-[center_5%] opacity-95"
           />
 
           {/* Floating glass capability card — anchored in photo, NOT overlapping text */}
@@ -122,7 +122,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="shell relative flex flex-1 flex-col justify-between pb-20 pt-16 md:pt-24">
+        <div className="shell relative flex flex-1 flex-col justify-between pb-20 pt-16 md:pt-24 lg:pr-[44vw]">
 
           {/* ── Studio tag ── */}
           <Reveal direction="up">
@@ -143,7 +143,7 @@ export default function Home() {
 
           {/* ── Main headline ── */}
           <div className="mt-10 max-w-[42rem]">
-            <h1 className="font-display text-[clamp(2.8rem,5.5vw,5rem)] font-semibold leading-[0.92] tracking-[-0.03em]">
+            <h1 className="font-display text-[clamp(2.4rem,4vw,4rem)] font-semibold leading-[0.92] tracking-[-0.03em]">
               <CineWords text="We build the systems." delay={0.1} />
               <br />
               <span className="text-white/28">
