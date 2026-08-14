@@ -1,11 +1,21 @@
 "use client";
 
 import { useEffect } from "react";
+import { track, captureUTM } from "@/lib/track";
 
 export function VisitorTracker() {
   useEffect(() => {
-    const controller = new AbortController();
+    // Capture UTM params on landing (stores to sessionStorage)
+    captureUTM();
 
+    // Rich analytics event
+    track("page_view", {
+      referrer: document.referrer || null,
+      title: document.title,
+    });
+
+    // Legacy security event — keep for threat detection
+    const controller = new AbortController();
     fetch("/api/security/events", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -17,9 +27,7 @@ export function VisitorTracker() {
       }),
       keepalive: true,
       signal: controller.signal,
-    }).catch(() => {
-      // Visitor tracking should never block the customer experience.
-    });
+    }).catch(() => {});
 
     return () => controller.abort();
   }, []);

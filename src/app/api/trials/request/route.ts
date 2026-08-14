@@ -45,6 +45,13 @@ export async function POST(request: NextRequest) {
   // Save to DB
   const db = supabase();
   if (db) {
+    // Log analytics event alongside the trial record
+    db.from("jst_analytics_events").insert({
+      event: "trial_signup",
+      page: "/free-trial",
+      props: { products: body.productSlugs, industry: body.industry, company: body.company },
+    }).then(() => {}).catch(() => {});
+
     await db.from("jst_trial_requests").insert({
       id: trialId,
       email: body.email,

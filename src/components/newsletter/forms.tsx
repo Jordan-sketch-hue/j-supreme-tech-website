@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { track } from "@/lib/track";
 
 type State = "idle" | "loading" | "done" | "error";
 
@@ -27,6 +28,7 @@ function useSubscribe(source: string) {
       }
       setState("done");
       setMessage(data.message || "You're in.");
+      track("newsletter_signup", { source });
     } catch {
       setState("error");
       setMessage("Network error. Please try again.");

@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { track } from "@/lib/track";
 
 const intakeServices = [
   "Digital Presence Systems",
@@ -47,6 +48,14 @@ const labelClass = "block text-sm font-medium text-ink-800";
 export function ProjectIntakeForm({ defaultService }: { defaultService?: string } = {}) {
   const [status, setStatus] = useState<SubmissionState>("idle");
   const [message, setMessage] = useState("");
+  const formStarted = useRef(false);
+
+  function handleFirstInput() {
+    if (!formStarted.current) {
+      formStarted.current = true;
+      track("form_start", { form: "intake" });
+    }
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -88,6 +97,7 @@ export function ProjectIntakeForm({ defaultService }: { defaultService?: string 
 
       setStatus("success");
       setMessage(data.message || "Project inquiry received.");
+      track("intake_submit", { service: payload.serviceNeeded, budget: payload.budgetRange });
       form.reset();
     } catch (error) {
       setStatus("error");
@@ -102,6 +112,7 @@ export function ProjectIntakeForm({ defaultService }: { defaultService?: string 
   return (
     <form
       onSubmit={handleSubmit}
+      onFocus={handleFirstInput}
       className="card p-5 shadow-[0_30px_60px_-32px_rgba(0,0,0,0.22)] md:p-8"
     >
       <div className="grid gap-4 md:grid-cols-2">
