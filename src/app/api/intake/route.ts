@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { Resend } from "resend";
 
 type IntakePayload = {
   name?: unknown;
@@ -19,16 +20,9 @@ type IntakePayload = {
   qualityControlNotes?: unknown;
 };
 
-function databaseConfig() {
-  return {
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
-  };
-}
-
 export async function GET() {
-  const { supabaseUrl, supabaseServiceRoleKey } = databaseConfig();
-
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   return NextResponse.json({
     databaseConnected: Boolean(supabaseUrl && supabaseServiceRoleKey),
     pipelineTable: "project_intake_submissions",
@@ -39,23 +33,26 @@ export async function POST(request: Request) {
   const payload = (await request.json()) as IntakePayload;
 
   if (!payload.name || !payload.email || !payload.whatsapp || !payload.projectDescription) {
-    return NextResponse.json({ error: "Name, email, WhatsApp number, and project description are required." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Name, email, WhatsApp number, and project description are required." },
+      { status: 400 },
+    );
   }
 
-  const { supabaseUrl, supabaseServiceRoleKey } = databaseConfig();
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const resendKey = process.env.RESEND_API_KEY;
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     return NextResponse.json(
-      {
-        error:
-          "The project intake database is not connected yet. Add NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel, then redeploy.",
-      },
+      { error: "The project intake database is not connected. Contact J Supreme Tech directly." },
       { status: 503 },
     );
   }
 
+  // 1. Save to Supabase
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
-  const { error } = await supabase.from("project_intake_submissions").insert({
+  const { error: dbError } = await supabase.from("project_intake_submissions").insert({
     name: payload.name,
     business_name: payload.businessName,
     email: payload.email,
@@ -68,7 +65,7 @@ export async function POST(request: Request) {
     discovery_requirements: payload.discoveryRequirements,
     integrations: payload.integrations,
     goals_audience: payload.goalsAudience,
-    references: payload.references,
+    project_references: payload.references,
     project_description: payload.projectDescription,
     quality_control_notes: payload.qualityControlNotes,
     pipeline_stage: "new_lead",
@@ -77,9 +74,71 @@ export async function POST(request: Request) {
     source: "website",
   });
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  if (dbError) {
+    return NextResponse.json({ error: dbError.message }, { status: 500 });
   }
 
-  return NextResponse.json({ message: "Project inquiry received. J Supreme Tech will follow up shortly." });
+  // 2. Email notification via Resend
+  if (resendKey) {
+    try {
+      const resend = new Resend(resendKey);
+      const discovery = Array.isArray(payload.discoveryRequirements)
+        ? (payload.discoveryRequirements as string[]).join(", ")
+        : String(payload.discoveryRequirements ?? "—");
+      const integrations = Array.isArray(payload.integrations)
+        ? (payload.integrations as string[]).join(", ")
+        : String(payload.integrations ?? "—");
+
+      await resend.emails.send({
+        from: "J Supreme Tech Intake <hello@jsupremetech.online>",
+        to: ["jordanroad631@gmail.com"],
+        subject: `New Lead: ${payload.name} — ${payload.serviceNeeded ?? "Inquiry"}`,
+        html: `
+<div style="font-family:monospace;max-width:640px;margin:0 auto;background:#0a0a0a;color:#fff;padding:32px;border-radius:12px">
+  <div style="border-bottom:1px solid #222;padding-bottom:16px;margin-bottom:24px">
+    <p style="margin:0;font-size:10px;letter-spacing:0.2em;color:#666;text-transform:uppercase">J Supreme Tech</p>
+    <h1 style="margin:8px 0 0;font-size:20px;font-weight:700">New Project Inquiry</h1>
+  </div>
+
+  <table style="width:100%;border-collapse:collapse">
+    <tr><td style="padding:6px 0;color:#888;font-size:11px;width:160px">Name</td><td style="padding:6px 0;font-size:13px">${payload.name}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">Business</td><td style="padding:6px 0;font-size:13px">${payload.businessName ?? "—"}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">Email</td><td style="padding:6px 0;font-size:13px">${payload.email}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">WhatsApp</td><td style="padding:6px 0;font-size:13px">${payload.whatsapp}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">Service</td><td style="padding:6px 0;font-size:13px">${payload.serviceNeeded ?? "—"}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">Budget</td><td style="padding:6px 0;font-size:13px">${payload.budgetRange ?? "—"}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">Stage</td><td style="padding:6px 0;font-size:13px">${payload.projectStage ?? "—"}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">Timeline</td><td style="padding:6px 0;font-size:13px">${payload.timeline ?? "—"}</td></tr>
+    <tr><td style="padding:6px 0;color:#888;font-size:11px">SOP Category</td><td style="padding:6px 0;font-size:13px">${payload.sopCategory ?? "—"}</td></tr>
+  </table>
+
+  <div style="margin-top:20px;padding:16px;background:#111;border-radius:8px">
+    <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Goals & Audience</p>
+    <p style="margin:0;font-size:13px;line-height:1.6">${payload.goalsAudience ?? "—"}</p>
+  </div>
+
+  <div style="margin-top:12px;padding:16px;background:#111;border-radius:8px">
+    <p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Project Description</p>
+    <p style="margin:0;font-size:13px;line-height:1.6">${payload.projectDescription}</p>
+  </div>
+
+  ${payload.references ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">References / Assets</p><p style="margin:0;font-size:13px;line-height:1.6">${payload.references}</p></div>` : ""}
+
+  ${discovery ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Discovery Requirements</p><p style="margin:0;font-size:13px;line-height:1.6">${discovery}</p></div>` : ""}
+
+  ${integrations ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Integrations Needed</p><p style="margin:0;font-size:13px;line-height:1.6">${integrations}</p></div>` : ""}
+
+  ${payload.qualityControlNotes ? `<div style="margin-top:12px;padding:16px;background:#111;border-radius:8px"><p style="margin:0 0 6px;font-size:10px;letter-spacing:0.15em;color:#666;text-transform:uppercase">Quality Control Notes</p><p style="margin:0;font-size:13px;line-height:1.6">${payload.qualityControlNotes}</p></div>` : ""}
+
+  <p style="margin-top:24px;font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.15em">J Supreme Tech · jsupremetech.online · (658) 218-2282</p>
+</div>`,
+      });
+    } catch {
+      // Email failure is non-fatal — submission already saved to DB
+    }
+  }
+
+  return NextResponse.json({
+    message: "Project inquiry received. J Supreme Tech will follow up shortly.",
+  });
 }
