@@ -11,6 +11,7 @@ import {
   Tablet,
 } from "lucide-react";
 import { CineWords } from "@/components/CineWords";
+import { HeroShowcase } from "@/components/HeroShowcase";
 import { LaptopFrame, PhoneFrame } from "@/components/DeviceFrame";
 import { ShowcaseGrid } from "@/components/ShowcaseGrid";
 import { ClientLogoStrip } from "@/components/ClientLogoStrip";
@@ -49,168 +50,92 @@ export default function Home() {
     <main className="bg-white text-ink-900">
       <ScrollProgress className="bg-ink-900" />
       {/* ============================== HERO ============================== */}
-      <section id="home" className="relative min-h-[100svh] overflow-hidden bg-[#080808] text-white flex flex-col">
-        {/* Grid texture */}
-        <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-30" />
+      <section id="home" className="relative min-h-[100svh] bg-[#080808] text-white flex flex-col lg:flex-row">
 
-        {/* Left spectrum strip */}
-        <div
-          className="pointer-events-none absolute left-0 top-0 h-full w-[4px] hidden lg:block z-10"
-          style={{ background: "var(--sp-v)" }}
-        />
+        {/* Decorative — absolute, behind everything */}
+        <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-25 z-0" />
+        <div className="hero-glow pointer-events-none absolute left-[15%] top-[25%] h-[600px] w-[600px] rounded-full z-0"
+          style={{ background: "radial-gradient(circle, rgba(61,107,255,0.07) 0%, transparent 70%)" }} />
+        <div className="hero-glow pointer-events-none absolute left-[5%] top-[65%] h-[350px] w-[350px] rounded-full z-0"
+          style={{ background: "radial-gradient(circle, rgba(155,81,255,0.05) 0%, transparent 70%)", animationDelay: "2s" }} />
 
-        {/* Bottom spectrum strip */}
-        <div
-          className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full z-10"
-          style={{ background: "var(--sp-h)" }}
-        />
+        {/* Left spectrum edge */}
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-[4px] hidden lg:block z-20"
+          style={{ background: "var(--sp-v)" }} />
+        {/* Bottom spectrum edge */}
+        <div className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full z-20"
+          style={{ background: "var(--sp-h)" }} />
 
-        {/* Animated glow orbs */}
-        <div
-          className="hero-glow pointer-events-none absolute left-[20%] top-[30%] h-[500px] w-[500px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(61,107,255,0.08) 0%, transparent 70%)" }}
-        />
-        <div
-          className="hero-glow pointer-events-none absolute left-[10%] top-[60%] h-[300px] w-[300px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, rgba(155,81,255,0.06) 0%, transparent 70%)",
-            animationDelay: "2s",
-          }}
-        />
+        {/* ── LEFT COLUMN: text content ── */}
+        <div className="relative z-10 flex flex-1 flex-col justify-between pb-24 pt-16 md:pt-24
+                        px-6 sm:px-8 lg:pl-10 xl:pl-16 2xl:pl-24 lg:pr-8 lg:max-w-[58vw]">
 
-        {/* Founder photo — right bleed, editorial */}
-        <div className="pointer-events-none absolute right-0 top-0 hidden h-full w-[42%] lg:block">
-          {/* Deep left fade */}
-          <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#080808] via-[#080808]/75 to-transparent" />
-          {/* Bottom fade */}
-          <div className="absolute inset-x-0 bottom-0 z-10 h-64 bg-gradient-to-t from-[#080808] to-transparent" />
-          {/* Top fade */}
-          <div className="absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-[#080808]/50 to-transparent" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/jordan-founder.jpg"
-            alt="Jordan Morris — Founder, J Supreme Tech"
-            className="h-full w-full object-cover object-[center_5%] opacity-95"
-          />
-
-          {/* Floating glass capability card — anchored in photo, NOT overlapping text */}
-          <div className="absolute bottom-32 right-8 z-20 hidden xl:block">
-            <div className="rounded-2xl border border-white/12 bg-[#080808]/70 p-5 shadow-2xl backdrop-blur-xl">
-              <div className="mb-3 flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#00e054]" />
-                <span className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-white/40">
-                  Live · Full service
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-1.5">
-                {["Strategy", "Technology", "Execution", "Growth"].map((cap) => (
-                  <span
-                    key={cap}
-                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-white/60"
-                  >
-                    {cap}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-4 border-t border-white/8 pt-3">
-                <p className="font-display text-xl font-semibold text-white">100+</p>
-                <p className="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/35">
-                  live platforms shipped
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="shell relative flex flex-1 flex-col justify-between pb-20 pt-16 md:pt-24 lg:pr-[44vw]">
-
-          {/* ── Studio tag ── */}
+          {/* Studio tag */}
           <Reveal direction="up">
             <div className="flex items-center gap-3">
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ background: "var(--sp-cyan)" }}
-              />
-              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/35">
-                J Supreme Tech
-              </span>
+              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--sp-cyan)" }} />
+              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/35">J Supreme Tech</span>
               <span className="font-mono text-[0.58rem] text-white/15">·</span>
-              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/25">
-                Kingston, JA → Worldwide
-              </span>
+              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/25">Kingston, JA → Worldwide</span>
             </div>
           </Reveal>
 
-          {/* ── Main headline ── */}
-          <div className="mt-10 max-w-[42rem]">
-            <h1 className="font-display text-[clamp(2.4rem,4vw,4rem)] font-semibold leading-[0.92] tracking-[-0.03em]">
+          {/* Headline */}
+          <div className="mt-10">
+            <h1 className="font-display text-[clamp(2.6rem,3.8vw,4.2rem)] font-semibold leading-[0.9] tracking-[-0.03em]">
               <CineWords text="We build the systems." delay={0.1} />
               <br />
-              <span className="text-white/28">
+              <span className="text-white/25">
                 <CineWords text="You grow the brand." delay={0.45} />
               </span>
             </h1>
 
             <Reveal direction="up" delay={0.25}>
-              <p className="mt-7 max-w-md text-[1rem] leading-7 text-white/45">
+              <p className="mt-7 max-w-[400px] text-[1rem] leading-[1.75] text-white/45">
                 Websites, apps, CRMs, AI systems, and marketing —
                 engineered as one connected digital infrastructure.
               </p>
             </Reveal>
 
             <Reveal direction="up" delay={0.35}>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Link
-                  href="#contact"
-                  className="relative overflow-hidden rounded-full bg-white px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-px"
-                >
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href="#contact"
+                  className="relative overflow-hidden rounded-full bg-white px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-px">
                   Start a Project →
                 </Link>
-                <Link
-                  href="/solutions/websites"
-                  className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 transition-all hover:border-white/50 hover:text-white hover:-translate-y-px"
-                >
+                <Link href="/solutions/websites"
+                  className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 transition-all hover:border-white/50 hover:text-white hover:-translate-y-px">
                   Explore Solutions
                 </Link>
               </div>
             </Reveal>
 
             <Reveal direction="up" delay={0.45}>
-              <div className="mt-7 flex flex-wrap gap-5 text-[0.76rem] text-white/30">
-                <a
-                  href="https://wa.me/16582182282"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-white/60"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" />
-                  (658) 218-2282
+              <div className="mt-6 flex flex-wrap gap-5 text-[0.76rem] text-white/30">
+                <a href="https://wa.me/16582182282" target="_blank" rel="noreferrer"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-white/60">
+                  <MessageCircle className="h-3.5 w-3.5" /> (658) 218-2282
                 </a>
-                <a
-                  href="mailto:global.jsuprememarketing@gmail.com"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-white/60"
-                >
-                  <Mail className="h-3.5 w-3.5" />
-                  Email the studio
+                <a href="mailto:global.jsuprememarketing@gmail.com"
+                  className="inline-flex items-center gap-2 transition-colors hover:text-white/60">
+                  <Mail className="h-3.5 w-3.5" /> Email the studio
                 </a>
               </div>
             </Reveal>
 
-            {/* ── Solution quick-links ── */}
+            {/* Solution quick-links */}
             <Reveal direction="up" delay={0.55}>
-              <div className="mt-10 flex flex-wrap gap-2">
+              <div className="mt-8 flex flex-wrap gap-2">
                 {[
                   { label: "Websites", href: "/solutions/websites" },
                   { label: "Mobile Apps", href: "/solutions/mobile-apps" },
                   { label: "AI Systems", href: "/solutions/ai-systems" },
                   { label: "Automation", href: "/solutions/automation" },
+                  { label: "E-Commerce", href: "/solutions/ecommerce" },
                   { label: "Marketing", href: "/solutions/marketing-creative" },
                 ].map((s) => (
-                  <Link
-                    key={s.href}
-                    href={s.href}
-                    className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 font-mono text-[0.6rem] uppercase tracking-[0.12em] text-white/45 transition-all hover:border-white/25 hover:text-white/80"
-                  >
+                  <Link key={s.href} href={s.href}
+                    className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/45 transition-all hover:border-white/25 hover:text-white/80 whitespace-nowrap">
                     {s.label}
                   </Link>
                 ))}
@@ -218,22 +143,42 @@ export default function Home() {
             </Reveal>
           </div>
 
-          {/* ── Stats strip ── */}
+          {/* Stats strip */}
           <Reveal direction="up" delay={0.6}>
-            <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] sm:grid-cols-4">
+            <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] sm:grid-cols-4">
               {STATS.map((s) => (
                 <div key={s.label} className="px-5 py-4">
                   <p className="font-display text-2xl font-semibold text-white">
                     <StatValue value={s.value} />
                   </p>
-                  <p className="mt-1 font-mono text-[0.54rem] uppercase leading-4 tracking-[0.1em] text-white/30">
+                  <p className="mt-1 font-mono text-[0.52rem] uppercase leading-4 tracking-[0.1em] text-white/30">
                     {s.label}
                   </p>
                 </div>
               ))}
             </div>
           </Reveal>
+        </div>
 
+        {/* ── RIGHT COLUMN: founder photo + live work carousel ── */}
+        <div className="hidden lg:flex lg:w-[44vw] flex-none flex-col relative overflow-hidden">
+          {/* Founder photo — dark editorial background */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/jordan-founder.jpg"
+            alt="Jordan Morris — Founder"
+            className="absolute inset-0 h-full w-full object-cover object-[center_8%]"
+            style={{ opacity: 0.55 }}
+          />
+          {/* Left gradient — fades photo into left text column */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#080808] via-[#080808]/50 to-transparent" />
+          {/* Bottom gradient — fades into carousel */}
+          <div className="absolute bottom-0 inset-x-0 h-[70%] bg-gradient-to-t from-[#080808] via-[#080808]/80 to-transparent" />
+
+          {/* Live work carousel */}
+          <div className="relative z-10 mt-auto">
+            <HeroShowcase />
+          </div>
         </div>
 
       </section>
