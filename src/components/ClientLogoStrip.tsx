@@ -17,12 +17,12 @@ const CLIENTS = [
 
 export function ClientLogoStrip() {
   return (
-    <div className="overflow-hidden border-b border-line bg-ink-50/50 py-3">
+    <div className="overflow-hidden border-b border-line bg-white py-3">
       <Marquee speed={28} gap="3rem">
         {CLIENTS.map((name) => (
           <span
             key={name}
-            className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-ink-400 transition-colors hover:text-ink-700"
+            className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-black/70 transition-colors hover:text-black"
           >
             {name}
           </span>
