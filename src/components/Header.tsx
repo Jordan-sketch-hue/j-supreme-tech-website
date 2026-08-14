@@ -114,13 +114,10 @@ export function Header() {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/8 bg-[#080808]/90 backdrop-blur-xl"
-          : "border-b border-transparent bg-[#080808]"
+          ? "bg-[#080808]/90 backdrop-blur-xl"
+          : "bg-[#080808]"
       }`}
     >
-      {/* spectrum top line */}
-      <div className="h-[4px] w-full flex-none" style={{ background: "var(--sp-h)" }} />
-
       <nav className="shell flex items-center justify-between py-3">
         {/* Logo */}
         <Link
@@ -174,6 +171,9 @@ export function Header() {
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
       </nav>
+
+      {/* spectrum bottom line */}
+      <div className="h-[4px] w-full flex-none" style={{ background: "var(--sp-h)" }} />
 
       {/* Mobile drawer */}
       {open && (

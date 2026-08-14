@@ -3,16 +3,12 @@
 import { useState, useEffect } from "react";
 
 const SLIDES = [
-  { label: "Language Cradle", tag: "Education Platform", url: "thelanguagecradle.com" },
-  { label: "Ferguson Law", tag: "Legal Website", url: "ferguson-law.vercel.app" },
-  { label: "BP Couriers", tag: "Logistics App", url: "bpcouriers.online" },
-  { label: "The Cleanser JA", tag: "E-Commerce Store", url: "the-cleanser-ja.vercel.app" },
-  { label: "Solace Auto Imports", tag: "Automotive Gallery", url: "solace-auto-imports.vercel.app" },
+  { label: "Language Cradle", tag: "Education Platform", file: "thelanguagecradle-com-d.webp" },
+  { label: "BP Couriers", tag: "Logistics App", file: "bpcouriers-online-d.webp" },
+  { label: "The Cleanser JA", tag: "E-Commerce Store", file: "the-cleanser-ja-vercel-app-d.webp" },
+  { label: "Solace Auto Imports", tag: "Automotive Gallery", file: "solace-auto-imports-vercel-app-d.webp" },
+  { label: "RideLink Jamaica", tag: "Ride-Hail Platform", file: "ridelink-jamaica-vercel-app-d.webp" },
 ];
-
-function shotUrl(host: string) {
-  return `/showcase/${host.replace(/[^a-z0-9]+/gi, "-")}-d.webp`;
-}
 
 export function HeroShowcase() {
   const [active, setActive] = useState(0);
@@ -32,7 +28,7 @@ export function HeroShowcase() {
           const isMid = rel === 1;
           return (
             <div
-              key={s.url}
+              key={s.file}
               className="absolute inset-x-0 transition-all duration-500 ease-out"
               style={{
                 transform: isTop
@@ -44,18 +40,15 @@ export function HeroShowcase() {
                 zIndex: isTop ? 3 : isMid ? 2 : 1,
               }}
             >
-              {/* Browser chrome */}
               <div className="overflow-hidden rounded-xl border border-white/12 bg-[#111] shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
                 <div className="flex items-center gap-1.5 border-b border-white/8 bg-[#1a1a1a] px-3 py-2">
                   {["#ff5f57", "#ffbd2e", "#28c840"].map((c) => (
-                    <span key={c} className="h-2 w-2 rounded-full" style={{ background: c }} />
+                    <span key={c} className="h-2 w-2 rounded-full flex-none" style={{ background: c }} />
                   ))}
-                  <span className="ml-2 flex-1 rounded-md bg-white/5 px-3 py-1 font-mono text-[0.5rem] text-white/35 truncate">
-                    {s.url}
-                  </span>
                 </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={shotUrl(s.url)}
+                  src={`/showcase/${s.file}`}
                   alt={s.label}
                   className="block h-52 w-full object-cover object-top"
                 />

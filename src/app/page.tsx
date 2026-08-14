@@ -59,9 +59,6 @@ export default function Home() {
         <div className="hero-glow pointer-events-none absolute left-[5%] top-[65%] h-[350px] w-[350px] rounded-full z-0"
           style={{ background: "radial-gradient(circle, rgba(155,81,255,0.05) 0%, transparent 70%)", animationDelay: "2s" }} />
 
-        {/* Left spectrum edge */}
-        <div className="pointer-events-none absolute left-0 top-0 h-full w-[4px] hidden lg:block z-20"
-          style={{ background: "var(--sp-v)" }} />
         {/* Bottom spectrum edge */}
         <div className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full z-20"
           style={{ background: "var(--sp-h)" }} />
@@ -69,16 +66,6 @@ export default function Home() {
         {/* ── LEFT COLUMN: text content ── */}
         <div className="relative z-10 flex flex-1 flex-col justify-between pb-24 pt-16 md:pt-24
                         px-6 sm:px-8 lg:pl-10 xl:pl-16 2xl:pl-24 lg:pr-8 lg:max-w-[58vw]">
-
-          {/* Studio tag */}
-          <Reveal direction="up">
-            <div className="flex items-center gap-3">
-              <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--sp-cyan)" }} />
-              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/35">J Supreme Tech</span>
-              <span className="font-mono text-[0.58rem] text-white/15">·</span>
-              <span className="font-mono text-[0.58rem] uppercase tracking-[0.28em] text-white/25">Kingston, JA → Worldwide</span>
-            </div>
-          </Reveal>
 
           {/* Headline */}
           <div className="mt-10">
