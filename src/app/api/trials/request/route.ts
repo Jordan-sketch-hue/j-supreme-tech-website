@@ -1,13 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
-import crypto from 'crypto';
-
-// Simulated in-memory database (use real DB in production)
-const trialDatabase = new Map();
-
-interface ValidationError {
-  field: string;
-  message: string;
-}
+import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
+import { Resend } from "resend";
+import crypto from "crypto";
 
 interface TrialRequestBody {
   firstName: string;
@@ -16,220 +10,123 @@ interface TrialRequestBody {
   company: string;
   industry: string;
   productSlugs: string[];
-  useCases: Record<string, string>;
+  useCases?: Record<string, string>;
   agreeToTerms: boolean;
 }
 
-function validateTrialRequest(body: TrialRequestBody): ValidationError[] {
-  const errors: ValidationError[] = [];
-
-  if (!body.firstName?.trim()) errors.push({ field: 'firstName', message: 'First name required' });
-  if (!body.lastName?.trim()) errors.push({ field: 'lastName', message: 'Last name required' });
-  if (!body.email?.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-    errors.push({ field: 'email', message: 'Valid email required' });
-  }
-  if (!body.company?.trim()) errors.push({ field: 'company', message: 'Company required' });
-  if (!body.industry) errors.push({ field: 'industry', message: 'Industry required' });
-  if (!Array.isArray(body.productSlugs) || body.productSlugs.length === 0) {
-    errors.push({ field: 'products', message: 'At least one product required' });
-  }
-  if (!body.agreeToTerms) errors.push({ field: 'terms', message: 'Terms agreement required' });
-
+function validate(body: TrialRequestBody) {
+  const errors: { field: string; message: string }[] = [];
+  if (!body.firstName?.trim()) errors.push({ field: "firstName", message: "First name required" });
+  if (!body.lastName?.trim()) errors.push({ field: "lastName", message: "Last name required" });
+  if (!body.email?.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.push({ field: "email", message: "Valid email required" });
+  if (!body.company?.trim()) errors.push({ field: "company", message: "Company required" });
+  if (!body.industry) errors.push({ field: "industry", message: "Industry required" });
+  if (!Array.isArray(body.productSlugs) || !body.productSlugs.length) errors.push({ field: "products", message: "At least one product required" });
+  if (!body.agreeToTerms) errors.push({ field: "terms", message: "Terms agreement required" });
   return errors;
 }
 
-function generateAccessToken(): string {
-  return crypto.randomBytes(32).toString('hex');
-}
-
-function generateTrialId(): string {
-  return `trial_${Date.now()}_${crypto.randomBytes(8).toString('hex')}`;
+function supabase() {
+  const url = process.env.JST_SUPABASE_URL;
+  const key = process.env.JST_SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key);
 }
 
 export async function POST(request: NextRequest) {
-  try {
-    const body: TrialRequestBody = await request.json();
+  const body: TrialRequestBody = await request.json();
 
-    // Validate input
-    const validationErrors = validateTrialRequest(body);
-    if (validationErrors.length > 0) {
-      return NextResponse.json(
-        { errors: validationErrors },
-        { status: 400 }
-      );
-    }
+  const errors = validate(body);
+  if (errors.length) return NextResponse.json({ errors }, { status: 400 });
 
-    // Check for duplicate email
-    const existingTrial = Array.from(trialDatabase.values()).find(
-      (trial) => (trial as { email: string }).email === body.email
-    );
+  const trialId = `trial_${Date.now()}_${crypto.randomBytes(8).toString("hex")}`;
+  const expiresAt = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000);
 
-    if (existingTrial && existingTrial.status === 'active') {
-      return NextResponse.json(
-        {
-          error: 'You already have an active trial',
-          existingTrialId: existingTrial.id,
-        },
-        { status: 409 }
-      );
-    }
-
-    const trialId = generateTrialId();
-    const startDate = new Date();
-    const expiryDate = new Date(startDate.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 days
-
-    // Create trial request
-    const trialRequest = {
+  // Save to DB
+  const db = supabase();
+  if (db) {
+    await db.from("jst_trial_requests").insert({
       id: trialId,
       email: body.email,
-      firstName: body.firstName,
-      lastName: body.lastName,
+      first_name: body.firstName,
+      last_name: body.lastName,
       company: body.company,
       industry: body.industry,
-      productSlugs: body.productSlugs,
-      useCases: body.useCases || {},
-      status: 'active',
-      createdAt: startDate,
-      expiresAt: expiryDate,
-      startedAt: startDate,
-      environments: {},
-    };
-
-    // Create trial environments for each product
-    for (const productSlug of body.productSlugs) {
-      const env = {
-        id: `env_${trialId}_${productSlug}`,
-        trialRequestId: trialId,
-        productSlug,
-        accessToken: generateAccessToken(),
-        demoData: {},
-        settings: {
-          theme: 'light',
-          language: 'en',
-          timezone: 'UTC',
-          dataLimit: 50, // MB
-          featureLimit: 10,
-          customizations: {},
-        },
-        usageMetrics: {
-          logins: 0,
-          hoursUsed: 0,
-          featuresAccessed: [],
-          dataProcessed: 0,
-          actionsCompleted: 0,
-        },
-        createdAt: startDate,
-        expiresAt: expiryDate,
-      };
-
-      trialRequest.environments = {
-        ...trialRequest.environments,
-        [productSlug]: env,
-      };
-    }
-
-    // Store in database
-    trialDatabase.set(trialId, trialRequest);
-
-    return NextResponse.json(
-      {
-        success: true,
-        trialId,
-        email: body.email,
-        expiresAt: expiryDate,
-        message: 'Trial request created successfully',
-      },
-      { status: 201 }
-    );
-  } catch (error) {
-    console.error('Trial request error:', error);
-    return NextResponse.json(
-      { error: 'Failed to process trial request' },
-      { status: 500 }
-    );
+      product_slugs: body.productSlugs,
+      use_cases: body.useCases ?? {},
+      status: "active",
+      expires_at: expiresAt.toISOString(),
+      agreed_to_terms: body.agreeToTerms,
+    });
   }
+
+  // Email notification
+  const resendKey = process.env.RESEND_API_KEY;
+  if (resendKey) {
+    const resend = new Resend(resendKey);
+    const from = process.env.NEWSLETTER_FROM_EMAIL ?? "J Supreme Tech <hello@jsupremetech.online>";
+    const products = body.productSlugs.join(", ");
+
+    await Promise.allSettled([
+      resend.emails.send({
+        from,
+        to: ["jordanmorrisr@gmail.com", "global.jsuprememarketing@gmail.com"],
+        replyTo: body.email,
+        subject: `New Trial: ${body.firstName} ${body.lastName} — ${body.company}`,
+        html: `
+<div style="font-family:monospace;max-width:600px;background:#0a0a0a;color:#fff;padding:28px;border-radius:12px">
+  <p style="margin:0 0 4px;font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.2em">Supreme Suite</p>
+  <h2 style="margin:0 0 20px;font-size:18px">New 14-Day Trial Started</h2>
+  <table style="width:100%;border-collapse:collapse">
+    <tr><td style="padding:5px 0;color:#888;font-size:11px;width:140px">Name</td><td style="padding:5px 0;font-size:13px">${body.firstName} ${body.lastName}</td></tr>
+    <tr><td style="padding:5px 0;color:#888;font-size:11px">Email</td><td style="padding:5px 0;font-size:13px">${body.email}</td></tr>
+    <tr><td style="padding:5px 0;color:#888;font-size:11px">Company</td><td style="padding:5px 0;font-size:13px">${body.company}</td></tr>
+    <tr><td style="padding:5px 0;color:#888;font-size:11px">Industry</td><td style="padding:5px 0;font-size:13px">${body.industry}</td></tr>
+    <tr><td style="padding:5px 0;color:#888;font-size:11px">Products</td><td style="padding:5px 0;font-size:13px">${products}</td></tr>
+    <tr><td style="padding:5px 0;color:#888;font-size:11px">Trial ID</td><td style="padding:5px 0;font-size:11px;color:#555">${trialId}</td></tr>
+    <tr><td style="padding:5px 0;color:#888;font-size:11px">Expires</td><td style="padding:5px 0;font-size:13px">${expiresAt.toDateString()}</td></tr>
+  </table>
+</div>`,
+      }),
+      resend.emails.send({
+        from,
+        to: body.email,
+        subject: "Your Supreme Suite trial is active — J Supreme Tech",
+        html: `
+<div style="font-family:monospace;max-width:600px;background:#0a0a0a;color:#fff;padding:28px;border-radius:12px">
+  <p style="margin:0 0 4px;font-size:10px;color:#666;text-transform:uppercase;letter-spacing:0.2em">J Supreme Tech</p>
+  <h2 style="margin:0 0 16px;font-size:18px">Hi ${body.firstName}, your trial is live.</h2>
+  <p style="font-size:13px;line-height:1.7;color:#ccc">You have 14 days to explore <strong style="color:#fff">${products}</strong>. Jordan will reach out personally to walk you through the system.</p>
+  <p style="margin-top:16px;font-size:13px;line-height:1.7;color:#ccc">Need help sooner? WhatsApp: <a href="https://wa.me/16582182282" style="color:#fff">(658) 218-2282</a></p>
+  <p style="margin-top:20px;font-size:10px;color:#444;text-transform:uppercase;letter-spacing:0.15em">J Supreme Tech · jsupremetech.online</p>
+</div>`,
+      }),
+    ]);
+  }
+
+  return NextResponse.json(
+    { success: true, trialId, email: body.email, expiresAt },
+    { status: 201 },
+  );
 }
 
 export async function GET(request: NextRequest) {
-  try {
-    const trialId = request.nextUrl.searchParams.get('trialId');
-    const email = request.nextUrl.searchParams.get('email');
+  const db = supabase();
+  if (!db) return NextResponse.json({ error: "DB not configured" }, { status: 503 });
 
-    if (trialId) {
-      const trial = trialDatabase.get(trialId);
-      if (!trial) {
-        return NextResponse.json({ error: 'Trial not found' }, { status: 404 });
-      }
+  const trialId = request.nextUrl.searchParams.get("trialId");
+  const email = request.nextUrl.searchParams.get("email");
 
-      // Check expiry
-      if (new Date() > trial.expiresAt) {
-        trial.status = 'expired';
-      }
-
-      return NextResponse.json(trial);
-    }
-
-    if (email) {
-      const trials = Array.from(trialDatabase.values()).filter(
-        (trial) => (trial as { email: string }).email === email
-      );
-      return NextResponse.json(trials);
-    }
-
-    return NextResponse.json(
-      { error: 'Provide trialId or email' },
-      { status: 400 }
-    );
-  } catch (error) {
-    console.error('Get trial error:', error);
-    return NextResponse.json(
-      { error: 'Failed to retrieve trial' },
-      { status: 500 }
-    );
+  if (trialId) {
+    const { data } = await db.from("jst_trial_requests").select("*").eq("id", trialId).maybeSingle();
+    if (!data) return NextResponse.json({ error: "Trial not found" }, { status: 404 });
+    return NextResponse.json(data);
   }
-}
 
-export async function PUT(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const { trialId, action, data } = body;
-
-    const trial = trialDatabase.get(trialId);
-    if (!trial) {
-      return NextResponse.json({ error: 'Trial not found' }, { status: 404 });
-    }
-
-    if (action === 'updateSettings') {
-      const { productSlug, settings } = data;
-      if (trial.environments[productSlug]) {
-        trial.environments[productSlug].settings = {
-          ...trial.environments[productSlug].settings,
-          ...settings,
-        };
-      }
-    }
-
-    if (action === 'logMetric') {
-      const { productSlug, metric, value } = data;
-      if (trial.environments[productSlug]) {
-        const env = trial.environments[productSlug];
-        if (metric === 'login') env.usageMetrics.logins += 1;
-        if (metric === 'hoursUsed') env.usageMetrics.hoursUsed += value;
-        if (metric === 'featureAccess') {
-          env.usageMetrics.featuresAccessed.push(value);
-        }
-        if (metric === 'actionCompleted') env.usageMetrics.actionsCompleted += 1;
-        env.usageMetrics.lastLogin = new Date();
-      }
-    }
-
-    trialDatabase.set(trialId, trial);
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Update trial error:', error);
-    return NextResponse.json(
-      { error: 'Failed to update trial' },
-      { status: 500 }
-    );
+  if (email) {
+    const { data } = await db.from("jst_trial_requests").select("*").eq("email", email);
+    return NextResponse.json(data ?? []);
   }
+
+  return NextResponse.json({ error: "Provide trialId or email" }, { status: 400 });
 }
