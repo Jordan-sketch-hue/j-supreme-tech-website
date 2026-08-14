@@ -25,8 +25,7 @@ const NAV = [
     children: [
       { label: "Supreme Suite", href: "/products" },
       { label: "AXIOM", href: "/axiom" },
-      { label: "Ready-Made Systems", href: "/products#ready-made" },
-      { label: "Shop", href: "/gumroad" },
+      { label: "Store", href: "/gumroad" },
     ],
   },
   {

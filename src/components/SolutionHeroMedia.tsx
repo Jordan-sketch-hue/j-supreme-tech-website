@@ -51,7 +51,9 @@ const MEDIA_MAP: Record<string, MediaEntry> = {
   automation: {
     type: "slides",
     files: [
-      { file: "/showcase/jsupremeconglomerate-online-d.webp", label: "Conglomerate Hub" },
+      { file: "/showcase/jsupremeconglomerate-online-d.webp", label: "J Supreme Conglomerate" },
+      { file: "/showcase/bpcouriers-online-d.webp", label: "BP Couriers — Auto Dispatch" },
+      { file: "/showcase/thelanguagecradle-com-d.webp", label: "Language Cradle — Auto CMS" },
     ],
   },
   "ai-systems": {

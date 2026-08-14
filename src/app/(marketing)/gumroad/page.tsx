@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import {
   ArrowRight,
   BookOpen,
@@ -461,8 +460,8 @@ export default function GumroadPage() {
         </div>
       </section>
 
-      {/* Rainbow divider marquee */}
-      <div className="overflow-hidden border-y border-[#e4e4e4] bg-white py-3.5">
+      {/* Divider marquee */}
+      <div className="overflow-hidden border-y border-white/8 bg-[#0a0a0a] py-3.5">
         <Marquee speed={40}>
           {["E-Books", "Website Templates", "App Source Code", "13 SaaS Systems", "White-Label Services", "Strategy Calls", "Instant Downloads", "International Shipping", "Built in Production"].map(
             (t, i) => (
@@ -478,62 +477,56 @@ export default function GumroadPage() {
         </Marquee>
       </div>
 
-      {/* Live Work Showcase */}
-      <section className="bg-white px-6 py-20">
+      {/* Live Client Work — dark band */}
+      <section className="bg-[#0a0a0a] border-t border-white/6 px-6 py-20">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <p className="mb-2 text-center font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#999]">
+            <p className="mb-2 text-center font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-white/30">
               Built by J Supreme Tech — live in production
             </p>
-            <h2 className="text-center text-3xl font-black text-[#141414] sm:text-4xl">
-              Work that ships.
+            <h2 className="text-center font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+              Real clients. Real systems.
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-center text-sm text-[#666]">
-              Every product in the store is drawn from real client work. These are the sites, apps, and systems behind the templates and services you&apos;re buying.
+            <p className="mx-auto mt-4 max-w-lg text-center text-sm leading-relaxed text-white/45">
+              Every template and product in this store is drawn from live client work — sites, apps, and platforms we&apos;ve shipped and still maintain.
             </p>
           </Reveal>
 
-          {/* Live client sites */}
+          {/* Live client sites — screenshot cards */}
           <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { name: "The Language Cradle", url: "https://thelanguagecradle.com", cat: "Website + CMS + Portal", accent: "#7B2FFF", desc: "Flagship IBLC learning platform with student portal, admin CMS, and Global Voice™ feature.", preview: "language-cradle" },
-              { name: "Ferguson Law", url: "https://ferguson-law.vercel.app", cat: "Law Firm Website + Booking", accent: "#FF8C00", desc: "Professional law firm site with admin dashboard, chatbot, and client booking system.", preview: "ferguson-law" },
-              { name: "BP Couriers", url: "https://bpcouriers.online", cat: "Courier App", accent: "#00C853", desc: "Full dispatch and booking platform — the template behind the Courier App product.", preview: "bp-couriers" },
-              { name: "Stratus Logistics", url: "https://courier-logistics.vercel.app", cat: "4-Portal Logistics SaaS", accent: "#00B4D8", desc: "Enterprise logistics with driver, client, dispatcher, and admin portals.", preview: "stratus-logistics" },
-              { name: "The Mover Guy", url: "https://themoverguy.online", cat: "Moving Service + Store", accent: "#FF3B3B", desc: "4-surface moving company platform with WiPay payments and booking.", preview: "mover-guy" },
-              { name: "Aboo Tours", url: "https://abo-tours.vercel.app", cat: "Tourism + Transfers", accent: "#FFD700", desc: "Jamaica tourism and private transfers booking platform.", preview: "aboo-tours" },
+              { name: "The Language Cradle", url: "https://thelanguagecradle.com", cat: "Education Platform", accent: "#7B2FFF", desc: "Flagship IBLC learning platform with student portal, admin CMS, and Global Voice™ AI.", file: "/showcase/thelanguagecradle-com-d.webp" },
+              { name: "BP Couriers", url: "https://bpcouriers.online", cat: "Courier App", accent: "#00C853", desc: "Full dispatch and booking platform — the live system behind the FleetRun SaaS product.", file: "/showcase/bpcouriers-online-d.webp" },
+              { name: "The Cleanser JA", url: "https://the-cleanser-ja.vercel.app", cat: "E-Commerce Store", accent: "#FF8C00", desc: "Herbal wellness brand with a full admin, order system, and WiPay checkout.", file: "/showcase/the-cleanser-ja-vercel-app-d.webp" },
+              { name: "Solace Auto Imports", url: "https://solace-auto-imports.vercel.app", cat: "Automotive Gallery", accent: "#00B4D8", desc: "JSON-driven Jamaican dealer car gallery — fast, elegant, zero-backend.", file: "/showcase/solace-auto-imports-vercel-app-d.webp" },
+              { name: "RideLink Jamaica", url: "https://ridelink-jamaica.vercel.app", cat: "Ride-Hail Platform", accent: "#FF3B3B", desc: "Ride-hail and courier super app — rider, driver, and admin portals.", file: "/showcase/ridelink-jamaica-vercel-app-d.webp" },
+              { name: "J Supreme Conglomerate", url: "https://jsupremeconglomerate.online", cat: "Operator Workspace", accent: "#FFD700", desc: "All-in-one CRM, invoices, and project management for multi-brand operators.", file: "/showcase/jsupremeconglomerate-online-d.webp" },
             ].map((site) => (
               <RevealItem key={site.name}>
                 <a
                   href={site.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex flex-col gap-0 rounded-2xl border border-[#e4e4e4] bg-white overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] transition-all hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
                 >
-                  {/* SVG preview screenshot */}
                   <div className="relative overflow-hidden" style={{ aspectRatio: "8/5" }}>
-                    <Image
-                      src={`/previews/${site.preview}.svg`}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={site.file}
                       alt={site.name}
-                      width={800}
-                      height={500}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[9px] font-mono text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <span className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/70 px-2.5 py-1 font-mono text-[9px] text-white opacity-0 transition-opacity group-hover:opacity-100">
                       <ExternalLink className="h-2.5 w-2.5" /> Visit site
                     </span>
                   </div>
-                  {/* Info -->*/}
                   <div className="p-4">
-                    <span
-                      className="mb-1 block text-[10px] font-bold uppercase tracking-[0.15em]"
-                      style={{ color: site.accent }}
-                    >
+                    <span className="mb-1 block font-mono text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: site.accent }}>
                       {site.cat}
                     </span>
-                    <p className="font-bold text-[#141414]">{site.name}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-[#666]">{site.desc}</p>
+                    <p className="font-display font-semibold text-white">{site.name}</p>
+                    <p className="mt-1 text-xs leading-relaxed text-white/45">{site.desc}</p>
                   </div>
                 </a>
               </RevealItem>
@@ -542,7 +535,7 @@ export default function GumroadPage() {
 
           {/* Demo companies */}
           <Reveal>
-            <p className="mb-4 mt-14 text-center font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-[#bbb]">
+            <p className="mb-4 mt-14 text-center font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-white/25">
               Demo showcases — explore the possibilities
             </p>
           </Reveal>
@@ -562,7 +555,7 @@ export default function GumroadPage() {
                   href={d.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex items-center gap-3 rounded-xl border border-[#e4e4e4] bg-white px-4 py-3.5 transition-all hover:shadow-md hover:-translate-y-0.5"
+                  className="group flex items-center gap-3 rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3.5 transition-all hover:border-white/20 hover:-translate-y-0.5"
                 >
                   <div
                     className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
@@ -571,10 +564,10 @@ export default function GumroadPage() {
                     <Globe className="h-4 w-4" style={{ color: d.accent }} />
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-bold text-[#141414]">{d.name}</p>
+                    <p className="truncate text-sm font-semibold text-white">{d.name}</p>
                     <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: d.accent }}>{d.cat}</p>
                   </div>
-                  <ExternalLink className="ml-auto h-3 w-3 shrink-0 text-[#ddd] group-hover:text-[#999]" />
+                  <ExternalLink className="ml-auto h-3 w-3 shrink-0 text-white/20 group-hover:text-white/50" />
                 </a>
               </RevealItem>
             ))}
@@ -583,7 +576,7 @@ export default function GumroadPage() {
       </section>
 
       {/* Product sections */}
-      <section className="bg-[#f9f9f9] px-6 py-16">
+      <section className="bg-[#080808] border-t border-white/6 px-6 py-16">
         <div className="mx-auto max-w-6xl">
 
           {CATEGORIES.filter((c) => c.id !== "all").map((cat) => {
@@ -593,15 +586,15 @@ export default function GumroadPage() {
               <div key={cat.id} className="mb-14 last:mb-0">
                 <Reveal>
                   <div className="mb-8 flex items-center gap-4">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#999]">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/35">
                       {cat.label}
                     </span>
-                    <div className="h-px flex-1 bg-[#e4e4e4]" />
+                    <div className="h-px flex-1 bg-white/8" />
                     <a
                       href={`${STORE_URL}`}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#888] hover:text-[#141414]"
+                      className="inline-flex items-center gap-1 font-mono text-[11px] font-semibold text-white/40 hover:text-white"
                     >
                       View all <ArrowRight className="h-3 w-3" />
                     </a>

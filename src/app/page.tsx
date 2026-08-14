@@ -130,6 +130,31 @@ export default function Home() {
             </Reveal>
           </div>
 
+          {/* Mobile-only live work strip */}
+          <Reveal direction="up" delay={0.5}>
+            <div className="mt-8 lg:hidden">
+              <p className="mb-3 font-mono text-[0.5rem] uppercase tracking-[0.2em] text-white/30">Live client work</p>
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+                {[
+                  { file: "thelanguagecradle-com-d.webp", label: "Language Cradle", tag: "Education" },
+                  { file: "bpcouriers-online-d.webp", label: "BP Couriers", tag: "Logistics" },
+                  { file: "the-cleanser-ja-vercel-app-d.webp", label: "The Cleanser JA", tag: "E-Commerce" },
+                  { file: "solace-auto-imports-vercel-app-d.webp", label: "Solace Auto", tag: "Automotive" },
+                  { file: "ridelink-jamaica-vercel-app-d.webp", label: "RideLink", tag: "Ride-Hail" },
+                ].map((s) => (
+                  <div key={s.file} className="flex-none w-[68vw] max-w-[260px] overflow-hidden rounded-xl border border-white/10 bg-[#111]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/showcase/${s.file}`} alt={s.label} className="h-36 w-full object-cover object-top" />
+                    <div className="px-3 py-2.5">
+                      <p className="font-mono text-[0.45rem] uppercase tracking-[0.16em] text-white/35">{s.tag}</p>
+                      <p className="mt-0.5 font-display text-[0.78rem] font-semibold text-white">{s.label}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
           {/* Stats strip */}
           <Reveal direction="up" delay={0.6}>
             <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] sm:grid-cols-4">
