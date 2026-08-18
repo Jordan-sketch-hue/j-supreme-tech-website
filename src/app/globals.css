@@ -52,6 +52,7 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   background: #ffffff;
+  overflow-x: hidden;
 }
 
 body {
