@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import crypto from "crypto";
+import { createSupabaseAdmin } from "@/lib/supabase/server";
 
 const CORS = {
   "access-control-allow-origin": "*",
@@ -82,20 +83,44 @@ export async function GET(request: Request) {
     since.setHours(0, 0, 0, 0);
   }
 
-  const [events, topPages, utmSources, eventTypes] = await Promise.all([
-    supabase
-      .from("jst_analytics_events")
-      .select("*")
-      .gte("created_at", since.toISOString())
-      .order("created_at", { ascending: false })
-      .limit(500),
+  // JST's own project (separate from the shared `supabase` client above) holds newsletter subscribers.
+  const ownDb = createSupabaseAdmin();
 
-    supabase.rpc("jst_top_pages", { since_ts: since.toISOString(), row_limit: 10 }),
+  const [events, topPages, utmSources, eventTypes, subscriberCount, trialCount, intakeCount] =
+    await Promise.all([
+      supabase
+        .from("jst_analytics_events")
+        .select("*")
+        .gte("created_at", since.toISOString())
+        .order("created_at", { ascending: false })
+        .limit(500),
 
-    supabase.rpc("jst_utm_sources", { since_ts: since.toISOString(), row_limit: 10 }),
+      supabase.rpc("jst_top_pages", { since_ts: since.toISOString(), row_limit: 10 }),
 
-    supabase.rpc("jst_event_counts", { since_ts: since.toISOString() }),
-  ]);
+      supabase.rpc("jst_utm_sources", { since_ts: since.toISOString(), row_limit: 10 }),
+
+      supabase.rpc("jst_event_counts", { since_ts: since.toISOString() }),
+
+      // Authoritative conversion counts — read from the real tables rather than the event log,
+      // since newsletter_signup/intake_submit are fired client-side and can be dropped by ad
+      // blockers or a JS error before submit even though the conversion itself succeeded.
+      ownDb
+        ? ownDb
+            .from("jst_subscribers")
+            .select("id", { count: "exact", head: true })
+            .gte("created_at", since.toISOString())
+        : Promise.resolve({ count: null }),
+
+      supabase
+        .from("jst_trial_requests")
+        .select("id", { count: "exact", head: true })
+        .gte("created_at", since.toISOString()),
+
+      supabase
+        .from("jst_intake_submissions")
+        .select("id", { count: "exact", head: true })
+        .gte("created_at", since.toISOString()),
+    ]);
 
   // Build daily series from raw events
   const rawEvents = events.data ?? [];
@@ -125,9 +150,9 @@ export async function GET(request: Request) {
     ctaClicks: rawEvents.filter((e) => e.event === "cta_click").length,
     formStarts: rawEvents.filter((e) => e.event === "form_start").length,
     formSubmits: rawEvents.filter((e) => e.event === "form_submit").length,
-    newsletterSignups: rawEvents.filter((e) => e.event === "newsletter_signup").length,
-    trialSignups: rawEvents.filter((e) => e.event === "trial_signup").length,
-    intakeSubmissions: rawEvents.filter((e) => e.event === "intake_submit").length,
+    newsletterSignups: subscriberCount.count ?? 0,
+    trialSignups: trialCount.count ?? 0,
+    intakeSubmissions: intakeCount.count ?? 0,
     dailySeries: Object.entries(dailySeries)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([date, views]) => ({ date, views })),
