@@ -46,7 +46,7 @@ export default function WirePage() {
         <div className="grid-bg pointer-events-none absolute inset-0" />
         <div className="shell relative py-16 md:py-20">
           <nav className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-ink-400">
-            <Link href="/blog" className="hover:text-ink-900">The Signal</Link> / The Wire
+            <Link href="/blog" className="hover:text-ink-900">Newsletter</Link> / The Wire
           </nav>
           <Reveal>
             <h1 className="mt-5 font-display text-4xl font-semibold tracking-tight md:text-[3.2rem] md:leading-[1.05]">The Wire</h1>

@@ -81,7 +81,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <header className="border-b border-line">
         <div className="shell pt-8 md:pt-10">
           <nav className="flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-ink-400">
-            <Link href="/blog" className="hover:text-ink-900">The Signal</Link>
+            <Link href="/blog" className="hover:text-ink-900">Newsletter</Link>
             <ChevronRight className="h-3 w-3" />
             <Link href={`/blog/category/${article.category}`} className="hover:text-ink-900">{cat.label}</Link>
           </nav>
