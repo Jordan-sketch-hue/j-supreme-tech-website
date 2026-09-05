@@ -10,6 +10,14 @@ import { CASE_STUDIES } from "@/lib/caseStudies";
 import { LazyReel } from "@/components/LazyReel";
 import Link from "next/link";
 
+// The proof strip surfaces real, measured outcomes (not vague praise) for the
+// projects that have a full case study — pulled straight from caseStudies.ts.
+const PROOF_HIGHLIGHTS = [
+  { slug: "bp-couriers", metric: "3×", label: "daily job capacity" },
+  { slug: "language-cradle", metric: "3 wks", label: "full platform delivery" },
+  { slug: "ridelink-jamaica", metric: "3", label: "portals, one system" },
+] as const;
+
 const REELS = [
   { src: "/reels/aboo-tours-reel.mp4",         poster: "/reels/posters/aboo-tours-reel-poster.jpg",         client: "Aboo Tours" },
   { src: "/reels/876-spotlight-reel.mp4",      poster: "/reels/posters/876-spotlight-reel-poster.jpg",      client: "876 Car Wash" },
@@ -59,6 +67,31 @@ export function ShowcaseGrid() {
       {/* ── TECH: category sub-filter + grid ── */}
       {workTab === "tech" && (
         <>
+          {/* Proof strip — real, measured outcomes from the case studies below */}
+          <div className="mt-6 grid grid-cols-3 gap-3 rounded-xl border border-line bg-ink-50 p-4 sm:gap-6 sm:p-5">
+            {PROOF_HIGHLIGHTS.map((h) => {
+              const cs = CASE_STUDIES.find((c) => c.slug === h.slug);
+              if (!cs) return null;
+              return (
+                <Link
+                  key={h.slug}
+                  href={`/work/${h.slug}`}
+                  className="group block"
+                >
+                  <p className="font-display text-xl font-semibold text-ink-900 sm:text-3xl">
+                    {h.metric}
+                  </p>
+                  <p className="mt-0.5 text-[0.65rem] leading-tight text-ink-500 sm:text-xs">
+                    {h.label}
+                  </p>
+                  <p className="mt-1.5 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-ink-400 underline-offset-4 group-hover:text-ink-900 group-hover:underline">
+                    {cs.client}
+                  </p>
+                </Link>
+              );
+            })}
+          </div>
+
           <div className="mt-6 flex flex-wrap gap-2">
             {GROUPS.map((g) => {
               const on = g === group;
@@ -84,7 +117,7 @@ export function ShowcaseGrid() {
 
           <RevealGroup
             amount={0.05}
-            className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3"
+            className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:mt-10 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3"
           >
             {techProjects.map((p) => {
               const cs = CASE_STUDIES.find((c) => c.host === p.host);
@@ -98,27 +131,27 @@ export function ShowcaseGrid() {
                         className="transition duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_34px_64px_-30px_rgba(0,0,0,0.4)]"
                       />
                     </a>
-                    <div className="mt-5 px-1">
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono text-xs text-ink-400">{p.n}</span>
-                        <span className="tag">{p.tag}</span>
+                    <div className="mt-3 px-1 sm:mt-5">
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <span className="hidden font-mono text-xs text-ink-400 sm:inline">{p.n}</span>
+                        <span className="tag text-[0.6rem] sm:text-xs">{p.tag}</span>
                         <a
                           href={`https://${p.host}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="ml-auto inline-flex items-center gap-1 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-ink-400 opacity-0 transition group-hover:opacity-100"
+                          className="ml-auto inline-flex items-center gap-1 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-ink-400 transition hover:text-ink-900 sm:opacity-0 sm:group-hover:opacity-100"
                         >
-                          Live <ArrowUpRight className="h-3.5 w-3.5" />
+                          Live <ArrowUpRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                         </a>
                       </div>
-                      <h3 className="mt-3 text-xl font-semibold text-ink-900">{p.name}</h3>
-                      <p className="mt-1.5 text-sm leading-6 text-ink-500">{p.blurb}</p>
+                      <h3 className="mt-2 text-sm font-semibold text-ink-900 sm:mt-3 sm:text-xl">{p.name}</h3>
+                      <p className="mt-1 hidden text-sm leading-6 text-ink-500 sm:block">{p.blurb}</p>
                       {cs && (
                         <Link
                           href={`/work/${cs.slug}`}
-                          className="mt-3 inline-flex items-center gap-1 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-ink-500 hover:text-ink-900 underline underline-offset-4"
+                          className="mt-1.5 inline-flex items-center gap-1 font-mono text-[0.58rem] uppercase tracking-[0.1em] text-ink-500 hover:text-ink-900 underline underline-offset-4 sm:mt-3 sm:text-[0.62rem] sm:tracking-[0.14em]"
                         >
-                          Read case study <ArrowUpRight className="h-3 w-3" />
+                          Case study <ArrowUpRight className="h-3 w-3" />
                         </Link>
                       )}
                     </div>

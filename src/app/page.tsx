@@ -50,7 +50,7 @@ export default function Home() {
     <main className="bg-white text-ink-900">
       <ScrollProgress className="bg-ink-900" />
       {/* ============================== HERO ============================== */}
-      <section id="home" className="relative min-h-[100svh] bg-[#080808] text-white flex flex-col lg:flex-row">
+      <section id="home" className="relative min-h-[100svh] overflow-hidden bg-[#080808] text-white flex flex-col lg:flex-row">
 
         {/* Decorative — absolute, behind everything */}
         <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-25 z-0" />

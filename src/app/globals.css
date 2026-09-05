@@ -479,3 +479,11 @@ button {
 [data-theme="dark"] .btn-dark:hover { background: #0a0a0a; color: #f4f4f4; }
 [data-theme="dark"] .btn-outline { background: #111111; color: #f4f4f4; border-color: #3d3d3d; }
 [data-theme="dark"] header { background: rgba(10,10,10,0.85) !important; border-color: #1f1f1f !important; }
+
+/* Fade the floating WhatsApp/chat launchers while filling the project intake
+   form so they don't sit on top of a field the user is trying to reach. */
+body:has(#project-intake-form:focus-within) #whatsapp-float-btn,
+body:has(#project-intake-form:focus-within) #chatbot-float-btn {
+  opacity: 0;
+  pointer-events: none;
+}

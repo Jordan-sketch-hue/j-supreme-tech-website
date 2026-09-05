@@ -16,7 +16,8 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="group fixed bottom-24 right-6 z-[69] flex h-14 w-14 items-center justify-center rounded-full bg-ink-950 ring-1 ring-[#25D366]/35 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.6)] transition-transform duration-200 hover:scale-105"
+      id="whatsapp-float-btn"
+      className="group fixed bottom-24 right-6 z-[69] flex h-14 w-14 items-center justify-center rounded-full bg-ink-950 ring-1 ring-[#25D366]/35 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.6)] transition-[opacity,transform] duration-200 hover:scale-105"
     >
       {/* live "online" dot — reinforces WhatsApp without coloring the whole button */}
       <span className="absolute -right-0.5 -top-0.5 flex h-3.5 w-3.5">
