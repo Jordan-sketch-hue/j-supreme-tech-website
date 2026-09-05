@@ -88,7 +88,7 @@ export async function POST(request: Request) {
 
   const resend = new Resend(resendKey);
   const { error } = await resend.emails.send({
-    from: "J Supreme Tech Intake <hello@jsupremetech.online>",
+    from: "J Supreme Tech Intake <hello@jsupremeconglomerate.online>",
     to: ["jordanmorrisr@gmail.com", "global.jsuprememarketing@gmail.com"],
     subject: `New Lead: ${payload.name} — ${payload.serviceNeeded ?? "Inquiry"}`,
     html: `
