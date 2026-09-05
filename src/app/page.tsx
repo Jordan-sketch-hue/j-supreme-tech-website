@@ -9,6 +9,7 @@ import {
   Monitor,
   Smartphone,
   Tablet,
+  Zap,
 } from "lucide-react";
 import { CineWords } from "@/components/CineWords";
 import { HeroShowcase } from "@/components/HeroShowcase";
@@ -94,6 +95,13 @@ export default function Home() {
                   className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 transition-all hover:border-white/50 hover:text-white hover:-translate-y-px">
                   Explore Solutions
                 </Link>
+              </div>
+            </Reveal>
+
+            <Reveal direction="up" delay={0.4}>
+              <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-white/50">
+                <Zap className="h-3 w-3 flex-none text-white/70" />
+                Starter sites live in 5–7 business days
               </div>
             </Reveal>
 
@@ -382,7 +390,13 @@ export default function Home() {
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">{plan.name}</h3>
-                  {featured ? <span className="tag tag-dark">Popular</span> : null}
+                  {featured ? (
+                    <span className="tag tag-dark">Popular</span>
+                  ) : plan.id === "launch" ? (
+                    <span className="tag inline-flex items-center gap-1">
+                      <Zap className="h-3 w-3" /> Fastest
+                    </span>
+                  ) : null}
                 </div>
                 <p
                   className={`mt-4 font-display text-4xl font-semibold ${
@@ -425,7 +439,11 @@ export default function Home() {
           })}
         </RevealGroup>
 
-        <p className="mt-8 text-center font-mono text-xs uppercase tracking-[0.12em] text-ink-500">
+        <p className="mt-8 flex items-center justify-center gap-2 text-center font-mono text-xs uppercase tracking-[0.12em] text-ink-500">
+          <Zap className="h-3.5 w-3.5 flex-none text-ink-900" />
+          Launch sites live in 5–7 business days · most projects start within 48 hours of payment
+        </p>
+        <p className="mt-2 text-center font-mono text-xs uppercase tracking-[0.12em] text-ink-500">
           PayPal or bank transfer · after payment we collect your project details
         </p>
         <p className="mt-3 text-center">
