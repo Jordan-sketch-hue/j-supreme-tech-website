@@ -135,7 +135,7 @@ export function NewsletterCompact() {
         name="email"
         type="email"
         required
-        placeholder="Email for the Debrief"
+        placeholder="Email for In Today's World:"
         aria-label="Email address"
         className="min-w-0 flex-1 rounded-full border border-white/20 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-white/60"
       />
@@ -153,15 +153,15 @@ export function NewsletterCard({ source = "card" }: { source?: string }) {
     <div className="relative overflow-hidden rounded-3xl border border-ink-950 bg-ink-950 p-8 text-white sm:p-12">
       <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-50" />
       <div className="relative max-w-xl">
-        <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/55">The Communications Debrief</span>
+        <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/55">In Today&apos;s World:</span>
         <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
           Get the signal in your inbox.
         </h2>
         <p className="mt-3 text-[0.97rem] leading-relaxed text-white/65">
-          Field notes on building software, marketing systems and the markets — what we shipped, the problems and the fixes. One clean dispatch, no noise.
+          Technology, AI, marketing, finance, Caribbean and Jamaica coverage — one clean dispatch every weekday morning.
         </p>
         <div className="mt-7">
-          <NewsletterForm source={source} dark cta="Join the Debrief" />
+          <NewsletterForm source={source} dark cta="Join free" />
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ export function SignupForm() {
     <div>
       <span className="eyebrow no-rule">Get started</span>
       <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight">Create your account</h1>
-      <p className="mt-2 text-sm text-ink-500">Projects, trials and the Debrief — one login.</p>
+      <p className="mt-2 text-sm text-ink-500">Projects, trials and In Today&apos;s World: — one login.</p>
 
       <form action={action} className="mt-8 space-y-5">
         <div>

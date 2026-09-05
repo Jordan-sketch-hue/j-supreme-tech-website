@@ -22,7 +22,7 @@ export default async function UnsubscribedPage({ searchParams }: { searchParams:
         </h1>
         <p className="mt-3 leading-relaxed text-ink-600">
           {ok
-            ? "You've been removed from the Communications Debrief. No hard feelings — the door stays open if you change your mind."
+            ? "You've been removed from In Today's World:. No hard feelings — the door stays open if you change your mind."
             : "This link is invalid or already used. If you're still receiving emails, reply to any of them and we'll handle it."}
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">

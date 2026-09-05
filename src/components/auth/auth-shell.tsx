@@ -18,7 +18,7 @@ export function AuthShell({ children }: { children: React.ReactNode }) {
         <div className="relative max-w-md">
           <p className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-white/45">Your studio account</p>
           <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight">
-            One account for your projects, trials and the Communications Debrief.
+            One account for your projects, trials and In Today&apos;s World:.
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-white/60">
             Track what we&apos;re building together, manage your Supreme Suite trials, and keep every dispatch in one place.

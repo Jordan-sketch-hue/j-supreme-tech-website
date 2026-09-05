@@ -22,12 +22,12 @@ export default async function ConfirmedPage({ searchParams }: { searchParams: Pr
         </h1>
         <p className="mt-3 leading-relaxed text-ink-600">
           {ok
-            ? "Welcome to the Communications Debrief. Your first dispatch is on its way — check your inbox."
+            ? "Welcome to In Today's World:. Your first issue is on its way — check your inbox."
             : "This confirmation link is invalid or has already been used. Try subscribing again."}
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <Link href="/blog" className="btn btn-dark">Read The Signal</Link>
-          <Link href="/library" className="btn btn-outline">Browse the Library</Link>
+          <Link href="/blog/in-todays-world" className="btn btn-dark">Read In Today&apos;s World:</Link>
+          <Link href="/library" className="btn btn-outline">Browse the Ebooks</Link>
         </div>
       </div>
     </main>

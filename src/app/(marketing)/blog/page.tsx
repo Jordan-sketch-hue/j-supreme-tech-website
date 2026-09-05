@@ -200,7 +200,7 @@ export default function BlogHub() {
         <section className="shell pt-14">
           <div className="card p-10 text-center">
             <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-400">The Signal is warming up</p>
-            <p className="mt-3 text-ink-600">New dispatches are landing shortly. Join the Debrief to get the first read.</p>
+            <p className="mt-3 text-ink-600">New dispatches are landing shortly. Join In Today&apos;s World: to get the first read.</p>
           </div>
         </section>
       )}

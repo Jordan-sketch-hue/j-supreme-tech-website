@@ -1,7 +1,25 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { admin, isEmail, normalizeEmail, sendConfirmEmail, sendWelcomeEmail, TABLE } from "@/lib/newsletter";
+import { admin, isEmail, normalizeEmail, sendWelcomeEmail, TABLE } from "@/lib/newsletter";
 import { issueCoupon } from "@/lib/coupons";
+
+// The actual daily send lives in a separate app (jst-communications) that
+// pulls recipients from its own Resend Audience — this table alone doesn't
+// get anyone real issues. Enroll them in the live list too, server-to-server.
+const AUDIENCE_ENDPOINT = "https://communications.jsupremetech.online/api/newsletter/subscribe";
+
+async function enrollInTodaysWorld(email: string, name: string | null) {
+  try {
+    const [firstName, ...rest] = (name ?? "").split(" ").filter(Boolean);
+    await fetch(AUDIENCE_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, firstName, lastName: rest.join(" ") }),
+    });
+  } catch (err) {
+    console.error("[newsletter] In Today's World enroll failed:", err);
+  }
+}
 
 export async function POST(request: Request) {
   let payload: { email?: string; name?: string; topics?: string[]; source?: string };
@@ -30,7 +48,6 @@ export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null;
   const userAgent = request.headers.get("user-agent")?.slice(0, 300) || null;
 
-  // Look up existing subscriber.
   const { data: existing } = await db.from(TABLE).select("id,status,unsubscribe_token").eq("email", email).maybeSingle();
 
   if (existing?.status === "confirmed") {
@@ -38,12 +55,11 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       status: "already-subscribed",
-      message: "You're already on the list — check your inbox for the latest Debrief.",
+      message: "You're already on the list — In Today's World: lands every weekday morning.",
       coupon,
     });
   }
 
-  const confirmToken = crypto.randomUUID();
   const unsubscribeToken = existing?.unsubscribe_token ?? crypto.randomUUID();
 
   const row = {
@@ -51,8 +67,8 @@ export async function POST(request: Request) {
     name,
     topics,
     source,
-    status: "pending",
-    confirm_token: confirmToken,
+    status: "confirmed",
+    confirmed_at: new Date().toISOString(),
     unsubscribe_token: unsubscribeToken,
     ip,
     user_agent: userAgent,
@@ -64,21 +80,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Double opt-in: send confirmation. If Resend isn't configured, auto-confirm so
-  // the list still grows (clearly logged), but prefer the confirm flow in prod.
-  const confirm = await sendConfirmEmail(email, confirmToken, unsubscribeToken);
-  if (!confirm.sent && confirm.reason === "resend-not-configured") {
-    await db.from(TABLE).update({ status: "confirmed", confirmed_at: new Date().toISOString() }).eq("email", email);
-    await sendWelcomeEmail(email, unsubscribeToken);
-    const coupon = await issueCoupon(email, source);
-    return NextResponse.json({ ok: true, status: "subscribed", message: "You're subscribed. Welcome to the Debrief.", coupon });
-  }
-
+  await enrollInTodaysWorld(email, name);
+  await sendWelcomeEmail(email, unsubscribeToken);
   const coupon = await issueCoupon(email, source);
+
   return NextResponse.json({
     ok: true,
-    status: "pending",
-    message: "Almost there — check your inbox and confirm your subscription.",
+    status: "subscribed",
+    message: "You're in — In Today's World: lands in your inbox every weekday morning.",
     coupon,
   });
 }

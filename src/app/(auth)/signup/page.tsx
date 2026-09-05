@@ -4,7 +4,7 @@ import { SignupForm } from "@/components/auth/signup-form";
 
 export const metadata: Metadata = {
   title: "Create your account — J Supreme Tech",
-  description: "Create a J Supreme Tech studio account to manage projects, trials and the Communications Debrief.",
+  description: "Create a J Supreme Tech studio account to manage projects, trials and In Today's World:.",
   robots: { index: false },
 };
 

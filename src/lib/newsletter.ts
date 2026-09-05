@@ -42,7 +42,7 @@ function shell(title: string, body: string, unsubscribeUrl?: string): string {
             <td style="width:40px;height:40px;background:#141414;border-radius:9px;text-align:center;vertical-align:middle;color:#fff;font-family:'Courier New',monospace;font-weight:700;font-size:13px;">JST</td>
             <td style="padding-left:12px;">
               <div style="font-weight:600;font-size:15px;letter-spacing:-0.01em;">J Supreme Tech</div>
-              <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#737373;margin-top:3px;">Communications Debrief</div>
+              <div style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:#737373;margin-top:3px;">In Today&#39;s World:</div>
             </td>
           </tr></table>
         </td></tr>
@@ -52,7 +52,7 @@ function shell(title: string, body: string, unsubscribeUrl?: string): string {
             J Supreme Tech · Jamaica · Caribbean · Worldwide<br/>
             WhatsApp (658) 218-2282 · jsupremetech.online
           </div>
-          ${unsubscribeUrl ? `<div style="margin-top:10px;font-size:11px;color:#a3a3a3;">You are receiving this because you subscribed to the Communications Debrief. <a href="${unsubscribeUrl}" style="color:#737373;text-decoration:underline;">Unsubscribe</a> anytime.</div>` : ""}
+          ${unsubscribeUrl ? `<div style="margin-top:10px;font-size:11px;color:#a3a3a3;">You are receiving this because you subscribed to In Today&#39;s World:. <a href="${unsubscribeUrl}" style="color:#737373;text-decoration:underline;">Unsubscribe</a> anytime.</div>` : ""}
         </td></tr>
       </table>
       <div style="max-width:560px;margin-top:14px;font-size:10px;color:#cfcfcf;font-family:'Courier New',monospace;letter-spacing:0.08em;">© 2026 J Supreme Tech</div>
@@ -65,47 +65,26 @@ function btn(href: string, label: string): string {
   return `<a href="${href}" style="display:inline-block;background:#111;color:#fff;text-decoration:none;font-family:'Courier New',monospace;font-weight:700;font-size:13px;letter-spacing:0.02em;padding:14px 26px;border-radius:999px;">${label}</a>`;
 }
 
-export async function sendConfirmEmail(email: string, confirmToken: string, unsubscribeToken: string) {
-  const r = resend();
-  if (!r) return { sent: false, reason: "resend-not-configured" as const };
-  const confirmUrl = `${SITE}/api/newsletter/confirm?token=${confirmToken}`;
-  const unsubscribeUrl = `${SITE}/api/newsletter/unsubscribe?token=${unsubscribeToken}`;
-  const body = `
-    <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#737373;">One last step</div>
-    <h1 style="margin:10px 0 0;font-size:26px;letter-spacing:-0.02em;line-height:1.2;">Confirm your subscription</h1>
-    <p style="margin:16px 0 0;font-size:15px;line-height:1.7;color:#525252;">You asked to join the <strong style="color:#141414;">Communications Debrief</strong> — field notes on building software, marketing systems and the markets, straight from the J Supreme Tech studio. Confirm below and you are in.</p>
-    <div style="margin:28px 0 8px;">${btn(confirmUrl, "Confirm subscription →")}</div>
-    <p style="margin:18px 0 0;font-size:12px;line-height:1.6;color:#a3a3a3;">If you did not request this, ignore this email and nothing happens. The link confirms double opt-in consent.</p>`;
-  const { error } = await r.emails.send({
-    from: FROM,
-    to: email,
-    replyTo: REPLY_TO,
-    subject: "Confirm your subscription — J Supreme Tech",
-    html: shell("Confirm your subscription", body, unsubscribeUrl),
-  });
-  return { sent: !error, reason: error?.message };
-}
-
 export async function sendWelcomeEmail(email: string, unsubscribeToken: string) {
   const r = resend();
   if (!r) return { sent: false };
   const unsubscribeUrl = `${SITE}/api/newsletter/unsubscribe?token=${unsubscribeToken}`;
   const body = `
     <div style="font-family:'Courier New',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#737373;">You're in</div>
-    <h1 style="margin:10px 0 0;font-size:26px;letter-spacing:-0.02em;line-height:1.2;">Welcome to the Debrief</h1>
-    <p style="margin:16px 0 0;font-size:15px;line-height:1.7;color:#525252;">Every dispatch is signal over noise — what we shipped, the problems and fixes behind it, and the moves in tech, marketing and the markets worth your attention. No filler.</p>
-    <p style="margin:16px 0 0;font-size:15px;line-height:1.7;color:#525252;">Start here:</p>
+    <h1 style="margin:10px 0 0;font-size:26px;letter-spacing:-0.02em;line-height:1.2;">Welcome to In Today's World:</h1>
+    <p style="margin:16px 0 0;font-size:15px;line-height:1.7;color:#525252;">A daily dispatch, every weekday morning — technology, AI, marketing, finance, Caribbean and Jamaica coverage. No filler.</p>
+    <p style="margin:16px 0 0;font-size:15px;line-height:1.7;color:#525252;">Every issue is also archived on the site if you ever want to catch up or share one:</p>
     <ul style="margin:10px 0 0;padding-left:18px;font-size:15px;line-height:1.9;color:#525252;">
-      <li><a href="${SITE}/blog" style="color:#141414;">The Signal — the studio publication</a></li>
-      <li><a href="${SITE}/library" style="color:#141414;">The Library — free e-books</a></li>
-      <li><a href="${SITE}/products" style="color:#141414;">Supreme Suite — the systems we ship</a></li>
+      <li><a href="${SITE}/blog/in-todays-world" style="color:#141414;">In Today's World: — the full archive</a></li>
+      <li><a href="${SITE}/library" style="color:#141414;">Ebooks — guides and courses</a></li>
+      <li><a href="${SITE}/products" style="color:#141414;">SAAS Supreme Suite — the systems we ship</a></li>
     </ul>
-    <div style="margin:28px 0 8px;">${btn(`${SITE}/blog`, "Read the latest →")}</div>`;
+    <div style="margin:28px 0 8px;">${btn(`${SITE}/blog/in-todays-world`, "Read the latest →")}</div>`;
   const { error } = await r.emails.send({
     from: FROM,
     to: email,
     replyTo: REPLY_TO,
-    subject: "Welcome to the Communications Debrief",
+    subject: "Welcome to In Today's World:",
     html: shell("Welcome", body, unsubscribeUrl),
   });
   return { sent: !error };

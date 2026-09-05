@@ -17,7 +17,7 @@ const TILES = [
   { href: "/blog", icon: Newspaper, title: "The Signal", body: "The latest dispatches from the studio bench." },
   { href: "/library", icon: BookOpen, title: "The Library", body: "Your free e-books — automation, growth, shipping." },
   { href: "/contact", icon: Rocket, title: "Start a project", body: "Brief us on what you want built next." },
-  { href: "/newsletter", icon: Mail, title: "The Debrief", body: "Manage your newsletter subscription." },
+  { href: "/newsletter", icon: Mail, title: "In Today's World:", body: "Manage your newsletter subscription." },
 ];
 
 export default async function AccountPage() {

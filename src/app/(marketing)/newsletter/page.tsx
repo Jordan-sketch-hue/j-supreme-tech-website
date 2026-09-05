@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
-import { Mail, Newspaper, Zap, ShieldCheck } from "lucide-react";
+import { Cpu, Sparkles, LineChart, ShieldCheck } from "lucide-react";
 import { NewsletterForm } from "@/components/newsletter/forms";
 import { Reveal } from "@/components/motion-kit";
 
 export const metadata: Metadata = {
-  title: "The Communications Debrief — J Supreme Tech Newsletter",
+  title: "In Today's World: — J Supreme Tech Newsletter",
   description:
-    "Join the Communications Debrief: weekly field notes on building software, marketing systems and the markets, straight from the J Supreme Tech studio. Double opt-in, no spam.",
+    "Join In Today's World: technology, AI, marketing, finance, Caribbean and Jamaica coverage, every weekday morning from J Supreme Tech.",
   alternates: { canonical: "/newsletter" },
   openGraph: {
-    title: "The Communications Debrief — J Supreme Tech",
-    description: "Signal over noise — tech, marketing and the markets, from the studio bench.",
+    title: "In Today's World: — J Supreme Tech",
+    description: "Signal over noise — a daily dispatch, every weekday morning.",
     url: "https://jsupremetech.online/newsletter",
   },
 };
 
 const PERKS = [
-  { icon: Newspaper, title: "What we shipped", body: "Production logs from real builds — the problem, the fix, the launch." },
-  { icon: Zap, title: "Systems & automation", body: "The leverage moves: AI staff, pipelines, the tools that compound." },
-  { icon: Mail, title: "Markets & growth", body: "Signal across tech, marketing and trading — curated, never noise." },
+  { icon: Cpu, title: "Technology & AI", body: "What's actually shipping — models, tools, and the moves worth tracking." },
+  { icon: LineChart, title: "Markets & finance", body: "Signal across trading, finance and business — curated, never noise." },
+  { icon: Sparkles, title: "Caribbean & Jamaica", body: "Regional coverage you won't find in a global feed." },
 ];
 
 export default function NewsletterPage() {
@@ -29,26 +29,26 @@ export default function NewsletterPage() {
         <div className="shell relative grid items-center gap-12 py-16 md:grid-cols-2 md:py-24">
           <div>
             <Reveal>
-              <span className="eyebrow">Newsletter · the debrief</span>
+              <span className="eyebrow">Newsletter · daily</span>
             </Reveal>
             <Reveal delay={0.1}>
               <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight md:text-[3.3rem] md:leading-[1.04]">
-                The Communications Debrief.
+                In Today&apos;s World:
               </h1>
             </Reveal>
             <Reveal delay={0.18}>
               <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-500">
-                One clean dispatch from the studio — building software, marketing systems and the markets. Signal over noise, straight to your inbox.
+                One clean dispatch every weekday morning — technology, AI, marketing, finance, Caribbean and Jamaica coverage. Signal over noise, straight to your inbox.
               </p>
             </Reveal>
             <Reveal delay={0.26}>
               <div className="mt-8 max-w-md">
-                <NewsletterForm source="newsletter-page" cta="Join the Debrief" />
+                <NewsletterForm source="newsletter-page" cta="Join free" />
               </div>
             </Reveal>
             <Reveal delay={0.32}>
               <p className="mt-4 flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-400">
-                <ShieldCheck className="h-3.5 w-3.5" /> Double opt-in · unsubscribe anytime · we never sell your data
+                <ShieldCheck className="h-3.5 w-3.5" /> Unsubscribe anytime · we never sell your data
               </p>
             </Reveal>
           </div>

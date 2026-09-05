@@ -61,10 +61,10 @@ export function Footer() {
 
             <div className="mt-8 max-w-sm rounded-2xl border border-white/12 bg-white/[0.03] p-5">
               <p className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/55">
-                The Communications Debrief
+                In Today&apos;s World:
               </p>
               <p className="mt-2 text-sm leading-relaxed text-white/65">
-                Tech, marketing &amp; the markets — one clean dispatch from the studio. Join free.
+                Tech, AI, marketing &amp; finance — one clean dispatch every weekday morning. Join free.
               </p>
               <div className="mt-4">
                 <NewsletterCompact />

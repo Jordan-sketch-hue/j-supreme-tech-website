@@ -21,7 +21,7 @@ const SOCIAL_LINKS: { label: string; href: string }[] = [
   // { label: "Instagram", href: "https://instagram.com/..." },
 ];
 
-/** Repeat-visit popup for the Communications Debrief + In Today's World.
+/** Repeat-visit popup for In Today's World:.
  *  Doesn't show on visit 1 or 2, then appears on prime-numbered visits
  *  (3, 5, 7, 11, 13...) — spacing out further the more times someone's
  *  passed on it — within a visit it still waits for a dwell delay or scroll
@@ -84,7 +84,7 @@ export function NewsletterPopup() {
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Join the Communications Debrief"
+      aria-label="Join In Today's World:"
       className="fixed inset-0 z-[120] flex items-end justify-center p-4 sm:items-center"
     >
       <button aria-label="Close" onClick={close} className="absolute inset-0 bg-ink-950/55 backdrop-blur-sm" />
@@ -107,18 +107,14 @@ export function NewsletterPopup() {
                 You&apos;re in
               </span>
               <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900">
-                One dispatch, two forms.
+                In Today&apos;s World: is on its way.
               </h2>
               <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
-                <span className="font-semibold text-ink-900">In Today&apos;s World:</span> lands
-                weekday mornings — the same format, in your inbox, with every issue also readable
-                on the site.{" "}
+                It lands every weekday morning — the same format, in your inbox, with every issue
+                also readable on the site.{" "}
                 <a href="/blog/in-todays-world" className="underline hover:text-ink-900">
                   Browse the archive →
                 </a>
-                <br className="hidden sm:block" />
-                <span className="font-semibold text-ink-900">The Debrief</span> is our own weekly
-                field notes on what we shipped, the problems, the fixes.
               </p>
 
               <div className="mt-6 border-t border-line pt-6">
@@ -149,21 +145,18 @@ export function NewsletterPopup() {
           ) : (
             <>
               <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
-                The Communications Debrief
+                In Today&apos;s World:
               </span>
               <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900">
                 Signal over noise.
               </h2>
               <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
-                Two dispatches, one signup: <span className="font-semibold text-ink-900">In
-                Today&apos;s World:</span> every weekday morning, and{" "}
-                <span className="font-semibold text-ink-900">The Debrief</span> — field notes on
-                what we shipped, the problems, the fixes. Join and unlock a discount on your next
-                checkout.
+                Technology, AI, marketing, finance, Caribbean and Jamaica coverage — one clean
+                dispatch every weekday morning. Join and unlock a discount on your next checkout.
               </p>
               <div className="mt-5 flex flex-wrap gap-4 text-[0.72rem] text-ink-400">
                 <span className="inline-flex items-center gap-1.5">
-                  <Mail className="h-3.5 w-3.5" /> Weekly + daily
+                  <Mail className="h-3.5 w-3.5" /> Every weekday morning
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <Globe2 className="h-3.5 w-3.5" /> Also readable on the site

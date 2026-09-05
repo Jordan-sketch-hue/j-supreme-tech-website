@@ -194,9 +194,9 @@ export default function PrivacyPage() {
               <div className="hairline" />
 
               <section>
-                <h2 className="text-2xl font-display font-semibold tracking-tight text-ink-900">12. Email Marketing &amp; The Communications Debrief</h2>
+                <h2 className="text-2xl font-display font-semibold tracking-tight text-ink-900">12. Email Marketing &amp; In Today&apos;s World:</h2>
                 <p className="mt-4">
-                  When you subscribe to our newsletter (the &ldquo;Communications Debrief&rdquo;) or request an e-book, we collect your email address and, optionally, your name. To document your consent and comply with anti-spam law, we also record the date and time of your sign-up and the IP address and browser used at the moment of consent.
+                  When you subscribe to our newsletter (&ldquo;In Today&apos;s World:&rdquo;) or request an e-book, we collect your email address and, optionally, your name. To document your consent and comply with anti-spam law, we also record the date and time of your sign-up and the IP address and browser used at the moment of consent.
                 </p>
                 <p className="mt-4">
                   We operate on a <strong className="font-semibold text-ink-900">double opt-in</strong> basis: after you subscribe, we email you a confirmation link, and you only join the list once you confirm. We use this information solely to send you our newsletter, e-books you requested, and occasional updates about our work — we <strong className="font-semibold text-ink-900">never sell, rent, or trade your email address</strong>.
