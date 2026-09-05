@@ -18,21 +18,21 @@ const NAV = [
       { label: "Automation", href: "/solutions/automation" },
       { label: "AI Systems", href: "/solutions/ai-systems" },
       { label: "Marketing & Creative", href: "/solutions/marketing-creative" },
+      { label: "SAAS", href: "/products" },
     ],
   },
   {
     label: "Products",
     children: [
-      { label: "Supreme Suite", href: "/products" },
+      { label: "SAAS Supreme Suite", href: "/products" },
       { label: "AXIOM", href: "/axiom" },
-      { label: "Store", href: "/gumroad" },
     ],
   },
   {
     label: "Insights",
     children: [
-      { label: "The Signal", href: "/blog" },
-      { label: "Library", href: "/library" },
+      { label: "Newsletter", href: "/blog" },
+      { label: "Ebooks", href: "/library" },
       { label: "Market", href: "/market" },
     ],
   },

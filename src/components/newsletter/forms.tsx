@@ -6,7 +6,7 @@ import { track } from "@/lib/track";
 
 type State = "idle" | "loading" | "done" | "error";
 
-function useSubscribe(source: string) {
+function useSubscribe(source: string, onSuccess?: () => void) {
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
 
@@ -29,6 +29,7 @@ function useSubscribe(source: string) {
       setState("done");
       setMessage(data.message || "You're in.");
       track("newsletter_signup", { source });
+      onSuccess?.();
     } catch {
       setState("error");
       setMessage("Network error. Please try again.");
@@ -44,13 +45,15 @@ export function NewsletterForm({
   dark = false,
   placeholder = "you@company.com",
   cta = "Subscribe",
+  onSuccess,
 }: {
   source?: string;
   dark?: boolean;
   placeholder?: string;
   cta?: string;
+  onSuccess?: () => void;
 }) {
-  const { state, message, submit } = useSubscribe(source);
+  const { state, message, submit } = useSubscribe(source, onSuccess);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();

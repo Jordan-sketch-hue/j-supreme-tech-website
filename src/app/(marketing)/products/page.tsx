@@ -22,7 +22,7 @@ import {
 } from "@/lib/supremeSuite";
 
 export const metadata: Metadata = {
-  title: "Products — Supreme Suite SaaS | J Supreme Tech",
+  title: "SAAS Supreme Suite | J Supreme Tech",
   description:
     "13 ready-made business systems by J Supreme Tech — courier, movers, salon, school, restaurant, property, warehouse, tours, appointments, loyalty, dashboards, AI chatbot & voice agent. Watch every layout run live, then launch it under your brand free for 3 days.",
 };

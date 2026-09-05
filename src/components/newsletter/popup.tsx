@@ -4,12 +4,20 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { NewsletterForm } from "./forms";
+import {
+  recordVisit,
+  shouldShowPopup,
+  recordPopupDismissed,
+  recordNewsletterSubscribed,
+} from "@/lib/newsletterPopupSchedule";
 
-const SEEN_KEY = "jst_debrief_seen_v1";
-
-/** One-time onboarding popup for the Communications Debrief.
- *  Appears once per visitor (localStorage), after a dwell delay or scroll depth.
- *  A persistent CTA lives elsewhere (footer, blog, /newsletter) for everyone else. */
+/** Repeat-visit popup for the Communications Debrief. Doesn't show on visit 1
+ *  or 2, then appears on prime-numbered visits (3, 5, 7, 11, 13...) — spacing
+ *  out further the more times someone's passed on it — within a visit it
+ *  still waits for a dwell delay or scroll depth so it never interrupts the
+ *  moment someone lands. A dismiss buys a week of silence; subscribing stops
+ *  it for good. A persistent CTA lives elsewhere (footer, blog, /newsletter)
+ *  for everyone else. */
 export function NewsletterPopup() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -17,22 +25,15 @@ export function NewsletterPopup() {
   useEffect(() => {
     // Never interrupt auth or the dedicated newsletter pages.
     if (pathname?.startsWith("/login") || pathname?.startsWith("/signup") || pathname?.startsWith("/newsletter")) return;
-    let shown = false;
-    try {
-      if (localStorage.getItem(SEEN_KEY)) return;
-    } catch {
-      return;
-    }
 
+    const visitCount = recordVisit();
+    if (!shouldShowPopup(visitCount)) return;
+
+    let shown = false;
     function trigger() {
       if (shown) return;
       shown = true;
       setOpen(true);
-      try {
-        localStorage.setItem(SEEN_KEY, String(Date.now()));
-      } catch {
-        /* ignore */
-      }
       window.removeEventListener("scroll", onScroll);
     }
     function onScroll() {
@@ -48,9 +49,14 @@ export function NewsletterPopup() {
     };
   }, [pathname]);
 
+  function close() {
+    setOpen(false);
+    recordPopupDismissed();
+  }
+
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") close();
     }
     if (open) window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -65,10 +71,10 @@ export function NewsletterPopup() {
       aria-label="Join the Communications Debrief"
       className="fixed inset-0 z-[120] flex items-end justify-center p-4 sm:items-center"
     >
-      <button aria-label="Close" onClick={() => setOpen(false)} className="absolute inset-0 bg-ink-950/55 backdrop-blur-sm" />
+      <button aria-label="Close" onClick={close} className="absolute inset-0 bg-ink-950/55 backdrop-blur-sm" />
       <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-line bg-white shadow-[0_40px_90px_-30px_rgba(0,0,0,0.5)]">
         <button
-          onClick={() => setOpen(false)}
+          onClick={close}
           aria-label="Close"
           className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full border border-line bg-white text-ink-600 transition hover:border-ink-900 hover:text-ink-900"
         >
@@ -96,7 +102,7 @@ export function NewsletterPopup() {
             Field notes from the studio on tech, marketing and the markets: what we shipped, the problems, the fixes. Join the list and get the first read.
           </p>
           <div className="mt-6">
-            <NewsletterForm source="popup" cta="Join free" />
+            <NewsletterForm source="popup" cta="Join free" onSuccess={recordNewsletterSubscribed} />
           </div>
         </div>
       </div>

@@ -6,11 +6,11 @@ import { NewsletterCard } from "@/components/newsletter/forms";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion-kit";
 
 export const metadata: Metadata = {
-  title: "The Library — Studio E-books | J Supreme Tech",
+  title: "Ebooks — Studio Guides & Courses | J Supreme Tech",
   description:
-    "Premium, practical e-books from the J Supreme Tech studio — including the ongoing series Modern Technology & Its Applications, plus marketing and growth field guides. From $29.99.",
+    "Premium, practical ebooks and how-to courses from the J Supreme Tech studio — including the ongoing series Modern Technology & Its Applications, plus marketing and growth field guides. From $29.99.",
   alternates: { canonical: "/library" },
-  openGraph: { title: "The Library — J Supreme Tech", description: "Premium, practical e-books on technology, marketing and growth. From $29.99.", url: "https://jsupremetech.online/library" },
+  openGraph: { title: "Ebooks — J Supreme Tech", description: "Premium ebooks and courses on technology, marketing and growth. From $29.99.", url: "https://jsupremetech.online/library" },
 };
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
@@ -26,7 +26,7 @@ export default function LibraryPage() {
         <div className="shell relative py-16 md:py-20">
           <div className="max-w-3xl">
             <Reveal>
-              <span className="eyebrow">The Library · field guides</span>
+              <span className="eyebrow">Ebooks · guides &amp; courses</span>
             </Reveal>
             <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight md:text-[3.3rem] md:leading-[1.04]">
               Everything we learned, written down.

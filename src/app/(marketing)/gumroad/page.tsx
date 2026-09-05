@@ -29,6 +29,9 @@ export const metadata: Metadata = {
       "Templates, ebooks, apps, 13 SaaS products, white-label websites and strategy calls. Built for founders worldwide.",
     url: "https://jsupremetech.online/gumroad",
   },
+  // Unlisted: kept live for Gumroad's own linking/redirects, but not
+  // surfaced in nav or search — removed from the Products dropdown.
+  robots: { index: false, follow: false },
 };
 
 const STORE_URL = "https://store.jsupremetech.online";

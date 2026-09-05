@@ -5,9 +5,9 @@ import { NewsletterCompact } from "@/components/newsletter/forms";
 const explore: [string, string][] = [
   ["Work", "/#work"],
   ["Services", "/services"],
-  ["SaaS — Supreme Suite", "/products"],
-  ["Blog", "/blog"],
-  ["E-Books", "/library"],
+  ["SAAS Supreme Suite", "/products"],
+  ["Newsletter", "/blog"],
+  ["Ebooks", "/library"],
   ["Market & Competition", "/market"],
   ["About", "/about"],
   ["Contact Us", "/contact"],

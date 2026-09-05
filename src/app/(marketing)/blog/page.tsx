@@ -236,6 +236,29 @@ export default function BlogHub() {
         </section>
       ) : null}
 
+      {/* ---------- In Today's World: (daily newsletter archive) ---------- */}
+      <section className="shell pt-16">
+        <div className="flex items-center justify-between rounded-3xl border border-ink-950 bg-ink-950 p-8 text-white sm:p-10">
+          <div>
+            <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-white/55">
+              Every weekday morning
+            </span>
+            <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight sm:text-3xl">
+              In Today&apos;s World:
+            </h2>
+            <p className="mt-2 max-w-md text-[0.95rem] leading-relaxed text-white/65">
+              Technology, AI, marketing, finance, Caribbean and Jamaica coverage — every issue archived.
+            </p>
+          </div>
+          <Link
+            href="/blog/in-todays-world"
+            className="hidden flex-none rounded-full border border-white/20 px-6 py-3 font-mono text-[0.7rem] font-bold uppercase tracking-[0.1em] text-white transition hover:border-white/50 sm:inline-block"
+          >
+            Read the archive →
+          </Link>
+        </div>
+      </section>
+
       {/* ---------- Newsletter ---------- */}
       <section className="shell py-16">
         <NewsletterCard source="blog-hub" />
