@@ -112,6 +112,7 @@ export async function POST(request: Request) {
   });
 
   if (error) {
+    console.error("[intake-debug] resend error:", JSON.stringify(error));
     return NextResponse.json({ error: "Failed to send inquiry. Contact us at (658) 218-2282." }, { status: 500 });
   }
 
