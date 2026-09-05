@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { getPackage } from "@/lib/serviceOffers";
 import { newOrderId } from "@/lib/wipay";
 import { paypalCreateOrder, paypalReady, jmdToUsd } from "@/lib/paypal";
+import { checkCoupon } from "@/lib/coupons";
 
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
-  let body: { slug?: string; pkg?: string };
+  let body: { slug?: string; pkg?: string; couponCode?: string };
   try {
     body = await req.json();
   } catch {
@@ -28,20 +29,29 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const couponCode = String(body.couponCode ?? "").trim();
+  const coupon = couponCode ? await checkCoupon(couponCode) : null;
+  const discountPercent = coupon?.discountPercent ?? 0;
+  const amountJmd = discountPercent ? Math.round(pkg.amount * (1 - discountPercent / 100)) : pkg.amount;
+
   const orderId = newOrderId();
-  const description = `J Supreme Tech — ${pkg.name}`;
+  const description = discountPercent
+    ? `J Supreme Tech — ${pkg.name} (${discountPercent}% off, ${couponCode.toUpperCase()})`
+    : `J Supreme Tech — ${pkg.name}`;
 
   try {
-    const order = await paypalCreateOrder({ amountJmd: pkg.amount, description, orderId });
+    const order = await paypalCreateOrder({ amountJmd, description, orderId });
     return NextResponse.json({
       ok: true,
       paypalOrderId: order.id,
       orderId,
-      amountJmd: pkg.amount,
-      amountUsd: jmdToUsd(pkg.amount),
+      amountJmd,
+      amountUsd: jmdToUsd(amountJmd),
       slug,
       pkg: pkgId,
       planName: pkg.name,
+      couponCode: discountPercent ? couponCode.toUpperCase() : undefined,
+      discountPercent: discountPercent || undefined,
     });
   } catch (e: any) {
     console.error("[paypal] create order error:", e.message);

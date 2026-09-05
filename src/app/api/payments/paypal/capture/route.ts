@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { paypalCaptureOrder } from "@/lib/paypal";
 import { sendWhatsApp } from "@/lib/whatsapp";
+import { redeemCoupon } from "@/lib/coupons";
 
 export const runtime = "nodejs";
 
@@ -15,6 +16,7 @@ export async function POST(req: NextRequest) {
     planName?: string;
     amountJmd?: number;
     amountUsd?: string;
+    couponCode?: string;
   };
   try {
     body = await req.json();
@@ -34,6 +36,10 @@ export async function POST(req: NextRequest) {
       { ok: false, error: result.error ?? "capture_failed" },
       { status: 402 },
     );
+  }
+
+  if (body.couponCode) {
+    await redeemCoupon(body.couponCode, result.orderId);
   }
 
   // Fire WhatsApp receipt to Jordan — non-blocking.

@@ -13,11 +13,12 @@ interface PayPalButtonProps {
   slug: string;
   pkg: string;
   clientId: string;
+  couponCode?: string;
   onSuccess?: (orderId: string, planName: string) => void;
   onError?: (msg: string) => void;
 }
 
-export function PayPalButton({ slug, pkg, clientId, onSuccess, onError }: PayPalButtonProps) {
+export function PayPalButton({ slug, pkg, clientId, couponCode, onSuccess, onError }: PayPalButtonProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "processing" | "error">("loading");
   const [errorMsg, setErrorMsg] = useState("");
@@ -56,7 +57,7 @@ export function PayPalButton({ slug, pkg, clientId, onSuccess, onError }: PayPal
             const res = await fetch("/api/payments/paypal", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ slug, pkg }),
+              body: JSON.stringify({ slug, pkg, couponCode }),
             });
             const data = await res.json();
             if (!res.ok || !data.paypalOrderId) {
@@ -101,7 +102,7 @@ export function PayPalButton({ slug, pkg, clientId, onSuccess, onError }: PayPal
     }
 
     init().catch((e) => fail(e.message ?? "Failed to load PayPal."));
-  }, [clientId, slug, pkg, onError, onSuccess]);
+  }, [clientId, slug, pkg, couponCode, onError, onSuccess]);
 
   return (
     <div className="w-full">

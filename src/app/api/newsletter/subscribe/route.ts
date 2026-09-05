@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
 import { admin, isEmail, normalizeEmail, sendConfirmEmail, sendWelcomeEmail, TABLE } from "@/lib/newsletter";
+import { issueCoupon } from "@/lib/coupons";
 
 export async function POST(request: Request) {
   let payload: { email?: string; name?: string; topics?: string[]; source?: string };
@@ -33,7 +34,13 @@ export async function POST(request: Request) {
   const { data: existing } = await db.from(TABLE).select("id,status,unsubscribe_token").eq("email", email).maybeSingle();
 
   if (existing?.status === "confirmed") {
-    return NextResponse.json({ ok: true, status: "already-subscribed", message: "You're already on the list — check your inbox for the latest Debrief." });
+    const coupon = await issueCoupon(email, source);
+    return NextResponse.json({
+      ok: true,
+      status: "already-subscribed",
+      message: "You're already on the list — check your inbox for the latest Debrief.",
+      coupon,
+    });
   }
 
   const confirmToken = crypto.randomUUID();
@@ -63,12 +70,15 @@ export async function POST(request: Request) {
   if (!confirm.sent && confirm.reason === "resend-not-configured") {
     await db.from(TABLE).update({ status: "confirmed", confirmed_at: new Date().toISOString() }).eq("email", email);
     await sendWelcomeEmail(email, unsubscribeToken);
-    return NextResponse.json({ ok: true, status: "subscribed", message: "You're subscribed. Welcome to the Debrief." });
+    const coupon = await issueCoupon(email, source);
+    return NextResponse.json({ ok: true, status: "subscribed", message: "You're subscribed. Welcome to the Debrief.", coupon });
   }
 
+  const coupon = await issueCoupon(email, source);
   return NextResponse.json({
     ok: true,
     status: "pending",
     message: "Almost there — check your inbox and confirm your subscription.",
+    coupon,
   });
 }

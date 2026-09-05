@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { X } from "lucide-react";
-import { NewsletterForm } from "./forms";
+import { X, Mail, Globe2 } from "lucide-react";
+import { NewsletterForm, type SubscribeCoupon } from "./forms";
+import { ScratchCoupon } from "./ScratchCoupon";
 import {
   recordVisit,
   shouldShowPopup,
@@ -11,16 +12,26 @@ import {
   recordNewsletterSubscribed,
 } from "@/lib/newsletterPopupSchedule";
 
-/** Repeat-visit popup for the Communications Debrief. Doesn't show on visit 1
- *  or 2, then appears on prime-numbered visits (3, 5, 7, 11, 13...) — spacing
- *  out further the more times someone's passed on it — within a visit it
- *  still waits for a dwell delay or scroll depth so it never interrupts the
- *  moment someone lands. A dismiss buys a week of silence; subscribing stops
- *  it for good. A persistent CTA lives elsewhere (footer, blog, /newsletter)
- *  for everyone else. */
+// Fill these in once each community channel is live — the row hides itself
+// entirely (not one broken link) until at least one URL is set here.
+const SOCIAL_LINKS: { label: string; href: string }[] = [
+  // { label: "Discord", href: "https://discord.gg/..." },
+  // { label: "Telegram", href: "https://t.me/..." },
+  // { label: "Facebook", href: "https://facebook.com/..." },
+  // { label: "Instagram", href: "https://instagram.com/..." },
+];
+
+/** Repeat-visit popup for the Communications Debrief + In Today's World.
+ *  Doesn't show on visit 1 or 2, then appears on prime-numbered visits
+ *  (3, 5, 7, 11, 13...) — spacing out further the more times someone's
+ *  passed on it — within a visit it still waits for a dwell delay or scroll
+ *  depth so it never interrupts the moment someone lands. A dismiss buys a
+ *  week of silence; subscribing stops it for good and unlocks a scratch-off
+ *  discount for their next checkout. */
 export function NewsletterPopup() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [coupon, setCoupon] = useState<SubscribeCoupon | null>(null);
 
   useEffect(() => {
     // Never interrupt auth or the dedicated newsletter pages.
@@ -62,6 +73,11 @@ export function NewsletterPopup() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  function onSubscribed(c: SubscribeCoupon | null) {
+    recordNewsletterSubscribed();
+    setCoupon(c);
+  }
+
   if (!open) return null;
 
   return (
@@ -81,29 +97,83 @@ export function NewsletterPopup() {
           <X className="h-4 w-4" />
         </button>
 
-        <div className="relative h-28 overflow-hidden border-b border-line bg-ink-50">
-          <svg viewBox="0 0 800 200" preserveAspectRatio="xMidYMid slice" className="h-full w-full" aria-hidden>
-            <rect width="800" height="200" fill="#fafafa" />
-            {Array.from({ length: 7 }).map((_, i) => {
-              const y = 30 + i * 24;
-              let d = `M 0 ${y}`;
-              for (let x = 0; x <= 800; x += 20) d += ` L ${x} ${y + Math.sin(x * 0.02 + i) * (4 + i)}`;
-              return <path key={i} d={d} fill="none" stroke={i === 3 ? "#141414" : "rgba(20,20,20,0.10)"} strokeWidth={i === 3 ? 1.8 : 1} />;
-            })}
-          </svg>
-        </div>
+        {/* Header — the spectrum bar, the house standard refracted */}
+        <div className="relative h-2 w-full flex-none" style={{ background: "var(--sp-h)" }} />
 
         <div className="p-7 sm:p-9">
-          <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-ink-500">The Communications Debrief</span>
-          <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900">
-            Signal over noise — once a week.
-          </h2>
-          <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
-            Field notes from the studio on tech, marketing and the markets: what we shipped, the problems, the fixes. Join the list and get the first read.
-          </p>
-          <div className="mt-6">
-            <NewsletterForm source="popup" cta="Join free" onSuccess={recordNewsletterSubscribed} />
-          </div>
+          {coupon ? (
+            <>
+              <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
+                You&apos;re in
+              </span>
+              <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900">
+                One dispatch, two forms.
+              </h2>
+              <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
+                <span className="font-semibold text-ink-900">In Today&apos;s World:</span> lands
+                weekday mornings — the same format, in your inbox, with every issue also readable
+                on the site.{" "}
+                <a href="/blog/in-todays-world" className="underline hover:text-ink-900">
+                  Browse the archive →
+                </a>
+                <br className="hidden sm:block" />
+                <span className="font-semibold text-ink-900">The Debrief</span> is our own weekly
+                field notes on what we shipped, the problems, the fixes.
+              </p>
+
+              <div className="mt-6 border-t border-line pt-6">
+                <ScratchCoupon coupon={coupon} />
+              </div>
+
+              {SOCIAL_LINKS.length > 0 && (
+                <div className="mt-6 border-t border-line pt-5 text-center">
+                  <p className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-ink-400">
+                    Join the community
+                  </p>
+                  <div className="mt-3 flex flex-wrap justify-center gap-2">
+                    {SOCIAL_LINKS.map((s) => (
+                      <a
+                        key={s.label}
+                        href={s.href}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="rounded-full border border-line px-4 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-ink-600 transition hover:border-ink-900 hover:text-ink-900"
+                      >
+                        {s.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-ink-500">
+                The Communications Debrief
+              </span>
+              <h2 className="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900">
+                Signal over noise.
+              </h2>
+              <p className="mt-2.5 text-[0.95rem] leading-relaxed text-ink-600">
+                Two dispatches, one signup: <span className="font-semibold text-ink-900">In
+                Today&apos;s World:</span> every weekday morning, and{" "}
+                <span className="font-semibold text-ink-900">The Debrief</span> — field notes on
+                what we shipped, the problems, the fixes. Join and unlock a discount on your next
+                checkout.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-4 text-[0.72rem] text-ink-400">
+                <span className="inline-flex items-center gap-1.5">
+                  <Mail className="h-3.5 w-3.5" /> Weekly + daily
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Globe2 className="h-3.5 w-3.5" /> Also readable on the site
+                </span>
+              </div>
+              <div className="mt-6">
+                <NewsletterForm source="popup" cta="Join free" onSuccess={onSubscribed} />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

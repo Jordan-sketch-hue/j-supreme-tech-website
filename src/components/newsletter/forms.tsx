@@ -6,9 +6,17 @@ import { track } from "@/lib/track";
 
 type State = "idle" | "loading" | "done" | "error";
 
-function useSubscribe(source: string, onSuccess?: () => void) {
+export type SubscribeCoupon = {
+  code: string;
+  discountPercent: number;
+  expiresAt: string;
+  alreadyRedeemed: boolean;
+};
+
+function useSubscribe(source: string, onSuccess?: (coupon: SubscribeCoupon | null) => void) {
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
+  const [coupon, setCoupon] = useState<SubscribeCoupon | null>(null);
 
   async function submit(email: string, extra?: { name?: string; topics?: string[] }) {
     if (state === "loading") return;
@@ -28,15 +36,16 @@ function useSubscribe(source: string, onSuccess?: () => void) {
       }
       setState("done");
       setMessage(data.message || "You're in.");
+      setCoupon(data.coupon ?? null);
       track("newsletter_signup", { source });
-      onSuccess?.();
+      onSuccess?.(data.coupon ?? null);
     } catch {
       setState("error");
       setMessage("Network error. Please try again.");
     }
   }
 
-  return { state, message, submit };
+  return { state, message, coupon, submit };
 }
 
 /* ---------------- Inline / dark hero form ---------------- */
@@ -51,7 +60,7 @@ export function NewsletterForm({
   dark?: boolean;
   placeholder?: string;
   cta?: string;
-  onSuccess?: () => void;
+  onSuccess?: (coupon: SubscribeCoupon | null) => void;
 }) {
   const { state, message, submit } = useSubscribe(source, onSuccess);
 

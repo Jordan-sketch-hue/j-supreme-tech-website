@@ -14,9 +14,9 @@ import { BrowserFrame } from "@/components/DeviceFrame";
 import { CountUp, Marquee, Reveal, RevealGroup, RevealItem, ScrollProgress } from "@/components/motion-kit";
 
 export const metadata: Metadata = {
-  title: "About — The Studio in Black & White | J Supreme Tech",
+  title: "About — Black & White, Refracted | J Supreme Tech",
   description:
-    "J Supreme Tech is the technology arm of the J Supreme group — a Jamaican studio shipping websites, apps, CRMs and a 13-system SaaS line worldwide, all in one disciplined black-and-white standard.",
+    "J Supreme Tech is the technology arm of the J Supreme group — a Jamaican studio shipping websites, apps, CRMs and a 13-system SaaS line worldwide. The house standard starts in black and white; the spectrum you see across our work is that same discipline refracted into color.",
 };
 
 const PRINCIPLES = [
@@ -32,8 +32,8 @@ const PRINCIPLES = [
   },
   {
     icon: Boxes,
-    title: "Mono by design",
-    body: "One black-and-white house standard across everything we ship. Discipline in the brand is discipline in the build.",
+    title: "Discipline first, color earned",
+    body: "The house standard starts in black and white — the spectrum you see across our work is that same discipline refracted, not a departure from it.",
   },
   {
     icon: Building2,
@@ -93,6 +93,10 @@ export default function AboutPage() {
               <span className="underline decoration-4 underline-offset-8">
                 <CineWords text="black & white." delay={0.4} />
               </span>
+              <br />
+              <span className="text-ink-400">
+                <CineWords text="Refracted into color." delay={0.6} />
+              </span>
             </h1>
             <Reveal delay={0.16}>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-500">
@@ -102,7 +106,9 @@ export default function AboutPage() {
                 <Link href="/products" className="font-semibold text-ink-900 underline underline-offset-2">
                   13-system SaaS line
                 </Link>{" "}
-                on the other. One standard across all of it.
+                on the other. One standard across all of it — the house runs in black and white,
+                the way white light runs colorless until it hits a prism. Every spectrum bar,
+                gradient and accent you see across our work is that same discipline, refracted.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
@@ -167,7 +173,7 @@ export default function AboutPage() {
               { v: <><CountUp to={100} className="tabular-nums" />+</>, l: "live platforms shipped" },
               { v: <CountUp to={13} className="tabular-nums" />, l: "ready-made SaaS systems" },
               { v: <CountUp to={3} className="tabular-nums" />, l: "native apps in the stores" },
-              { v: "01", l: "house standard — mono" },
+              { v: "01", l: "house standard, refracted" },
             ].map((s, i) => (
               <div key={i} className="bg-white px-5 py-6 text-center">
                 <p className="font-display text-3xl font-bold tracking-tight text-ink-900">{s.v}</p>
