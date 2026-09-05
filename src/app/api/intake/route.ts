@@ -38,10 +38,14 @@ export async function POST(request: Request) {
   const supabaseKey = process.env.JST_SUPABASE_SERVICE_ROLE_KEY;
   const resendKey = process.env.RESEND_API_KEY;
 
-  // 1. Save to ibtadbwtrxglujkzqofs (primary shared DB)
+  // 1. Save to ibtadbwtrxglujkzqofs (primary shared DB) — this is the lead
+  // record of truth. Email below is a notification convenience for Jordan;
+  // its failure must never tell the client their inquiry didn't go through
+  // when it's already sitting in the database.
+  let savedToDb = false;
   if (supabaseUrl && supabaseKey) {
     const supabase = createClient(supabaseUrl, supabaseKey);
-    await supabase.from("jst_intake_submissions").insert({
+    const { error: dbError } = await supabase.from("jst_intake_submissions").insert({
       name: payload.name,
       business_name: payload.businessName,
       email: payload.email,
@@ -58,11 +62,20 @@ export async function POST(request: Request) {
       project_description: payload.projectDescription,
       quality_control_notes: payload.qualityControlNotes,
     });
-    // DB errors are non-fatal — email is the primary notification
+    if (dbError) {
+      console.error("[intake] db insert failed:", dbError.message);
+    } else {
+      savedToDb = true;
+    }
   }
 
-  // 2. Email both addresses via Resend
+  // 2. Email both addresses via Resend — best-effort notification
   if (!resendKey) {
+    if (savedToDb) {
+      return NextResponse.json({
+        message: "Project inquiry received. J Supreme Tech will follow up shortly.",
+      });
+    }
     return NextResponse.json({ error: "Email service not configured." }, { status: 503 });
   }
 
@@ -112,7 +125,12 @@ export async function POST(request: Request) {
   });
 
   if (error) {
-    console.error("[intake-debug] resend error:", JSON.stringify(error));
+    console.error("[intake] resend send failed:", JSON.stringify(error));
+    if (savedToDb) {
+      return NextResponse.json({
+        message: "Project inquiry received. J Supreme Tech will follow up shortly.",
+      });
+    }
     return NextResponse.json({ error: "Failed to send inquiry. Contact us at (658) 218-2282." }, { status: 500 });
   }
 
