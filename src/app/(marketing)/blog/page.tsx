@@ -13,13 +13,13 @@ import { CineWords } from "@/components/CineWords";
 import { Reveal, RevealGroup, RevealItem, ScrollProgress } from "@/components/motion-kit";
 
 const DESCRIPTION =
-  "The Signal is the J Supreme Tech studio publication — engineering, marketing and the markets. Production logs, playbooks and research, straight from the bench.";
+  "In Today's World: is the J Supreme Tech daily dispatch — technology, AI, marketing, finance, Caribbean and Jamaica coverage. Every weekday morning, signal over noise.";
 
 export const metadata: Metadata = {
-  title: "The Signal — Studio Publication | J Supreme Tech",
+  title: "In Today's World: — Daily Dispatch | J Supreme Tech",
   description: DESCRIPTION,
   alternates: { canonical: "/blog", types: { "application/rss+xml": "/blog/rss.xml" } },
-  openGraph: { title: "The Signal — J Supreme Tech", description: DESCRIPTION, url: "https://jsupremetech.online/blog" },
+  openGraph: { title: "In Today's World: — J Supreme Tech", description: DESCRIPTION, url: "https://jsupremetech.online/blog" },
 };
 
 export default function BlogHub() {
@@ -43,14 +43,14 @@ export default function BlogHub() {
         <div className="shell relative py-16 md:py-20">
           <div className="max-w-3xl">
             <Reveal>
-              <span className="eyebrow">The Signal · studio publication</span>
+              <span className="eyebrow">In Today&apos;s World: · daily dispatch</span>
             </Reveal>
             <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight md:text-[3.4rem] md:leading-[1.04]">
-              <CineWords text="Signal over noise." delay={0.15} />
+              <CineWords text="In Today's World:" delay={0.15} />
             </h1>
             <Reveal delay={0.16}>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-500">
-                Engineering, marketing and the markets — production logs, playbooks and research from the J Supreme Tech studio. Categorized, predictable, newest first.
+                Technology, AI, marketing, finance, Caribbean and Jamaica coverage — one clean dispatch every weekday morning. Categorized, predictable, newest first.
               </p>
             </Reveal>
             <Reveal delay={0.24}>
@@ -199,7 +199,7 @@ export default function BlogHub() {
       ) : (
         <section className="shell pt-14">
           <div className="card p-10 text-center">
-            <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-400">The Signal is warming up</p>
+            <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-400">In Today&apos;s World: is warming up</p>
             <p className="mt-3 text-ink-600">New dispatches are landing shortly. Join In Today&apos;s World: to get the first read.</p>
           </div>
         </section>

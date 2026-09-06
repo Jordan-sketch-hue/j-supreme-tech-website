@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const TILES = [
   { href: "/products", icon: LayoutGrid, title: "Supreme Suite", body: "Browse the 13 systems and start a free trial." },
-  { href: "/blog", icon: Newspaper, title: "The Signal", body: "The latest dispatches from the studio bench." },
+  { href: "/blog", icon: Newspaper, title: "In Today's World:", body: "The daily dispatch — technology, AI, marketing, finance, Caribbean coverage." },
   { href: "/library", icon: BookOpen, title: "The Library", body: "Your free e-books — automation, growth, shipping." },
   { href: "/contact", icon: Rocket, title: "Start a project", body: "Brief us on what you want built next." },
   { href: "/newsletter", icon: Mail, title: "In Today's World:", body: "Manage your newsletter subscription." },

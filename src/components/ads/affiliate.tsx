@@ -27,7 +27,7 @@ const CAT_LABEL: Record<AffiliateCategory, string> = {
 
 export function AffiliateTools({
   title = "The stack we actually use",
-  intro = "The tools below run our own systems and the ones we build for clients. A few are affiliate links — they support The Signal at no cost to you.",
+  intro = "The tools below run our own systems and the ones we build for clients. A few are affiliate links — they support In Today's World: at no cost to you.",
   category,
   only,
 }: {

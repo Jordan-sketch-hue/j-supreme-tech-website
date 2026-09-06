@@ -28,7 +28,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The Signal — J Supreme Tech</title>
+    <title>In Today's World: — J Supreme Tech</title>
     <link>${SITE}/blog</link>
     <atom:link href="${SITE}/blog/rss.xml" rel="self" type="application/rss+xml" />
     <description>Engineering, marketing and the markets — production logs, playbooks and research from the J Supreme Tech studio.</description>

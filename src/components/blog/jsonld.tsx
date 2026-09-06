@@ -30,7 +30,7 @@ export function ArticleJsonLd({ article }: { article: Article }) {
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "The Signal", item: `${SITE}/blog` },
+        { "@type": "ListItem", position: 1, name: "In Today's World:", item: `${SITE}/blog` },
         { "@type": "ListItem", position: 2, name: CATEGORIES[article.category].label, item: `${SITE}/blog/category/${article.category}` },
         { "@type": "ListItem", position: 3, name: article.title, item: url },
       ],
@@ -64,7 +64,7 @@ export function BlogJsonLd({ description }: { description: string }) {
           "@context": "https://schema.org",
           "@type": "Blog",
           "@id": `${SITE}/blog`,
-          name: "The Signal — J Supreme Tech",
+          name: "In Today's World: — J Supreme Tech",
           description,
           url: `${SITE}/blog`,
           publisher: ORG,

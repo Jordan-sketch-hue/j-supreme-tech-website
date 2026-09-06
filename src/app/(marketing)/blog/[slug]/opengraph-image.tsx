@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { getArticle } from "@/lib/blog";
 import { CATEGORIES } from "@/lib/blog-taxonomy";
 
-export const alt = "J Supreme Tech — The Signal";
+export const alt = "J Supreme Tech — In Today's World:";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -14,7 +14,7 @@ export const dynamicParams = true;
 export default async function OgImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticle(slug);
-  const title = article?.title ?? "The Signal";
+  const title = article?.title ?? "In Today's World:";
   const category = article ? CATEGORIES[article.category].label : "J Supreme Tech";
   const read = article ? `${article.readMinutes} MIN READ` : "";
 
@@ -49,7 +49,7 @@ export default async function OgImage({ params }: { params: Promise<{ slug: stri
             </div>
             <div style={{ fontSize: 22, fontWeight: 600, color: "#141414" }}>J Supreme Tech</div>
           </div>
-          <div style={{ display: "flex", fontSize: 18, letterSpacing: 4, textTransform: "uppercase", color: "#737373" }}>{`The Signal · ${category}`}</div>
+          <div style={{ display: "flex", fontSize: 18, letterSpacing: 4, textTransform: "uppercase", color: "#737373" }}>{`In Today's World: · ${category}`}</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 980 }}>

@@ -27,10 +27,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
-  if (!article) return { title: "Not found — The Signal" };
+  if (!article) return { title: "Not found — In Today's World:" };
   const cat = CATEGORIES[article.category];
   return {
-    title: `${article.title} — The Signal`,
+    title: `${article.title} — In Today's World:`,
     description: article.excerpt,
     keywords: article.keywords,
     authors: [{ name: article.author }],

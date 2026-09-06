@@ -3,7 +3,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Advertising & Affiliate Disclosure — J Supreme Tech",
   description:
-    "How J Supreme Tech uses display advertising and affiliate links on The Signal, and how that affects you.",
+    "How J Supreme Tech uses display advertising and affiliate links on In Today's World:, and how that affects you.",
   alternates: { canonical: "/disclosure" },
 };
 
@@ -28,7 +28,7 @@ export default function DisclosurePage() {
                   Plain-English summary
                 </h2>
                 <p className="mt-4">
-                  Some pages on this site — primarily our editorial blog, <em>The Signal</em>, and our
+                  Some pages on this site — primarily our editorial blog, <em>In Today's World:</em>, and our
                   free Library — carry advertising and a small number of affiliate links. Our paid
                   services, pricing, and product pages do not. We keep monetization off the parts of the
                   site where you make buying decisions about working with us.

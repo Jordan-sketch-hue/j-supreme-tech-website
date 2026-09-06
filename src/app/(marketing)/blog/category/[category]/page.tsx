@@ -18,12 +18,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
   const { category } = await params;
   const meta = categoryMeta(category);
-  if (!meta) return { title: "Not found — The Signal" };
+  if (!meta) return { title: "Not found — In Today's World:" };
   return {
-    title: `${meta.label} — The Signal | J Supreme Tech`,
+    title: `${meta.label} — In Today's World: | J Supreme Tech`,
     description: meta.blurb,
     alternates: { canonical: `/blog/category/${meta.key}` },
-    openGraph: { title: `${meta.label} — The Signal`, description: meta.blurb, url: `https://jsupremetech.online/blog/category/${meta.key}` },
+    openGraph: { title: `${meta.label} — In Today's World:`, description: meta.blurb, url: `https://jsupremetech.online/blog/category/${meta.key}` },
   };
 }
 
@@ -86,7 +86,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
           <div className="card p-10 text-center">
             <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-400">Nothing here yet</p>
             <p className="mt-3 text-ink-600">The first {meta.label} dispatch is on its way.</p>
-            <Link href="/blog" className="btn btn-outline mt-6">Back to The Signal</Link>
+            <Link href="/blog" className="btn btn-outline mt-6">Back to In Today's World:</Link>
           </div>
         )}
 
