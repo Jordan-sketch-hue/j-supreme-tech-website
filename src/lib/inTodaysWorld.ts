@@ -1,4 +1,4 @@
-import "server-only";
+﻿import "server-only";
 
 export type InTodaysWorldIssue = {
   issueNumber: number;
@@ -22,7 +22,7 @@ function issueNumberFromPathname(pathname: string): number {
  *  its public archive (Vercel Blob, one JSON file per issue) so past issues
  *  can be surfaced here too. The list endpoint only returns blob metadata,
  *  so each issue's actual content is fetched from its own public blob URL. */
-export async function getInTodaysWorldIssues(limit = 24): Promise<InTodaysWorldIssue[]> {
+export async function getInTodaysWorldIssues(limit = 50): Promise<InTodaysWorldIssue[]> {
   try {
     const listRes = await fetch(ISSUES_LIST_URL, { next: { revalidate: 3600 } });
     if (!listRes.ok) return [];

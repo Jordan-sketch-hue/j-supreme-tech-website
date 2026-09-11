@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { ChevronDown, Menu, X } from "lucide-react";
@@ -52,7 +52,7 @@ function Dropdown({
   children,
 }: {
   label: string;
-  children: { label: string; href: string }[];
+  children: { label: string; href: string; external?: boolean }[];
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
