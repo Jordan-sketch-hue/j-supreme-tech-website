@@ -7,7 +7,7 @@ import { useState, useEffect, useRef } from "react";
 const NAV = [
   { label: "Work", href: "/#work" },
   {
-    label: "Solutions",
+    label: "Services",
     children: [
       { label: "Websites", href: "/solutions/websites" },
       { label: "Web Apps", href: "/solutions/web-apps" },
@@ -31,7 +31,7 @@ const NAV = [
     ],
   },
   {
-    label: "Insights",
+    label: "Blog & Media",
     children: [
       { label: "In Today's World:", href: "/blog" },
       { label: "JST Communications \u2197", href: "https://communications.jsupremetech.online", external: true },
@@ -40,7 +40,7 @@ const NAV = [
     ],
   },
   {
-    label: "Studio",
+    label: "Company",
     children: [
       { label: "About", href: "/about" },
       { label: "Pricing", href: "/pricing" },
