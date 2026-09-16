@@ -1,4 +1,4 @@
-import "server-only";
+﻿import "server-only";
 
 export type InTodaysWorldIssue = {
   issueNumber: number;
@@ -10,22 +10,19 @@ export type InTodaysWorldIssue = {
   resendId?: string;
 };
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const ITW_PREFIX = "In Today's World:";
+const ITW_PREFIX = "In Today'\''s World:";
+const BROADCASTS_URL = "https://communications.jsupremetech.online/api/newsletter/broadcasts";
 
-/** Parse issue number from subject: "In Today's World: #30 — ..." */
 function parseIssueNumber(subject: string): number {
   const m = subject.match(/#(\d+)/);
   return m ? Number(m[1]) : 0;
 }
 
-/** Parse headline from subject: "In Today's World: #30 — Headline text" */
 function parseHeadline(subject: string): string {
-  const m = subject.match(/#\d+\s*[—\-]+\s*(.+)$/);
+  const m = subject.match(/#\d+\s*[\u2014\-]+\s*(.+)$/);
   return m ? m[1].trim() : subject.replace(ITW_PREFIX, "").trim();
 }
 
-/** Guess category from subject keywords */
 function guessCategory(subject: string): string {
   const s = subject.toLowerCase();
   if (s.includes("ai") || s.includes("openai") || s.includes("claude") || s.includes("gemini") || s.includes("gpt")) return "AI";
@@ -36,33 +33,31 @@ function guessCategory(subject: string): string {
   return "World";
 }
 
-function formatDate(isoString: string): string {
-  const d = new Date(isoString);
-  return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+function formatDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  } catch {
+    return iso;
+  }
 }
 
-/** Fetch sent "In Today's World:" newsletters from Resend Broadcasts API */
 export async function getInTodaysWorldIssues(limit = 50): Promise<InTodaysWorldIssue[]> {
-  if (!RESEND_API_KEY) return [];
-
   try {
-    const res = await fetch("https://api.resend.com/broadcasts", {
-      headers: { Authorization: `Bearer ${RESEND_API_KEY}` },
+    const res = await fetch(BROADCASTS_URL, {
       next: { revalidate: 3600 },
     });
     if (!res.ok) return [];
-
-    const { data } = (await res.json()) as { data: Array<{
-      id: string;
-      name: string;
-      subject: string;
-      status: string;
-      sent_at: string | null;
-      metrics?: { recipients?: number };
-    }> };
-
+    const { data } = (await res.json()) as {
+      data: Array<{
+        id: string;
+        name: string;
+        subject: string;
+        status: string;
+        sent_at: string | null;
+        metrics?: { recipients?: number };
+      }>;
+    };
     if (!Array.isArray(data)) return [];
-
     const issues: InTodaysWorldIssue[] = data
       .filter((b) => b.status === "sent" && b.subject?.startsWith(ITW_PREFIX) && b.sent_at)
       .slice(0, limit)
@@ -77,16 +72,11 @@ export async function getInTodaysWorldIssues(limit = 50): Promise<InTodaysWorldI
           sentAt: b.sent_at ?? undefined,
           recipients: b.metrics?.recipients,
           resendId: b.id,
-          topStory: {
-            category,
-            headline,
-            body: "",
-          },
+          topStory: { category, headline, body: "" },
         };
       })
       .filter((i) => i.issueNumber > 0)
       .sort((a, b) => b.issueNumber - a.issueNumber);
-
     return issues;
   } catch {
     return [];
@@ -94,8 +84,6 @@ export async function getInTodaysWorldIssues(limit = 50): Promise<InTodaysWorldI
 }
 
 export function readerUrl(issue: InTodaysWorldIssue): string {
-  // Link to the Resend broadcast reader if we have the ID,
-  // otherwise fall back to the communications reader
   if (issue.resendId) {
     return `https://resend.com/broadcasts/${issue.resendId}`;
   }
