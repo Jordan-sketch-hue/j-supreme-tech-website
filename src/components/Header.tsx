@@ -134,7 +134,7 @@ export function Header() {
         <Link
           href="/"
           className="flex items-center gap-3"
-          onClick={() => setOpen(false)}
+          onClick={() => { setOpen(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-[0.62rem] font-bold tracking-tight text-black font-mono">
             JST

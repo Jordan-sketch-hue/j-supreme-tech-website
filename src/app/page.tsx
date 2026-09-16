@@ -99,7 +99,7 @@ export default function Home() {
                   className="relative overflow-hidden rounded-full bg-white px-7 py-3.5 sm:py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black text-center transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-px">
                   Start a Project →
                 </Link>
-                <Link href="/#services"
+                <Link href="/#pricing"
                   className="rounded-full border border-white/15 px-7 py-3 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-white/50 text-center transition-all hover:border-white/40 hover:text-white/80 hover:-translate-y-px">
                   Explore Solutions
                 </Link>

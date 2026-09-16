@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      { source: "/solutions/automation", destination: "/solutions/ai-systems", permanent: true },
+    ];
+  },
   // __JS_SECURITY_HEADERS__ — J Supreme Cyber Command hardening (do not duplicate)
   async headers() {
     return [

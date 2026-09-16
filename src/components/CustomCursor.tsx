@@ -43,12 +43,12 @@ export function CustomCursor() {
     <>
       <div
         ref={dot}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-ink-900 mix-blend-difference"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] h-2 w-2 rounded-full bg-ink-900 mix-blend-difference [transform:translate(-100px,-100px)] [@media(pointer:coarse)]:hidden"
         aria-hidden
       />
       <div
         ref={ring}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] h-8 w-8 rounded-full border border-ink-900/40 transition-transform duration-200 mix-blend-difference"
+        className="pointer-events-none fixed left-0 top-0 z-[9999] h-8 w-8 rounded-full border border-ink-900/40 transition-transform duration-200 mix-blend-difference [transform:translate(-100px,-100px)] [@media(pointer:coarse)]:hidden"
         aria-hidden
       />
     </>
