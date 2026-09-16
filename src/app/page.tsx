@@ -14,7 +14,6 @@ import { BrowserFrame } from "@/components/DeviceFrame";
 import { ShowcaseGrid } from "@/components/ShowcaseGrid";
 import { ClientLogoStrip } from "@/components/ClientLogoStrip";
 import { Testimonials } from "@/components/Testimonials";
-import { SupremeSuiteSection } from "@/components/SupremeSuiteSection";
 import { PayButton } from "@/components/PayButton";
 import { ProjectIntakeForm } from "@/components/ProjectIntakeForm";
 import type { CSSProperties } from "react";
@@ -187,9 +186,6 @@ export default function Home() {
       {/* ============================== TESTIMONIALS ============================== */}
       <Testimonials />
 
-
-      {/* ============================== PRODUCTS (Supreme Suite SaaS line) ============================== */}
-      <SupremeSuiteSection />
 
       {/* ============================== PRICING ============================== */}
       <section id="pricing" className="section shell">
