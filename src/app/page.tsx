@@ -103,6 +103,7 @@ export default function Home() {
                 Starter sites live in 5–7 business days
               </div>
             </Reveal>
+          </div>
 
           {/* Stats strip */}
 
