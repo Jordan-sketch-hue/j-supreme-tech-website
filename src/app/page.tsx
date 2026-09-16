@@ -171,6 +171,10 @@ export default function Home() {
               across logistics, commerce, education, and marketing. Switch between Tech Work and Marketing
               &amp; Design below.
             </p>
+            <p className="mt-4 inline-flex items-center gap-1.5 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-ink-500">
+              <Zap className="h-3 w-3 flex-none text-ink-900" />
+              Starter sites live in 5–7 business days
+            </p>
           </div>
           <Link
             href="#contact"

@@ -51,8 +51,45 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
+  // Custom-domain builds (live, indexed) ----------------------------
   {
     n: "01",
+    name: "The Mover Guy",
+    host: "themoverguy.online",
+    tag: "Moving",
+    group: "Logistics & Mobility",
+    blurb: "Full moving platform — booking, pricing, and operations for Jamaica's top moving company.",
+    workType: "tech",
+  },
+  {
+    n: "02",
+    name: "Solid Trust Courier",
+    host: "solidtrustservices.com",
+    tag: "Freight",
+    group: "Logistics & Mobility",
+    blurb: "End-to-end freight management — parcels, quotes, and warehouse portal.",
+    workType: "tech",
+  },
+  {
+    n: "03",
+    name: "Ship 2 Door JA",
+    host: "ship2doorja.com",
+    tag: "US-to-JA Shipping",
+    group: "Logistics & Mobility",
+    blurb: "US barrel and package forwarding with a free US address, tracking, and online store.",
+    workType: "tech",
+  },
+  {
+    n: "04",
+    name: "Ferguson Law",
+    host: "ferguson-law.vercel.app",
+    tag: "Law Firm",
+    group: "Business Systems",
+    blurb: "Law firm platform — booking, admin CMS, chatbot, and online consultations.",
+    workType: "tech",
+  },
+  {
+    n: "05",
     name: "BP Couriers",
     host: "bpcouriers.online",
     tag: "Logistics",
@@ -62,7 +99,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "02",
+    n: "06",
     name: "Supreme OS",
     host: "jsupremeconglomerate.online",
     tag: "Custom CRM",
@@ -71,7 +108,18 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "03",
+    n: "07",
+    name: "Language Cradle",
+    host: "thelanguagecradle.com",
+    tag: "Education",
+    group: "Education",
+    blurb: "Flagship language-learning institute with a CMS backoffice and role portal.",
+    mobile: true,
+    workType: "tech",
+  },
+  // Studio / preview builds ------------------------------------------
+  {
+    n: "08",
     name: "Lingua Caribe",
     host: "lingua-caribe.vercel.app",
     tag: "B2B Edtech",
@@ -80,7 +128,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "04",
+    n: "09",
     name: "Infinite Herbs",
     host: "infinitteherbs.vercel.app",
     tag: "E-Commerce",
@@ -89,16 +137,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "05",
-    name: "Carib Ortho Supply",
-    host: "carib-ortho-supply.vercel.app",
-    tag: "Healthcare B2B",
-    group: "Business Systems",
-    blurb: "Caribbean orthopedic supply platform with B2B ordering.",
-    workType: "tech",
-  },
-  {
-    n: "06",
+    n: "10",
     name: "J Supreme",
     host: "j-supreme-marketing-web.vercel.app",
     tag: "Agency Brand",
@@ -107,7 +146,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "07",
+    n: "11",
     name: "ForgeWorks Jamaica",
     host: "fabworks-ja.vercel.app",
     tag: "Fabrication",
@@ -116,7 +155,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "08",
+    n: "12",
     name: "Crown District JA",
     host: "crown-district-ja.vercel.app",
     tag: "Streetwear",
@@ -125,7 +164,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "09",
+    n: "13",
     name: "RideLink Jamaica",
     host: "ridelink-jamaica.vercel.app",
     tag: "Ride-Hailing",
@@ -135,17 +174,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "10",
-    name: "Language Cradle",
-    host: "thelanguagecradle.com",
-    tag: "Education",
-    group: "Education",
-    blurb: "Flagship language-learning institute with a CMS backoffice and role portal.",
-    mobile: true,
-    workType: "tech",
-  },
-  {
-    n: "11",
+    n: "14",
     name: "The Cleanser JA",
     host: "the-cleanser-ja.vercel.app",
     tag: "Wellness",
@@ -154,7 +183,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "12",
+    n: "15",
     name: "Solace Auto Imports",
     host: "solace-auto-imports.vercel.app",
     tag: "Automotive",
