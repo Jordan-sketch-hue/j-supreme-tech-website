@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getInTodaysWorldIssues, readerUrl } from "@/lib/inTodaysWorld";
@@ -6,17 +6,17 @@ import { NewsletterCard } from "@/components/newsletter/forms";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion-kit";
 
 export const metadata: Metadata = {
-  title: "In Today's World: — Daily Intelligence | J Supreme Tech",
+  title: "In Today's World: � Daily Intelligence | J Supreme Tech",
   description:
-    "Every issue of In Today's World: — technology, AI, marketing, finance, Caribbean and Jamaica coverage, published every weekday morning. Live archive.",
+    "Every issue of In Today's World: � technology, AI, marketing, finance, Caribbean and Jamaica coverage, published every weekday morning. Live archive.",
   alternates: {
     canonical: "/blog",
     types: { "application/rss+xml": "/blog/rss.xml" },
   },
   openGraph: {
-    title: "In Today's World: — J Supreme Tech",
+    title: "In Today's World: � J Supreme Tech",
     description:
-      "Daily tech, AI, markets, and Caribbean coverage. Weekday mornings — signal over noise.",
+      "Daily tech, AI, markets, and Caribbean coverage. Weekday mornings � signal over noise.",
     url: "https://jsupremetech.online/blog",
     type: "website",
   },
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-/* ── Cover palette per category ── */
+/* -- Cover palette per category -- */
 const COVER_PALETTE: Record<string, { bg: string; accent: string; shape: string }> = {
   AI:       { bg: "#0a0a1a", accent: "#7c3aed", shape: "circle" },
   Tech:     { bg: "#051020", accent: "#0ea5e9", shape: "lines" },
@@ -112,7 +112,7 @@ export default async function BlogPage() {
           </h1>
           <Reveal delay={0.14}>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-500">
-              Technology, AI, markets, finance, Caribbean and Jamaica — one signal every weekday
+              Technology, AI, markets, finance, Caribbean and Jamaica � one signal every weekday
               morning. Every issue archived live.
             </p>
           </Reveal>
@@ -122,7 +122,7 @@ export default async function BlogPage() {
                 href="/newsletter"
                 className="rounded-full bg-ink-900 px-5 py-2.5 font-mono text-[0.7rem] font-bold uppercase tracking-[0.1em] text-white transition hover:bg-ink-700"
               >
-                Subscribe free →
+                Subscribe free ?
               </Link>
               <a
                 href="https://communications.jsupremetech.online"
@@ -152,10 +152,10 @@ export default async function BlogPage() {
                   <IssueCover issue={issue} />
                   <div className="flex flex-1 flex-col p-5">
                     <h2 className="font-display text-[1.05rem] font-semibold leading-snug tracking-tight text-ink-900 group-hover:underline">
-                      {issue.topStory.headline}
+                      {issue.topStory?.headline}
                     </h2>
                     <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-500">
-                      {issue.topStory.body}
+                      {issue.topStory?.body}
                     </p>
                     <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
                       <span className="font-mono text-[0.58rem] uppercase tracking-[0.12em] text-ink-400">
@@ -172,7 +172,7 @@ export default async function BlogPage() {
           </RevealGroup>
         ) : (
           <p className="mx-auto max-w-3xl text-center text-ink-500">
-            Archive loading — check back shortly.
+            Archive loading � check back shortly.
           </p>
         )}
 

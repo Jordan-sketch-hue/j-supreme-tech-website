@@ -56,7 +56,7 @@ export default async function InTodaysWorldPage() {
                   <div className="relative flex h-32 flex-none flex-col justify-between overflow-hidden bg-ink-950 p-5">
                     <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-20" />
                     <span className="relative font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/45">
-                      {issue.topStory.category || "Briefing"}
+                      {issue.topStory?.category || "Briefing"}
                     </span>
                     <span className="relative font-display text-4xl font-semibold text-white/90">
                       #{String(issue.issueNumber).padStart(2, "0")}
@@ -66,10 +66,10 @@ export default async function InTodaysWorldPage() {
 
                   <div className="flex flex-1 flex-col p-6">
                     <h2 className="font-display text-lg font-semibold leading-snug tracking-tight text-ink-900 group-hover:underline">
-                      {issue.topStory.headline}
+                      {issue.topStory?.headline}
                     </h2>
                     <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-500">
-                      {issue.topStory.body}
+                      {issue.topStory?.body}
                     </p>
                     <div className="mt-4 flex items-center justify-between border-t border-line pt-4">
                       <span className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-ink-400">

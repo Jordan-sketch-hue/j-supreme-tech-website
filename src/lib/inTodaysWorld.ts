@@ -1,4 +1,4 @@
-﻿import "server-only";
+import "server-only";
 
 const ISSUES_URL = "https://communications.jsupremetech.online/api/newsletter/issues";
 
@@ -30,7 +30,7 @@ export async function getInTodaysWorldIssues(limit = 50): Promise<InTodaysWorldI
     return settled
       .filter((r): r is PromiseFulfilledResult<InTodaysWorldIssue> => r.status === "fulfilled")
       .map((r) => r.value)
-      .filter((i) => i?.issueNumber > 0)
+      .filter((i) => i?.issueNumber > 0 && i.topStory?.headline)
       .sort((a, b) => b.issueNumber - a.issueNumber);
   } catch {
     return [];
