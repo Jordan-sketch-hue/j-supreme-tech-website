@@ -6,14 +6,11 @@ import {
   Globe2,
   Mail,
   MessageCircle,
-  Monitor,
-  Smartphone,
-  Tablet,
   Zap,
 } from "lucide-react";
 import { CineWords } from "@/components/CineWords";
 import { HeroShowcase } from "@/components/HeroShowcase";
-import { LaptopFrame, PhoneFrame } from "@/components/DeviceFrame";
+import { BrowserFrame } from "@/components/DeviceFrame";
 import { ShowcaseGrid } from "@/components/ShowcaseGrid";
 import { ClientLogoStrip } from "@/components/ClientLogoStrip";
 import { Testimonials } from "@/components/Testimonials";
