@@ -64,6 +64,20 @@ export default function Home() {
         <div className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full z-20"
           style={{ background: "var(--sp-h)" }} />
 
+        {/* Mobile-only founder photo — desktop shows full right column */}
+        <div className="lg:hidden absolute inset-0 z-[1]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/jordan-founder.jpg"
+            alt=""
+            aria-hidden="true"
+            className="h-full w-full object-cover object-[center_8%]"
+            style={{ opacity: 0.3 }}
+          />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(8,8,8,0.65) 0%, rgba(8,8,8,0.3) 45%, rgba(8,8,8,0.88) 100%)" }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#080808]/60 via-transparent to-transparent" />
+        </div>
+
         {/* ── LEFT COLUMN: text content ── */}
         <div className="relative z-10 flex flex-1 flex-col justify-between pb-24 pt-16 md:pt-24
                         px-6 sm:px-8 lg:pl-10 xl:pl-16 2xl:pl-24 lg:pr-8 lg:max-w-[58vw]">
