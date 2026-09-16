@@ -45,7 +45,7 @@ export default async function InTodaysWorldPage() {
             {issues.map((issue) => (
               <RevealItem key={issue.issueNumber}>
                 <a
-                  href={readerUrl(issue.issueNumber)}
+                  href={readerUrl(issue)}
                   target="_blank"
                   rel="noreferrer noopener"
                   className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.35)]"
