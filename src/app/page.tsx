@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -105,65 +105,8 @@ export default function Home() {
               </div>
             </Reveal>
 
-            <Reveal direction="up" delay={0.45}>
-              <div className="mt-6 flex flex-wrap gap-5 text-[0.76rem] text-white/30">
-                <a href="https://wa.me/16582182282" target="_blank" rel="noreferrer"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-white/60">
-                  <MessageCircle className="h-3.5 w-3.5" /> (658) 218-2282
-                </a>
-                <a href="mailto:global.jsuprememarketing@gmail.com"
-                  className="inline-flex items-center gap-2 transition-colors hover:text-white/60">
-                  <Mail className="h-3.5 w-3.5" /> Email the studio
-                </a>
-              </div>
-            </Reveal>
-
-            {/* Solution quick-links */}
-            <Reveal direction="up" delay={0.55}>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {[
-                  { label: "Websites", href: "/solutions/websites" },
-                  { label: "Mobile Apps", href: "/solutions/mobile-apps" },
-                  { label: "AI Systems", href: "/solutions/ai-systems" },
-                  { label: "Automation", href: "/solutions/automation" },
-                  { label: "E-Commerce", href: "/solutions/ecommerce" },
-                  { label: "Marketing", href: "/solutions/marketing-creative" },
-                ].map((s) => (
-                  <Link key={s.href} href={s.href}
-                    className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 font-mono text-[0.58rem] uppercase tracking-[0.12em] text-white/45 transition-all hover:border-white/25 hover:text-white/80 whitespace-nowrap">
-                    {s.label}
-                  </Link>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Mobile-only live work strip */}
-          <Reveal direction="up" delay={0.5}>
-            <div className="mt-8 lg:hidden">
-              <p className="mb-3 font-mono text-[0.5rem] uppercase tracking-[0.2em] text-white/30">Live client work</p>
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
-                {[
-                  { file: "thelanguagecradle-com-d.webp", label: "Language Cradle", tag: "Education" },
-                  { file: "bpcouriers-online-d.webp", label: "BP Couriers", tag: "Logistics" },
-                  { file: "the-cleanser-ja-vercel-app-d.webp", label: "The Cleanser JA", tag: "E-Commerce" },
-                  { file: "solace-auto-imports-vercel-app-d.webp", label: "Solace Auto", tag: "Automotive" },
-                  { file: "ridelink-jamaica-vercel-app-d.webp", label: "RideLink", tag: "Ride-Hail" },
-                ].map((s) => (
-                  <div key={s.file} className="flex-none w-[68vw] max-w-[260px] overflow-hidden rounded-xl border border-white/10 bg-[#111]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/showcase/${s.file}`} alt={s.label} className="h-36 w-full object-cover object-top" />
-                    <div className="px-3 py-2.5">
-                      <p className="font-mono text-[0.45rem] uppercase tracking-[0.16em] text-white/35">{s.tag}</p>
-                      <p className="mt-0.5 font-display text-[0.78rem] font-semibold text-white">{s.label}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Reveal>
-
           {/* Stats strip */}
+
           <Reveal direction="up" delay={0.6}>
             <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/[0.03] sm:grid-cols-4">
               {STATS.map((s) => (

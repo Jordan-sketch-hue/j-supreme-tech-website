@@ -26,12 +26,15 @@ const NAV = [
     children: [
       { label: "SAAS Supreme Suite", href: "/products" },
       { label: "AXIOM", href: "/axiom" },
+      { label: "JST Communications \u2197", href: "https://communications.jsupremetech.online", external: true },
+      { label: "Games \u2014 Beta", href: "https://games.jsupremetech.online", external: true },
     ],
   },
   {
     label: "Insights",
     children: [
-      { label: "Newsletter", href: "/blog" },
+      { label: "In Today's World:", href: "/blog" },
+      { label: "JST Communications \u2197", href: "https://communications.jsupremetech.online", external: true },
       { label: "Ebooks", href: "/library" },
       { label: "Market", href: "/market" },
     ],
@@ -83,16 +86,29 @@ function Dropdown({
         <div className="absolute left-0 top-full z-50 mt-2 min-w-[200px] overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]/95 py-1.5 shadow-2xl backdrop-blur-xl">
           {/* spectrum top accent */}
           <div className="h-[2px] w-full" style={{ background: "var(--sp-h)" }} />
-          {children.map((c) => (
-            <Link
-              key={c.href}
-              href={c.href}
-              onClick={() => setOpen(false)}
-              className="block px-4 py-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/60 transition-colors hover:bg-white/5 hover:text-white"
-            >
-              {c.label}
-            </Link>
-          ))}
+          {children.map((c) =>
+            c.external ? (
+              <a
+                key={c.href}
+                href={c.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/60 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                {c.label}
+              </a>
+            ) : (
+              <Link
+                key={c.href}
+                href={c.href}
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2.5 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-white/60 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                {c.label}
+              </Link>
+            )
+          )}
         </div>
       )}
     </div>
@@ -177,24 +193,39 @@ export function Header() {
       {/* Mobile drawer */}
       {open && (
         <div className="border-t border-white/10 bg-[#080808] px-6 py-4 lg:hidden">
-          <div className="space-y-0.5">
+          <div>
             {NAV.map((item) => (
               <div key={item.label}>
                 {item.children ? (
                   <>
-                    <p className="px-3 pb-1 pt-3 font-mono text-[0.58rem] uppercase tracking-[0.2em] text-white/30">
-                      {item.label}
-                    </p>
-                    {item.children.map((c) => (
-                      <Link
-                        key={c.href}
-                        href={c.href}
-                        onClick={() => setOpen(false)}
-                        className="block rounded-lg px-3 py-2.5 font-mono text-xs font-medium uppercase tracking-[0.12em] text-white/70 hover:bg-white/5 hover:text-white"
-                      >
-                        {c.label}
-                      </Link>
-                    ))}
+                    <div className="mt-3 border-t border-white/[0.08] pt-3">
+                      <p className="px-3 pb-1 font-mono text-[0.52rem] font-bold uppercase tracking-[0.22em] text-white/40">
+                        {item.label}
+                      </p>
+                    </div>
+                    {item.children.map((c) =>
+                      c.external ? (
+                        <a
+                          key={c.href}
+                          href={c.href}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          onClick={() => setOpen(false)}
+                          className="block rounded-lg px-3 py-2 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+                        >
+                          {c.label}
+                        </a>
+                      ) : (
+                        <Link
+                          key={c.href}
+                          href={c.href}
+                          onClick={() => setOpen(false)}
+                          className="block rounded-lg px-3 py-2 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+                        >
+                          {c.label}
+                        </Link>
+                      )
+                    )}
                   </>
                 ) : (
                   <Link
@@ -222,3 +253,5 @@ export function Header() {
     </header>
   );
 }
+
+
