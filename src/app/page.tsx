@@ -80,8 +80,7 @@ export default function Home() {
 
             <Reveal direction="up" delay={0.25}>
               <p className="mt-7 max-w-[400px] text-[1rem] leading-[1.75] text-white/45">
-                Websites, apps, CRMs, AI systems, and marketing —
-                engineered as one connected digital infrastructure.
+                Websites, apps, AI systems, and marketing — built and connected.
               </p>
             </Reveal>
 
@@ -91,7 +90,7 @@ export default function Home() {
                   className="relative overflow-hidden rounded-full bg-white px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-px">
                   Start a Project →
                 </Link>
-                <Link href="/solutions/websites"
+                <Link href="/#services"
                   className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 transition-all hover:border-white/50 hover:text-white hover:-translate-y-px">
                   Explore Solutions
                 </Link>
