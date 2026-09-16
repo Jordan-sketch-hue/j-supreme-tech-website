@@ -92,7 +92,7 @@ export function ShowcaseGrid() {
             })}
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-6 -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 scrollbar-none sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
             {GROUPS.map((g) => {
               const on = g === group;
               return (
@@ -100,7 +100,7 @@ export function ShowcaseGrid() {
                   key={g}
                   type="button"
                   onClick={() => setGroup(g)}
-                  className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 font-mono text-xs font-medium uppercase tracking-[0.12em] transition ${
+                  className={`inline-flex flex-none items-center gap-2 rounded-full border px-4 py-2 font-mono text-xs font-medium uppercase tracking-[0.12em] transition ${
                     on
                       ? "border-ink-900 bg-ink-900 text-white"
                       : "border-line bg-white text-ink-600 hover:border-ink-900 hover:text-ink-900"
