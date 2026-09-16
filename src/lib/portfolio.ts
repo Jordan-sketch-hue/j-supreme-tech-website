@@ -1,4 +1,4 @@
-import {
+﻿import {
   Boxes,
   CalendarClock,
   Cpu,
@@ -73,7 +73,7 @@ export const PROJECTS: Project[] = [
   {
     n: "03",
     name: "Ferguson Law",
-    host: "ferguson-law.vercel.app",
+    host: "fergusonlawja.com",
     tag: "Law Firm",
     group: "Business Systems",
     blurb: "Law firm platform — booking, admin CMS, chatbot, and online consultations.",
