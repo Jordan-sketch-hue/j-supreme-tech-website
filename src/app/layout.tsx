@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
       "A black-and-white technology studio shipping websites, apps, dashboards, and digital systems from Jamaica to the world.",
     type: "website",
     url: "https://jsupremetech.online",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "J Supreme Tech — Digital Solutions. Real Growth." }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "J Supreme Tech â€” Digital Solutions. Real Growth." }],
   },
   twitter: {
     card: "summary_large_image",
@@ -100,7 +100,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Meta Pixel (Jor Dan pixel) — powers Landing Page View optimization + retargeting
+        {/* Meta Pixel (Jor Dan pixel) â€” powers Landing Page View optimization + retargeting
             for the blog-traffic ad campaign. afterInteractive is fine here: Meta verifies by
             detecting the fbq PageView at runtime, not by crawling a script tag. */}
         <Script id="meta-pixel" strategy="afterInteractive">
@@ -128,7 +128,7 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* Google AdSense — literal <script> in <head> (NOT next/script afterInteractive, which
+        {/* Google AdSense â€” literal <script> in <head> (NOT next/script afterInteractive, which
             only emits a preload link the AdSense crawler can't verify). React 19 SSRs this async
             script into the head as a real tag, matching exactly what AdSense expects. */}
         {ADS_ENABLED ? (
@@ -157,3 +157,4 @@ export default function RootLayout({
     </html>
   );
 }
+
