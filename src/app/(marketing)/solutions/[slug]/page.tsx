@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -27,9 +27,23 @@ export async function generateMetadata({
   const { slug } = await params;
   const s = SOLUTION_MAP[slug];
   if (!s) return {};
+  const description = `${s.subhead} ${s.headline}`.slice(0, 160);
+  const canonical = `https://jsupremetech.online/solutions/${slug}`;
   return {
-    title: `${s.title} — J Supreme Tech`,
-    description: s.subhead,
+    title: `${s.title} in Jamaica | J Supreme Tech`,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      title: `${s.title} | J Supreme Tech`,
+      description,
+      url: canonical,
+      images: [{ url: "/og.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${s.title} | J Supreme Tech`,
+      description,
+    },
   };
 }
 

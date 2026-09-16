@@ -1,7 +1,8 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/blog";
 import { getEbookSlugs } from "@/lib/ebooks";
 import { CATEGORY_ORDER } from "@/lib/blog-taxonomy";
+import { SOLUTIONS } from "@/lib/solutions";
 
 const SITE = "https://jsupremetech.online";
 
@@ -48,5 +49,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...categories, ...articles, ...ebooks];
+  const solutions: MetadataRoute.Sitemap = SOLUTIONS.map((s) => ({
+    url: `${SITE}/solutions/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.85,
+  }));
+
+  return [...staticPages, ...solutions, ...categories, ...articles, ...ebooks];
 }

@@ -111,12 +111,6 @@ export default function Home() {
               </div>
             </Reveal>
 
-            <Reveal direction="up" delay={0.4}>
-              <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 font-mono text-[0.62rem] uppercase tracking-[0.1em] text-white/50">
-                <Zap className="h-3 w-3 flex-none text-white/70" />
-                Starter sites live in 5–7 business days
-              </div>
-            </Reveal>
           </div>
 
           {/* Stats strip */}

@@ -54,7 +54,7 @@ export const metadata: Metadata = {
       "A black-and-white technology studio shipping websites, apps, dashboards, and digital systems from Jamaica to the world.",
     type: "website",
     url: "https://jsupremetech.online",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "J Supreme Tech â€” Digital Solutions. Real Growth." }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "J Supreme Tech — Digital Solutions. Real Growth." }],
   },
   twitter: {
     card: "summary_large_image",
@@ -100,7 +100,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Meta Pixel (Jor Dan pixel) â€” powers Landing Page View optimization + retargeting
+        {/* Meta Pixel (Jor Dan pixel) — powers Landing Page View optimization + retargeting
             for the blog-traffic ad campaign. afterInteractive is fine here: Meta verifies by
             detecting the fbq PageView at runtime, not by crawling a script tag. */}
         <Script id="meta-pixel" strategy="afterInteractive">
@@ -128,7 +128,7 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* Google AdSense â€” literal <script> in <head> (NOT next/script afterInteractive, which
+        {/* Google AdSense — literal <script> in <head> (NOT next/script afterInteractive, which
             only emits a preload link the AdSense crawler can't verify). React 19 SSRs this async
             script into the head as a real tag, matching exactly what AdSense expects. */}
         {ADS_ENABLED ? (
@@ -139,6 +139,75 @@ export default function RootLayout({
             crossOrigin="anonymous"
           />
         ) : null}
+        {/* JSON-LD — Organization + LocalBusiness schema for Google */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
+                  "@id": "https://jsupremetech.online/#organization",
+                  name: "J Supreme Tech",
+                  url: "https://jsupremetech.online",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://jsupremetech.online/logo.jpg",
+                    width: 512,
+                    height: 512,
+                  },
+                  image: "https://jsupremetech.online/og.png",
+                  description:
+                    "A creative technology studio building websites, mobile apps, CRMs, AI systems, booking engines, and marketing campaigns. Serving Jamaica, the Caribbean, and worldwide clients.",
+                  telephone: "+18762182282",
+                  address: {
+                    "@type": "PostalAddress",
+                    addressCountry: "JM",
+                    addressRegion: "Kingston",
+                  },
+                  areaServed: [
+                    { "@type": "Country", name: "Jamaica" },
+                    { "@type": "AdministrativeArea", name: "Caribbean" },
+                    { "@type": "Country", name: "United States" },
+                    { "@type": "Country", name: "United Kingdom" },
+                  ],
+                  sameAs: [
+                    "https://instagram.com/jsupremetech",
+                    "https://twitter.com/jsupremetech",
+                    "https://games.jsupremetech.online",
+                  ],
+                  hasOfferCatalog: {
+                    "@type": "OfferCatalog",
+                    name: "Digital Services",
+                    itemListElement: [
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile App Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "CRM Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Systems" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "E-Commerce Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Booking Systems" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Marketing & Creative" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Business Automation" } },
+                    ],
+                  },
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://jsupremetech.online/#website",
+                  url: "https://jsupremetech.online",
+                  name: "J Supreme Tech",
+                  publisher: { "@id": "https://jsupremetech.online/#organization" },
+                  potentialAction: {
+                    "@type": "SearchAction",
+                    target: { "@type": "EntryPoint", urlTemplate: "https://jsupremetech.online/blog?q={search_term_string}" },
+                    "query-input": "required name=search_term_string",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
       </head>
       <body suppressHydrationWarning className="bg-white text-ink-900 antialiased">
         <div aria-hidden className="cn-grain" />
