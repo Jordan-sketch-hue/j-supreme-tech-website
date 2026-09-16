@@ -198,10 +198,21 @@ export function Header() {
               <div key={item.label}>
                 {item.children ? (
                   <>
-                    <div className="mt-3 border-t border-white/[0.08] pt-3">
-                      <p className="px-3 pb-1 font-mono text-[0.52rem] font-bold uppercase tracking-[0.22em] text-white/40">
-                        {item.label}
-                      </p>
+                    <div className="mt-4 border-t border-white/[0.1] pt-3">
+                      <div className="flex items-center gap-2 px-3 pb-2">
+                        <div className="h-[2px] w-3 rounded-full flex-none" style={{ background: "var(--sp-h)" }} />
+                        <p
+                          className="font-mono text-[0.58rem] font-bold uppercase tracking-[0.22em]"
+                          style={{
+                            background: "var(--sp-h)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            backgroundClip: "text",
+                          }}
+                        >
+                          {item.label}
+                        </p>
+                      </div>
                     </div>
                     {item.children.map((c) =>
                       c.external ? (
@@ -211,7 +222,7 @@ export function Header() {
                           target="_blank"
                           rel="noreferrer noopener"
                           onClick={() => setOpen(false)}
-                          className="block rounded-lg px-3 py-2 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+                          className="block rounded-lg px-3 py-2 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-white/5"
                         >
                           {c.label}
                         </a>
@@ -220,7 +231,7 @@ export function Header() {
                           key={c.href}
                           href={c.href}
                           onClick={() => setOpen(false)}
-                          className="block rounded-lg px-3 py-2 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+                          className="block rounded-lg px-3 py-2 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-white transition-colors hover:bg-white/5"
                         >
                           {c.label}
                         </Link>

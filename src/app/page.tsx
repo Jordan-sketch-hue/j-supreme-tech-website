@@ -85,13 +85,13 @@ export default function Home() {
             </Reveal>
 
             <Reveal direction="up" delay={0.35}>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link href="#contact"
-                  className="relative overflow-hidden rounded-full bg-white px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-px">
+                  className="relative overflow-hidden rounded-full bg-white px-7 py-3.5 sm:py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-black text-center transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:-translate-y-px">
                   Start a Project →
                 </Link>
                 <Link href="/#services"
-                  className="rounded-full border border-white/20 px-7 py-3 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] text-white/70 transition-all hover:border-white/50 hover:text-white hover:-translate-y-px">
+                  className="rounded-full border border-white/15 px-7 py-3 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-white/50 text-center transition-all hover:border-white/40 hover:text-white/80 hover:-translate-y-px">
                   Explore Solutions
                 </Link>
               </div>
