@@ -51,7 +51,7 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
-  // Custom-domain builds (live, indexed) ----------------------------
+  // Real client builds — live custom domains -------------------------
   {
     n: "01",
     name: "The Mover Guy",
@@ -72,15 +72,6 @@ export const PROJECTS: Project[] = [
   },
   {
     n: "03",
-    name: "Ship 2 Door JA",
-    host: "ship2doorja.com",
-    tag: "US-to-JA Shipping",
-    group: "Logistics & Mobility",
-    blurb: "US barrel and package forwarding with a free US address, tracking, and online store.",
-    workType: "tech",
-  },
-  {
-    n: "04",
     name: "Ferguson Law",
     host: "ferguson-law.vercel.app",
     tag: "Law Firm",
@@ -89,7 +80,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "05",
+    n: "04",
     name: "BP Couriers",
     host: "bpcouriers.online",
     tag: "Logistics",
@@ -99,7 +90,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "06",
+    n: "05",
     name: "Supreme OS",
     host: "jsupremeconglomerate.online",
     tag: "Custom CRM",
@@ -108,7 +99,7 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "07",
+    n: "06",
     name: "Language Cradle",
     host: "thelanguagecradle.com",
     tag: "Education",
@@ -117,54 +108,9 @@ export const PROJECTS: Project[] = [
     mobile: true,
     workType: "tech",
   },
-  // Studio / preview builds ------------------------------------------
+  // Studio builds — showcasing platform depth ----------------------
   {
-    n: "08",
-    name: "Lingua Caribe",
-    host: "lingua-caribe.vercel.app",
-    tag: "B2B Edtech",
-    group: "Education",
-    blurb: "Corporate language-training OS for teams across the Caribbean.",
-    workType: "tech",
-  },
-  {
-    n: "09",
-    name: "Infinite Herbs",
-    host: "infinitteherbs.vercel.app",
-    tag: "E-Commerce",
-    group: "Commerce & Retail",
-    blurb: "Heritage wellness apothecary — catalogue, cart, and checkout.",
-    workType: "tech",
-  },
-  {
-    n: "10",
-    name: "J Supreme",
-    host: "j-supreme-marketing-web.vercel.app",
-    tag: "Agency Brand",
-    group: "Brand & Studio",
-    blurb: "The marketing arm — the studio that designs everything else.",
-    workType: "tech",
-  },
-  {
-    n: "11",
-    name: "ForgeWorks Jamaica",
-    host: "fabworks-ja.vercel.app",
-    tag: "Fabrication",
-    group: "Business Systems",
-    blurb: "Fabrication ecosystem — marketing, customer portal, and ops backoffice.",
-    workType: "tech",
-  },
-  {
-    n: "12",
-    name: "Crown District JA",
-    host: "crown-district-ja.vercel.app",
-    tag: "Streetwear",
-    group: "Commerce & Retail",
-    blurb: "Premium streetwear storefront with lookbooks and an admin backoffice.",
-    workType: "tech",
-  },
-  {
-    n: "13",
+    n: "07",
     name: "RideLink Jamaica",
     host: "ridelink-jamaica.vercel.app",
     tag: "Ride-Hailing",
@@ -174,21 +120,21 @@ export const PROJECTS: Project[] = [
     workType: "tech",
   },
   {
-    n: "14",
-    name: "The Cleanser JA",
-    host: "the-cleanser-ja.vercel.app",
-    tag: "Wellness",
+    n: "08",
+    name: "Crown District JA",
+    host: "crown-district-ja.vercel.app",
+    tag: "Streetwear",
     group: "Commerce & Retail",
-    blurb: "Herbal wellness commerce with a full admin and order system.",
+    blurb: "Premium streetwear storefront with lookbooks and an admin backoffice.",
     workType: "tech",
   },
   {
-    n: "15",
-    name: "Solace Auto Imports",
-    host: "solace-auto-imports.vercel.app",
-    tag: "Automotive",
-    group: "Commerce & Retail",
-    blurb: "Jamaican dealer gallery — a JSON-driven, fast car showcase.",
+    n: "09",
+    name: "Lingua Caribe",
+    host: "lingua-caribe.vercel.app",
+    tag: "B2B Edtech",
+    group: "Education",
+    blurb: "Corporate language-training OS for teams across the Caribbean.",
     workType: "tech",
   },
 ];
