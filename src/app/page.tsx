@@ -191,62 +191,6 @@ export default function Home() {
       {/* ============================== TESTIMONIALS ============================== */}
       <Testimonials />
 
-      {/* ============================== CROSS-DEVICE BAND ============================== */}
-      <section className="relative overflow-hidden bg-ink-950 text-white">
-        <div className="grid-bg-dark pointer-events-none absolute inset-0 opacity-70" />
-        <div className="shell section relative grid items-center gap-16 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <span className="eyebrow text-white/60">One System</span>
-            <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Built for every screen, every role.
-            </h2>
-            <p className="mt-5 text-lg leading-8 text-white/65">
-              A single system, surfaced across devices and audiences — a
-              marketing site, a customer web app, an admin console, and native
-              iOS &amp; Android apps. Here&apos;s RideLink Jamaica running on
-              desktop and mobile.
-            </p>
-            <ul className="mt-8 space-y-3">
-              {[
-                { icon: Monitor, label: "Desktop & web apps" },
-                { icon: Tablet, label: "Tablet-ready admin dashboards" },
-                { icon: Smartphone, label: "Native iOS & Android apps" },
-              ].map(({ icon: Icon, label }) => (
-                <li key={label} className="flex items-center gap-3 text-white/80">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-white/5">
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <span className="text-sm">{label}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-9 flex flex-wrap gap-2">
-              {["Rider app", "Driver app", "Admin console", "Marketing site"].map(
-                (t) => (
-                  <span key={t} className="tag tag-dark">
-                    {t}
-                  </span>
-                ),
-              )}
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-2xl">
-            <LaptopFrame
-              host="ridelink-jamaica.vercel.app"
-              alt="RideLink Jamaica web platform on a laptop"
-              className="float"
-            />
-            <div className="float-2 absolute -bottom-6 right-0 w-28 sm:w-36 lg:-right-6 lg:w-40">
-              <PhoneFrame
-                host="ridelink-jamaica.vercel.app"
-                alt="RideLink Jamaica rider app on mobile"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ============================== SERVICES (interactive: click → packages → pay) ============================== */}
       <ServicesSection />
 
