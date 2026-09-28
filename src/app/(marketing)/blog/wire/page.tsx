@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Info } from "lucide-react";
 import { getWire } from "@/lib/blog";
+import { fetchLiveWire } from "@/lib/wire-fetch";
 import { NewsletterCard } from "@/components/newsletter/forms";
 import { Reveal } from "@/components/motion-kit";
+
+export const revalidate = 3600; // refresh live feed every hour
 
 export const metadata: Metadata = {
   title: "The Wire — Signal We're Watching | J Supreme Tech",
@@ -37,8 +40,15 @@ const COVER_CATEGORIES = new Set<string>([
   "ideas",
 ]);
 
-export default function WirePage() {
-  const wire = getWire();
+export default async function WirePage() {
+  const [curated, live] = await Promise.all([
+    Promise.resolve(getWire()),
+    fetchLiveWire(20),
+  ]);
+
+  // Merge: curated first, then live stories not already covered by curated URLs
+  const curatedUrls = new Set(curated.map((w) => w.url));
+  const wire = [...curated, ...live.filter((w) => !curatedUrls.has(w.url))];
 
   return (
     <main className="bg-white text-ink-900">
