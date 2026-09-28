@@ -19,9 +19,9 @@ export function HeroShowcase() {
   }, []);
 
   return (
-    <div className="relative flex h-full w-full flex-col justify-end px-6 pb-10 pt-20">
+    <div className="relative flex h-full w-full flex-col justify-end px-4 pb-6 pt-14 sm:px-6 sm:pb-10 sm:pt-20">
       {/* Stacked browser frames */}
-      <div className="relative h-72">
+      <div className="relative h-52 sm:h-72">
         {SLIDES.map((s, i) => {
           const rel = ((i - active) % SLIDES.length + SLIDES.length) % SLIDES.length;
           const isTop = rel === 0;
@@ -53,7 +53,7 @@ export function HeroShowcase() {
                 <img
                   src={`/showcase/${s.file}`}
                   alt={s.label}
-                  className="block h-56 w-full object-cover object-top"
+                  className="block h-40 w-full object-cover object-top sm:h-56"
                 />
               </div>
             </div>
