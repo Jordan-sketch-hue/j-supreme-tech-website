@@ -1,98 +1,98 @@
 [
   {
-    "title": "Anthropic ships Claude Opus 5 into a crowded frontier-model summer",
-    "source": "Tech Startups",
-    "url": "https://techstartups.com/2026/07/27/top-tech-news-today-july-27-2026-anthropic-monday-com-moonshot-ai-nvidia-openai-more/",
-    "summary": "The release lands the same week Nvidia is reportedly weighing a $250B financing guarantee tied to an OpenAI data center — a reminder that model releases and infrastructure financing are now moving on the same clock.",
+    "title": "Muse Wonder Puts Meta Back at the AI Frontier",
+    "source": "wired",
+    "url": "https://www.wired.com/story/muse-wonder-puts-meta-back-at-the-ai-frontier/",
+    "summary": "Meta’s biggest model rivals the world’s best—and includes new features to keep agents from going off the rails.",
     "category": "ai",
-    "date": "2026-07-28"
+    "date": "2026-10-13"
   },
   {
-    "title": "Brussels hits Google with its largest Digital Markets Act fine yet",
-    "source": "European Commission",
-    "url": "https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1670",
-    "summary": "The €890M penalty — split between search self-preferencing and Play Store steering restrictions — comes with a 60-day compliance clock and pushes Google's cumulative EU liabilities past €10B, a concrete marker of how aggressively the EU is willing to enforce platform rules.",
-    "category": "world",
-    "date": "2026-07-28"
-  },
-  {
-    "title": "China's CXMT jumps 466% on debut, becoming the mainland's most valuable listed company",
-    "source": "Bloomberg",
-    "url": "https://www.bloomberg.com/news/articles/2026-07-26/china-memory-champion-cxmt-set-to-debut-after-9-8-billion-ipo",
-    "summary": "An $8.6B IPO valuing the DRAM maker near $488B is less a stock story than a supply-chain one: AI-driven memory shortages are now minting new chip giants outside the usual US/Korea/Taiwan axis.",
-    "category": "tech",
-    "date": "2026-07-28"
-  },
-  {
-    "title": "NVIDIA frames neural rendering as graphics' next default, not its novelty",
-    "source": "NVIDIA",
-    "url": "https://blogs.nvidia.com/blog/siggraph-news-2026/",
-    "summary": "SIGGRAPH's keynote pitched DLSS 5 and AI-generated frames as a third category of rendering alongside rasterization and ray tracing — worth tracking for anyone building visual or 3D-heavy products, since the hybrid pipeline is becoming the assumed baseline rather than an add-on.",
-    "category": "graphics",
-    "date": "2026-07-28"
-  },
-  {
-    "title": "Precision Neuroscience clears FDA review for a wireless brain implant",
-    "source": "MedTech Dive",
-    "url": "https://www.medtechdive.com/news/precision-neuroscience-brain-implant-fda-cleared/745913/",
-    "summary": "The clearance puts a third serious contender — alongside Neuralink and Synchron — through US regulatory review, a sign the BCI field is shifting from single-company spectacle to a genuine multi-player race.",
-    "category": "science",
-    "date": "2026-07-28"
-  },
-  {
-    "title": "Scribe Therapeutics goes public on a $129M IPO to fund CRISPR cholesterol trial",
-    "source": "MedCity News",
-    "url": "https://medcitynews.com/2026/07/scribe-therapeutics-ipo-crispr-genetic-medicine-pcsk9-ascvd-sctx/",
-    "summary": "Its lead candidate, a PCSK9-targeting gene edit for cardiovascular disease, is already in Phase 1 in Australia — one more data point that CRISPR therapeutics is moving from rare-disease niches into mainstream chronic conditions.",
-    "category": "science",
-    "date": "2026-07-28"
-  },
-  {
-    "title": "Moonshot AI's Kimi K3 weights go live, deepening the open-weight bench",
-    "source": "Build Fast with AI",
-    "url": "https://www.buildfastwithai.com/blogs/ai-news-today-july-27-2026",
-    "summary": "Another major Chinese lab releasing open weights narrows the gap between what US developers can self-host and what they'd otherwise pay proprietary API vendors for — a trend with real pricing pressure implications, not just an ideological win for open-source.",
+    "title": "Microsoft president says UK is best placed to drive AI regulation",
+    "source": "techcrunch",
+    "url": "https://techcrunch.com/2026/10/12/microsoft-president-says-uk-is-best-placed-to-drive-ai-regulation/",
+    "summary": "Microsoft President Brad Smith calls for urgent AI regulation, saying milk and washing machines have more oversight than AI companies.",
     "category": "ai",
-    "date": "2026-07-28"
+    "date": "2026-10-13"
   },
   {
-    "title": "IMF: global growth holds near 3% despite war and tariff crosscurrents",
-    "source": "IMF",
-    "url": "https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026",
-    "summary": "The Fund's July update projects 3.0% growth for 2026 and 3.4% for 2027, with AI-linked demand lifting economies plugged into the tech supply chain even as energy-importing and conflict-adjacent economies lag — context for planning, not a market call.",
-    "category": "markets",
-    "date": "2026-07-28"
+    "title": "Aaron Sorkin’s ‘Social Reckoning’ is off to a weak start",
+    "source": "techcrunch",
+    "url": "https://techcrunch.com/2026/10/11/aaron-sorkins-social-reckoning-is-off-to-a-weak-start/",
+    "summary": "What does this mean for a fall full of movies starring villainous tech CEOs?",
+    "category": "ai",
+    "date": "2026-10-13"
   },
   {
-    "title": "Oil drops over 5% as US and Iran pause military strikes",
-    "source": "Bloomberg",
-    "url": "https://www.bloomberg.com/news/articles/2026-07-26/oil-tumbles-as-us-and-iran-pause-military-strikes-markets-wrap",
-    "summary": "Brent fell as much as 7.4% on the de-escalation news, though it's still up more than 50% year-to-date — a reminder that a single diplomatic pause can move energy prices faster than months of production data.",
-    "category": "world",
-    "date": "2026-07-28"
+    "title": "Silicon Valley is falling in line with Trump’s attempt to rename AI",
+    "source": "theverge",
+    "url": "https://www.theverge.com/ai-artificial-intelligence/1009406/silicon-valley-is-falling-in-line-with-trumps-attempt-to-rename-ai",
+    "summary": "When President Donald Trump announced his plans to rebrand artificial intelligence as \"super intelligence,\" you'd be forgiven for being skeptical that it would catch on. While most of the broader population is sticking with AI, some of Silicon Valley's most powerful are falling in line and trying to give Trump the great AI rebrand he […]",
+    "category": "ai",
+    "date": "2026-10-13"
   },
   {
-    "title": "EdVisorly raises $13.3M to automate community-college transfer admissions",
-    "source": "New Market Pitch",
-    "url": "https://newmarketpitch.com/blogs/news/edtech-funding-news",
-    "summary": "The Series A backs an AI system, Eddie AI, aimed squarely at back-office admissions workflows rather than classroom tools — a sign edtech investors are chasing institutional efficiency plays as much as student-facing products right now.",
-    "category": "education",
-    "date": "2026-07-28"
-  },
-  {
-    "title": "ASUS debuts a ChromeOS desktop and a USB AI accelerator built for classrooms",
-    "source": "Tech & Learning",
-    "url": "https://www.techlearning.com/learning/edtech/edtech-show-and-tell-july-2026-istelive-edition",
-    "summary": "The Chromebox 6a and UGen300 accelerator, shown at ISTELive, point to schools getting purpose-built low-cost AI hardware rather than repurposed consumer devices — a small but telling sign of the edtech hardware market maturing.",
+    "title": "Epic reportedly delays its Disney video game so it can be made using more AI",
+    "source": "engadget",
+    "url": "https://www.engadget.com/2284680/epic-reportedly-delays-its-disney-video-game-so-it-can-be-made-using-more-ai/",
+    "summary": "Developers were apparently ordered to use AI for both code and asset creation.",
     "category": "tech",
-    "date": "2026-07-28"
+    "date": "2026-10-13"
   },
   {
-    "title": "John Locke Institute notifies essay-prize finalists as entries top past years",
-    "source": "John Locke Institute",
-    "url": "https://www.johnlockeinstitute.com/essay-competition",
-    "summary": "This year's philosophy and politics prompts lean into questions about determinism, moral responsibility, and the institutions underpinning future societies — a useful barometer of which big questions serious students are actually wrestling with.",
-    "category": "ideas",
-    "date": "2026-07-28"
+    "title": "After a 10-year redemption arc, No Man's Sky is coming to the iPhone and iPad",
+    "source": "arstechnica",
+    "url": "https://arstechnica.com/gaming/2026/10/after-a-10-year-redemption-arc-no-mans-sky-is-coming-to-the-iphone-and-ipad/",
+    "summary": "You can get a universe in your pocket if you have an iPhone 11 or later.",
+    "category": "tech",
+    "date": "2026-10-13"
+  },
+  {
+    "title": "Meta releases its first frontier model, Muse Wonder",
+    "source": "techcrunch",
+    "url": "https://techcrunch.com/2026/10/12/meta-releases-its-first-frontier-model-muse-wonder/",
+    "summary": "Meta's Superintelligence Lab released a pair of new state-of-the-art models on Monday, Muse Wonder and Muse Wonder Full, the company's first attempt at a frontier model.",
+    "category": "tech",
+    "date": "2026-10-13"
+  },
+  {
+    "title": "Boardroom feud tests trusted Indian business empire",
+    "source": "bbc",
+    "url": "https://www.bbc.co.uk/news/articles/c54g1mp7lz7zo",
+    "summary": "The dispute raises questions about the Indian conglomerate's governance, succession plans and future.",
+    "category": "world",
+    "date": "2026-10-13"
+  },
+  {
+    "title": "Analysis: Trump's global headaches worsen weeks before crucial elections",
+    "source": "bbc",
+    "url": "https://www.bbc.co.uk/news/articles/cqgm087rkze2o",
+    "summary": "US President Donald Trump has had a whirlwind weekend, announcing a diesel deal with Russia and an energy ceasefire between Russia and Ukraine. With the midterms coming up, it looks like Trump is turning overseas for help.",
+    "category": "world",
+    "date": "2026-10-13"
+  },
+  {
+    "title": "Alphabet President Ruth Porat on how Google is funding AI to win long term, and the biggest risks ahead",
+    "source": "fortune",
+    "url": "https://fortune.com/2026/10/12/google-ruth-porat-ai-spending-risks/",
+    "summary": "Google is spending about $200 billion on its AI buildout this year, Porat confirmed at Fortune's Most Powerful Women Summit on Monday, and the peak is still around the corner.",
+    "category": "business",
+    "date": "2026-10-13"
+  },
+  {
+    "title": "CNBC's The China Connection newsletter: How a gold-buying spree helps the yuan go global",
+    "source": "cnbc",
+    "url": "https://www.cnbc.com/2026/10/12/cnbc-china-connection-newsletter-gold-purchases-yuan-globalization.html",
+    "summary": "Plans to develop a gold trading hub in Hong Kong coincide with China's growing gold reserves.",
+    "category": "business",
+    "date": "2026-10-13"
+  },
+  {
+    "title": "The island where locals say data centres are taking their water",
+    "source": "bbc",
+    "url": "https://www.bbc.co.uk/news/articles/cqj6j7wlxd5eo",
+    "summary": "\"Not a single drop has come through our taps for the last three months,\" a local tells the BBC.",
+    "category": "science",
+    "date": "2026-10-13"
   }
 ]
