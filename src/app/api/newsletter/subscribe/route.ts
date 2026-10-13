@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
 import crypto from "node:crypto";
-import { admin, isEmail, normalizeEmail, sendWelcomeEmail, TABLE } from "@/lib/newsletter";
+import { admin, isEmail, normalizeEmail, sendWelcomeEmail } from "@/lib/newsletter";
 import { issueCoupon } from "@/lib/coupons";
 
-// The actual daily send lives in a separate app (jst-communications) that
-// pulls recipients from its own Resend Audience — this table alone doesn't
-// get anyone real issues. Enroll them in the live list too, server-to-server.
 const AUDIENCE_ENDPOINT = "https://communications.jsupremetech.online/api/newsletter/subscribe";
 
 async function enrollInTodaysWorld(email: string, name: string | null) {
@@ -34,10 +31,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
   }
 
-  const db = admin();
-  if (!db) {
+  const sql = admin();
+  if (!sql) {
     return NextResponse.json(
-      { error: "The subscriber database is not connected yet. Add Supabase keys in Vercel and redeploy." },
+      { error: "The subscriber database is not connected yet. Add NEON_DATABASE_URL in Vercel and redeploy." },
       { status: 503 },
     );
   }
@@ -48,9 +45,14 @@ export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null;
   const userAgent = request.headers.get("user-agent")?.slice(0, 300) || null;
 
-  const { data: existing } = await db.from(TABLE).select("id,status,unsubscribe_token").eq("email", email).maybeSingle();
+  const existing = await sql`
+    SELECT id, status, unsubscribe_token FROM jst_subscribers
+    WHERE email = ${email}
+    LIMIT 1
+  `;
+  const existingRow = existing[0] ?? null;
 
-  if (existing?.status === "confirmed") {
+  if (existingRow?.status === "confirmed") {
     const coupon = await issueCoupon(email, source);
     return NextResponse.json({
       ok: true,
@@ -60,24 +62,28 @@ export async function POST(request: Request) {
     });
   }
 
-  const unsubscribeToken = existing?.unsubscribe_token ?? crypto.randomUUID();
+  const unsubscribeToken = existingRow?.unsubscribe_token ?? crypto.randomUUID();
+  const now = new Date().toISOString();
 
-  const row = {
-    email,
-    name,
-    topics,
-    source,
-    status: "confirmed",
-    confirmed_at: new Date().toISOString(),
-    unsubscribe_token: unsubscribeToken,
-    ip,
-    user_agent: userAgent,
-    consent_at: new Date().toISOString(),
-  };
-
-  const { error } = await db.from(TABLE).upsert(row, { onConflict: "email" });
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+  try {
+    await sql`
+      INSERT INTO jst_subscribers (email, name, topics, source, status, confirmed_at, unsubscribe_token, ip, user_agent, consent_at)
+      VALUES (${email}, ${name}, ${topics}, ${source}, 'confirmed', ${now}, ${unsubscribeToken}, ${ip}, ${userAgent}, ${now})
+      ON CONFLICT (email) DO UPDATE SET
+        name = EXCLUDED.name,
+        topics = EXCLUDED.topics,
+        source = EXCLUDED.source,
+        status = 'confirmed',
+        confirmed_at = EXCLUDED.confirmed_at,
+        unsubscribe_token = EXCLUDED.unsubscribe_token,
+        ip = EXCLUDED.ip,
+        user_agent = EXCLUDED.user_agent,
+        consent_at = EXCLUDED.consent_at,
+        updated_at = NOW()
+    `;
+  } catch (err) {
+    console.error("[newsletter] upsert failed:", err);
+    return NextResponse.json({ error: "Failed to save subscription." }, { status: 500 });
   }
 
   await enrollInTodaysWorld(email, name);

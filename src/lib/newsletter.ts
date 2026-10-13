@@ -1,6 +1,6 @@
 import "server-only";
 import { Resend } from "resend";
-import { createSupabaseAdmin } from "./supabase/server";
+import { getNeonSql } from "./neon";
 
 const SITE = process.env.NEXT_PUBLIC_APP_URL || "https://jsupremetech.online";
 // Default sender uses the jsupremetech.online brand. The domain must be verified
@@ -19,7 +19,7 @@ export function resend(): Resend | null {
 }
 
 export function admin() {
-  return createSupabaseAdmin();
+  return getNeonSql();
 }
 
 export function normalizeEmail(raw: string): string {
