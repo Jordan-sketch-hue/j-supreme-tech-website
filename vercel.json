@@ -1,10 +1,4 @@
 {
-  "crons": [
-    {
-      "path": "/api/cron/update-wire",
-      "schedule": "0 10 * * 1-5"
-    }
-  ],
   "headers": [
     {
       "source": "/covers/(.*)",

@@ -5,13 +5,11 @@ import {
   type Article,
   type Block,
   type BlogCategory,
-  type WireItem,
   CATEGORY_ORDER,
   estimateReadMinutes,
 } from "./blog-taxonomy";
 
 const CONTENT_DIR = path.join(process.cwd(), "src", "content", "blog");
-const WIRE_FILE = path.join(process.cwd(), "src", "content", "wire.json");
 
 const VALID_CATEGORIES = new Set<string>(CATEGORY_ORDER);
 
@@ -133,16 +131,3 @@ export function getAffiliateArticles(limit = 12): Article[] {
     .slice(0, limit);
 }
 
-/** Curated external news ("the wire") — links + our own commentary only. */
-export function getWire(): WireItem[] {
-  try {
-    const raw = fs.readFileSync(WIRE_FILE, "utf8");
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed
-      .filter((w) => w && typeof w.title === "string" && typeof w.url === "string")
-      .sort((a: WireItem, b: WireItem) => (a.date < b.date ? 1 : -1));
-  } catch {
-    return [];
-  }
-}

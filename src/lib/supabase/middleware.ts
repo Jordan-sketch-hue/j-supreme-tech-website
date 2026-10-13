@@ -12,37 +12,45 @@ export async function updateSession(request: NextRequest) {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key) return response;
 
-  const supabase = createServerClient(url, key, {
-    cookies: {
-      getAll() {
-        return request.cookies.getAll();
+  try {
+    const supabase = createServerClient(url, key, {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(toSet) {
+          toSet.forEach(({ name, value }) => request.cookies.set(name, value));
+          response = NextResponse.next({ request });
+          toSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+        },
       },
-      setAll(toSet) {
-        toSet.forEach(({ name, value }) => request.cookies.set(name, value));
-        response = NextResponse.next({ request });
-        toSet.forEach(({ name, value, options }) => response.cookies.set(name, value, options));
+      global: {
+        fetch: (u, options = {}) =>
+          fetch(u, { ...options, signal: AbortSignal.timeout(4000) }),
       },
-    },
-  });
+    });
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  const path = request.nextUrl.pathname;
-  if (!user && PROTECTED.some((p) => path.startsWith(p))) {
-    const redirect = request.nextUrl.clone();
-    redirect.pathname = "/login";
-    redirect.searchParams.set("next", path);
-    return NextResponse.redirect(redirect);
-  }
+    const path = request.nextUrl.pathname;
+    if (!user && PROTECTED.some((p) => path.startsWith(p))) {
+      const redirect = request.nextUrl.clone();
+      redirect.pathname = "/login";
+      redirect.searchParams.set("next", path);
+      return NextResponse.redirect(redirect);
+    }
 
-  // Keep signed-in users out of the auth screens.
-  if (user && (path === "/login" || path === "/signup")) {
-    const redirect = request.nextUrl.clone();
-    redirect.pathname = "/account";
-    redirect.search = "";
-    return NextResponse.redirect(redirect);
+    // Keep signed-in users out of the auth screens.
+    if (user && (path === "/login" || path === "/signup")) {
+      const redirect = request.nextUrl.clone();
+      redirect.pathname = "/account";
+      redirect.search = "";
+      return NextResponse.redirect(redirect);
+    }
+  } catch {
+    // Fail open — a Supabase timeout or error should never bring the site down.
   }
 
   return response;

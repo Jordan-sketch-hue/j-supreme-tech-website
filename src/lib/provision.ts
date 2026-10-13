@@ -10,36 +10,16 @@
  */
 
 import crypto from "node:crypto";
+import { neon } from "@neondatabase/serverless";
 import { sendWhatsApp } from "./whatsapp";
 
 const SUITE_URL =
   process.env.NEXT_PUBLIC_SUPREME_SUITE_URL ?? "https://supreme-suite.vercel.app";
 
-// ── Supabase helpers (REST API, no SDK needed) ─────────────────────────────
-
-function supabaseHeaders() {
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!key) throw new Error("[provision] SUPABASE_SERVICE_ROLE_KEY not set");
-  return {
-    apikey: key,
-    Authorization: `Bearer ${key}`,
-    "Content-Type": "application/json",
-    Prefer: "return=minimal",
-  };
-}
-
-async function sbInsert(table: string, row: Record<string, unknown>): Promise<void> {
-  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!base) throw new Error("[provision] NEXT_PUBLIC_SUPABASE_URL not set");
-  const res = await fetch(`${base}/rest/v1/${table}`, {
-    method: "POST",
-    headers: supabaseHeaders(),
-    body: JSON.stringify(row),
-  });
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`[provision] ${table} insert ${res.status}: ${text.slice(0, 300)}`);
-  }
+function getSql() {
+  const url = process.env.DATABASE_URL;
+  if (!url) throw new Error("[provision] DATABASE_URL not set");
+  return neon(url);
 }
 
 // ── Password hashing ───────────────────────────────────────────────────────
@@ -176,37 +156,35 @@ export async function provisionTenant(input: ProvisionInput): Promise<ProvisionR
   const firstName = input.customerName.split(" ")[0] ?? "there";
   const workspaceUrl = `${SUITE_URL}/app/${slug}`;
 
+  const sql = getSql();
+  const now = new Date().toISOString();
+  const email = input.customerEmail.toLowerCase().trim();
+
   // 1. Create tenant record
-  await sbInsert("ss_tenants", {
-    id: tenantId,
-    slug,
-    business_name: input.customerName,
-    system_slug: "courier", // default; changed in settings after login
-    owner_name: input.customerName,
-    email: input.customerEmail.toLowerCase().trim(),
-    phone: input.customerPhone ?? null,
-    plan: input.planName.toLowerCase(),
-    plan_package: input.packageId,
-    password_hash: passwordHash,
-    trial_started_at: Date.now(),
-    activated_at: new Date().toISOString(),
-  });
+  await sql`
+    INSERT INTO ss_tenants (
+      id, slug, business_name, system_slug, owner_name, email, phone,
+      plan, plan_package, password_hash, trial_started_at, activated_at
+    ) VALUES (
+      ${tenantId}, ${slug}, ${input.customerName}, ${"courier"},
+      ${input.customerName}, ${email}, ${input.customerPhone ?? null},
+      ${input.planName.toLowerCase()}, ${input.packageId}, ${passwordHash},
+      ${Date.now()}, ${now}
+    )
+  `;
 
   // 2. Record the purchase (non-fatal if it fails)
-  sbInsert("ss_purchases", {
-    id: crypto.randomUUID(),
-    tenant_id: tenantId,
-    order_id: input.orderId,
-    transaction_id: input.transactionId || null,
-    service_slug: input.serviceSlug,
-    package_slug: input.packageId,
-    plan_name: input.planName,
-    amount_jmd: input.amountJmd,
-    payment_env: input.paymentEnv,
-    customer_email: input.customerEmail.toLowerCase().trim(),
-    customer_name: input.customerName,
-    customer_phone: input.customerPhone ?? null,
-  }).catch((e) => console.error("[provision] purchase record failed (non-fatal):", e.message));
+  sql`
+    INSERT INTO ss_purchases (
+      id, tenant_id, order_id, transaction_id, service_slug, package_slug,
+      plan_name, amount_jmd, payment_env, customer_email, customer_name, customer_phone
+    ) VALUES (
+      ${crypto.randomUUID()}, ${tenantId}, ${input.orderId},
+      ${input.transactionId || null}, ${input.serviceSlug}, ${input.packageId},
+      ${input.planName}, ${input.amountJmd}, ${input.paymentEnv},
+      ${email}, ${input.customerName}, ${input.customerPhone ?? null}
+    )
+  `.catch((e: Error) => console.error("[provision] purchase record failed (non-fatal):", e.message));
 
   // 3. Send credential email
   await sendCredentialEmail({
