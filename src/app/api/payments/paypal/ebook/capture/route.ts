@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sendDeliveryEmail, sendAdminNotification, ordersAdmin, ORDERS_TABLE } from "@/lib/library-orders";
+import { sendDeliveryEmail, sendAdminNotification, ordersAdmin } from "@/lib/library-orders";
 import { getEbook } from "@/lib/ebooks";
 
 export const runtime = "nodejs";
@@ -91,21 +91,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: result.error }, { status: 402 });
   }
 
-  // Persist to Supabase as already-paid
-  const db = ordersAdmin();
-  if (db) {
-    await db.from(ORDERS_TABLE).upsert({
-      ref: orderRef,
-      slug: book.slug,
-      title: book.title,
-      email,
-      name: name || null,
-      amount_cents: Math.round(book.price * 100),
-      currency: "USD",
-      status: "paid",
-      paid_via: "paypal",
-      paypal_capture_id: result.captureId ?? null,
-    });
+  // Persist as already-paid
+  const sql = ordersAdmin();
+  if (sql) {
+    await sql`INSERT INTO jst_ebook_orders (ref,slug,title,email,name,amount_cents,currency,status,paid_via,paypal_capture_id)
+      VALUES (${orderRef},${book.slug},${book.title},${email},${name || null},${Math.round(book.price * 100)},'USD','paid','paypal',${result.captureId ?? null})
+      ON CONFLICT (ref) DO UPDATE SET status = 'paid', paid_via = 'paypal', paypal_capture_id = EXCLUDED.paypal_capture_id`.catch(() => {});
   }
 
   // Send download link to buyer immediately

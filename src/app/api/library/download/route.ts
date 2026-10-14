@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { ORDERS_TABLE, ordersAdmin, verifyDownloadToken } from "@/lib/library-orders";
+import { ordersAdmin, verifyDownloadToken } from "@/lib/library-orders";
 
 export const runtime = "nodejs";
 
@@ -12,9 +12,10 @@ export async function GET(request: Request) {
   const { ref, slug } = payload;
 
   // Defense in depth: the token is signed, but also confirm the order is still good.
-  const db = ordersAdmin();
-  if (db) {
-    const { data: order } = await db.from(ORDERS_TABLE).select("status,slug").eq("ref", ref).maybeSingle();
+  const sql = ordersAdmin();
+  if (sql) {
+    const rows = await sql`SELECT status,slug FROM jst_ebook_orders WHERE ref = ${ref}`;
+    const order = rows[0] as { status: string; slug: string } | undefined;
     if (!order || order.slug !== slug || (order.status !== "paid" && order.status !== "delivered")) {
       return new Response("This download is no longer available.", { status: 403 });
     }
@@ -29,11 +30,8 @@ export async function GET(request: Request) {
   }
 
   // Fire-and-forget: count the download.
-  if (db) {
-    db.from(ORDERS_TABLE)
-      .update({ status: "delivered", last_download_at: new Date().toISOString() })
-      .eq("ref", ref)
-      .then(() => {}, () => {});
+  if (sql) {
+    sql`UPDATE jst_ebook_orders SET status = 'delivered', last_download_at = ${new Date().toISOString()} WHERE ref = ${ref}`.catch(() => {});
   }
 
   return new Response(new Uint8Array(buf), {
