@@ -61,11 +61,11 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
     async function init() {
       if (!window.paypal) {
         await new Promise<void>((resolve, reject) => {
-          const timeout = setTimeout(() => reject(new Error("PayPal took too long to load. Try bank transfer or disable your VPN.")), 12000);
+          const timeout = setTimeout(() => reject(new Error("Checkout took too long to load. Try bank transfer or disable your VPN.")), 12000);
           const s = document.createElement("script");
           s.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD&intent=capture&disable-funding=paylater,credit`;
           s.onload = () => { clearTimeout(timeout); resolve(); };
-          s.onerror = () => { clearTimeout(timeout); reject(new Error("PayPal SDK failed to load. Use bank transfer.")); };
+          s.onerror = () => { clearTimeout(timeout); reject(new Error("Checkout failed to load. Use bank transfer instead.")); };
           document.head.appendChild(s);
         });
       }
@@ -96,7 +96,7 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
           });
           const result = await res.json();
           if (!res.ok || !result.ok) {
-            setError(result.error ?? "Capture failed. Message us on WhatsApp.");
+            setError(result.error ?? "Payment failed. Message us on WhatsApp.");
             setStatus("error");
             return;
           }
@@ -112,7 +112,7 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
         },
         onError(err: Error) {
           console.error("[paypal/suite]", err);
-          setError("PayPal error. Try again or message us on WhatsApp.");
+          setError("Payment error. Try again or message us on WhatsApp.");
           setStatus("error");
         },
         onCancel() { setStatus("idle"); },
@@ -138,7 +138,7 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
   }
 
   if (status === "provision_failed") {
-    const msg = encodeURIComponent(`Hi! I just paid for ${planName} via PayPal but my workspace link was not received. Can you sort this out?`);
+    const msg = encodeURIComponent(`Hi! I just paid for ${planName} but my workspace link was not received. Can you sort this out?`);
     return (
       <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-4 text-center space-y-3">
         <div className="flex items-center justify-center gap-2 text-amber-800">
@@ -168,17 +168,17 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
             onClick={() => setShowPayPal(true)}
             className="flex w-full items-center justify-center rounded-full bg-ink-950 py-2.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-ink-800"
           >
-            Pay first month with PayPal
+            Pay now — US${amountUsd}/mo
           </button>
         ) : (
           <div className="rounded-2xl border border-line p-3">
             <p className="mb-2 text-center font-mono text-[0.6rem] uppercase tracking-[0.12em] text-ink-400">
-              Pay US${amountUsd}/mo · first month via PayPal
+              Secure card checkout · first month only
             </p>
             {(status === "loading" || status === "processing") && (
               <div className="flex items-center justify-center gap-2 py-3 text-sm text-ink-500">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                {status === "loading" ? "Loading PayPal…" : "Processing…"}
+                {status === "loading" ? "Loading checkout…" : "Processing…"}
               </div>
             )}
             <div ref={containerRef} className={status === "loading" || status === "processing" ? "hidden" : ""} />
@@ -190,3 +190,5 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
     </div>
   );
 }
+
+
