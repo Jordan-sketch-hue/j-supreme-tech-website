@@ -9,12 +9,12 @@ export async function GET(request: Request) {
   const sql = admin();
   if (!sql) return NextResponse.redirect(`${site}/newsletter/unsubscribed?status=error`);
 
-  const rows = await sql`
+  const [row] = (await sql`
     SELECT id FROM jst_subscribers
     WHERE unsubscribe_token = ${token}
     LIMIT 1
-  `;
-  if (!rows[0]) return NextResponse.redirect(`${site}/newsletter/unsubscribed?status=invalid`);
+  `) as unknown as { id: string }[];
+  if (!row) return NextResponse.redirect(`${site}/newsletter/unsubscribed?status=invalid`);
 
   await sql`
     UPDATE jst_subscribers

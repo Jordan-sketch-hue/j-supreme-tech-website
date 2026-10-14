@@ -9,12 +9,12 @@ export async function GET(request: Request) {
   const sql = admin();
   if (!sql) return NextResponse.redirect(`${site}/newsletter/confirmed?status=error`);
 
-  const rows = await sql`
+  type SubRow = { email: string; status: string; unsubscribe_token: string };
+  const [sub] = (await sql`
     SELECT email, status, unsubscribe_token FROM jst_subscribers
     WHERE confirm_token = ${token}
     LIMIT 1
-  `;
-  const sub = rows[0] ?? null;
+  `) as unknown as SubRow[];
   if (!sub) return NextResponse.redirect(`${site}/newsletter/confirmed?status=invalid`);
 
   if (sub.status !== "confirmed") {
