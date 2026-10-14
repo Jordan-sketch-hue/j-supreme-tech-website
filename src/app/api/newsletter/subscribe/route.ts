@@ -45,19 +45,18 @@ export async function POST(request: Request) {
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null;
   const userAgent = request.headers.get("user-agent")?.slice(0, 300) || null;
 
-  const existing = await sql`
+  const existingRow = ((await sql`
     SELECT id, status, unsubscribe_token FROM jst_subscribers
     WHERE email = ${email}
     LIMIT 1
-  `;
-  const existingRow = existing[0] ?? null;
+  `) as unknown as { id: string; status: string; unsubscribe_token: string }[])[0] ?? null;
 
   if (existingRow?.status === "confirmed") {
     const coupon = await issueCoupon(email, source);
     return NextResponse.json({
       ok: true,
       status: "already-subscribed",
-      message: "You're already on the list — In Today's World: lands every weekday morning.",
+      message: "You're already on the list â€” In Today's World: lands every weekday morning.",
       coupon,
     });
   }
@@ -93,7 +92,7 @@ export async function POST(request: Request) {
   return NextResponse.json({
     ok: true,
     status: "subscribed",
-    message: "You're in — In Today's World: lands in your inbox every weekday morning.",
+    message: "You're in â€” In Today's World: lands in your inbox every weekday morning.",
     coupon,
   });
 }
