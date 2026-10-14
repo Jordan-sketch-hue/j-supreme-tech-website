@@ -14,8 +14,7 @@ export async function GET(request: Request) {
   // Defense in depth: the token is signed, but also confirm the order is still good.
   const sql = ordersAdmin();
   if (sql) {
-    const rows = await sql`SELECT status,slug FROM jst_ebook_orders WHERE ref = ${ref}`;
-    const order = rows[0] as { status: string; slug: string } | undefined;
+    const [order] = (await sql`SELECT status,slug FROM jst_ebook_orders WHERE ref = ${ref}`) as unknown as { status: string; slug: string }[];
     if (!order || order.slug !== slug || (order.status !== "paid" && order.status !== "delivered")) {
       return new Response("This download is no longer available.", { status: 403 });
     }

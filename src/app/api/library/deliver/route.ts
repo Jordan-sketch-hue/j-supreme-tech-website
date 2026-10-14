@@ -2,6 +2,8 @@ import { ordersAdmin, sendDeliveryEmail, verifyDeliver, formatUSD } from "@/lib/
 
 export const runtime = "nodejs";
 
+type OrderRow = { ref: string; slug: string; title: string; email: string; amount_cents: number; status: string };
+
 function page(title: string, message: string, ok = true): Response {
   const badge = ok ? "check" : "!";
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title>
@@ -14,8 +16,6 @@ h1{font-size:22px;letter-spacing:-0.02em;margin:0 0 8px}p{color:#525252;line-hei
   return new Response(html, { status: ok ? 200 : 403, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } });
 }
 
-type OrderRow = { ref: string; slug: string; title: string; email: string; amount_cents: number; status: string };
-
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const ref = (url.searchParams.get("ref") || "").trim();
@@ -26,8 +26,7 @@ export async function GET(request: Request) {
   const sql = ordersAdmin();
   if (!sql) return page("Not connected", "The orders database isn't connected.", false);
 
-  const rows = await sql`SELECT ref,slug,title,email,amount_cents,status FROM jst_ebook_orders WHERE ref = ${ref}`;
-  const order = rows[0] as OrderRow | undefined;
+  const [order] = (await sql`SELECT ref,slug,title,email,amount_cents,status FROM jst_ebook_orders WHERE ref = ${ref}`) as unknown as OrderRow[];
   if (!order) return page("Order not found", `No order matches reference ${ref}.`, false);
 
   const already = order.status === "delivered";
