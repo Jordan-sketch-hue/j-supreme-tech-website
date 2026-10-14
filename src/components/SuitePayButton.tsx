@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { Loader2, Building2, ChevronDown, ChevronUp, ExternalLink, AlertCircle } from "lucide-react";
@@ -63,7 +63,7 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
         await new Promise<void>((resolve, reject) => {
           const timeout = setTimeout(() => reject(new Error("Checkout took too long to load. Try bank transfer or disable your VPN.")), 12000);
           const s = document.createElement("script");
-          s.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD&intent=capture&disable-funding=paylater,credit`;
+          s.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD&intent=capture&disable-funding=paypal,paylater,credit,venmo`;
           s.onload = () => { clearTimeout(timeout); resolve(); };
           s.onerror = () => { clearTimeout(timeout); reject(new Error("Checkout failed to load. Use bank transfer instead.")); };
           document.head.appendChild(s);
@@ -71,7 +71,7 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
       }
       if (!containerRef.current) return;
 
-      window.paypal.Buttons({
+      window.paypal.Buttons({ fundingSource: window.paypal.FUNDING.CARD,
         style: { layout: "vertical", color: "gold", shape: "pill", label: "pay" },
         async createOrder() {
           setStatus("processing");
