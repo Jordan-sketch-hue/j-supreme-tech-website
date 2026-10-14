@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 import { paypalCaptureOrder } from "@/lib/paypal";
 import { sendWhatsApp } from "@/lib/whatsapp";
 import { redeemCoupon } from "@/lib/coupons";
+import { provisionTenant } from "@/lib/provision";
 
 export const runtime = "nodejs";
 
@@ -17,6 +18,8 @@ export async function POST(req: NextRequest) {
     amountJmd?: number;
     amountUsd?: string;
     couponCode?: string;
+    customerName?: string;
+    customerPhone?: string;
   };
   try {
     body = await req.json();
@@ -61,6 +64,41 @@ export async function POST(req: NextRequest) {
       `Service: ${body.slug ?? ""}`,
   }).catch((e) => console.error("[paypal] whatsapp receipt error:", e));
 
+  // Auto-provision a Supreme Suite workspace immediately on verified PayPal payment.
+  let workspaceUrl: string | undefined;
+  let provisionedSlug: string | undefined;
+
+  if (body.slug === "supreme-suite" && body.pkg) {
+    const customerName = body.customerName ?? result.payerName ?? "New Customer";
+    const customerEmail = (result.payerEmail ?? "").toLowerCase().trim();
+
+    if (customerEmail) {
+      try {
+        const provisioned = await provisionTenant({
+          orderId: result.orderId,
+          transactionId: result.captureId ?? result.orderId,
+          serviceSlug: "supreme-suite",
+          packageId: body.pkg,
+          planName: plan || body.pkg,
+          amountJmd: body.amountJmd ?? 0,
+          customerName,
+          customerEmail,
+          customerPhone: body.customerPhone,
+          paymentEnv: "live",
+        });
+        workspaceUrl = provisioned.workspaceUrl;
+        provisionedSlug = provisioned.slug;
+      } catch (e: any) {
+        // Provisioning failed — payment is confirmed, flag for manual follow-up.
+        console.error("[provision] FAILED for PayPal order", result.orderId, ":", e.message);
+        sendWhatsApp({
+          to: OWNER_WA,
+          body: `ACTION NEEDED: PayPal payment confirmed but auto-provision FAILED.\nOrder: ${result.orderId}\nCustomer: ${customerName} <${customerEmail}>\nPlan: ${plan}\nError: ${e.message}`,
+        }).catch(() => {});
+      }
+    }
+  }
+
   return NextResponse.json({
     ok: true,
     orderId: result.orderId,
@@ -68,5 +106,6 @@ export async function POST(req: NextRequest) {
     slug: body.slug,
     pkg: body.pkg,
     planName: plan,
+    ...(workspaceUrl && { workspaceUrl, workspaceSlug: provisionedSlug }),
   });
 }
