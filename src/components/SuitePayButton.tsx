@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Loader2, Building2, ChevronDown, ChevronUp } from "lucide-react";
+import { Loader2, Building2, ChevronDown, ChevronUp, ExternalLink, AlertCircle } from "lucide-react";
 
 const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? "";
 const OWNER_WA = "16582182282";
@@ -47,8 +47,9 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
   systemSlug: string; tier: string; amountUsd: number; planName: string;
 }) {
   const [showPayPal, setShowPayPal] = useState(false);
-  const [status, setStatus] = useState<"idle" | "loading" | "processing" | "done" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "processing" | "done" | "provision_failed" | "error">("idle");
   const [error, setError] = useState("");
+  const [workspaceUrl, setWorkspaceUrl] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
   const rendered = useRef(false);
 
@@ -99,7 +100,15 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
             setStatus("error");
             return;
           }
-          setStatus("done");
+          if (result.workspaceUrl) {
+            // Provisioned — redirect straight into the workspace
+            setWorkspaceUrl(result.workspaceUrl);
+            setStatus("done");
+            window.location.href = result.workspaceUrl;
+          } else {
+            // Payment confirmed but provisioning failed — manual follow-up
+            setStatus("provision_failed");
+          }
         },
         onError(err: Error) {
           console.error("[paypal/suite]", err);
@@ -117,8 +126,33 @@ export function SuitePayButton({ systemSlug, tier, amountUsd, planName }: {
 
   if (status === "done") {
     return (
-      <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-center text-sm text-green-800">
-        Payment received. Jordan will reach out within a few hours to set up your account.
+      <div className="rounded-xl border border-green-200 bg-green-50 px-4 py-4 text-center space-y-2">
+        <p className="text-sm font-semibold text-green-800">Payment confirmed — opening your workspace…</p>
+        {workspaceUrl && (
+          <a href={workspaceUrl} className="inline-flex items-center gap-1.5 text-xs text-green-700 underline underline-offset-2">
+            Click here if you are not redirected <ExternalLink className="h-3 w-3" />
+          </a>
+        )}
+      </div>
+    );
+  }
+
+  if (status === "provision_failed") {
+    const msg = encodeURIComponent(`Hi! I just paid for ${planName} via PayPal but my workspace link was not received. Can you sort this out?`);
+    return (
+      <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-4 text-center space-y-3">
+        <div className="flex items-center justify-center gap-2 text-amber-800">
+          <AlertCircle className="h-4 w-4 shrink-0" />
+          <p className="text-sm font-semibold">Payment confirmed — workspace setup pending</p>
+        </div>
+        <p className="text-xs text-amber-700">Check your email for credentials. If nothing arrives in 5 minutes, message Jordan directly.</p>
+        <a
+          href={`https://wa.me/${OWNER_WA}?text=${msg}`}
+          target="_blank" rel="noreferrer"
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-ink-950 px-5 py-2.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-ink-800"
+        >
+          Message Jordan on WhatsApp
+        </a>
       </div>
     );
   }

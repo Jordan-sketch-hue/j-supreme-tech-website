@@ -1,5 +1,5 @@
-/**
- * provision.ts — Supreme Suite tenant auto-provisioning. SERVER ONLY.
+﻿/**
+ * provision.ts â€” Supreme Suite tenant auto-provisioning. SERVER ONLY.
  *
  * Called immediately after a verified WiPay payment for a supreme-suite plan.
  * Creates the Supabase tenant record, sends email via Resend REST, and optionally
@@ -14,7 +14,7 @@ import { neon } from "@neondatabase/serverless";
 import { sendWhatsApp } from "./whatsapp";
 
 const SUITE_URL =
-  process.env.NEXT_PUBLIC_SUPREME_SUITE_URL ?? "https://supreme-suite.vercel.app";
+  process.env.NEXT_PUBLIC_SUPREME_SUITE_URL ?? "https://suite.jsupremetech.online";
 
 function getSql() {
   const url = process.env.DATABASE_URL;
@@ -22,7 +22,7 @@ function getSql() {
   return neon(url);
 }
 
-// ── Password hashing ───────────────────────────────────────────────────────
+// â”€â”€ Password hashing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function generatePassword(): string {
   // 12 printable alphanumeric chars, no ambiguous (0/O/l/1/I)
@@ -38,7 +38,7 @@ export function hashPassword(plain: string): string {
   return `pbkdf2v1:${salt}:${hash}`;
 }
 
-// ── Slug generation ────────────────────────────────────────────────────────
+// â”€â”€ Slug generation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function makeSlug(name: string): string {
   const base = name
@@ -52,7 +52,7 @@ function makeSlug(name: string): string {
   return `${base}-${suffix}`;
 }
 
-// ── Resend email (REST, no SDK) ────────────────────────────────────────────
+// â”€â”€ Resend email (REST, no SDK) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 async function sendCredentialEmail(opts: {
   email: string;
@@ -64,7 +64,7 @@ async function sendCredentialEmail(opts: {
 }): Promise<void> {
   const key = process.env.RESEND_API_KEY;
   if (!key) {
-    console.warn("[provision] RESEND_API_KEY not set — skipping credential email");
+    console.warn("[provision] RESEND_API_KEY not set â€” skipping credential email");
     return;
   }
   const from =
@@ -106,7 +106,7 @@ function credentialHtml(opts: {
   </div>
   <div style="padding:36px">
     <h1 style="font-size:21px;color:#0f0f0f;margin:0 0 8px">Your workspace is ready, ${opts.firstName}!</h1>
-    <p style="color:#555;margin:0 0 24px;line-height:1.6">Your <strong>${opts.planName}</strong> plan is now active. Here are your login credentials — keep them safe.</p>
+    <p style="color:#555;margin:0 0 24px;line-height:1.6">Your <strong>${opts.planName}</strong> plan is now active. Here are your login credentials â€” keep them safe.</p>
     <div style="background:#f8f8f8;border:1px solid #e0e0e0;border-radius:8px;padding:20px;margin-bottom:24px">
       <table style="width:100%;border-collapse:collapse">
         <tr><td style="padding:5px 0;color:#888;font-size:13px;width:130px">Workspace</td>
@@ -117,7 +117,7 @@ function credentialHtml(opts: {
             <td style="padding:5px 0"><code style="background:#0f0f0f;color:#fff;padding:3px 10px;border-radius:4px;font-size:14px;letter-spacing:1px">${opts.tempPassword}</code></td></tr>
       </table>
     </div>
-    <a href="${opts.workspaceUrl}" style="display:inline-block;background:#0f0f0f;color:#fff;padding:13px 26px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">Open My Workspace →</a>
+    <a href="${opts.workspaceUrl}" style="display:inline-block;background:#0f0f0f;color:#fff;padding:13px 26px;border-radius:6px;text-decoration:none;font-weight:600;font-size:14px">Open My Workspace â†’</a>
     <p style="color:#999;font-size:12px;margin:24px 0 0;line-height:1.7">
       Order ref: <code style="background:#f0f0f0;padding:2px 6px;border-radius:3px">${opts.orderId}</code><br>
       Need help? WhatsApp <strong>(658) 218-2282</strong> or reply to this email.
@@ -127,12 +127,13 @@ function credentialHtml(opts: {
 </body></html>`;
 }
 
-// ── Main export ────────────────────────────────────────────────────────────
+// â”€â”€ Main export â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface ProvisionInput {
   orderId: string;
   transactionId: string;
   serviceSlug: string;    // "supreme-suite"
+  systemSlug?: string;    // "courier" | "salon" | etc — defaults to "courier"
   packageId: string;      // "starter" | "pro" | "scale"
   planName: string;       // "Starter" | "Pro" | "Scale"
   amountJmd: number;
@@ -166,7 +167,7 @@ export async function provisionTenant(input: ProvisionInput): Promise<ProvisionR
       id, slug, business_name, system_slug, owner_name, email, phone,
       plan, plan_package, password_hash, trial_started_at, activated_at
     ) VALUES (
-      ${tenantId}, ${slug}, ${input.customerName}, ${"courier"},
+      ${tenantId}, ${slug}, ${input.customerName}, ${input.systemSlug ?? "courier"},
       ${input.customerName}, ${email}, ${input.customerPhone ?? null},
       ${input.planName.toLowerCase()}, ${input.packageId}, ${passwordHash},
       ${Date.now()}, ${now}
@@ -201,10 +202,10 @@ export async function provisionTenant(input: ProvisionInput): Promise<ProvisionR
     sendWhatsApp({
       to: input.customerPhone,
       body:
-        `Hi ${firstName}! Your Supreme Suite ${input.planName} workspace is ready 🎉\n\n` +
-        `🔗 ${workspaceUrl}\n` +
-        `📧 ${input.customerEmail}\n` +
-        `🔐 ${tempPassword}\n\n` +
+        `Hi ${firstName}! Your Supreme Suite ${input.planName} workspace is ready ðŸŽ‰\n\n` +
+        `ðŸ”— ${workspaceUrl}\n` +
+        `ðŸ“§ ${input.customerEmail}\n` +
+        `ðŸ” ${tempPassword}\n\n` +
         `Log in and choose your industry in Settings to get started.\n` +
         `Questions? WhatsApp (658) 218-2282.`,
     }).catch((e) => console.error("[provision] whatsapp failed (non-fatal):", e.message));
@@ -212,3 +213,5 @@ export async function provisionTenant(input: ProvisionInput): Promise<ProvisionR
 
   return { tenantId, slug, workspaceUrl };
 }
+
+
