@@ -1,10 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
-import { PayPalButton } from "@/components/PayPalButton";
+import { Loader2 } from "lucide-react";
 import { BankTransferButton } from "@/components/BankTransferButton";
-
-const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID ?? "";
 
 export function PayButton({
   slug,
@@ -19,66 +17,85 @@ export function PayButton({
   planName?: string;
   className?: string;
 }) {
+  const [loading, setLoading] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
   const [error, setError] = useState("");
-  const [showPayPal, setShowPayPal] = useState(false);
-  const [couponCode, setCouponCode] = useState("");
-  const [couponLocked, setCouponLocked] = useState(false);
+
+  async function handlePay() {
+    if (loading || redirecting) return;
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/api/payments/handypay", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug, pkg }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) {
+        setError(data.error ?? "Payment unavailable. Try bank transfer or WhatsApp us.");
+        setLoading(false);
+        return;
+      }
+      setLoading(false);
+      setRedirecting(true);
+      setTimeout(() => { window.location.href = data.url; }, 600);
+    } catch {
+      setError("Network error. Please try again.");
+      setLoading(false);
+    }
+  }
 
   const amountLabel = label.replace(/^Pay\s+/i, "");
   const plan = planName ?? pkg;
 
   return (
-    <div className="w-full space-y-2">
-      {error && <p className="text-center text-xs text-red-600">{error}</p>}
+    <>
+      {redirecting && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 9999, background: "#0a0a0a",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.5rem" }}>
+          <svg width="52" height="52" viewBox="0 0 52 52" fill="none"
+            style={{ animation: "spin 0.9s linear infinite" }}>
+            <circle cx="26" cy="26" r="22" stroke="rgba(255,255,255,0.15)" strokeWidth="4" />
+            <path d="M26 4a22 22 0 0 1 22 22" stroke="#ffffff" strokeWidth="4" strokeLinecap="round" />
+          </svg>
+          <p style={{ color: "#fff", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em" }}>
+            Redirecting to secure checkout
+          </p>
+          <span style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase" }}>
+            Powered by HandyPay
+          </span>
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+      )}
 
-      {!showPayPal && (
-        <input
-          type="text"
-          value={couponCode}
-          onChange={(e) => setCouponCode(e.target.value)}
-          placeholder="Discount code (optional)"
-          className="w-full rounded-full border border-line bg-white px-4 py-2 text-center font-mono text-xs uppercase tracking-[0.08em] text-ink-700 outline-none placeholder:normal-case placeholder:text-ink-400 focus:border-ink-900"
+      <div
+        style={{ pointerEvents: redirecting ? "none" : "auto", opacity: redirecting ? 0 : 1 }}
+        className="w-full space-y-2"
+      >
+        {error && <p className="text-center text-xs text-red-600">{error}</p>}
+
+        <p className="text-center font-mono text-[0.58rem] uppercase tracking-[0.08em] text-ink-400">
+          A small processing fee may be added by HandyPay at checkout.
+        </p>
+
+        <button
+          type="button"
+          onClick={handlePay}
+          disabled={loading || redirecting}
+          className="flex w-full items-center justify-center gap-2 rounded-full bg-ink-950 py-3 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-ink-800 disabled:opacity-60"
+        >
+          {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+          {loading ? "Preparing checkout\u2026" : `Pay ${amountLabel}`}
+        </button>
+
+        <BankTransferButton
+          slug={slug}
+          pkg={pkg}
+          planName={plan}
+          amountLabel={amountLabel}
         />
-      )}
-
-      {/* PayPal */}
-      {PAYPAL_CLIENT_ID && (
-        <>
-          {!showPayPal ? (
-            <button
-              type="button"
-              onClick={() => {
-                setCouponLocked(true);
-                setShowPayPal(true);
-              }}
-              className="flex w-full items-center justify-center rounded-full bg-ink-950 py-3 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-white transition hover:bg-ink-800"
-            >
-              Pay with PayPal
-            </button>
-          ) : (
-            <div className="rounded-2xl border border-line p-3">
-              <p className="mb-2 text-center font-mono text-[0.6rem] uppercase tracking-[0.12em] text-ink-400">
-                Pay securely with PayPal
-              </p>
-              <PayPalButton
-                slug={slug}
-                pkg={pkg}
-                clientId={PAYPAL_CLIENT_ID}
-                couponCode={couponLocked ? couponCode.trim() || undefined : undefined}
-                onError={(msg) => setError(msg)}
-              />
-            </div>
-          )}
-        </>
-      )}
-
-      {/* Bank Transfer */}
-      <BankTransferButton
-        slug={slug}
-        pkg={pkg}
-        planName={plan}
-        amountLabel={amountLabel}
-      />
-    </div>
+      </div>
+    </>
   );
 }
