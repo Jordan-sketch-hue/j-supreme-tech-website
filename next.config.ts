@@ -1,17 +1,11 @@
 import type { NextConfig } from "next";
-import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
-
-if (process.env.NODE_ENV === "development") {
-  await setupDevPlatform();
-}
-
 const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/solutions/automation", destination: "/solutions/ai-systems", permanent: true },
     ];
   },
-  // __JS_SECURITY_HEADERS__ — J Supreme Cyber Command hardening (do not duplicate)
+  // __JS_SECURITY_HEADERS__ â€” J Supreme Cyber Command hardening (do not duplicate)
   async headers() {
     return [
       {
@@ -31,14 +25,14 @@ const nextConfig: NextConfig = {
     root: __dirname,
   },
   // Content (The Signal articles, e-books) is read from disk at runtime by the
-  // ISR routes below — make sure those JSON files ship inside the serverless functions.
+  // ISR routes below â€” make sure those JSON files ship inside the serverless functions.
   outputFileTracingIncludes: {
     "/blog/[slug]": ["./src/content/**/*"],
     "/blog/category/[category]": ["./src/content/**/*"],
     "/library/[slug]": ["./src/content/**/*"],
     "/blog/rss.xml": ["./src/content/**/*"],
     "/sitemap.xml": ["./src/content/**/*"],
-    // Gated e-book PDFs live outside /public — ship them into the download function only.
+    // Gated e-book PDFs live outside /public â€” ship them into the download function only.
     "/api/library/download": ["./private/library/**/*"],
   },
 };
